@@ -5,7 +5,7 @@
 | # | Feature | Owner | Status | Notes |
 |---|---------|-------|--------|-------|
 | 1 | User registration & login | | Not started | Supabase Auth (email + Google) |
-| 2 | Learning map | | Not started | Visual topic tree, locked/unlocked |
+| 2 | Learning map | Htet Lin Ko | In progress | Wired to Supabase (topics/subtopics/mastery); topic detail pages are placeholder |
 | 3 | Short lessons | | Not started | 2-3 min reading notes per topic |
 | 4 | 5-question quizzes | | Not started | Instant feedback, per-topic |
 | 5 | XP tracking | | Not started | Earn per correct answer |
