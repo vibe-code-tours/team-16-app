@@ -1,6 +1,7 @@
 package com.nerdquiz.service;
 
 import com.nerdquiz.dto.*;
+import com.nerdquiz.exception.*;
 import com.nerdquiz.model.Question;
 import com.nerdquiz.model.QuizAnswer;
 import com.nerdquiz.model.QuizSession;
@@ -11,9 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class QuizService {
@@ -47,7 +49,7 @@ public class QuizService {
         }
 
         if (questions.isEmpty()) {
-            throw new RuntimeException("No questions available");
+            throw new NoQuestionsAvailableException();
         }
 
         // Create quiz session
@@ -75,20 +77,20 @@ public class QuizService {
     }
 
     @Transactional
-    public QuizAnswer submitAnswer(UUID userId, UUID sessionId, SubmitAnswerRequest request) {
+    public QuizAnswerResponse submitAnswer(UUID userId, UUID sessionId, SubmitAnswerRequest request) {
         QuizSession session = quizSessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("Quiz session not found"));
+                .orElseThrow(() -> new QuizSessionNotFoundException());
 
         if (!session.getUserId().equals(userId)) {
-            throw new RuntimeException("Unauthorized");
+            throw new UnauthorizedQuizAccessException();
         }
 
         if ("completed".equals(session.getStatus())) {
-            throw new RuntimeException("Quiz already completed");
+            throw new QuizAlreadyCompletedException();
         }
 
         Question question = questionRepository.findById(request.questionId())
-                .orElseThrow(() -> new RuntimeException("Question not found"));
+                .orElseThrow(() -> new QuestionNotFoundException());
 
         boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(request.answer());
 
@@ -112,24 +114,30 @@ public class QuizService {
         }
 
         quizSessionRepository.save(session);
-        return quizAnswerRepository.save(answer);
+        QuizAnswer savedAnswer = quizAnswerRepository.save(answer);
+        return toAnswerResponse(savedAnswer);
     }
 
     @Transactional(readOnly = true)
     public QuizResultResponse getResult(UUID userId, UUID sessionId) {
         QuizSession session = quizSessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("Quiz session not found"));
+                .orElseThrow(() -> new QuizSessionNotFoundException());
 
         if (!session.getUserId().equals(userId)) {
-            throw new RuntimeException("Unauthorized");
+            throw new UnauthorizedQuizAccessException();
         }
 
         List<QuizAnswer> answers = quizAnswerRepository.findByQuizSessionId(sessionId);
 
+        List<UUID> questionIds = answers.stream()
+                .map(QuizAnswer::getQuestionId)
+                .toList();
+        Map<UUID, Question> questionMap = questionRepository.findByIdIn(questionIds).stream()
+                .collect(Collectors.toMap(Question::getId, q -> q));
+
         List<QuizResultResponse.AnswerResult> answerResults = answers.stream()
                 .map(answer -> {
-                    Question question = questionRepository.findById(answer.getQuestionId())
-                            .orElseThrow();
+                    Question question = questionMap.get(answer.getQuestionId());
                     return new QuizResultResponse.AnswerResult(
                         toResponse(question),
                         answer.getUserAnswer(),
@@ -149,6 +157,17 @@ public class QuizService {
             percentage,
             session.getXpEarned(),
             answerResults
+        );
+    }
+
+    private QuizAnswerResponse toAnswerResponse(QuizAnswer answer) {
+        return new QuizAnswerResponse(
+            answer.getId(),
+            answer.getQuizSessionId(),
+            answer.getQuestionId(),
+            answer.getUserAnswer(),
+            answer.getIsCorrect(),
+            answer.getAnsweredAt()
         );
     }
 

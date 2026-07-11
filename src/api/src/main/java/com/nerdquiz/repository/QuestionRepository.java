@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,4 +28,6 @@ public interface QuestionRepository extends JpaRepository<Question, UUID> {
     List<Question> findRandomByDifficulty(@Param("difficulty") String difficulty, @Param("limit") int limit);
 
     long countByExamSessionAndSubject(String examSession, String subject);
+
+    List<Question> findByIdIn(Collection<UUID> ids);
 }

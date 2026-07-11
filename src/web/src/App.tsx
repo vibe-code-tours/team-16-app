@@ -5,6 +5,8 @@ import { LandingPage } from './routes/LandingPage'
 import { LoginPage } from './routes/LoginPage'
 import { RegisterPage } from './routes/RegisterPage'
 import { LearningMap } from './routes/LearningMap'
+import { QuizSession } from './routes/QuizSession'
+import { QuizResult } from './routes/QuizResult'
 
 export default function App() {
   return (
@@ -22,6 +24,22 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <LearningMap />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quiz/:topicId"
+            element={
+              <ProtectedRoute>
+                <QuizSession />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quiz-result"
+            element={
+              <ProtectedRoute>
+                <QuizResult />
               </ProtectedRoute>
             }
           />

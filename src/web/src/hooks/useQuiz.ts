@@ -1,6 +1,17 @@
 import { useState, useCallback } from 'react';
-import { quizApi, type QuizSessionResponse, type QuizAnswerResponse } from '../lib/api';
+import { api } from '../lib/api';
 import type { Question, QuizResult } from '../types/Quiz';
+
+interface QuizSessionResponse {
+  id: string;
+  questions: Question[];
+  currentIndex: number;
+}
+
+interface QuizAnswerResponse {
+  correct: boolean;
+  correct_answer: string;
+}
 
 interface UseQuizReturn {
   session: QuizSessionResponse | null;
@@ -29,7 +40,7 @@ export function useQuiz(): UseQuizReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const newSession = await quizApi.start(subtopicId, questionCount);
+      const newSession = await api.post<QuizSessionResponse>('/api/v1/quizzes/start', { subtopicId, questionCount });
       setSession(newSession);
       setAnswers({});
     } catch (err) {
@@ -53,11 +64,11 @@ export function useQuiz(): UseQuizReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await quizApi.submitAnswer(
-        session.id,
-        currentQuestion.id,
-        answers[currentIndex].selected
-      );
+      const response = await api.post<QuizAnswerResponse>('/api/v1/quizzes/submit', {
+        sessionId: session.id,
+        questionId: currentQuestion.id,
+        selected: answers[currentIndex].selected,
+      });
 
       setAnswers((prev) => ({
         ...prev,
@@ -91,7 +102,7 @@ export function useQuiz(): UseQuizReturn {
     setIsLoading(true);
     setError(null);
     try {
-      return await quizApi.getResult(session.id);
+      return await api.get<QuizResult>(`/api/v1/quizzes/${session.id}/result`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to get result');
       return null;

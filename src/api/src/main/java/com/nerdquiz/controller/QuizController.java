@@ -28,12 +28,12 @@ public class QuizController {
     }
 
     @PostMapping("/{sessionId}/answers")
-    public ResponseEntity<QuizAnswer> submitAnswer(
+    public ResponseEntity<QuizAnswerResponse> submitAnswer(
             Authentication authentication,
             @PathVariable UUID sessionId,
             @Valid @RequestBody SubmitAnswerRequest request) {
         UUID userId = UUID.fromString(authentication.getName());
-        QuizAnswer answer = quizService.submitAnswer(userId, sessionId, request);
+        QuizAnswerResponse answer = quizService.submitAnswer(userId, sessionId, request);
         return ResponseEntity.ok(answer);
     }
 

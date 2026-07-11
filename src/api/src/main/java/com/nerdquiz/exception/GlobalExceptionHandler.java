@@ -11,6 +11,12 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.nerdquiz.exception.QuizSessionNotFoundException;
+import com.nerdquiz.exception.NoQuestionsAvailableException;
+import com.nerdquiz.exception.UnauthorizedQuizAccessException;
+import com.nerdquiz.exception.QuizAlreadyCompletedException;
+import com.nerdquiz.exception.QuestionNotFoundException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -30,6 +36,56 @@ public class GlobalExceptionHandler {
             "detail", errors.toString(),
             "instance", "/api/v1",
             "errors", errors
+        ));
+    }
+
+    @ExceptionHandler(QuizSessionNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleQuizSessionNotFound(QuizSessionNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "type", "https://nerdquiz.com/errors/not-found",
+            "title", "Quiz Session Not Found",
+            "status", 404,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(NoQuestionsAvailableException.class)
+    public ResponseEntity<Map<String, Object>> handleNoQuestionsAvailable(NoQuestionsAvailableException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "type", "https://nerdquiz.com/errors/not-found",
+            "title", "No Questions Available",
+            "status", 404,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(UnauthorizedQuizAccessException.class)
+    public ResponseEntity<Map<String, Object>> handleUnauthorizedQuizAccess(UnauthorizedQuizAccessException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
+            "type", "https://nerdquiz.com/errors/forbidden",
+            "title", "Unauthorized Access",
+            "status", 403,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(QuizAlreadyCompletedException.class)
+    public ResponseEntity<Map<String, Object>> handleQuizAlreadyCompleted(QuizAlreadyCompletedException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+            "type", "https://nerdquiz.com/errors/conflict",
+            "title", "Quiz Already Completed",
+            "status", 409,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(QuestionNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleQuestionNotFound(QuestionNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "type", "https://nerdquiz.com/errors/not-found",
+            "title", "Question Not Found",
+            "status", 404,
+            "detail", ex.getMessage()
         ));
     }
 
