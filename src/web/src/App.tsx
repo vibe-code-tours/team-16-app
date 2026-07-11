@@ -1,22 +1,32 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LandingPage } from './routes/LandingPage';
-import { LearningMap } from './routes/LearningMap';
-import { QuizSession } from './routes/QuizSession';
-import { QuizResult } from './routes/QuizResult';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './hooks/useAuth.tsx'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { LandingPage } from './routes/LandingPage'
+import { LoginPage } from './routes/LoginPage'
+import { RegisterPage } from './routes/RegisterPage'
+import { LearningMap } from './routes/LearningMap'
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/map" element={<LearningMap />} />
-        <Route path="/quiz" element={<QuizSession />} />
-        <Route path="/quiz-result" element={<QuizResult />} />
-        <Route path="/exam" element={<div className="p-8 text-center">Exam Simulation - Coming Soon</div>} />
-        <Route path="/mistakes" element={<div className="p-8 text-center">Mistake Garden - Coming Soon</div>} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+      <AuthProvider>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-export default App;
+          {/* Protected routes */}
+          <Route
+            path="/map"
+            element={
+              <ProtectedRoute>
+                <LearningMap />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  )
+}

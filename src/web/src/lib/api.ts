@@ -1,77 +1,54 @@
-import type { Question, QuizResult } from '../types/Quiz';
+import { supabase } from './supabase'
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
 
-async function fetchApi<T>(
-  endpoint: string,
-  options: RequestInit = {}
-): Promise<T> {
-  const response = await fetch(`${API_BASE}${endpoint}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  });
+interface RequestOptions extends RequestInit {
+  /** Skip attaching the Authorization header (for public endpoints). */
+  skipAuth?: boolean
+}
 
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
-    throw new Error(error.detail || `API error: ${response.status}`);
+async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
+  const { skipAuth = false, headers: customHeaders, ...rest } = options
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(customHeaders as Record<string, string>),
   }
 
-  return response.json();
+  if (!skipAuth) {
+    const { data } = await supabase.auth.getSession()
+    const token = data.session?.access_token
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
+  }
+
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    ...rest,
+    headers,
+  })
+
+  if (!response.ok) {
+    const body = await response.text()
+    throw new Error(`API error ${response.status}: ${body}`)
+  }
+
+  return response.json()
 }
 
-// Question API
-export const questionApi = {
-  getRandom: (count: number = 5): Promise<Question[]> =>
-    fetchApi(`/questions/random?count=${count}`),
+export const api = {
+  get: <T>(path: string, opts?: RequestOptions) =>
+    request<T>(path, { method: 'GET', ...opts }),
 
-  getBySession: (session: string, subject: string = 'A'): Promise<Question[]> =>
-    fetchApi(`/questions/session/${session}?subject=${subject}`),
+  post: <T>(path: string, body?: unknown, opts?: RequestOptions) =>
+    request<T>(path, { method: 'POST', body: body ? JSON.stringify(body) : undefined, ...opts }),
 
-  getStats: (session: string, subject: string = 'A'): Promise<{ total: number }> =>
-    fetchApi(`/questions/stats?examSession=${session}&subject=${subject}`),
-};
+  put: <T>(path: string, body?: unknown, opts?: RequestOptions) =>
+    request<T>(path, { method: 'PUT', body: body ? JSON.stringify(body) : undefined, ...opts }),
 
-// Quiz API
-export interface QuizSessionResponse {
-  id: string;
-  questions: Question[];
-  currentIndex: number;
-  score: number;
-  xpEarned: number;
-  startedAt: string;
-  completedAt: string | null;
-  status: string;
+  patch: <T>(path: string, body?: unknown, opts?: RequestOptions) =>
+    request<T>(path, { method: 'PATCH', body: body ? JSON.stringify(body) : undefined, ...opts }),
+
+  delete: <T>(path: string, opts?: RequestOptions) =>
+    request<T>(path, { method: 'DELETE', ...opts }),
 }
-
-export interface QuizAnswerResponse {
-  id: string;
-  quizSessionId: string;
-  questionId: string;
-  userAnswer: string;
-  isCorrect: boolean;
-  answeredAt: string;
-}
-
-export const quizApi = {
-  start: (subtopicId?: string, questionCount: number = 5): Promise<QuizSessionResponse> =>
-    fetchApi('/quizzes/start', {
-      method: 'POST',
-      body: JSON.stringify({ subtopicId, questionCount }),
-    }),
-
-  submitAnswer: (
-    sessionId: string,
-    questionId: string,
-    answer: string
-  ): Promise<QuizAnswerResponse> =>
-    fetchApi(`/quizzes/${sessionId}/answers`, {
-      method: 'POST',
-      body: JSON.stringify({ questionId, answer }),
-    }),
-
-  getResult: (sessionId: string): Promise<QuizResult> =>
-    fetchApi(`/quizzes/${sessionId}/result`),
-};
