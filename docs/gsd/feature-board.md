@@ -5,7 +5,7 @@
 | # | Feature | Owner | Status | Notes |
 |---|---------|-------|--------|-------|
 | 1 | User registration & login | | Not started | Supabase Auth (email + Google) |
-| 2 | Learning map | | Not started | Visual topic tree, locked/unlocked |
+| 2 | Learning map | Htet Lin Ko | In progress | Wired to Supabase (topics/subtopics/mastery); topic detail pages are placeholder |
 | 3 | Short lessons | | Not started | 2-3 min reading notes per topic |
 | 4 | 5-question quizzes | | Not started | Instant feedback, per-topic |
 | 5 | XP tracking | | Not started | Earn per correct answer |
@@ -16,7 +16,7 @@
 | 10 | Rule-based difficulty | | Not started | Easy/medium/hard from metadata |
 | 11 | Landing page + mascot | | Not started | Cute hero + CTA |
 | 12 | Mobile responsiveness | | Not started | All screens 360px+ |
-| 13 | Data extraction | | Not started | PDF → JSON pipeline, biggest risk |
+| 13 | Data extraction | | Not started | PDF → JSON pipeline, biggest risk; 68 questions from 2021-April seeded and classified into subtopics |
 | 14 | Database schema + seed | | Not started | Supabase migrations |
 | 15 | CI/CD setup | | Not started | GitHub Actions deployment |
 | 16 | Flashcards | | Not started | Week 2 stretch |
