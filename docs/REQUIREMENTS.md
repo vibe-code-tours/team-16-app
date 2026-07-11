@@ -19,6 +19,8 @@
 | Landing page | Mascot + hero text + CTA buttons |
 | Mobile-responsive | Works on phone browser (no native app) |
 | ~180 questions seeded | 3 recent exam sessions × 60 Subject-A questions |
+| Data extraction pipeline | PDF → JSON → SQL seed, PyMuPDF + OCR fallback, figures as WebP |
+| Database schema | Complete Supabase schema with RLS, deployed to remote |
 
 ## Week 2 — Public Demo (polish + stretch)
 
