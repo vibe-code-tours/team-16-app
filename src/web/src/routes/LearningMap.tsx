@@ -1,7 +1,33 @@
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
+import { supabase } from '../lib/supabase'
+import type { Topic } from '../types'
 
 export function LearningMap() {
   const { user, signOut } = useAuth()
+  const navigate = useNavigate()
+  const [topics, setTopics] = useState<Topic[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchTopics() {
+      setLoading(true)
+      const { data, error } = await supabase
+        .from('topics')
+        .select('*')
+        .order('created_at', { ascending: true })
+
+      if (error) {
+        console.error('Error fetching topics:', error.message)
+      } else {
+        setTopics(data || [])
+      }
+      setLoading(false)
+    }
+
+    fetchTopics()
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -24,10 +50,57 @@ export function LearningMap() {
 
       <main className="mx-auto max-w-4xl px-4 py-8">
         <h2 className="mb-4 text-2xl font-bold text-gray-900">Learning Map</h2>
-        <p className="text-gray-500">
-          Your study topics will appear here. This is a placeholder — the full learning
-          map feature is coming soon.
+        <p className="text-gray-500 mb-6">
+          Master the ITPEC FE certification topic by topic.
         </p>
+
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {topics.map((topic) => (
+              <div
+                key={topic.id}
+                onClick={() => navigate(`/topic/${topic.id}`)}
+                className="group cursor-pointer rounded-xl border border-gray-200 bg-white p-6 transition-all hover:border-purple-300 hover:shadow-sm"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600">
+                      {topic.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 line-clamp-2">
+                      {topic.description || 'No description available.'}
+                    </p>
+                  </div>
+                  <div className="rounded-full bg-purple-100 p-2 text-purple-600 transition-colors group-hover:bg-purple-600 group-hover:text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {topics.length === 0 && (
+              <div className="text-center py-12 text-gray-500">
+                No topics found. Start by adding some to your database!
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="mt-8 rounded-xl border border-gray-200 bg-white p-6">
           <h3 className="mb-2 font-semibold text-gray-900">Your Progress</h3>
