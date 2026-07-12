@@ -1,5 +1,6 @@
 export interface UserProfile {
   id: string
+  email: string | null
   display_name: string | null
   avatar_url: string | null
   total_xp: number
@@ -14,7 +15,8 @@ export interface AuthContextType {
   session: import('@supabase/supabase-js').Session | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<{ error?: string }>
-  signUp: (email: string, password: string) => Promise<{ error?: string }>
+  signUp: (email: string, password: string) => Promise<{ error?: string; session: import('@supabase/supabase-js').Session | null }>
   signInWithGoogle: () => Promise<{ error?: string }>
   signOut: () => Promise<void>
+  updateProfile: (updates: { display_name?: string }) => Promise<{ error?: string }>
 }
