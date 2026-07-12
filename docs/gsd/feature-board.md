@@ -11,13 +11,13 @@
 | 5 | XP tracking | | Done | Earn per correct answer |
 | 6 | Hearts (exam sim) | | Not started | Only active during exam simulation |
 | 7 | Streak tracking | | Not started | Daily login streak |
-| 8 | Mistake Garden | | Not started | Wrong answers collection + review |
+| 8 | Mistake Garden | | Done | Wrong answers collection + review |
 | 9 | Exam simulation | | Not started | Timed, Subject-A, 60 questions |
 | 10 | Rule-based difficulty | | Not started | Easy/medium/hard from metadata |
 | 11 | Landing page + mascot | | Not started | Cute hero + CTA |
 | 12 | Mobile responsiveness | | Not started | All screens 360px+ |
 | 13 | Data extraction | | In Progress | PDF → JSON pipeline, biggest risk |
-| 14 | Database schema + seed | | In Progress | Supabase migrations |
+| 14 | Database schema + seed | | Done | Supabase migrations |
 | 15 | CI/CD setup | | Not started | GitHub Actions deployment |
 | 16 | Flashcards | | Week 2 stretch |
 | 17 | Weak point analysis | | Week 2 stretch |

@@ -70,6 +70,19 @@ export function QuizPage() {
     
     if (selectedOptionId === correctOption?.id) {
       setScore(prev => prev + 1)
+    } else {
+      // Record mistake in Supabase
+      if (user) {
+        const { error } = await supabase
+          .from('user_mistakes')
+          .insert({
+            user_id: user.id,
+            question_id: currentQuestion.question.id,
+            option_id: selectedOptionId,
+          })
+        
+        if (error) console.error('Error recording mistake:', error.message)
+      }
     }
   }
 
