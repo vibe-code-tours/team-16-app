@@ -75,23 +75,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setUser(newProfile)
         }
       } else {
+        // Update streak on login
+        const { data: newStreak } = await supabase
+          .rpc('update_user_streak', { user_id: userId })
+
         // Sync OAuth name/avatar if profile is missing them
-        const updates: Record<string, unknown> = { last_login_at: new Date().toISOString() }
+        const updates: Record<string, unknown> = {}
         if (!data.display_name && oauthName) updates.display_name = oauthName
         if (!data.avatar_url && oauthAvatar) updates.avatar_url = oauthAvatar
 
-        if (Object.keys(updates).length > 1) {
+        if (Object.keys(updates).length > 0) {
           await supabase
             .from('user_profiles')
             .update(updates)
             .eq('id', userId)
-          setUser({ ...data, ...updates })
+          setUser({ ...data, ...updates, streak_count: newStreak ?? data.streak_count })
         } else {
-          await supabase
-            .from('user_profiles')
-            .update({ last_login_at: updates.last_login_at })
-            .eq('id', userId)
-          setUser(data)
+          setUser({ ...data, streak_count: newStreak ?? data.streak_count })
         }
       }
     } catch {
