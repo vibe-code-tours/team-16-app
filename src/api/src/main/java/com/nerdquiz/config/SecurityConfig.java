@@ -35,6 +35,8 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(auth -> auth
+                // @Public annotation is documentation-only; actual auth bypass is configured here.
+                // When adding new public endpoints, add a requestMatchers() line AND annotate with @Public.
                 .requestMatchers("/api/v1/health").permitAll()
                 .anyRequest().authenticated()
             )

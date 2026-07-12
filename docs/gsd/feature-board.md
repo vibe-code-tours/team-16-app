@@ -16,8 +16,8 @@
 | 10 | Rule-based difficulty | | Not started | Easy/medium/hard from metadata |
 | 11 | Landing page + mascot | | Not started | Cute hero + CTA |
 | 12 | Mobile responsiveness | | Not started | All screens 360px+ |
-| 13 | Data extraction | | Not started | PDF → JSON pipeline, biggest risk; 68 questions from 2021-April seeded and classified into subtopics |
-| 14 | Database schema + seed | | Not started | Supabase migrations |
+| 13 | Data extraction | Myat | Done | 2021 April A+B seeded (68 questions), pipeline ready for remaining terms |
+| 14 | Database schema + seed | Myat | Done | 001_initial_schema.sql + 2021 April A+B seed deployed to Supabase |
 | 15 | CI/CD setup | | Not started | GitHub Actions deployment |
 | 16 | Flashcards | | Not started | Week 2 stretch |
 | 17 | Weak point analysis | | Not started | Week 2 stretch |

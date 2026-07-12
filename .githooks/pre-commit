@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Git pre-commit hook — runs automated quality checks before commit.
+# Enforced by Claude Code hook AND this git hook.
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+SCRIPTS="$REPO_ROOT/scripts/hooks"
+BLOCKING=0
+
+echo ""
+echo "🔍 Running pre-commit checks..."
+echo ""
+
+# --- 1. PR Review checks (blocking) ---
+if [ -f "$SCRIPTS/pr-review.sh" ]; then
+  if ! bash "$SCRIPTS/pr-review.sh"; then
+    BLOCKING=1
+  fi
+fi
+
+# --- 2. Sync-reqs checks (warning only, non-blocking) ---
+if [ -f "$SCRIPTS/sync-reqs.sh" ]; then
+  bash "$SCRIPTS/sync-reqs.sh" || true
+fi
+
+echo ""
+
+if [ $BLOCKING -gt 0 ]; then
+  echo "❌ Commit blocked — fix findings above, then try again."
+  echo "   Or skip checks: git commit --no-verify"
+  echo ""
+  exit 1
+fi
+
+echo "✅ All checks passed."
+echo ""
+exit 0

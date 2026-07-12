@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.4.3'
+    id 'org.springframework.boot' version '3.5.9'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -25,8 +25,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // JWT
-    implementation 'com.auth0:java-jwt:4.4.0'
     implementation 'com.nimbusds:nimbus-jose-jwt:9.41.2'
+
+    // Database
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'org.postgresql:postgresql'
 
     // Jackson (JSON)
     implementation 'com.fasterxml.jackson.core:jackson-databind'

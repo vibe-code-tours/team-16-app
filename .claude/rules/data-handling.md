@@ -10,7 +10,7 @@ freely available for educational use.
 ## Extraction pipeline
 
 Questions start as PDFs and must be extracted into structured JSON. This is our
-**biggest technical risk** — see `.claude/skills/extract-itpec-pdfs.md` for the
+**biggest technical risk** — see `.claude/skills/extract-data.md` for the
 full procedure.
 
 ## Target JSON schema (per question)

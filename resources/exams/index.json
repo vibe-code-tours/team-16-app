@@ -1,0 +1,162 @@
+[
+  {
+    "name": "2021-April-A",
+    "exam_session": "2021-april",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 11,
+    "source_url": "https://itpec.org/pastexamqa/fe/2021S_FE.zip"
+  },
+  {
+    "name": "2021-April-B",
+    "exam_session": "2021-april",
+    "subject": "B",
+    "question_count": 8,
+    "figure_count": 13,
+    "source_url": "https://itpec.org/pastexamqa/fe/2021S_FE.zip"
+  },
+  {
+    "name": "2021-October-A",
+    "exam_session": "2021-october",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 8,
+    "source_url": "https://itpec.org/pastexamqa/fe/2021A_FE.zip"
+  },
+  {
+    "name": "2021-October-B",
+    "exam_session": "2021-october",
+    "subject": "B",
+    "question_count": 8,
+    "figure_count": 10,
+    "source_url": "https://itpec.org/pastexamqa/fe/2021A_FE.zip"
+  },
+  {
+    "name": "2022-April-A",
+    "exam_session": "2022-april",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 6,
+    "source_url": "https://itpec.org/pastexamqa/fe/2022S_FE.zip"
+  },
+  {
+    "name": "2022-April-B",
+    "exam_session": "2022-april",
+    "subject": "B",
+    "question_count": 8,
+    "figure_count": 17,
+    "source_url": "https://itpec.org/pastexamqa/fe/2022S_FE.zip"
+  },
+  {
+    "name": "2022-October-A",
+    "exam_session": "2022-october",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 5,
+    "source_url": "https://itpec.org/pastexamqa/fe/2022A_FE.zip"
+  },
+  {
+    "name": "2022-October-B",
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_count": 8,
+    "figure_count": 14,
+    "source_url": "https://itpec.org/pastexamqa/fe/2022A_FE.zip"
+  },
+  {
+    "name": "2023-April-A",
+    "exam_session": "2023-april",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 10,
+    "source_url": "https://itpec.org/pastexamqa/fe/2023S_FE.zip"
+  },
+  {
+    "name": "2023-April-B",
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_count": 8,
+    "figure_count": 17,
+    "source_url": "https://itpec.org/pastexamqa/fe/2023S_FE.zip"
+  },
+  {
+    "name": "2023-October-A",
+    "exam_session": "2023-october",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 7,
+    "source_url": "https://itpec.org/pastexamqa/fe/2023A_FE.zip"
+  },
+  {
+    "name": "2023-October-B",
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_count": 8,
+    "figure_count": 17,
+    "source_url": "https://itpec.org/pastexamqa/fe/2023A_FE.zip"
+  },
+  {
+    "name": "2024-April-A",
+    "exam_session": "2024-april",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 10,
+    "source_url": "https://itpec.org/pastexamqa/fe/2024S_FE.zip"
+  },
+  {
+    "name": "2024-April-B",
+    "exam_session": "2024-april",
+    "subject": "B",
+    "question_count": 20,
+    "figure_count": 0,
+    "source_url": "https://itpec.org/pastexamqa/fe/2024S_FE.zip"
+  },
+  {
+    "name": "2024-October-A",
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 8,
+    "source_url": "https://itpec.org/pastexamqa/fe/2024A_FE.zip"
+  },
+  {
+    "name": "2024-October-B",
+    "exam_session": "2024-october",
+    "subject": "B",
+    "question_count": 20,
+    "figure_count": 3,
+    "source_url": "https://itpec.org/pastexamqa/fe/2024A_FE.zip"
+  },
+  {
+    "name": "2025-April-A",
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 9,
+    "source_url": "https://itpec.org/pastexamqa/fe/2025S_FE.zip"
+  },
+  {
+    "name": "2025-April-B",
+    "exam_session": "2025-april",
+    "subject": "B",
+    "question_count": 20,
+    "figure_count": 3,
+    "source_url": "https://itpec.org/pastexamqa/fe/2025S_FE.zip"
+  },
+  {
+    "name": "2025-October-A",
+    "exam_session": "2025-october",
+    "subject": "A",
+    "question_count": 60,
+    "figure_count": 9,
+    "source_url": "https://itpec.org/pastexamqa/fe/2025A_FE.zip"
+  },
+  {
+    "name": "2025-October-B",
+    "exam_session": "2025-october",
+    "subject": "B",
+    "question_count": 20,
+    "figure_count": 3,
+    "source_url": "https://itpec.org/pastexamqa/fe/2025A_FE.zip"
+  }
+]

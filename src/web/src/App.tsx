@@ -1,11 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { AuthProvider } from './hooks/useAuth.tsx'
-import { ProtectedRoute } from './components/ProtectedRoute'
-import { LandingPage } from './routes/LandingPage'
-import { LoginPage } from './routes/LoginPage'
-import { RegisterPage } from './routes/RegisterPage'
-import { LearningMap } from './routes/LearningMap'
-import { TopicDetail } from './routes/TopicDetail'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./hooks/useAuth.tsx";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { LandingPage } from "./routes/LandingPage";
+import { LoginPage } from "./routes/LoginPage";
+import { RegisterPage } from "./routes/RegisterPage";
+import { LearningMap } from "./routes/LearningMap";
+import { TopicDetail } from "./routes/TopicDetail";
 
 export default function App() {
   return (
@@ -37,5 +37,5 @@ export default function App() {
         </Routes>
       </AuthProvider>
     </BrowserRouter>
-  )
+  );
 }

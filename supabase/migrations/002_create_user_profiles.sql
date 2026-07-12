@@ -13,9 +13,6 @@ CREATE TABLE public.user_profiles (
   updated_at TIMESTAMPTZ DEFAULT now()
 );
 
--- Index for faster lookups
-CREATE INDEX idx_user_profiles_id ON public.user_profiles(id);
-
 -- ============================================================
 -- Row Level Security (RLS) policies
 -- Users can only read and write their own profile.
