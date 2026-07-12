@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
 import { useTopics } from '../hooks/useTopics'
 import { TopicNode } from '../components/features/TopicNode'
@@ -21,7 +22,7 @@ const CATEGORY_MARKER_BG: Record<TopicCategory, string> = {
 }
 
 export function LearningMap() {
-  const { user, signOut } = useAuth()
+  const { user } = useAuth()
   const { topics, loading, error } = useTopics()
 
   const topicsByCategory = useMemo(() => {
@@ -44,13 +45,31 @@ export function LearningMap() {
           <div className="flex items-center gap-3 text-sm">
             <Stat icon="⚡" value={user?.total_xp ?? 0} tone="text-purple-600" label="XP" />
             <Stat icon="🔥" value={user?.streak_count ?? 0} tone="text-orange-500" label="Streak" />
-            <button
-              onClick={signOut}
-              className="rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-50"
-              aria-label="Sign out"
+            <Link
+              to="/profile"
+              className="flex items-center gap-1.5 rounded-md px-2 py-1 text-gray-700 hover:bg-gray-50"
+              aria-label="View profile"
             >
-              Sign out
-            </button>
+              {user?.avatar_url && user.avatar_url.startsWith('http') ? (
+                <img
+                  src={user.avatar_url}
+                  alt=""
+                  className="h-5 w-5 rounded-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden')
+                  }}
+                />
+              ) : null}
+              <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 ${user?.avatar_url && user.avatar_url.startsWith('http') ? 'hidden' : ''}`}>
+                <svg className="h-3.5 w-3.5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </span>
+              <span className="hidden text-xs font-medium sm:inline">
+                {user?.display_name ?? 'Profile'}
+              </span>
+            </Link>
           </div>
         </div>
       </header>
