@@ -10,7 +10,7 @@
 | 4 | 5-question quizzes | | Done | Instant feedback, per-topic |
 | 5 | XP tracking | | Done | Earn per correct answer |
 | 6 | Hearts (exam sim) | | Not started | Only active during exam simulation |
-| 7 | Streak tracking | | Not started | Daily login streak |
+| 7 | Streak tracking | | Done | Daily login streak |
 | 8 | Mistake Garden | | Done | Wrong answers collection + review |
 | 9 | Exam simulation | | Not started | Timed, Subject-A, 60 questions |
 | 10 | Rule-based difficulty | | Not started | Easy/medium/hard from metadata |
