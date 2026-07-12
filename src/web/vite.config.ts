@@ -9,7 +9,7 @@ export default defineConfig({
     port: 5100,
     proxy: {
       '/api': {
-        target: 'http://host.docker.internal:8080',
+        target: 'http://localhost:8080',
         changeOrigin: true,
       },
     },

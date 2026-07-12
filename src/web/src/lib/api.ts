@@ -1,6 +1,9 @@
 import { supabase } from './supabase'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
+// In Docker production, nginx proxies /api/ to the backend — use relative paths.
+// In local dev, Vite's proxy does the same thing.
+// Set VITE_API_URL only if you need to point at a different backend.
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? ''
 
 interface RequestOptions extends RequestInit {
   /** Skip attaching the Authorization header (for public endpoints). */

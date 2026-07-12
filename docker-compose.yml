@@ -1,60 +1,27 @@
+# ── Backend only ──────────────────────────────────────────────
+# Frontend deploys to Netlify (see netlify.toml).
+# This file is for running the Spring Boot backend in Docker.
+#
+# Usage:
+#   docker compose up                    # start backend on http://localhost:8080
+#   docker compose up -d                 # start in background
+#   docker compose down                  # stop
+#
+# Requires a running Postgres instance (Supabase CLI or external).
+# The backend connects to the database via DATABASE_URL.
 services:
-  # ── Frontend (dev mode) ──────────────────────────────────
-  # Usage: docker compose --profile dev up
-  # Vite dev server with hot reload on http://localhost:5100
-  # API requests proxy to http://host.docker.internal:8080 (run backend outside Docker)
-  frontend-dev:
-    profiles: ["dev"]
+  backend:
     build:
-      context: ./src/web
-      dockerfile: Dockerfile.dev
-    ports:
-      - "5100:5100"
-    volumes:
-      - ./src/web:/app
-      - /app/node_modules
-    env_file:
-      - path: ./src/web/.env
-        required: false
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-  # ── Frontend (production mode) ───────────────────────────
-  # Usage: docker compose --profile production up
-  # nginx serves built static assets on http://localhost
-  # /api/* requests proxied to backend:8080 (requires backend service)
-  #
-  # Build args must be in the root .env (where docker-compose.yml lives).
-  # VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are NOT read from src/web/.env.
-  frontend:
-    profiles: ["production"]
-    build:
-      context: ./src/web
-      args:
-        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
-        VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
-    ports:
-      - "80:80"
-
-  # ── Backend (Spring Boot) ────────────────────────────────
-  # Requires: src/api/Dockerfile (see Issue #12 — Backend Dockerization)
-  # Until then, run backend outside Docker: cd src/api && ./gradlew bootRun
-  # Uncomment when src/api/Dockerfile is ready.
-  #
-  # backend:
-  #   profiles: ["production"]
-  #   build:
-  #     context: ./src/api
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     - SPRING_PROFILES_ACTIVE=docker
-  #     - SUPABASE_URL=${SUPABASE_URL:-http://localhost:54321}
-  #     - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
-  #     - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
-  #     - DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://host.docker.internal:54322/postgres}
-  #     - DATABASE_USERNAME=${DATABASE_USERNAME:-postgres}
-  #     - DATABASE_PASSWORD=${DATABASE_PASSWORD:-postgres}
-  #   extra_hosts:
-  #     - "host.docker.internal:host-gateway"
+      context: ./src/api
+      dockerfile: Dockerfile
+    network_mode: host
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://localhost:54322/postgres?user=postgres&password=postgres}
+      - SUPABASE_URL=${SUPABASE_URL:?Set SUPABASE_URL in .env (e.g. https://<ref>.supabase.co)}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:?Set SUPABASE_ANON_KEY in .env}
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:8080/"]
+      interval: 15s
+      timeout: 5s
+      start_period: 40s
+      retries: 3
