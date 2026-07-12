@@ -11,10 +11,16 @@
 
 ### Prerequisites
 
-- Java 25 (JDK)
-- Node.js 20+ and npm
-- Docker Desktop (for local Supabase)
+- Java 25 (JDK) — [Download](https://adoptium.net/) or `brew install openjdk@25` (macOS)
+- Node.js 20+ and npm — [Download](https://nodejs.org/) or use `nvm`
+- Docker Desktop — [Download](https://www.docker.com/products/docker-desktop/)
 - [Supabase CLI](https://supabase.com/docs/guides/cli) (`supabase`)
+
+#### Install Supabase CLI
+
+```bash
+npm install -g supabase
+```
 
 ### 1. Clone and configure
 
@@ -42,10 +48,70 @@ cd src/api
 ```bash
 cd src/web
 npm install
-npm run dev                 # starts Vite dev server on http://localhost:5173
+npm run dev                 # starts Vite dev server on http://localhost:5100
 ```
 
-Open http://localhost:5173 in your browser.
+Open http://localhost:5100 in your browser.
+
+---
+
+## Docker Setup
+
+The frontend can run in two Docker modes — **dev** (Vite hot reload) and **production** (nginx).
+
+### Prerequisites
+
+- Docker Desktop installed and running
+  - **Windows:** Enable WSL 2 integration (Settings → General → "Use the WSL 2 based engine")
+  - **Linux:** Ensure your user has Docker access: `sudo usermod -aG docker $USER` then reopen terminal
+  - **macOS:** No extra setup needed — Docker Desktop works out of the box
+- Supabase CLI running (`supabase start`) for local database access
+- Backend running outside Docker (`./gradlew bootRun`) for API proxy
+
+### Environment variables
+
+Docker Compose reads from `src/web/.env`. Required vars:
+
+```bash
+VITE_SUPABASE_URL=your-supabase-url
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+### Dev mode (recommended for development)
+
+```bash
+docker compose --profile dev up
+```
+
+- Vite dev server with **hot reload** on http://localhost:5100
+- Source files are volume-mounted — edits reflect instantly
+- API requests proxy to http://localhost:8080 (run backend outside Docker with `./gradlew bootRun`)
+
+### Production mode (nginx)
+
+```bash
+docker compose --profile production up
+```
+
+- Builds the React app and serves via **nginx** on http://localhost
+- SPA routing works out of the box (`/map`, `/login`, etc. all serve `index.html`)
+- `/api/*` requests proxied to the backend container
+
+> **Note:** The production profile requires the backend Dockerfile (Issue #12). Until then, run the backend outside Docker.
+
+---
+
+## Remote Supabase (Staging/Production)
+
+To push migrations to a hosted Supabase project:
+
+```bash
+supabase login                 # opens browser for authentication
+supabase link --project-ref <project-ref>   # connect to your project
+supabase db push               # apply pending migrations
+```
+
+Find your project ref in Supabase Dashboard → **Settings** → **General** → **Reference ID**.
 
 ---
 
@@ -57,6 +123,7 @@ Open http://localhost:5173 in your browser.
 | Backend | Java 25, Spring Boot |
 | Database | Supabase (Postgres) |
 | Auth | Supabase Auth (JWT) |
+| Container | nginx (frontend), Docker Compose (orchestration) |
 | Local dev | Supabase CLI + Docker |
 
 ## Project structure
@@ -65,6 +132,8 @@ Open http://localhost:5173 in your browser.
 |---|---|
 | `src/api/` | Spring Boot REST API |
 | `src/web/` | React SPA (Vite) |
+| `src/web/nginx/` | nginx config for Docker production mode |
+| `docker-compose.yml` | Docker Compose with dev and production profiles |
 | `supabase/` | Migrations, seed data, config |
 | `docs/` | ARCHITECTURE.md, REQUIREMENTS.md, decision records |
 | `docs/gsd/` | How-we-work, feature board, architecture boundaries |

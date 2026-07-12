@@ -22,6 +22,8 @@
 | 16 | Flashcards | | Not started | Week 2 stretch |
 | 17 | Weak point analysis | | Not started | Week 2 stretch |
 | 18 | Additional exams | | Not started | Week 2 stretch |
+| 19 | Frontend Dockerization | Myo Min Lin | In progress | Multi-stage Dockerfile (Node 20 + nginx:alpine), SPA routing, `/api` proxy to backend, dual-mode compose. [Issue #11](https://github.com/vibe-code-tours/team-16-app/issues/11) |
+| 20 | Backend Dockerization | | Not started | Multi-stage Dockerfile (Gradle + Java 25), docker-compose.yml orchestrating backend + Supabase local. [Issue #12](https://github.com/vibe-code-tours/team-16-app/issues/12) |
 
 ## Week 1 target: #1–15 functional (local demo)
-## Week 2 target: #16–18 + polish (public demo)
+## Week 2 target: #16–20 + polish (public demo)

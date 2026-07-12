@@ -1,0 +1,60 @@
+services:
+  # ── Frontend (dev mode) ──────────────────────────────────
+  # Usage: docker compose --profile dev up
+  # Vite dev server with hot reload on http://localhost:5100
+  # API requests proxy to http://host.docker.internal:8080 (run backend outside Docker)
+  frontend-dev:
+    profiles: ["dev"]
+    build:
+      context: ./src/web
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5100:5100"
+    volumes:
+      - ./src/web:/app
+      - /app/node_modules
+    env_file:
+      - path: ./src/web/.env
+        required: false
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # ── Frontend (production mode) ───────────────────────────
+  # Usage: docker compose --profile production up
+  # nginx serves built static assets on http://localhost
+  # /api/* requests proxied to backend:8080 (requires backend service)
+  #
+  # Build args must be in the root .env (where docker-compose.yml lives).
+  # VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are NOT read from src/web/.env.
+  frontend:
+    profiles: ["production"]
+    build:
+      context: ./src/web
+      args:
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+        VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
+    ports:
+      - "80:80"
+
+  # ── Backend (Spring Boot) ────────────────────────────────
+  # Requires: src/api/Dockerfile (see Issue #12 — Backend Dockerization)
+  # Until then, run backend outside Docker: cd src/api && ./gradlew bootRun
+  # Uncomment when src/api/Dockerfile is ready.
+  #
+  # backend:
+  #   profiles: ["production"]
+  #   build:
+  #     context: ./src/api
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     - SPRING_PROFILES_ACTIVE=docker
+  #     - SUPABASE_URL=${SUPABASE_URL:-http://localhost:54321}
+  #     - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+  #     - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+  #     - DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://host.docker.internal:54322/postgres}
+  #     - DATABASE_USERNAME=${DATABASE_USERNAME:-postgres}
+  #     - DATABASE_PASSWORD=${DATABASE_PASSWORD:-postgres}
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
