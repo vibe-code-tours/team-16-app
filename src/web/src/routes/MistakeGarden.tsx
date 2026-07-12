@@ -13,7 +13,7 @@ interface Mistake {
 }
 
 export function MistakeGarden() {
-  const { user, signOut } = useAuth()
+  const { user } = useAuth()
   const navigate = useNavigate()
   const [mistakes, setMistakes] = useState<Mistake[]>([])
   const [loading, setLoading] = useState(true)

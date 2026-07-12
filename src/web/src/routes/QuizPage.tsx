@@ -22,7 +22,7 @@ export function QuizPage() {
       if (!quizId) return
       setLoading(true)
       
-      const { data: quizData, error: quizError } = await supabase
+      const { error: quizError } = await supabase
         .from('quizzes')
         .select('id')
         .eq('id', quizId)
@@ -99,8 +99,6 @@ export function QuizPage() {
   const finishQuiz = async () => {
     setFinished(true)
     
-    // Calculate XP: 10 XP per correct answer
-    const xpEarned = score * 10 
     // If this was the last question, we need to check if the current one was correct too
     const lastQuestion = questions[currentQuestionIndex]
     const lastCorrect = lastQuestion.options.find(o => o.is_correct)?.id === selectedOptionId
