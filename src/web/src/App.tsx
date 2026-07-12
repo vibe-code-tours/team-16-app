@@ -6,6 +6,10 @@ import { LoginPage } from "./routes/LoginPage";
 import { RegisterPage } from "./routes/RegisterPage";
 import { LearningMap } from "./routes/LearningMap";
 import { TopicDetail } from "./routes/TopicDetail";
+import { LessonPage } from "./routes/LessonPage";
+import { QuizPage } from "./routes/QuizPage";
+import { MistakeGarden } from "./routes/MistakeGarden";
+import { UserProfile } from "./routes/UserProfile";
 
 export default function App() {
   return (
@@ -31,6 +35,38 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <TopicDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/lesson/:lessonId"
+            element={
+              <ProtectedRoute>
+                <LessonPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quiz/:quizId"
+            element={
+              <ProtectedRoute>
+                <QuizPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mistakes"
+            element={
+              <ProtectedRoute>
+                <MistakeGarden />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <UserProfile />
               </ProtectedRoute>
             }
           />
