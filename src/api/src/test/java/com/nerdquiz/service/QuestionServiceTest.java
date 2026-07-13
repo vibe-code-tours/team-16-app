@@ -4,6 +4,8 @@ import com.nerdquiz.dto.QuestionResponse;
 import com.nerdquiz.model.Question;
 import com.nerdquiz.repository.QuestionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +26,9 @@ class QuestionServiceTest {
     @Mock
     private QuestionRepository questionRepository;
 
+    @Mock
+    private ObjectMapper objectMapper;
+
     @InjectMocks
     private QuestionService questionService;
 
@@ -43,9 +48,27 @@ class QuestionServiceTest {
         sampleQuestion.setImages("[]");
     }
 
+    private void stubObjectMapper() throws Exception {
+        ObjectMapper realMapper = new ObjectMapper();
+        ArrayNode emptyArray = realMapper.createArrayNode();
+        ArrayNode choicesArray = realMapper.createArrayNode();
+        ObjectNode choice1 = realMapper.createObjectNode();
+        choice1.put("label", "a");
+        choice1.put("text", "3");
+        ObjectNode choice2 = realMapper.createObjectNode();
+        choice2.put("label", "b");
+        choice2.put("text", "4");
+        choicesArray.add(choice1).add(choice2);
+
+        when(objectMapper.readTree("[]")).thenReturn(emptyArray);
+        when(objectMapper.readTree("[{\"label\":\"a\",\"text\":\"3\"},{\"label\":\"b\",\"text\":\"4\"}]"))
+                .thenReturn(choicesArray);
+    }
+
     @Test
-    void getRandomQuestions_ReturnsQuestions() {
+    void getRandomQuestions_ReturnsQuestions() throws Exception {
         // Arrange
+        stubObjectMapper();
         when(questionRepository.findRandomQuestions(anyInt()))
                 .thenReturn(List.of(sampleQuestion));
 
@@ -74,8 +97,9 @@ class QuestionServiceTest {
     }
 
     @Test
-    void getByExamSession_ReturnsFilteredQuestions() {
+    void getByExamSession_ReturnsFilteredQuestions() throws Exception {
         // Arrange
+        stubObjectMapper();
         when(questionRepository.findByExamSessionAndSubject("2025-october", "A"))
                 .thenReturn(List.of(sampleQuestion));
 

@@ -163,6 +163,7 @@ class QuizServiceTest {
     @Test
     void getResult_ReturnsQuizResult() {
         // Arrange
+        sampleSession.setQuestionCount(1);
         QuizAnswer answer = new QuizAnswer();
         answer.setQuestionId(sampleQuestion.getId());
         answer.setUserAnswer("b");
@@ -172,8 +173,8 @@ class QuizServiceTest {
                 .thenReturn(Optional.of(sampleSession));
         when(quizAnswerRepository.findByQuizSessionId(sessionId))
                 .thenReturn(List.of(answer));
-        when(questionRepository.findById(sampleQuestion.getId()))
-                .thenReturn(Optional.of(sampleQuestion));
+        when(questionRepository.findByIdIn(List.of(sampleQuestion.getId())))
+                .thenReturn(List.of(sampleQuestion));
 
         // Act
         QuizResultResponse result = quizService.getResult(userId, sessionId);
