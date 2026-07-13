@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, createContext, useContext, type ReactNode } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
+import { api } from '../lib/api'
 import type { UserProfile, AuthContextType } from '../types'
 
 const AuthContext = createContext<AuthContextType | null>(null)
@@ -76,8 +77,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       } else {
         // Update streak on login
-        const { data: newStreak } = await supabase
-          .rpc('update_user_streak', { user_id: userId })
+        let newStreak: number | null = null
+        try {
+          const streak = await api.post<{ streakCount: number }>('/api/v1/me/streak')
+          newStreak = streak.streakCount
+        } catch (streakError) {
+          console.error('Failed to update user streak:', streakError)
+        }
 
         // Sync OAuth name/avatar if profile is missing them
         const updates: Record<string, unknown> = {}
