@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
 import { supabase } from '../lib/supabase'
 import type { Question, Option } from '../types'
@@ -14,7 +13,6 @@ interface Mistake {
 
 export function MistakeGarden() {
   const { user } = useAuth()
-  const navigate = useNavigate()
   const [mistakes, setMistakes] = useState<Mistake[]>([])
   const [loading, setLoading] = useState(true)
 
