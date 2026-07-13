@@ -6,3 +6,14 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Ensure JavaScript modules are served with correct MIME type
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Content-Type = "text/css; charset=utf-8"

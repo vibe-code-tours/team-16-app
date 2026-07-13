@@ -50,6 +50,10 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Copy SPA redirect config to dist
+        run: cp ../../netlify.toml dist/
 
       - name: Deploy to Netlify
         run: npx netlify-cli deploy --prod --dir=dist
