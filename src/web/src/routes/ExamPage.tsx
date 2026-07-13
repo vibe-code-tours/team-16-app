@@ -8,6 +8,8 @@ const EXAM_DURATION_MINUTES = 60
 const TOTAL_QUESTIONS = 60
 const INITIAL_HEARTS = 3
 
+type Difficulty = 'all' | 'easy' | 'medium' | 'hard'
+
 interface ExamQuestion {
   question: Question
   selectedAnswer?: string
@@ -25,17 +27,26 @@ export function ExamPage() {
   const [loading, setLoading] = useState(true)
   const [finished, setFinished] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [difficulty, setDifficulty] = useState<Difficulty>('all')
+  const [started, setStarted] = useState(false)
 
   // Fetch 60 random Subject-A questions
   useEffect(() => {
     async function fetchExamQuestions() {
       setLoading(true)
-      const { data, error } = await supabase
+      
+      let query = supabase
         .from('questions')
         .select('*')
         .eq('subject', 'A')
         .order('random()')
         .limit(TOTAL_QUESTIONS)
+
+      if (difficulty !== 'all') {
+        query = query.eq('difficulty', difficulty)
+      }
+
+      const { data, error } = await query
 
       if (error) {
         console.error('Error fetching exam questions:', error.message)
@@ -47,8 +58,10 @@ export function ExamPage() {
       setLoading(false)
     }
 
-    fetchExamQuestions()
-  }, [])
+    if (started) {
+      fetchExamQuestions()
+    }
+  }, [difficulty, started])
 
   // Timer countdown
   useEffect(() => {
@@ -121,6 +134,57 @@ export function ExamPage() {
 
     setFinished(true)
   }, [questions, user])
+
+  // Start screen with difficulty selector
+  if (!started) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+          <div className="text-center mb-6">
+            <div className="text-5xl mb-4">📝</div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Exam Simulation</h1>
+            <p className="text-gray-500">60 questions • 60 minutes • 3 hearts</p>
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Select Difficulty
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {(['all', 'easy', 'medium', 'hard'] as Difficulty[]).map((d) => (
+                <button
+                  key={d}
+                  onClick={() => setDifficulty(d)}
+                  className={`px-4 py-2 rounded-lg border-2 transition-all ${
+                    difficulty === d
+                      ? 'border-purple-500 bg-purple-50 text-purple-700'
+                      : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                  }`}
+                >
+                  {d.charAt(0).toUpperCase() + d.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <button
+              onClick={() => setStarted(true)}
+              className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+            >
+              Start Exam
+            </button>
+            <button
+              onClick={() => navigate('/map')}
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Back to Map
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (loading) {
     return (
