@@ -30,4 +30,16 @@ public interface QuestionRepository extends JpaRepository<Question, UUID> {
     long countByExamSessionAndSubject(String examSession, String subject);
 
     List<Question> findByIdIn(Collection<UUID> ids);
+
+    @Query(value = "SELECT subtopic_id AS subtopicId, COUNT(*) AS cnt " +
+            "FROM questions " +
+            "WHERE published = true AND subtopic_id IS NOT NULL " +
+            "GROUP BY subtopic_id",
+            nativeQuery = true)
+    List<SubtopicQuestionCount> countPublishedGroupedBySubtopic();
+
+    interface SubtopicQuestionCount {
+        UUID getSubtopicId();
+        Long getCnt();
+    }
 }
