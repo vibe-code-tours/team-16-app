@@ -91,6 +91,17 @@ are bundled into browser-visible JavaScript.
 ### Dev mode (recommended for development)
 
 ```bash
+cd src/api
+./gradlew bootRun           # Spring Boot on http://localhost:8080
+```
+
+Use the publishable key from Supabase **Project Settings → API Keys**. Never use
+an `sb_secret_...` or legacy `service_role` key in the frontend; Vite variables
+are bundled into browser-visible JavaScript.
+
+### Dev mode (recommended for development)
+
+```bash
 docker compose --profile dev up
 ```
 

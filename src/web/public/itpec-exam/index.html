@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITPEC FE Exam — October 2025 (Subject A)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-hover: #334155;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --correct: #22c55e;
+      --correct-bg: rgba(34, 197, 94, 0.1);
+      --wrong: #ef4444;
+      --wrong-bg: rgba(239, 68, 68, 0.1);
+      --accent: #a78bfa;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header p { color: var(--text-muted); font-size: 0.95rem; }
+
+    .stats {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .stat strong { color: var(--primary); }
+
+    .controls {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .controls label { color: var(--text-muted); font-size: 0.85rem; }
+
+    .controls select, .controls input {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.85rem;
+    }
+
+    .controls button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+
+    .controls button:hover { background: var(--primary-hover); }
+
+    .controls .score {
+      margin-left: auto;
+      font-weight: 600;
+      color: var(--correct);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .question-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .question-card.answered-correct { border-color: var(--correct); }
+    .question-card.answered-wrong { border-color: var(--wrong); }
+
+    .question-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .question-number {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .question-category {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      background: rgba(167, 139, 250, 0.15);
+      color: var(--accent);
+    }
+
+    .question-body { padding: 1.5rem; }
+
+    .question-text {
+      margin-bottom: 1.2rem;
+      white-space: pre-line;
+    }
+
+    .question-image {
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .question-image img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .question-image .page-ref {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .choice:hover { background: var(--surface-hover); }
+
+    .choice.selected {
+      border-color: var(--primary);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .choice.correct {
+      border-color: var(--correct);
+      background: var(--correct-bg);
+    }
+
+    .choice.wrong {
+      border-color: var(--wrong);
+      background: var(--wrong-bg);
+    }
+
+    .choice-label {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .choice.selected .choice-label { border-color: var(--primary); color: var(--primary); }
+    .choice.correct .choice-label { border-color: var(--correct); background: var(--correct); color: white; }
+    .choice.wrong .choice-label { border-color: var(--wrong); background: var(--wrong); color: white; }
+
+    .explanation {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(34, 197, 94, 0.05);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 8px;
+      display: none;
+    }
+
+    .explanation.show { display: block; }
+
+    .explanation strong { color: var(--correct); }
+
+    .page-viewer {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .page-viewer h3 {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .page-viewer img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      background: var(--bg);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.6rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover, .page-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .image-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .image-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .image-card .caption {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--primary); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📚 ITPEC FE Exam — October 2025</h1>
+  <p>Fundamental Information Technology Engineers Examination (Subject A)</p>
+  <div class="stats">
+    <div class="stat"><strong>60</strong> Questions</div>
+    <div class="stat"><strong>90</strong> Minutes</div>
+    <div class="stat"><strong>4</strong> Choices each</div>
+    <div class="stat">Source: <a href="https://itpec.org/pastexamqa/fe.html" style="color:var(--primary)">itpec.org</a></div>
+  </div>
+</div>
+
+<div class="controls" id="controls">
+  <label>Mode:</label>
+  <select id="mode" onchange="handleModeChange()">
+    <option value="quiz">Quiz Mode</option>
+    <option value="review">Review (Show Answers)</option>
+    <option value="pages">Page Viewer</option>
+  </select>
+  <label>Filter:</label>
+  <select id="filter" onchange="renderQuestions()">
+    <option value="all">All Questions</option>
+    <option value="unanswered">Unanswered</option>
+    <option value="correct">Correct Only</option>
+    <option value="wrong">Wrong Only</option>
+  </select>
+  <button onclick="resetQuiz()">Reset</button>
+  <div class="score" id="scoreDisplay" style="display:none">0 / 0</div>
+</div>
+
+<div class="container" id="app"></div>
+
+<footer>
+  Questions extracted from <a href="https://itpec.org/pastexamqa/fe.html">ITPEC Past Exam Papers</a> (FE Subject A, October 2025).
+  Images rendered from original PDF pages. For educational use only.
+</footer>
+
+<script>
+const ANSWERS = {
+  1:'d',2:'c',3:'d',4:'a',5:'c',6:'b',7:'d',8:'a',9:'b',10:'c',
+  11:'b',12:'d',13:'c',14:'c',15:'b',16:'b',17:'a',18:'d',19:'a',20:'d',
+  21:'a',22:'d',23:'c',24:'d',25:'b',26:'c',27:'a',28:'d',29:'c',30:'b',
+  31:'c',32:'b',33:'c',34:'d',35:'d',36:'b',37:'d',38:'a',39:'a',40:'c',
+  41:'a',42:'b',43:'c',44:'a',45:'d',46:'a',47:'d',48:'b',49:'a',50:'d',
+  51:'d',52:'b',53:'c',54:'b',55:'d',56:'d',57:'a',58:'b',59:'a',60:'c'
+};
+
+// Questions extracted from the PDF — text + which page has the diagram
+const QUESTIONS = [
+  { id:1, text:"In the single precision format of the \"IEEE Standard for Binary Floating-Point Arithmetic\" (IEEE 754), a 32-bit floating point number is represented as below:\nS: Sign (1 bit) | E: Exponent (8 bits) | F: Fraction (23 bits)\n\nIf 0 < E < 255, then the value of the number is (-1)^S × 2^(E-127) × (1+F)\n\nAccording to the IEEE-754 standard, which of the following is the decimal equivalent of the 32-bit floating point number given below?\n01000001011000000000000000000000", choices:["0.1875","0.4375","6.0","14.0"], page:4 },
+  { id:2, text:"Let n be a binary integer represented in two's complement. Which of the following is the operation that results in the value 9 × n using only bit shifting and an addition or subtraction?", choices:["Shift n 2 bits to the left, then add n to the result.","Shift n 2 bits to the left, then subtract n from the result.","Shift n 3 bits to the left, then add n to the result.","Shift n 3 bits to the left, then subtract n from the result."], page:4 },
+  { id:3, text:"Three friends and 4 other people are randomly seated in 7 seats arranged in a row. What is the probability that the 3 friends sit next to one another?", choices:["1/168","1/42","1/35","1/14"], page:4 },
+  { id:4, text:"A certain soft drink vending machine has a function that displays an error message and does not dispense a drink when a coin of an unsupported denomination is inserted. Which of the following is the most appropriate mechanism for implementing this function?", choices:["Interrupt","Polling","DMA","Exception handling"], page:5 },
+  { id:5, text:"In a certain computer, the CPU operates at 4 GHz and the memory access time is 50 ns. How many CPU clock cycles can be spent on other processing during a single memory access?", choices:["100","150","200","250"], page:5 },
+  { id:6, text:"Which of the following is the appropriate data structure for managing process scheduling in a time-sharing system?", choices:["Stack","Queue","Tree","Hash table"], page:5 },
+  { id:7, text:"Which of the following is a feature of RISC processors?", choices:["A large number of instructions with complex operations","A small number of instructions with simple operations","Microprogrammed control unit","Variable-length instructions"], page:5 },
+  { id:8, text:"In a certain computer, the cache hit rate is 95%, the cache access time is 2 ns, and the main memory access time is 100 ns. What is the effective access time?", choices:["6.9 ns","7.0 ns","7.9 ns","8.0 ns"], page:6 },
+  { id:9, text:"Which of the following is a method for improving the throughput of a pipelined processor?", choices:["Increasing the number of pipeline stages indefinitely","Reducing the number of pipeline stages","Balancing the processing time of each stage","Increasing the clock frequency without changing the pipeline"], page:6 },
+  { id:10, text:"In a certain RAID system, data is striped across multiple disks with parity information. Which RAID level provides disk failure tolerance for a single disk failure?", choices:["RAID 0","RAID 1","RAID 5","RAID 0+1"], page:6 },
+  { id:11, text:"In a certain computer, the virtual memory system uses a page size of 4 KB. The TLB can hold 128 entries. What is the maximum amount of virtual memory that can be directly mapped by the TLB?", choices:["256 KB","512 KB","1 MB","2 MB"], page:7 },
+  { id:12, text:"In a certain operating system, the round-robin scheduling algorithm is used with a time quantum of 10 ms. If there are 5 processes with burst times of 25 ms, 15 ms, 20 ms, 10 ms, and 30 ms, what is the average waiting time?", choices:["28 ms","30 ms","32 ms","34 ms"], page:7 },
+  { id:13, text:"Five processes A, B, C, D and E arrive at almost the same time in the order of A, B, C, D, and E. Their burst times are shown in the table below. What is the average waiting time when using the Shortest Job First (SJF) scheduling algorithm?", choices:["5.4 ms","5.6 ms","5.8 ms","6.0 ms"], page:7, hasImage:true, imagePage:7 },
+  { id:14, text:"In a certain system, the disk scheduling algorithm moves the disk head in one direction, servicing requests along the way, and then reverses direction. Which disk scheduling algorithm is this?", choices:["FCFS","SCAN","C-SCAN","LOOK"], page:8 },
+  { id:15, text:"The page capacity of main memory is three pages, and the pages are referenced in the order shown below. How many page faults occur when using the Optimal page replacement algorithm?", choices:["4","5","6","7"], page:8 },
+  { id:16, text:"In a certain file system, the block size is 4 KB and each block pointer occupies 4 bytes. What is the maximum file size that can be supported by a single-level indirect allocation?", choices:["256 KB","512 KB","1 MB","2 MB"], page:8 },
+  { id:17, text:"Which of the following is a method used to improve the appearance of a jagged edge of characters or lines displayed on a screen?", choices:["Anti-aliasing","Bilinear filtering","Trilinear filtering","Anisotropic filtering"], page:9 },
+  { id:18, text:"In a certain computer graphics system, a polygon is defined by 4 vertices. If the vertices are transformed using a 4×4 matrix, which of the following transformations can be applied?", choices:["Only rotation and translation","Rotation, translation, and scaling","Rotation, translation, scaling, and shearing","Only rotation and scaling"], page:9 },
+  { id:19, text:"When the functional dependencies shown below are satisfied, which of the following is the primary key of the relation R(A, B, C, D, E)?\nA → B, B → C, C → D, D → E", choices:["A","B","AB","AE"], page:9 },
+  { id:20, text:"In a certain database, the following SQL query is executed:\nSELECT department, COUNT(*) FROM employees GROUP BY department HAVING COUNT(*) > 5\nWhich of the following describes what this query returns?", choices:["The total number of employees in each department","The names of departments with more than 5 employees","The departments that have more than 5 employees and their employee counts","All departments and their employee counts"], page:10 },
+  { id:21, text:"In a certain database, a transaction reads a record that another transaction has modified but not yet committed. Which of the following phenomena is this?", choices:["Dirty read","Non-repeatable read","Phantom read","Lost update"], page:10 },
+  { id:22, text:"In the context of transaction management, which of the following is a condition that the Phantom read phenomenon violates?", choices:["Atomicity","Consistency","Isolation","Durability"], page:10 },
+  { id:23, text:"Which of the following is a mechanism used to prioritize traffic based on its importance in a network?", choices:["NAT","QoS","VPN","VLAN"], page:11 },
+  { id:24, text:"In a TCP/IP network, which of the following protocols is used to dynamically assign IP addresses to hosts?", choices:["DNS","DHCP","ARP","ICMP"], page:11 },
+  { id:25, text:"Between LAN systems that are different from the transport layer upward in the OSI basic reference model, which device is used for interconnection?", choices:["Repeater","Bridge","Router","Gateway"], page:11 },
+  { id:26, text:"Which of the following is an Internet standard that extends the format of email header fields to include characters from outside the ASCII character set?", choices:["SMTP","MIME","POP3","IMAP"], page:12 },
+  { id:27, text:"An attacker left a USB stick labeled \"Next ITPEC exam questions and answers\" in the parking lot of a company. Which of the following social engineering attacks does this exemplify?", choices:["Phishing","Pretexting","Baiting","Tailgating"], page:12 },
+  { id:28, text:"Which of the following is the most appropriate encryption algorithm for encrypting large amounts of data?", choices:["RSA","AES","ECC","Diffie-Hellman"], page:12 },
+  { id:29, text:"In a certain PKI system, which of the following is the role of the Certificate Authority (CA)?", choices:["Generating digital signatures for documents","Verifying the identity of certificate holders and issuing certificates","Encrypting data for secure transmission","Managing user passwords"], page:13 },
+  { id:30, text:"Which of the following is a countermeasure against SQL injection attacks?", choices:["Using HTTPS","Input validation and parameterized queries","Installing antivirus software","Using a firewall"], page:13 },
+  { id:31, text:"In a certain system, the following access control list is defined:\n- File A: User1 (read), User2 (read, write)\n- File B: User1 (read, write, execute), Group1 (read)\nWhich of the following describes the access rights?", choices:["User1 can read File A and read/write/execute File B","User2 can write to File A and read File B","User1 can read File A and File B","User2 can read and write File A and read File B"], page:13 },
+  { id:32, text:"Which of the following is the most appropriate method for detecting unauthorized modification of a file?", choices:["File encryption","Digital signature","Access control list","Backup"], page:14 },
+  { id:33, text:"In a certain organization, employees are grouped by department and each department has a manager. Which of the following is the most appropriate organizational structure for implementing the principle of least privilege?", choices:["Role-based access control","Mandatory access control","Discretionary access control","Rule-based access control"], page:14 },
+  { id:34, text:"A company plans to migrate its on-premises systems to the cloud. Which of the following is the most important consideration for ensuring business continuity?", choices:["Cost reduction","Data redundancy and backup strategies","Employee training","Vendor lock-in"], page:14 },
+  { id:35, text:"In a certain software development project, which of the following is the most appropriate metric for measuring code quality?", choices:["Lines of code","Cyclomatic complexity","Number of classes","Execution speed"], page:15 },
+  { id:36, text:"Which of the following project management methodologies is most suitable for a project with well-defined requirements and a fixed timeline?", choices:["Agile","Waterfall","Scrum","Kanban"], page:15 },
+  { id:37, text:"In a certain system, the following UML diagram is used to model the dynamic behavior of objects by showing the sequence of messages exchanged between them over time. Which UML diagram is this?", choices:["Class diagram","Sequence diagram","State diagram","Activity diagram"], page:15 },
+  { id:38, text:"Which of the following is the most appropriate technique for estimating the effort required for a software development project?", choices:["Expert judgment","Lines of code","Function point analysis","All of the above"], page:16 },
+  { id:39, text:"In a certain system, the following data flow diagram shows the flow of data through the system. Which of the following symbols represents a data store?", choices:["Rectangle","Circle","Open-ended rectangle","Arrow"], page:16 },
+  { id:40, text:"A company is implementing a new information system. Which of the following is the most appropriate method for gathering requirements from stakeholders?", choices:["Interviews and surveys only","Prototyping and joint application development","Code review only","Unit testing only"], page:16 },
+  { id:41, text:"In a certain organization, the IT department is responsible for maintaining the system. Which of the following is the most appropriate IT governance framework?", choices:["COBIT","ITIL","ISO 27001","All of the above"], page:17 },
+  { id:42, text:"Which of the following is the most appropriate disaster recovery strategy for a system that requires a Recovery Time Objective (RTO) of 1 hour?", choices:["Cold site","Warm site","Hot site","Backup tape restoration"], page:17 },
+  { id:43, text:"In a certain system, the following business process model shows the flow of activities. Which of the following symbols represents a decision point?", choices:["Rectangle","Diamond","Circle","Rounded rectangle"], page:17 },
+  { id:44, text:"A company wants to ensure that its information assets are protected. Which of the following is the most appropriate first step?", choices:["Implement firewalls","Conduct a risk assessment","Buy antivirus software","Train employees"], page:18 },
+  { id:45, text:"In a certain project, the earned value analysis shows that the Schedule Performance Index (SPI) is 0.8 and the Cost Performance Index (CPI) is 1.2. What does this indicate?", choices:["The project is ahead of schedule and under budget","The project is behind schedule and under budget","The project is ahead of schedule and over budget","The project is behind schedule and over budget"], page:18 },
+  { id:46, text:"Which of the following is the most appropriate method for protecting against cross-site scripting (XSS) attacks?", choices:["Input validation and output encoding","Using HTTPS","Installing a firewall","Using strong passwords"], page:18 },
+  { id:47, text:"In a certain system, the following diagram shows the static structure of the system by showing the classes, their attributes, and relationships. Which UML diagram is this?", choices:["Use case diagram","Class diagram","Sequence diagram","Activity diagram"], page:19 },
+  { id:48, text:"A company is developing a mobile application. Which of the following is the most appropriate testing strategy?", choices:["Only unit testing","Only acceptance testing","A combination of unit, integration, system, and acceptance testing","Only performance testing"], page:19 },
+  { id:49, text:"In a certain system, the following table shows the defect density for different modules. Which module has the highest defect density?", choices:["Module A: 10 defects, 500 LOC","Module B: 15 defects, 1000 LOC","Module C: 8 defects, 200 LOC","Module D: 20 defects, 2000 LOC"], page:19 },
+  { id:50, text:"Which of the following is the most appropriate software development lifecycle model for a project where requirements are expected to change frequently?", choices:["Waterfall","V-model","Spiral model","Agile"], page:20 },
+  { id:51, text:"In a certain system, the following configuration management activity involves tracking changes to the system. Which activity is this?", choices:["Configuration identification","Configuration control","Configuration status accounting","Configuration audit"], page:20 },
+  { id:52, text:"A company is implementing a new system. Which of the following is the most appropriate method for ensuring data migration accuracy?", choices:["Manual data entry","Automated data migration with validation checks","Copy and paste","Visual inspection only"], page:20 },
+  { id:53, text:"In a certain system, the following diagram shows the interactions between the system and its users. Which UML diagram is this?", choices:["Class diagram","Use case diagram","Sequence diagram","State diagram"], page:21 },
+  { id:54, text:"Which of the following is the most appropriate method for managing change requests in a software project?", choices:["Accept all requests immediately","A formal change control board process","Ignore requests","Let developers decide"], page:21 },
+  { id:55, text:"In a certain system, the following test case is designed to verify that the system rejects invalid input. Which type of test is this?", choices:["Unit test","Integration test","Negative test","Performance test"], page:21 },
+  { id:56, text:"A company wants to ensure that its systems are available 24/7. Which of the following is the most appropriate availability metric?", choices:["99.9% uptime","99.99% uptime","99% uptime","90% uptime"], page:22 },
+  { id:57, text:"In a certain system, the following diagram shows the flow of control from one activity to another. Which UML diagram is this?", choices:["Activity diagram","Sequence diagram","State diagram","Use case diagram"], page:22 },
+  { id:58, text:"Which of the following is the most appropriate method for ensuring that software meets its specified requirements?", choices:["Code review","Requirements traceability matrix","Unit testing","Performance testing"], page:22 },
+  { id:59, text:"In a certain project, the following metric is used to measure the efficiency of the testing process. Which metric is this?", choices:["Defect density","Test coverage","Defect removal efficiency","Mean time between failures"], page:23 },
+  { id:60, text:"A company is implementing a cloud-based system. Which of the following is the most important consideration for ensuring data privacy?", choices:["Data encryption at rest and in transit","Using the cheapest cloud provider","Minimizing the number of servers","Using open-source software"], page:23 },
+];
+
+const userAnswers = {};
+let currentMode = 'quiz';
+
+function getLetter(idx) { return String.fromCharCode(97 + idx); }
+
+function handleModeChange() {
+  currentMode = document.getElementById('mode').value;
+  document.getElementById('scoreDisplay').style.display = currentMode === 'quiz' ? 'block' : 'none';
+  renderQuestions();
+}
+
+function selectAnswer(qId, letter) {
+  if (currentMode !== 'quiz') return;
+  userAnswers[qId] = letter;
+  renderQuestions();
+}
+
+function resetQuiz() {
+  Object.keys(userAnswers).forEach(k => delete userAnswers[k]);
+  renderQuestions();
+}
+
+function renderQuestions() {
+  const filter = document.getElementById('filter').value;
+  const app = document.getElementById('app');
+
+  if (currentMode === 'pages') {
+    renderPageViewer(app);
+    updateScore();
+    return;
+  }
+
+  const showAnswers = currentMode === 'review';
+  let filtered = QUESTIONS;
+
+  if (filter === 'unanswered') filtered = QUESTIONS.filter(q => !userAnswers[q.id]);
+  if (filter === 'correct') filtered = QUESTIONS.filter(q => userAnswers[q.id] === ANSWERS[q.id]);
+  if (filter === 'wrong') filtered = QUESTIONS.filter(q => userAnswers[q.id] && userAnswers[q.id] !== ANSWERS[q.id]);
+
+  app.innerHTML = filtered.map(q => {
+    const correct = ANSWERS[q.id];
+    const userAns = userAnswers[q.id];
+    const answered = !!userAns;
+    const isCorrect = userAns === correct;
+    let cardClass = 'question-card';
+    if (answered && showAnswers) cardClass += isCorrect ? ' answered-correct' : ' answered-wrong';
+
+    const choicesHtml = q.choices.map((c, i) => {
+      const letter = getLetter(i);
+      let cls = 'choice';
+      if (answered && showAnswers) {
+        if (letter === correct) cls += ' correct';
+        else if (letter === userAns && !isCorrect) cls += ' wrong';
+      } else if (letter === userAns) {
+        cls += ' selected';
+      }
+      return `<div class="${cls}" onclick="selectAnswer(${q.id},'${letter}')">
+        <span class="choice-label">${letter}</span>
+        <span>${c}</span>
+      </div>`;
+    }).join('');
+
+    const imgHtml = q.hasImage ? `
+      <div class="question-image">
+        <img src="page-${String(q.imagePage).padStart(2,'0')}.png" alt="Question ${q.id} diagram" loading="lazy">
+        <div class="page-ref">Page ${q.imagePage} of original PDF</div>
+      </div>` : '';
+
+    const explanationHtml = showAnswers ? `
+      <div class="explanation show">
+        <strong>Correct answer: ${correct})</strong> — ${q.choices[correct.charCodeAt(0)-97]}
+      </div>` : '';
+
+    return `<div class="${cardClass}">
+      <div class="question-header">
+        <span class="question-number">Q${q.id}</span>
+        <span class="question-category">Page ${q.page}</span>
+      </div>
+      <div class="question-body">
+        <div class="question-text">${q.text}</div>
+        ${imgHtml}
+        <div class="choices">${choicesHtml}</div>
+        ${explanationHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  updateScore();
+}
+
+function renderPageViewer(app) {
+  const pages = 26;
+  app.innerHTML = `
+    <div class="page-viewer">
+      <h3>Original PDF Pages (rendered at 200 DPI)</h3>
+      <img id="pageImage" src="page-01.png" alt="PDF Page 1">
+      <div class="page-nav">
+        ${Array.from({length: pages}, (_, i) => `<button class="page-btn${i===0?' active':''}" onclick="showPage(${i+1})">${i+1}</button>`).join('')}
+      </div>
+    </div>`;
+}
+
+function showPage(n) {
+  document.getElementById('pageImage').src = `page-${String(n).padStart(2,'0')}.png`;
+  document.querySelectorAll('.page-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === n - 1);
+  });
+}
+
+function updateScore() {
+  const total = Object.keys(userAnswers).length;
+  const correct = Object.entries(userAnswers).filter(([k,v]) => ANSWERS[k] === v).length;
+  const el = document.getElementById('scoreDisplay');
+  if (total > 0) {
+    el.style.display = 'block';
+    el.textContent = `${correct} / ${total} (${Math.round(correct/total*100)}%)`;
+  } else {
+    el.style.display = currentMode === 'quiz' ? 'block' : 'none';
+    el.textContent = '0 / 0';
+  }
+}
+
+// Initial render
+renderQuestions();
+document.getElementById('scoreDisplay').style.display = 'block';
+</script>
+</body>
+</html>
