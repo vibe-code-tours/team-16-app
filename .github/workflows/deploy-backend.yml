@@ -60,11 +60,11 @@ jobs:
 
       - name: Write env-vars file
         run: |
-          printf '%s\n' \
-            "DATABASE_URL=${{ secrets.DATABASE_URL }}" \
-            "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" \
-            "SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" \
-            > /tmp/env-vars
+          cat <<EOF > /tmp/env-vars
+          DATABASE_URL: "${{ secrets.DATABASE_URL }}"
+          SUPABASE_URL: "${{ secrets.SUPABASE_URL }}"
+          SUPABASE_ANON_KEY: "${{ secrets.SUPABASE_ANON_KEY }}"
+          EOF
 
       - name: Deploy to Cloud Run
         run: |
