@@ -1,10 +1,10 @@
 package com.nerdquiz.config;
 
 import com.nimbusds.jose.JWSVerifier;
+import com.nimbusds.jose.crypto.ECDSAVerifier;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jwt.SignedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,8 +67,12 @@ public class JwtUtil {
                 if (jwk == null) {
                     throw new SecurityException("No matching key found for kid: " + kid);
                 }
-                RSAKey rsaKey = jwk.toRSAKey();
-                return new RSASSAVerifier(rsaKey);
+                return switch (jwk.getKeyType().getValue()) {
+                    case "RSA" -> new RSASSAVerifier(jwk.toRSAKey());
+                    case "EC" -> new ECDSAVerifier(jwk.toECKey());
+                    default -> throw new SecurityException(
+                            "Unsupported JWK key type: " + jwk.getKeyType());
+                };
             } catch (Exception e) {
                 throw new RuntimeException("Failed to create verifier for kid: " + kid, e);
             }
