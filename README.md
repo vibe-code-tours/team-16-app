@@ -77,6 +77,17 @@ VITE_SUPABASE_URL=your-supabase-url
 VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
 
+API requests proxy to `http://localhost:8080` (configured in `vite.config.ts`).
+
+### Backend
+VITE_SUPABASE_URL=your-supabase-url
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_your-key
+```
+
+Use the publishable key from Supabase **Project Settings → API Keys**. Never use
+an `sb_secret_...` or legacy `service_role` key in the frontend; Vite variables
+are bundled into browser-visible JavaScript.
+
 ### Dev mode (recommended for development)
 
 ```bash

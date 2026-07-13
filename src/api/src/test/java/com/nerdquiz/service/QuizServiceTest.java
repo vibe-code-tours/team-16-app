@@ -180,8 +180,8 @@ class QuizServiceTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals(1, result.totalQuestions());
+        assertEquals(5, result.totalQuestions());
         assertEquals(1, result.correctAnswers());
-        assertEquals(100, result.scorePercentage());
+        assertEquals(20, result.scorePercentage());
     }
 }

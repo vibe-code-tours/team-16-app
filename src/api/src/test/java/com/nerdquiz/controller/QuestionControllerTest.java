@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,6 +27,15 @@ class QuestionControllerTest {
 
     @MockitoBean
     private QuestionService questionService;
+
+    @MockitoBean
+    private com.nerdquiz.config.JwtUtil jwtUtil;
+
+    @MockitoBean
+    private com.nerdquiz.config.JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @MockitoBean
+    private com.nerdquiz.config.CorsConfig corsConfig;
 
     @Autowired
     private ObjectMapper objectMapper;
