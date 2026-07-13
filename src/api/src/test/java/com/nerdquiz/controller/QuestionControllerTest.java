@@ -1,13 +1,16 @@
 package com.nerdquiz.controller;
 
+import com.nerdquiz.config.CorsConfig;
+import com.nerdquiz.config.JwtUtil;
 import com.nerdquiz.dto.QuestionResponse;
 import com.nerdquiz.service.QuestionService;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.bean.MockBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -19,13 +22,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(QuestionController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@TestPropertySource(properties = {"supabase.url=https://test.supabase.co"})
 class QuestionControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private QuestionService questionService;
+
+    @MockitoBean
+    private JwtUtil jwtUtil;
+
+    @MockitoBean
+    private CorsConfig corsConfig;
 
     @Autowired
     private ObjectMapper objectMapper;

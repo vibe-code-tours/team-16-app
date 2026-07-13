@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
 import { useTopics } from '../hooks/useTopics'
 import { TopicNode } from '../components/features/TopicNode'
@@ -21,7 +22,8 @@ const CATEGORY_MARKER_BG: Record<TopicCategory, string> = {
 }
 
 export function LearningMap() {
-  const { user, signOut } = useAuth()
+  const { user } = useAuth()
+  const navigate = useNavigate()
   const { topics, loading, error } = useTopics()
 
   const topicsByCategory = useMemo(() => {
@@ -45,12 +47,48 @@ export function LearningMap() {
             <Stat icon="⚡" value={user?.total_xp ?? 0} tone="text-purple-600" label="XP" />
             <Stat icon="🔥" value={user?.streak_count ?? 0} tone="text-orange-500" label="Streak" />
             <button
-              onClick={signOut}
-              className="rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-50"
-              aria-label="Sign out"
+              onClick={() => navigate('/mistakes')}
+              className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
             >
-              Sign out
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C17.832 18.477 16.246 18 14.5 18s-3.332.477-4.5 1.253" />
+              </svg>
+              Mistake Garden
             </button>
+            <button
+              onClick={() => navigate('/exam')}
+              className="rounded-md bg-purple-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-purple-700 flex items-center gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Exam
+            </button>
+            <Link
+              to="/profile"
+              className="flex items-center gap-1.5 rounded-md px-2 py-1 text-gray-700 hover:bg-gray-50"
+              aria-label="View profile"
+            >
+              {user?.avatar_url && user.avatar_url.startsWith('http') ? (
+                <img
+                  src={user.avatar_url}
+                  alt=""
+                  className="h-5 w-5 rounded-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden')
+                  }}
+                />
+              ) : null}
+              <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 ${user?.avatar_url && user.avatar_url.startsWith('http') ? 'hidden' : ''}`}>
+                <svg className="h-3.5 w-3.5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </span>
+              <span className="hidden text-xs font-medium sm:inline">
+                {user?.display_name ?? 'Profile'}
+              </span>
+            </Link>
           </div>
         </div>
       </header>

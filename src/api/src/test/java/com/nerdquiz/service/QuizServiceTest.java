@@ -105,10 +105,10 @@ class QuizServiceTest {
         SubmitAnswerRequest request = new SubmitAnswerRequest(sampleQuestion.getId(), "b");
 
         // Act
-        QuizAnswer result = quizService.submitAnswer(userId, sessionId, request);
+        QuizAnswerResponse result = quizService.submitAnswer(userId, sessionId, request);
 
         // Assert
-        assertTrue(result.getIsCorrect());
+        assertTrue(result.isCorrect());
         assertEquals(1, sampleSession.getScore());
         assertEquals(10, sampleSession.getXpEarned());
     }
@@ -128,10 +128,10 @@ class QuizServiceTest {
         SubmitAnswerRequest request = new SubmitAnswerRequest(sampleQuestion.getId(), "a");
 
         // Act
-        QuizAnswer result = quizService.submitAnswer(userId, sessionId, request);
+        QuizAnswerResponse result = quizService.submitAnswer(userId, sessionId, request);
 
         // Assert
-        assertFalse(result.getIsCorrect());
+        assertFalse(result.isCorrect());
         assertEquals(0, sampleSession.getScore());
         assertEquals(0, sampleSession.getXpEarned());
     }
@@ -163,6 +163,7 @@ class QuizServiceTest {
     @Test
     void getResult_ReturnsQuizResult() {
         // Arrange
+        sampleSession.setQuestionCount(1);
         QuizAnswer answer = new QuizAnswer();
         answer.setQuestionId(sampleQuestion.getId());
         answer.setUserAnswer("b");
@@ -172,8 +173,8 @@ class QuizServiceTest {
                 .thenReturn(Optional.of(sampleSession));
         when(quizAnswerRepository.findByQuizSessionId(sessionId))
                 .thenReturn(List.of(answer));
-        when(questionRepository.findById(sampleQuestion.getId()))
-                .thenReturn(Optional.of(sampleQuestion));
+        when(questionRepository.findByIdIn(List.of(sampleQuestion.getId())))
+                .thenReturn(List.of(sampleQuestion));
 
         // Act
         QuizResultResponse result = quizService.getResult(userId, sessionId);
