@@ -3,6 +3,14 @@ export interface Choice {
   text: string;
 }
 
+export interface ContentBlock {
+  type: 'text' | 'markdown' | 'code' | 'table';
+  text?: string;           // for text/markdown/code types
+  language?: string;       // for code type
+  headers?: string[];      // for table type
+  rows?: string[][];       // for table type
+}
+
 export interface Question {
   id: string;
   exam_session: string;
@@ -11,6 +19,7 @@ export interface Question {
   topic_category: string;
   difficulty: 'easy' | 'medium' | 'hard';
   question_text: string;
+  content_blocks?: ContentBlock[];
   images?: { url: string; alt: string }[];
   choices: Choice[];
   correct_answer: string;

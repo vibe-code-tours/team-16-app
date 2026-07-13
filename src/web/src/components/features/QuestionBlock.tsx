@@ -1,8 +1,64 @@
 import ReactMarkdown from 'react-markdown';
-import type { Question } from '../../types/Quiz';
+import type { Question, ContentBlock } from '../../types/Quiz';
 
 interface QuestionBlockProps {
   question: Question;
+}
+
+function ContentBlockRenderer({ block }: { block: ContentBlock }) {
+  switch (block.type) {
+    case 'text':
+    case 'markdown':
+      return (
+        <div className="prose prose-sm max-w-none">
+          <ReactMarkdown>{block.text || ''}</ReactMarkdown>
+        </div>
+      );
+    case 'code':
+      return (
+        <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto text-sm">
+          <code className={block.language ? `language-${block.language}` : ''}>
+            {block.text}
+          </code>
+        </pre>
+      );
+    case 'table':
+      if (!block.headers || !block.rows) return null;
+      return (
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 border">
+            <thead className="bg-gray-50">
+              <tr>
+                {block.headers.map((header, i) => (
+                  <th
+                    key={i}
+                    className="px-4 py-2 text-left text-sm font-medium text-gray-700 border"
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {block.rows.map((row, rowIdx) => (
+                <tr key={rowIdx} className="bg-white">
+                  {row.map((cell, cellIdx) => (
+                    <td
+                      key={cellIdx}
+                      className="px-4 py-2 text-sm text-gray-900 border"
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    default:
+      return null;
+  }
 }
 
 export function QuestionBlock({ question }: QuestionBlockProps) {
@@ -33,6 +89,15 @@ export function QuestionBlock({ question }: QuestionBlockProps) {
       <div className="prose prose-sm max-w-none">
         <ReactMarkdown>{question.question_text}</ReactMarkdown>
       </div>
+
+      {/* Content blocks if present */}
+      {question.content_blocks && question.content_blocks.length > 0 && (
+        <div className="space-y-3">
+          {question.content_blocks.map((block, idx) => (
+            <ContentBlockRenderer key={idx} block={block} />
+          ))}
+        </div>
+      )}
 
       {/* Images if present */}
       {question.images && question.images.length > 0 && (
