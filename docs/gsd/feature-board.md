@@ -18,12 +18,11 @@
 | 12 | Mobile responsiveness | | Not started | All screens 360px+ |
 | 13 | Data extraction | Myat | Done | 2021 April A+B seeded (68 questions), pipeline ready for remaining terms |
 | 14 | Database schema + seed | Myat | Done | 001_initial_schema.sql + 2021 April A+B seed deployed to Supabase |
-| 15 | CI/CD setup | | Not started | GitHub Actions deployment |
+| 15 | CI/CD setup | Myo Min Lin | Finished | GitHub Actions deployment |
 | 16 | Flashcards | | Week 2 stretch |
 | 17 | Weak point analysis | | Week 2 stretch |
 | 18 | Additional exams | | Week 2 stretch |
-| 19 | Frontend Dockerization | Myo Min Lin | In progress | Multi-stage Dockerfile (Node 20 + nginx:alpine), SPA routing, `/api` proxy to backend, dual-mode compose. [Issue #11](https://github.com/vibe-code-tours/team-16-app/issues/11) |
-| 20 | Backend Dockerization | | Not started | Multi-stage Dockerfile (Gradle + Java 25), docker-compose.yml orchestrating backend + Supabase local. [Issue #12](https://github.com/vibe-code-tours/team-16-app/issues/12) |
+| 19 | Backend Dockerization | Myo Min Lin | Finished | Multi-stage Dockerfile (Gradle + Java 25), docker-compose.yml orchestrating backend + Supabase local. [Issue #12](https://github.com/vibe-code-tours/team-16-app/issues/12) |
 
 ## Week 1 target: #1–15 functional (local demo)
 ## Week 2 target: #16–20 + polish (public demo)
