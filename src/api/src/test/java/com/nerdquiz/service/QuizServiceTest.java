@@ -172,8 +172,8 @@ class QuizServiceTest {
                 .thenReturn(Optional.of(sampleSession));
         when(quizAnswerRepository.findByQuizSessionId(sessionId))
                 .thenReturn(List.of(answer));
-        when(questionRepository.findById(sampleQuestion.getId()))
-                .thenReturn(Optional.of(sampleQuestion));
+        when(questionRepository.findByIdIn(List.of(sampleQuestion.getId())))
+                .thenReturn(List.of(sampleQuestion));
 
         // Act
         QuizResultResponse result = quizService.getResult(userId, sessionId);
