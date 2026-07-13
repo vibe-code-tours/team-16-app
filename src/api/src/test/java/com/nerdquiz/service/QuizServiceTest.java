@@ -163,6 +163,7 @@ class QuizServiceTest {
     @Test
     void getResult_ReturnsQuizResult() {
         // Arrange
+        sampleSession.setQuestionCount(1);
         QuizAnswer answer = new QuizAnswer();
         answer.setQuestionId(sampleQuestion.getId());
         answer.setUserAnswer("b");

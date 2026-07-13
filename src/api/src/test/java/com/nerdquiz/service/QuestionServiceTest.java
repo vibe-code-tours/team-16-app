@@ -35,8 +35,20 @@ class QuestionServiceTest {
     private Question sampleQuestion;
 
     @BeforeEach
-    void setUp() throws Exception {
-        // Configure ObjectMapper mock to parse JSON strings
+    void setUp() {
+        sampleQuestion = new Question();
+        sampleQuestion.setId(UUID.randomUUID());
+        sampleQuestion.setExamSession("2025-october");
+        sampleQuestion.setSubject("A");
+        sampleQuestion.setQuestionNumber(1);
+        sampleQuestion.setQuestionText("What is 2 + 2?");
+        sampleQuestion.setChoices("[{\"label\":\"a\",\"text\":\"3\"},{\"label\":\"b\",\"text\":\"4\"}]");
+        sampleQuestion.setCorrectAnswer("b");
+        sampleQuestion.setDifficulty("easy");
+        sampleQuestion.setImages("[]");
+    }
+
+    private void stubObjectMapper() throws Exception {
         ObjectMapper realMapper = new ObjectMapper();
         ArrayNode emptyArray = realMapper.createArrayNode();
         ArrayNode choicesArray = realMapper.createArrayNode();
@@ -51,22 +63,12 @@ class QuestionServiceTest {
         when(objectMapper.readTree("[]")).thenReturn(emptyArray);
         when(objectMapper.readTree("[{\"label\":\"a\",\"text\":\"3\"},{\"label\":\"b\",\"text\":\"4\"}]"))
                 .thenReturn(choicesArray);
-
-        sampleQuestion = new Question();
-        sampleQuestion.setId(UUID.randomUUID());
-        sampleQuestion.setExamSession("2025-october");
-        sampleQuestion.setSubject("A");
-        sampleQuestion.setQuestionNumber(1);
-        sampleQuestion.setQuestionText("What is 2 + 2?");
-        sampleQuestion.setChoices("[{\"label\":\"a\",\"text\":\"3\"},{\"label\":\"b\",\"text\":\"4\"}]");
-        sampleQuestion.setCorrectAnswer("b");
-        sampleQuestion.setDifficulty("easy");
-        sampleQuestion.setImages("[]");
     }
 
     @Test
-    void getRandomQuestions_ReturnsQuestions() {
+    void getRandomQuestions_ReturnsQuestions() throws Exception {
         // Arrange
+        stubObjectMapper();
         when(questionRepository.findRandomQuestions(anyInt()))
                 .thenReturn(List.of(sampleQuestion));
 
@@ -95,8 +97,9 @@ class QuestionServiceTest {
     }
 
     @Test
-    void getByExamSession_ReturnsFilteredQuestions() {
+    void getByExamSession_ReturnsFilteredQuestions() throws Exception {
         // Arrange
+        stubObjectMapper();
         when(questionRepository.findByExamSessionAndSubject("2025-october", "A"))
                 .thenReturn(List.of(sampleQuestion));
 

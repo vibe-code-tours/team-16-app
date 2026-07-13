@@ -1,5 +1,7 @@
 package com.nerdquiz.controller;
 
+import com.nerdquiz.config.CorsConfig;
+import com.nerdquiz.config.JwtUtil;
 import com.nerdquiz.dto.QuestionResponse;
 import com.nerdquiz.service.QuestionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,6 +29,12 @@ class QuestionControllerTest {
 
     @MockitoBean
     private QuestionService questionService;
+
+    @MockitoBean
+    private JwtUtil jwtUtil;
+
+    @MockitoBean
+    private CorsConfig corsConfig;
 
     @Autowired
     private ObjectMapper objectMapper;
