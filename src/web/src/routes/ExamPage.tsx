@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
 import { supabase } from '../lib/supabase'
-import type { Question } from '../types'
+import type { Question } from '../types/Quiz'
 
 const EXAM_DURATION_MINUTES = 60
 const TOTAL_QUESTIONS = 60
@@ -122,7 +122,6 @@ export function ExamPage() {
 
   const handleFinish = useCallback(async () => {
     const correctCount = questions.filter(q => q.isCorrect).length
-    const score = Math.round((correctCount / questions.length) * 100)
     const xpEarned = correctCount * 10
 
     if (user) {
@@ -353,7 +352,7 @@ export function ExamPage() {
           </h2>
           
           <div className="space-y-3">
-            {current.question.choices && JSON.parse(current.question.choices).map((choice: { label: string; text: string }) => {
+            {current.question.choices && current.question.choices.map((choice) => {
               const isSelected = current.selectedAnswer === choice.label
               const showFeedback = submitted
               const isCorrect = choice.label === current.question.correct_answer
