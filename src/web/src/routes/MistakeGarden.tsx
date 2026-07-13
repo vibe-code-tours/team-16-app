@@ -72,29 +72,13 @@ export function MistakeGarden() {
   }, [user])
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
-          <button 
-            onClick={() => navigate('/map')}
-            className="text-purple-600 hover:text-purple-800 flex items-center gap-2 font-medium"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 010 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-            </svg>
-            Back to Map
-          </button>
-          <h1 className="text-xl font-bold text-gray-900">Mistake Garden</h1>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-4xl px-4 py-8">
-        <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Your Mistake Garden</h2>
-          <p className="text-gray-500">
-            Every mistake is a seed for growth. Review your wrong answers to master the material.
-          </p>
-        </div>
+    <div>
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Your Mistake Garden</h1>
+        <p className="text-gray-500">
+          Every mistake is a seed for growth. Review your wrong answers to master the material.
+        </p>
+      </div>
 
         {loading ? (
           <div className="flex justify-center py-12">
@@ -144,7 +128,6 @@ export function MistakeGarden() {
             ))}
           </div>
         )}
-      </main>
     </div>
   )
 }
