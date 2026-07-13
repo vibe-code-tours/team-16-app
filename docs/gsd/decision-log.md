@@ -20,3 +20,4 @@ _(Move completed entries here with a link to the ADR)_
 | Supabase as database | [ADR-0004](../decisions/0004-supabase-as-database.md) |
 | Supabase Auth for login | [ADR-0005](../decisions/0005-supabase-auth-for-login.md) |
 | Supabase CLI + Docker for local dev DB | [ADR-0006](../decisions/0006-local-dev-database-docker.md) |
+| Deployment architecture (Netlify + Cloud Run) | [ADR-0008](../decisions/0008-deployment-architecture.md) |

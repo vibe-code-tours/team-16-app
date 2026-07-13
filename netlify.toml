@@ -1,0 +1,8 @@
+# Netlify configuration for NerdQuiz frontend.
+# Build happens in GitHub Actions; this file configures SPA routing.
+
+# SPA fallback — all routes serve index.html for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -55,49 +55,34 @@ Open http://localhost:5100 in your browser.
 
 ---
 
-## Docker Setup
+## Local Development
 
-The frontend can run in two Docker modes — **dev** (Vite hot reload) and **production** (nginx).
-
-### Prerequisites
-
-- Docker Desktop installed and running
-  - **Windows:** Enable WSL 2 integration (Settings → General → "Use the WSL 2 based engine")
-  - **Linux:** Ensure your user has Docker access: `sudo usermod -aG docker $USER` then reopen terminal
-  - **macOS:** No extra setup needed — Docker Desktop works out of the box
-- Supabase CLI running (`supabase start`) for local database access
-- Backend running outside Docker (`./gradlew bootRun`) for API proxy
-
-### Environment variables
-
-Docker Compose reads from `src/web/.env`. Required vars:
+### Frontend
 
 ```bash
-VITE_SUPABASE_URL=your-supabase-url
-VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+cd src/web
+npm install
+npm run dev                 # Vite dev server on http://localhost:5100
 ```
 
-### Dev mode (recommended for development)
+API requests proxy to `http://localhost:8080` (configured in `vite.config.ts`).
+
+### Backend
 
 ```bash
-docker compose --profile dev up
+cd src/api
+./gradlew bootRun           # Spring Boot on http://localhost:8080
 ```
 
-- Vite dev server with **hot reload** on http://localhost:5100
-- Source files are volume-mounted — edits reflect instantly
-- API requests proxy to http://localhost:8080 (run backend outside Docker with `./gradlew bootRun`)
+### Backend (Docker alternative)
 
-### Production mode (nginx)
+If you prefer running the backend in Docker:
 
 ```bash
-docker compose --profile production up
+docker compose up           # builds and runs Spring Boot on http://localhost:8080
 ```
 
-- Builds the React app and serves via **nginx** on http://localhost
-- SPA routing works out of the box (`/map`, `/login`, etc. all serve `index.html`)
-- `/api/*` requests proxied to the backend container
-
-> **Note:** The production profile requires the backend Dockerfile (Issue #12). Until then, run the backend outside Docker.
+Requires a running Postgres instance (Supabase CLI or external).
 
 ---
 
@@ -123,8 +108,9 @@ Find your project ref in Supabase Dashboard → **Settings** → **General** →
 | Backend | Java 25, Spring Boot |
 | Database | Supabase (Postgres) |
 | Auth | Supabase Auth (JWT) |
-| Container | nginx (frontend), Docker Compose (orchestration) |
-| Local dev | Supabase CLI + Docker |
+| Frontend deploy | Netlify (static hosting, CDN) |
+| Backend deploy | Docker → Cloud Run / Render |
+| Local dev | Supabase CLI + npm + Gradle |
 
 ## Project structure
 
@@ -132,8 +118,8 @@ Find your project ref in Supabase Dashboard → **Settings** → **General** →
 |---|---|
 | `src/api/` | Spring Boot REST API |
 | `src/web/` | React SPA (Vite) |
-| `src/web/nginx/` | nginx config for Docker production mode |
-| `docker-compose.yml` | Docker Compose with dev and production profiles |
+| `docker-compose.yml` | Backend Docker setup (Spring Boot) |
+| `netlify.toml` | Frontend deployment config (Netlify) |
 | `supabase/` | Migrations, seed data, config |
 | `docs/` | ARCHITECTURE.md, REQUIREMENTS.md, decision records |
 | `docs/gsd/` | How-we-work, feature board, architecture boundaries |
@@ -154,6 +140,8 @@ Find your project ref in Supabase Dashboard → **Settings** → **General** →
 | `.github/workflows/ci.yml` | lint · typecheck · test · build on every PR |
 | `.github/workflows/security.yml` | gitleaks (leaked keys) + semgrep (SAST) — advisory |
 | `.github/dependabot.yml` | weekly PRs for vulnerable / outdated dependencies |
+| `netlify.toml` | Frontend deploy config (SPA routing, build settings) |
+| `docker-compose.yml` | Backend Docker setup for local/production |
 | `.env.example` | secret hygiene — copy to `.env`, never commit real keys |
 | `.github/pull_request_template.md` · `ISSUE_TEMPLATE/` · `CODEOWNERS` | small reviewed PRs, one-owner issues |
 | `docs/ARCHITECTURE.md` · `docs/decisions/` | a 1-page overview + lightweight ADRs |

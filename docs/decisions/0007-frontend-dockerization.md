@@ -1,6 +1,6 @@
 # 7. Frontend Dockerization Strategy
 
-- Status: accepted
+- Status: superseded by [ADR-0008](0008-deployment-architecture.md)
 - Date: 2026-07-11
 
 ## Context
