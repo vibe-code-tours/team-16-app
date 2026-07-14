@@ -51,3 +51,6 @@ supabase/.branches/
 .claude/hooks/
 .githooks/
 *Zone.Identifier
+
+*.webp
+*.pdf
