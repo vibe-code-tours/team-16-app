@@ -1,155 +1,142 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../hooks/useAuth.tsx'
 import { supabase } from '../lib/supabase'
-import type { QuestionChoice } from '../types'
 
-interface MistakeRow {
-  id: string
-  last_missed_at: string
-  last_user_answer: string | null
-  resolved_at: string | null
-  questions: {
-    id: string
-    question_text: string
-    choices: QuestionChoice[]
-    correct_answer: string
-    explanation: string | null
-  } | null
+interface Choice {
+  label: string
+  text: string
 }
 
-function choiceText(choices: QuestionChoice[] | null | undefined, label: string | null): string {
-  if (!label || !choices) return 'N/A'
-  const found = choices.find((c) => c.label === label)
-  return found ? `${label.toUpperCase()}. ${found.text}` : label
+interface ItpecQuestion {
+  id: string
+  question_text: string
+  choices: Choice[]
+  correct_answer: string
+  explanation: string | null
+}
+
+interface Mistake {
+  id: string
+  created_at: string
+  selected_label: string
+  questions: ItpecQuestion
 }
 
 export function MistakeGarden() {
   const { user } = useAuth()
-  const navigate = useNavigate()
-  const [mistakes, setMistakes] = useState<MistakeRow[]>([])
+  const [mistakes, setMistakes] = useState<Mistake[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!user) return
-    let cancelled = false
-
-    async function load() {
+    async function fetchMistakes() {
       setLoading(true)
-      const { data, error } = await supabase
-        .from('mistakes')
-        .select(
-          'id, last_missed_at, last_user_answer, resolved_at, questions:question_id (id, question_text, choices, correct_answer, explanation)'
-        )
-        .eq('user_id', user!.id)
-        .is('resolved_at', null)
-        .order('last_missed_at', { ascending: false })
 
-      if (cancelled) return
+      const { data, error } = await supabase
+        .from('user_mistakes')
+        .select(`
+          id,
+          created_at,
+          selected_label,
+          questions (
+            id,
+            question_text,
+            choices,
+            correct_answer,
+            explanation
+          )
+        `)
+        .eq('user_id', user?.id)
+        .order('created_at', { ascending: false })
+
       if (error) {
         console.error('Error fetching mistakes:', error.message)
-        setMistakes([])
       } else {
-        setMistakes((data ?? []) as unknown as MistakeRow[])
+        setMistakes(data || [])
       }
       setLoading(false)
     }
 
-    load()
-    return () => {
-      cancelled = true
+    if (user) {
+      fetchMistakes()
     }
   }, [user])
 
-  const markResolved = async (mistakeId: string) => {
-    await supabase.from('mistakes').update({ resolved_at: new Date().toISOString() }).eq('id', mistakeId)
-    setMistakes((prev) => prev.filter((m) => m.id !== mistakeId))
+  const getChoiceText = (question: ItpecQuestion, label: string) => {
+    const choice = question.choices?.find((c) => c.label === label)
+    return choice?.text || label
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
-          <button
-            onClick={() => navigate('/map')}
-            className="flex items-center gap-2 font-medium text-purple-600 hover:text-purple-800"
-          >
-            ← Back to Map
-          </button>
-          <h1 className="text-xl font-bold text-gray-900">Mistake Garden</h1>
-        </div>
-      </header>
+    <div>
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Your Mistake Garden</h1>
+        <p className="text-gray-500">
+          Every mistake is a seed for growth. Review your wrong answers to master the material.
+        </p>
+      </div>
 
-      <main className="mx-auto max-w-4xl px-4 py-8">
-        <div className="mb-8 text-center">
-          <h2 className="mb-2 text-3xl font-bold text-gray-900">Your Mistake Garden</h2>
-          <p className="text-gray-500">
-            Every mistake is a seed for growth. Review your wrong answers to master the material.
-          </p>
+      {loading ? (
+        <div className="flex justify-center py-12">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
         </div>
-
-        {loading ? (
-          <div className="flex justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-purple-600" />
-          </div>
-        ) : mistakes.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-gray-300 bg-white py-20 text-center">
-            <div className="mb-4 text-5xl">🌱</div>
-            <h3 className="mb-2 text-xl font-semibold text-gray-900">Your garden is empty!</h3>
-            <p className="text-gray-500">You haven't made any mistakes yet. Keep studying!</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6">
-            {mistakes.map((mistake) => (
-              <div
-                key={mistake.id}
-                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
-              >
-                <div className="mb-4 flex items-start justify-between">
+      ) : mistakes.length === 0 ? (
+        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300">
+          <div className="text-5xl mb-4">🌱</div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Your garden is empty!</h3>
+          <p className="text-gray-500">You haven't made any mistakes yet. Keep studying!</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-6">
+          {mistakes.map((mistake) => {
+            const q = mistake.questions
+            return (
+              <div key={mistake.id} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                <div className="flex items-start justify-between mb-4">
                   <div className="text-sm text-gray-400">
-                    {new Date(mistake.last_missed_at).toLocaleDateString()}
+                    {new Date(mistake.created_at).toLocaleDateString()}
                   </div>
                   <button
-                    onClick={() => markResolved(mistake.id)}
-                    className="rounded bg-green-50 px-2 py-1 text-xs font-medium text-green-600 hover:text-green-700"
+                    onClick={async () => {
+                      await supabase.from('user_mistakes').update({ reviewed: true }).eq('id', mistake.id)
+                      setMistakes((prev) => prev.filter((m) => m.id !== mistake.id))
+                    }}
+                    className="text-xs font-medium text-green-600 hover:text-green-700 bg-green-50 px-2 py-1 rounded"
                   >
                     Mark as Reviewed
                   </button>
                 </div>
 
                 <div className="mb-4">
-                  <p className="mb-1 text-sm font-medium text-gray-500">Question</p>
-                  <p className="whitespace-pre-line text-base text-gray-900">
-                    {mistake.questions?.question_text ?? '(question unavailable)'}
-                  </p>
+                  <p className="text-sm font-medium text-gray-500 mb-1">Question</p>
+                  <p className="text-lg text-gray-900">{q?.question_text}</p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-xl border border-red-100 bg-red-50 p-4">
-                    <p className="mb-1 text-xs font-bold uppercase text-red-600">Your answer</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-red-50 border border-red-100">
+                    <p className="text-xs font-bold text-red-600 uppercase mb-1">Your Answer</p>
                     <p className="text-gray-700">
-                      {choiceText(mistake.questions?.choices, mistake.last_user_answer)}
+                      {mistake.selected_label}. {getChoiceText(q, mistake.selected_label)}
                     </p>
                   </div>
-                  <div className="rounded-xl border border-green-100 bg-green-50 p-4">
-                    <p className="mb-1 text-xs font-bold uppercase text-green-600">Correct answer</p>
+                  <div className="p-4 rounded-xl bg-green-50 border border-green-100">
+                    <p className="text-xs font-bold text-green-600 uppercase mb-1">Correct Answer</p>
                     <p className="text-gray-700">
-                      {choiceText(mistake.questions?.choices, mistake.questions?.correct_answer ?? null)}
+                      {q?.correct_answer}. {getChoiceText(q, q?.correct_answer || '')}
                     </p>
                   </div>
                 </div>
 
-                {mistake.questions?.explanation ? (
-                  <div className="mt-4 rounded-xl bg-gray-50 p-4">
-                    <p className="mb-1 text-xs font-bold uppercase text-gray-600">Explanation</p>
-                    <p className="text-sm text-gray-700">{mistake.questions.explanation}</p>
+                {q?.explanation && (
+                  <div className="mt-4 p-3 rounded-lg bg-blue-50 border border-blue-100">
+                    <p className="text-xs font-bold text-blue-600 uppercase mb-1">Explanation</p>
+                    <p className="text-sm text-blue-700">{q.explanation}</p>
                   </div>
-                ) : null}
+                )}
               </div>
-            ))}
-          </div>
-        )}
-      </main>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }

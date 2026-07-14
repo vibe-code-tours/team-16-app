@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./hooks/useAuth.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Layout } from "./components/layout";
 import { LandingPage } from "./routes/LandingPage";
 import { LoginPage } from "./routes/LoginPage";
 import { RegisterPage } from "./routes/RegisterPage";
@@ -18,18 +19,20 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Public routes */}
+          {/* Public routes - no layout */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/ai-draft" element={<AiDraftPreview />} />
 
-          {/* Protected routes */}
+          {/* Protected routes - with layout */}
           <Route
             path="/map"
             element={
               <ProtectedRoute>
-                <LearningMap />
+                <Layout>
+                  <LearningMap />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -37,7 +40,9 @@ export default function App() {
             path="/map/:topicId"
             element={
               <ProtectedRoute>
-                <TopicDetail />
+                <Layout>
+                  <TopicDetail />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -45,7 +50,9 @@ export default function App() {
             path="/lesson/:lessonId"
             element={
               <ProtectedRoute>
-                <LessonPage />
+                <Layout>
+                  <LessonPage />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -53,7 +60,9 @@ export default function App() {
             path="/quiz/:subtopicId"
             element={
               <ProtectedRoute>
-                <QuizPage />
+                <Layout>
+                  <QuizPage />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -61,7 +70,9 @@ export default function App() {
             path="/mistakes"
             element={
               <ProtectedRoute>
-                <MistakeGarden />
+                <Layout>
+                  <MistakeGarden />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -69,7 +80,9 @@ export default function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <UserProfile />
+                <Layout>
+                  <UserProfile />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -77,7 +90,9 @@ export default function App() {
             path="/exam"
             element={
               <ProtectedRoute>
-                <ExamPage />
+                <Layout showSidebar={false}>
+                  <ExamPage />
+                </Layout>
               </ProtectedRoute>
             }
           />

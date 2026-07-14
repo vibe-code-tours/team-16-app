@@ -22,30 +22,6 @@ export interface AuthContextType {
   refreshUser: () => Promise<void>
 }
 
-export interface Topic {
-  id: string
-  title: string
-  description: string | null
-  created_at: string
-  updated_at: string
-}
-
-export interface Lesson {
-  id: string
-  topic_id: string
-  content: string
-  created_at: string
-  updated_at: string
-}
-
-export interface Quiz {
-  id: string
-  topic_id: string
-  lesson_id: string | null
-  created_at: string
-  updated_at: string
-}
-
 export interface QuestionChoice {
   label: string
   text: string

@@ -88,17 +88,11 @@ export function QuizPage() {
     }
 
     if (!user) return
-    const nowIso = new Date().toISOString()
-    await supabase.from('mistakes').upsert(
-      {
-        user_id: user.id,
-        question_id: currentQuestion.id,
-        source: 'quiz',
-        last_user_answer: selectedLabel,
-        last_missed_at: nowIso,
-      },
-      { onConflict: 'user_id,question_id', ignoreDuplicates: false }
-    )
+    await supabase.from('user_mistakes').insert({
+      user_id: user.id,
+      question_id: currentQuestion.id,
+      selected_label: selectedLabel,
+    })
   }
 
   const handleNext = async () => {
