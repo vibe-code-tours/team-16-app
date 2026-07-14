@@ -84,36 +84,36 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | | Pending |
-| AUTH-02 | | Pending |
-| AUTH-03 | | Pending |
-| AUTH-04 | | Pending |
-| AUTH-05 | | Pending |
-| AUTH-06 | | Pending |
-| STAT-01 | | Pending |
-| STAT-02 | | Pending |
-| STAT-03 | | Pending |
-| STAT-04 | | Pending |
-| ANAL-01 | | Pending |
-| ANAL-02 | | Pending |
-| ANAL-03 | | Pending |
-| USER-01 | | Pending |
-| USER-02 | | Pending |
-| USER-03 | | Pending |
-| USER-04 | | Pending |
-| USER-05 | | Pending |
-| USER-06 | | Pending |
-| ROLE-01 | | Pending |
-| ROLE-02 | | Pending |
-| ROLE-03 | | Pending |
-| ROLE-04 | | Pending |
-| ROLE-05 | | Pending |
+| AUTH-01 | 1 | Pending |
+| AUTH-02 | 1 | Pending |
+| AUTH-03 | 1 | Pending |
+| AUTH-04 | 1 | Pending |
+| AUTH-05 | 1 | Pending |
+| AUTH-06 | 1 | Pending |
+| STAT-01 | 2 | Pending |
+| STAT-02 | 2 | Pending |
+| STAT-03 | 3 | Pending |
+| STAT-04 | 3 | Pending |
+| ANAL-01 | 3 | Pending |
+| ANAL-02 | 3 | Pending |
+| ANAL-03 | 3 | Pending |
+| USER-01 | 2 | Pending |
+| USER-02 | 2 | Pending |
+| USER-03 | 2 | Pending |
+| USER-04 | 2 | Pending |
+| USER-05 | 3 | Pending |
+| USER-06 | 3 | Pending |
+| ROLE-01 | 2 | Pending |
+| ROLE-02 | 2 | Pending |
+| ROLE-03 | 2 | Pending |
+| ROLE-04 | 4 | Pending |
+| ROLE-05 | 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 24 total
-- Mapped to phases: 0
-- Unmapped: 24 ⚠️
+- Mapped to phases: 24
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-07-15*
-*Last updated: 2026-07-15 after initial definition*
+*Last updated: 2026-07-15 after roadmap creation*
