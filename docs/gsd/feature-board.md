@@ -6,8 +6,8 @@
 |---|---------|-------|--------|-------|
 | 1 | User registration & login | Sandar Win| Finished | Supabase Auth (email + Google) |
 | 2 | Learning map | Htet Lin Ko | In progress | Wired to Supabase (topics/subtopics/mastery); topic detail pages are placeholder |
-| 3 | Short lessons |Ye Min Ko| Done | 2-3 min reading notes per topic |
-| 4 | 5-question quizzes | | Done | Instant feedback, per-topic |
+| 3 | Short lessons | YE MIN KO | Done | 2-3 min reading notes per topic |
+| 4 | 5-question quizzes | YE MIN KO | Done | Instant feedback, per-topic |
 | 5 | XP tracking | | Done | Earn per correct answer |
 | 6 | Hearts (exam sim) | | Not started | Only active during exam simulation |
 | 7 | Streak tracking | | Done | Daily login streak |
