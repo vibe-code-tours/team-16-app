@@ -152,9 +152,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return {}
   }, [user])
 
+  const refreshUser = useCallback(async () => {
+    if (!user) return
+    const { data, error } = await supabase
+      .from('user_profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single()
+    if (!error && data) setUser(data)
+  }, [user])
+
   return (
     <AuthContext.Provider
-      value={{ user, session, loading, signIn, signUp, signInWithGoogle, signOut, updateProfile }}
+      value={{ user, session, loading, signIn, signUp, signInWithGoogle, signOut, updateProfile, refreshUser }}
     >
       {children}
     </AuthContext.Provider>
