@@ -1,5 +1,8 @@
 # Mid-point Review — NerdQuiz
 
+> ⚠️ **Historical document** — reflects the state at mid-point (Week 1). For current
+> status, see `docs/gsd/feature-board.md` (last synced 2026-07-15).
+
 ## 1. Current Progress (End of Week 1 / Mid-point)
 
 We have successfully implemented the core learning loop. The application is functional and allows a user to move from registration to learning and practice.
@@ -11,11 +14,11 @@ We have successfully implemented the core learning loop. The application is func
 - [x] **Topic Quizzes**: 5-question quizzes with instant feedback.
 - [x] **XP System**: Progress tracking via XP earned per correct answer.
 - [x] **Mistake Garden**: Collection and review system for wrong answers.
-- [x] **Content Seeding**: 8+ core ITPEC FE topics seeded with lessons and questions.
+- [x] **Content Seeding**: 20 subtopics across 5 categories seeded with lessons and questions.
 
 ### Technical Stack Validation:
-- **Frontend**: React + Tailwind + React Router v7.
-- **Backend**: Supabase (Postgres + Auth + RLS) for data; Java/Spring Boot for API (partially utilized, moving towards more Supabase direct calls for speed).
+- **Frontend**: React 19 + Tailwind CSS v4 + React Router v7.
+- **Backend**: Spring Boot 3.5.9 (Java 25) for REST API + Supabase (Postgres + Auth + RLS).
 - **Infrastructure**: GitHub Actions for CI.
 
 ---

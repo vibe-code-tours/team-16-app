@@ -2,16 +2,14 @@
 
 > Open votes the team needs to resolve. Once decided, create an ADR in `docs/decisions/`
 > and replace this entry with "→ see ADR-000X".
+> Last synced with codebase: 2026-07-15
 
 | # | Decision | Options | Suggestion | Status | ADR |
 |---|----------|---------|------------|--------|-----|
-| D1 | How many exams for demo? | 2 / 3 / 4 sessions | 3 sessions (~180 Subject-A questions) | Pending | — |
-| D2 | Who handles data extraction? | Dedicated pair / Everyone takes turns | 2 people dedicated, others review | Pending | — |
+| D2 | Who handles data extraction? | Dedicated pair / Everyone takes turns | 2 people dedicated, others review | Pending (Myat owns extraction — 3 sessions seeded) | — |
 | D3 | Mascot design | AI-generated / Hand-drawn / Free asset | AI-generated (fast, cute, unique) | Pending | — |
 
 ## Resolved decisions
-
-_(Move completed entries here with a link to the ADR)_
 
 | Decision | ADR |
 |----------|-----|
@@ -21,3 +19,4 @@ _(Move completed entries here with a link to the ADR)_
 | Supabase Auth for login | [ADR-0005](../decisions/0005-supabase-auth-for-login.md) |
 | Supabase CLI + Docker for local dev DB | [ADR-0006](../decisions/0006-local-dev-database-docker.md) |
 | Deployment architecture (Netlify + Cloud Run) | [ADR-0008](../decisions/0008-deployment-architecture.md) |
+| 3 exam sessions for demo (D1) | Resolved 2026-07-15 — 3 sessions seeded: 2021-April, 2021-October, 2022-April (~180 Subject-A questions) |
