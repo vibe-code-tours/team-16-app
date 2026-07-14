@@ -1,11 +1,12 @@
 -- 005_create_mistake_garden.sql
 
 -- Table to track wrong answers
+-- Stores the selected choice label (a, b, c, d) directly since choices are JSONB in questions table
 CREATE TABLE public.user_mistakes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   question_id UUID NOT NULL REFERENCES public.questions(id) ON DELETE CASCADE,
-  option_id UUID NOT NULL REFERENCES public.options(id) ON DELETE CASCADE,
+  selected_label TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT now(),
   reviewed BOOLEAN DEFAULT false
 );
