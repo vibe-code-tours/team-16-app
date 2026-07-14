@@ -21,7 +21,7 @@ public class UserProfileService {
         this.userProfileRepository = userProfileRepository;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public UserProfileResponse getProfile(UUID userId) {
         UserProfile profile = userProfileRepository.findById(userId)
                 .orElseGet(() -> createDefaultProfile(userId));
@@ -83,7 +83,6 @@ public class UserProfileService {
         profile.setEmail("");
         profile.setTotalXp(0);
         profile.setStreakCount(0);
-        profile.setLongestStreak(0);
         return userProfileRepository.save(profile);
     }
 
@@ -95,7 +94,7 @@ public class UserProfileService {
             profile.getEmail(),
             profile.getTotalXp(),
             profile.getStreakCount(),
-            profile.getLongestStreak(),
+            null,
             profile.getLastLoginAt(),
             profile.getCreatedAt(),
             profile.getUpdatedAt()

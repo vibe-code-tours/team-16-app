@@ -67,7 +67,6 @@ public class ExamService {
             profile.setEmail("");
             profile.setTotalXp(0);
             profile.setStreakCount(0);
-            profile.setLongestStreak(0);
             userProfileRepository.save(profile);
         }
 

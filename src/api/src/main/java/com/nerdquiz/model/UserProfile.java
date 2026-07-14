@@ -27,9 +27,6 @@ public class UserProfile {
     @Column(name = "streak_count", nullable = false)
     private Integer streakCount = 0;
 
-    @Column(name = "longest_streak", nullable = false)
-    private Integer longestStreak = 0;
-
     @Column(name = "last_login_at")
     private Instant lastLoginAt;
 
@@ -60,9 +57,6 @@ public class UserProfile {
 
     public Integer getStreakCount() { return streakCount; }
     public void setStreakCount(Integer streakCount) { this.streakCount = streakCount; }
-
-    public Integer getLongestStreak() { return longestStreak; }
-    public void setLongestStreak(Integer longestStreak) { this.longestStreak = longestStreak; }
 
     public Instant getLastLoginAt() { return lastLoginAt; }
     public void setLastLoginAt(Instant lastLoginAt) { this.lastLoginAt = lastLoginAt; }
