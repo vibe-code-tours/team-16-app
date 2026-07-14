@@ -19,11 +19,11 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Public routes - no layout */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/ai-draft" element={<AiDraftPreview />} />
+          {/* Public routes - no header, no sidebar */}
+          <Route path="/" element={<Layout showSidebar={false} showHeader={false}><LandingPage /></Layout>} />
+          <Route path="/login" element={<Layout showSidebar={false} showHeader={false}><LoginPage /></Layout>} />
+          <Route path="/register" element={<Layout showSidebar={false} showHeader={false}><RegisterPage /></Layout>} />
+          <Route path="/ai-draft" element={<Layout showSidebar={false}><AiDraftPreview /></Layout>} />
 
           {/* Protected routes - with layout */}
           <Route
@@ -90,7 +90,7 @@ export default function App() {
             path="/exam"
             element={
               <ProtectedRoute>
-                <Layout showSidebar={false}>
+                <Layout>
                   <ExamPage />
                 </Layout>
               </ProtectedRoute>

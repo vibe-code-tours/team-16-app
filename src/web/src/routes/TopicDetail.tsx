@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
 
@@ -35,19 +35,14 @@ export function TopicDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <h1 className="text-xl font-bold text-purple-600">NerdQuiz</h1>
-          <Link
-            to="/map"
-            className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
-          >
-            Back to map
-          </Link>
-        </div>
-      </header>
-
       <main className="mx-auto max-w-3xl px-4 py-8">
+        <button
+          onClick={() => selectedLesson ? setSelectedLessonId(null) : navigate('/map')}
+          className="mb-4 inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700"
+        >
+          ← Back
+        </button>
+
         {lessons.length === 0 ? (
           <div className="text-center py-12">
             <h2 className="text-xl font-bold text-gray-900 mb-2">No Lessons Yet</h2>
@@ -57,12 +52,6 @@ export function TopicDetail() {
           </div>
         ) : selectedLesson ? (
           <div>
-            <button
-              onClick={() => setSelectedLessonId(null)}
-              className="mb-4 text-sm text-purple-600 hover:text-purple-700 flex items-center gap-1"
-            >
-              ← Back to lessons
-            </button>
             <LessonContent
               lesson={selectedLesson}
               onComplete={() => completeLesson(selectedLesson.id)}
