@@ -27,6 +27,17 @@ public interface QuestionRepository extends JpaRepository<Question, UUID> {
     @Query("SELECT q FROM Question q WHERE q.difficulty = :difficulty ORDER BY FUNCTION('RANDOM') LIMIT :limit")
     List<Question> findRandomByDifficulty(@Param("difficulty") String difficulty, @Param("limit") int limit);
 
+    @Query(value = "SELECT * FROM questions " +
+            "WHERE subtopic_id = :subtopicId " +
+            "  AND subject = 'A' " +
+            "  AND published = true " +
+            "  AND jsonb_array_length(choices) > 0 " +
+            "  AND correct_answer ~ '^[a-z]$' " +
+            "ORDER BY random() " +
+            "LIMIT :count",
+            nativeQuery = true)
+    List<Question> findUsableQuizBySubtopic(@Param("subtopicId") UUID subtopicId, @Param("count") int count);
+
     long countByExamSessionAndSubject(String examSession, String subject);
 
     List<Question> findByIdIn(Collection<UUID> ids);

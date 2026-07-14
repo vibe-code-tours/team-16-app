@@ -12,6 +12,7 @@ import { QuizPage } from "./routes/QuizPage";
 import { MistakeGarden } from "./routes/MistakeGarden";
 import { UserProfile } from "./routes/UserProfile";
 import { ExamPage } from "./routes/ExamPage";
+import { AiDraftPreview } from "./routes/AiDraftPreview";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/ai-draft" element={<AiDraftPreview />} />
 
           {/* Protected routes - with layout */}
           <Route

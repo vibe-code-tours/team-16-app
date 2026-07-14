@@ -1,0 +1,151 @@
+-- Seed 20 Subject-A questions for the four subtopics that had none:
+-- business-operations, finance, procurement, business-strategy.
+-- Uses a distinct exam_session tag so it never collides with real ITPEC papers.
+
+INSERT INTO public.questions
+  (subtopic_id, exam_session, subject, question_number, question_text, choices, correct_answer, explanation, published)
+VALUES
+  -- Business Operations (Q1–5)
+  ((SELECT id FROM subtopics WHERE slug='business-operations'), 'seed-2026-w1', 'A', 1,
+   'In BPMN, what does a diamond-shaped element represent?',
+   '[{"label":"a","text":"A task performed by an actor"},{"label":"b","text":"A start or end event"},{"label":"c","text":"A gateway that branches the flow based on a decision"},{"label":"d","text":"A data object attached to the flow"}]'::jsonb,
+   'c',
+   'In BPMN, diamonds are gateways — they represent branching or merging points in a process flow.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='business-operations'), 'seed-2026-w1', 'A', 2,
+   'What does a "swim lane" represent in a business process diagram?',
+   '[{"label":"a","text":"A timeline showing when tasks finish"},{"label":"b","text":"A partition assigning responsibility for tasks to a specific actor or role"},{"label":"c","text":"An optional path taken only under exception conditions"},{"label":"d","text":"A colour convention for task priority"}]'::jsonb,
+   'b',
+   'Swim lanes divide the diagram horizontally or vertically to show which actor or department is responsible for each task.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='business-operations'), 'seed-2026-w1', 'A', 3,
+   'Which of the following best describes a bottleneck in a business process?',
+   '[{"label":"a","text":"A required approval step from senior management"},{"label":"b","text":"A step whose throughput is lower than the incoming demand, causing work to accumulate"},{"label":"c","text":"A one-time setup activity performed at the start"},{"label":"d","text":"A step that has been fully automated"}]'::jsonb,
+   'b',
+   'A bottleneck is any step whose capacity is less than the arrival rate, which causes a queue to build up ahead of it.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='business-operations'), 'seed-2026-w1', 'A', 4,
+   'Which technique is most commonly used to model a customer''s end-to-end experience with a service?',
+   '[{"label":"a","text":"SWOT analysis"},{"label":"b","text":"Customer journey map"},{"label":"c","text":"Fishbone (Ishikawa) diagram"},{"label":"d","text":"Balanced scorecard"}]'::jsonb,
+   'b',
+   'A customer journey map captures the customer''s experience across every touchpoint, from initial awareness through post-purchase.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='business-operations'), 'seed-2026-w1', 'A', 5,
+   'A company replaces a paper-based approval workflow with an online system that cuts average processing time by 40%. This is best described as an example of:',
+   '[{"label":"a","text":"Business Process Reengineering"},{"label":"b","text":"Payroll automation"},{"label":"c","text":"Corporate governance"},{"label":"d","text":"External auditing"}]'::jsonb,
+   'a',
+   'Business Process Reengineering (BPR) is the rethinking and radical redesign of business processes to achieve dramatic improvements in performance.',
+   true),
+
+  -- Finance (Q6–10)
+  ((SELECT id FROM subtopics WHERE slug='finance'), 'seed-2026-w1', 'A', 6,
+   'Which formula correctly calculates Return on Investment (ROI)?',
+   '[{"label":"a","text":"Net Profit divided by Revenue"},{"label":"b","text":"(Gain from Investment − Cost of Investment) divided by Cost of Investment"},{"label":"c","text":"Revenue minus Cost of Goods Sold"},{"label":"d","text":"Total Assets minus Total Liabilities"}]'::jsonb,
+   'b',
+   'ROI expresses net gain as a percentage of the amount invested: (Gain − Cost) / Cost.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='finance'), 'seed-2026-w1', 'A', 7,
+   'The "payback period" of a project measures:',
+   '[{"label":"a","text":"The interest cost on the loan used to fund the project"},{"label":"b","text":"The time required for cumulative cash inflows to equal the initial investment"},{"label":"c","text":"The time until the product is delivered to the first customer"},{"label":"d","text":"The number of years covered by the product warranty"}]'::jsonb,
+   'b',
+   'Payback period is how long it takes to recover the initial outlay from the project''s cash inflows.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='finance'), 'seed-2026-w1', 'A', 8,
+   'In a Net Present Value (NPV) calculation, the discount rate is used to:',
+   '[{"label":"a","text":"Convert future cash flows into their equivalent value today"},{"label":"b","text":"Reduce the reported income tax owed on profits"},{"label":"c","text":"Subtract sales tax from customer revenue"},{"label":"d","text":"Adjust wages for inflation"}]'::jsonb,
+   'a',
+   'NPV discounts future cash flows to today''s value using a rate that reflects the time value of money and project risk.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='finance'), 'seed-2026-w1', 'A', 9,
+   'Which of the following best describes a fixed cost?',
+   '[{"label":"a","text":"A cost that varies directly with the number of units produced"},{"label":"b","text":"A cost that remains constant regardless of production volume within a given range"},{"label":"c","text":"A cost that is paid only in the first year of a project"},{"label":"d","text":"A cost incurred only when a machine breaks down"}]'::jsonb,
+   'b',
+   'Fixed costs (e.g. rent, insurance) do not change with output volume in the short run; variable costs do.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='finance'), 'seed-2026-w1', 'A', 10,
+   'Which of the following is an example of a variable cost for a manufacturer?',
+   '[{"label":"a","text":"Rent for the factory building"},{"label":"b","text":"Annual insurance premium"},{"label":"c","text":"Raw materials consumed in production"},{"label":"d","text":"The CEO''s fixed annual salary"}]'::jsonb,
+   'c',
+   'Raw materials scale directly with units produced, so they are a variable cost.',
+   true),
+
+  -- Procurement (Q11–15)
+  ((SELECT id FROM subtopics WHERE slug='procurement'), 'seed-2026-w1', 'A', 11,
+   'A Request for Proposal (RFP) is typically used when:',
+   '[{"label":"a","text":"The buyer already knows exactly which product to buy and only needs a price"},{"label":"b","text":"The buyer describes a business problem and asks vendors to propose a solution"},{"label":"c","text":"The buyer wants only preliminary information about who supplies a market"},{"label":"d","text":"The buyer is renewing an existing contract with no changes"}]'::jsonb,
+   'b',
+   'RFPs solicit vendor-proposed solutions to a defined business problem, including approach, timeline, and price.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='procurement'), 'seed-2026-w1', 'A', 12,
+   'How does an RFQ (Request for Quotation) primarily differ from an RFP?',
+   '[{"label":"a","text":"An RFQ asks vendors for a firm price on a clearly-defined item or service"},{"label":"b","text":"An RFQ is used only for services, never for goods"},{"label":"c","text":"An RFQ is legally binding while an RFP is not"},{"label":"d","text":"An RFQ must be published in a national newspaper"}]'::jsonb,
+   'a',
+   'An RFQ is used when the buyer already knows exactly what they want and simply needs competing price quotes.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='procurement'), 'seed-2026-w1', 'A', 13,
+   'A Service Level Agreement (SLA) primarily specifies:',
+   '[{"label":"a","text":"The delivery address for physical goods"},{"label":"b","text":"The measurable service commitments a vendor makes to a customer"},{"label":"c","text":"The vendor''s internal marketing plan"},{"label":"d","text":"The competitive prices offered by other vendors"}]'::jsonb,
+   'b',
+   'An SLA defines quantifiable performance targets (e.g. uptime, response time) and the consequences when they are missed.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='procurement'), 'seed-2026-w1', 'A', 14,
+   'Which document is usually issued first, before a formal RFP, when a company begins evaluating potential vendors for a new project?',
+   '[{"label":"a","text":"Signed contract"},{"label":"b","text":"Purchase order"},{"label":"c","text":"Request for Information (RFI)"},{"label":"d","text":"Vendor invoice"}]'::jsonb,
+   'c',
+   'An RFI gathers general information about vendors and their capabilities, helping the buyer scope the later RFP.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='procurement'), 'seed-2026-w1', 'A', 15,
+   'Which of the following is a common risk of sole-source (single-source) procurement?',
+   '[{"label":"a","text":"Increased price pressure from competitive bidding"},{"label":"b","text":"Reduced dependency on any single vendor"},{"label":"c","text":"Supply-chain disruption if the sole vendor fails to deliver"},{"label":"d","text":"Simpler internal quality-control processes"}]'::jsonb,
+   'c',
+   'Sole-sourcing concentrates supply-chain risk: any disruption at the single vendor directly disrupts the buyer.',
+   true),
+
+  -- Business Strategy (Q16–20)
+  ((SELECT id FROM subtopics WHERE slug='business-strategy'), 'seed-2026-w1', 'A', 16,
+   'In a SWOT analysis, "Opportunities" refers to:',
+   '[{"label":"a","text":"Internal favorable factors within the organization"},{"label":"b","text":"External favorable factors in the environment"},{"label":"c","text":"Internal weaknesses to be corrected"},{"label":"d","text":"Threats posed directly by competitors"}]'::jsonb,
+   'b',
+   'SWOT: Strengths and Weaknesses are internal; Opportunities and Threats are external.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='business-strategy'), 'seed-2026-w1', 'A', 17,
+   'The primary purpose of Porter''s Five Forces framework is to:',
+   '[{"label":"a","text":"Rank employees by their performance"},{"label":"b","text":"Analyze the competitive intensity and attractiveness of an industry"},{"label":"c","text":"Design a data-flow diagram for a system"},{"label":"d","text":"Calculate net profit margin"}]'::jsonb,
+   'b',
+   'Porter''s Five Forces (rivalry, new entrants, substitutes, supplier power, buyer power) assess how attractive an industry is to compete in.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='business-strategy'), 'seed-2026-w1', 'A', 18,
+   'What are the four perspectives of the Balanced Scorecard framework?',
+   '[{"label":"a","text":"Financial, Customer, Internal Processes, Learning and Growth"},{"label":"b","text":"Sales, Marketing, Engineering, Finance"},{"label":"c","text":"Assets, Liabilities, Equity, Revenue"},{"label":"d","text":"Risk, Reward, Effort, Time"}]'::jsonb,
+   'a',
+   'Kaplan and Norton''s Balanced Scorecard defines these four perspectives to link strategy with measurable objectives.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='business-strategy'), 'seed-2026-w1', 'A', 19,
+   'Which is an example of Porter''s "differentiation" competitive strategy?',
+   '[{"label":"a","text":"Selling a generic product at the lowest price on the market"},{"label":"b","text":"Offering a unique product feature that customers value and rivals do not provide"},{"label":"c","text":"Serving only a small niche geographic market"},{"label":"d","text":"Copying the market leader''s product exactly"}]'::jsonb,
+   'b',
+   'Differentiation competes on uniqueness — customers pay a premium because rivals cannot match the value.',
+   true),
+
+  ((SELECT id FROM subtopics WHERE slug='business-strategy'), 'seed-2026-w1', 'A', 20,
+   'A company decides to enter a completely new market with a completely new product. According to the Ansoff Matrix, this strategy is called:',
+   '[{"label":"a","text":"Market penetration"},{"label":"b","text":"Product development"},{"label":"c","text":"Market development"},{"label":"d","text":"Diversification"}]'::jsonb,
+   'd',
+   'The Ansoff Matrix labels new-product/new-market as diversification — the highest-risk growth strategy.',
+   true)
+ON CONFLICT (exam_session, subject, question_number) DO NOTHING;

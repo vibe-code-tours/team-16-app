@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
 
@@ -76,11 +76,29 @@ export function TopicDetail() {
               Complete each lesson to unlock the next one.
             </p>
 
+            <div className="mb-6">
+              <button
+                onClick={() => topicId && navigate(`/quiz/${topicId}`)}
+                className="w-full rounded-xl border-2 border-purple-600 bg-purple-600 p-4 text-left text-white transition hover:bg-purple-700"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold">Take the 5-question quiz</h3>
+                    <p className="text-sm text-purple-100">
+                      Test yourself and earn XP for every correct answer.
+                    </p>
+                  </div>
+                  <span aria-hidden="true">→</span>
+                </div>
+              </button>
+            </div>
+
             <div className="space-y-3">
               {lessons.map((lesson, index) => {
-                const status = getLessonStatus(lesson.id)
-                const isLocked = status === 'locked' && index > 0
-                const isCompleted = status === 'completed'
+                const isCompleted = getLessonStatus(lesson.id) === 'completed'
+                const previousCompleted =
+                  index === 0 || getLessonStatus(lessons[index - 1].id) === 'completed'
+                const isLocked = !isCompleted && !previousCompleted
 
                 return (
                   <button
@@ -128,17 +146,6 @@ export function TopicDetail() {
                 )
               })}
             </div>
-
-            {topicId && (
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <button
-                  onClick={() => navigate(`/quiz/${topicId}`)}
-                  className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
-                >
-                  Practice Quiz — 5 Questions
-                </button>
-              </div>
-            )}
           </div>
         )}
       </main>
