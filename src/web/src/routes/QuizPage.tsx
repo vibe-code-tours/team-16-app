@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth.tsx'
 import { supabase } from '../lib/supabase'
 
 interface Choice {
@@ -23,8 +22,6 @@ const QUIZ_SIZE = 5
 export function QuizPage() {
   const { subtopicId } = useParams<{ subtopicId: string }>()
   const navigate = useNavigate()
-  const { user } = useAuth()
-
   const [questions, setQuestions] = useState<ItpecQuestion[]>([])
   const [currentIdx, setCurrentIdx] = useState(0)
   const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
