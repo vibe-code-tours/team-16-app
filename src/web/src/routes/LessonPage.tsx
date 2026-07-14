@@ -1,29 +1,26 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { api } from '../lib/api'
+import { supabase } from '../lib/supabase'
 
-interface Lesson {
+interface DbLesson {
   id: string
-  subtopicId: string
+  subtopic_id: string
   title: string
-  slug: string
+  content_blocks: unknown[]
   summary: string | null
-  contentBlocks: unknown[]
-  estimatedMinutes: number
-  xpReward: number
 }
 
-interface Topic {
+interface DbSubtopic {
   id: string
   name: string
-  description: string | null
+  topic_id: string
 }
 
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>()
   const navigate = useNavigate()
-  const [lesson, setLesson] = useState<Lesson | null>(null)
-  const [topic, setTopic] = useState<Topic | null>(null)
+  const [lesson, setLesson] = useState<DbLesson | null>(null)
+  const [subtopic, setSubtopic] = useState<DbSubtopic | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -31,23 +28,26 @@ export function LessonPage() {
       if (!lessonId) return
 
       setLoading(true)
-      try {
-        const lessonData = await api.get<Lesson>(`/api/v1/lessons/${lessonId}`)
-        setLesson(lessonData)
+      const { data: lessonData, error: lessonError } = await supabase
+        .from('lessons')
+        .select('id, subtopic_id, title, content_blocks, summary')
+        .eq('id', lessonId)
+        .single()
 
-        // Try to fetch topic info if available
-        if (lessonData.subtopicId) {
-          try {
-            const topicData = await api.get<Topic>(`/api/v1/topics/${lessonData.subtopicId}`)
-            setTopic(topicData)
-          } catch {
-            // Topic fetch failed, continue without it
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching lesson:', error)
+      if (lessonError) {
+        console.error('Error fetching lesson:', lessonError.message)
+        setLoading(false)
+        return
       }
 
+      const { data: subtopicData } = await supabase
+        .from('subtopics')
+        .select('id, name, topic_id')
+        .eq('id', lessonData.subtopic_id)
+        .single()
+
+      setLesson(lessonData)
+      setSubtopic(subtopicData || null)
       setLoading(false)
     }
 
@@ -75,35 +75,71 @@ export function LessonPage() {
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <button
-            onClick={() => navigate('/map')}
+            onClick={() => navigate(`/map/${subtopic?.topic_id}`)}
             className="text-purple-600 hover:text-purple-800 flex items-center gap-2 font-medium"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 010 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
-            Back to Map
+            Back to Topic
           </button>
-          <h1 className="text-xl font-bold text-gray-900">Lesson</h1>
+          <h1 className="text-xl font-bold text-gray-900">{lesson.title}</h1>
         </div>
       </header>
 
       <main className="mx-auto max-w-3xl px-4 py-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            {lesson.title}
+            {subtopic?.name}
           </h2>
-          <p className="text-gray-500">{lesson.summary || 'Quick read before you quiz!'}</p>
+          {lesson.summary && (
+            <p className="text-gray-500">{lesson.summary}</p>
+          )}
         </div>
 
-        <div className="rounded-2xl bg-white p-8 shadow-sm border border-gray-200 prose prose-purple max-w-none">
-          <div className="text-lg leading-relaxed text-gray-700 whitespace-pre-wrap">
-            {lesson.title}
-          </div>
+        <div className="rounded-2xl bg-white p-8 shadow-sm border border-gray-200">
+          {(lesson.content_blocks as Array<Record<string, unknown>>).map((block, i) => {
+            switch (block.type) {
+              case 'heading':
+                return <h3 key={i} className="text-xl font-bold text-gray-900 mt-6 mb-3">{block.content as string}</h3>
+              case 'text':
+                return <p key={i} className="text-gray-700 mb-3 leading-relaxed">{block.content as string}</p>
+              case 'list':
+                return (
+                  <ul key={i} className="list-disc list-inside space-y-1 mb-3 text-gray-700">
+                    {(block.items as string[]).map((item, j) => (
+                      <li key={j}>{item}</li>
+                    ))}
+                  </ul>
+                )
+              case 'tip':
+                return (
+                  <div key={i} className="p-4 rounded-lg bg-blue-50 border border-blue-200 mb-3">
+                    <p className="text-sm text-blue-700">{block.content as string}</p>
+                  </div>
+                )
+              case 'warning':
+                return (
+                  <div key={i} className="p-4 rounded-lg bg-amber-50 border border-amber-200 mb-3">
+                    <p className="text-sm text-amber-700">{block.content as string}</p>
+                  </div>
+                )
+              case 'example':
+                return (
+                  <div key={i} className="p-4 rounded-lg bg-green-50 border border-green-200 mb-3">
+                    <p className="text-xs font-bold text-green-600 uppercase mb-1">Example</p>
+                    <p className="text-sm text-green-700">{block.content as string}</p>
+                  </div>
+                )
+              default:
+                return null
+            }
+          })}
         </div>
 
         <div className="mt-8 flex justify-center">
           <button
-            onClick={() => navigate('/map')}
+            onClick={() => navigate(`/map/${subtopic?.topic_id}`)}
             className="rounded-lg bg-purple-600 px-8 py-3 font-bold text-white transition-colors hover:bg-purple-700"
           >
             I've read it!

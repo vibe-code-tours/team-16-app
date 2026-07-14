@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
 
 export function TopicDetail() {
   const { topicId } = useParams<{ topicId: string }>()
+  const navigate = useNavigate()
   const { lessons, progress, loading, error, completeLesson } = useLessons(topicId)
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null)
 
@@ -127,6 +128,17 @@ export function TopicDetail() {
                 )
               })}
             </div>
+
+            {topicId && (
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <button
+                  onClick={() => navigate(`/quiz/${topicId}`)}
+                  className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+                >
+                  Practice Quiz — 5 Questions
+                </button>
+              </div>
+            )}
           </div>
         )}
       </main>
