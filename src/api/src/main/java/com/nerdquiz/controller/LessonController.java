@@ -1,31 +1,50 @@
 package com.nerdquiz.controller;
 
 import com.nerdquiz.dto.LessonResponse;
+import com.nerdquiz.dto.QuestionResponse;
 import com.nerdquiz.service.LessonService;
+import com.nerdquiz.service.QuestionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/lessons")
+@RequestMapping("/api/v1")
 public class LessonController {
 
     private final LessonService lessonService;
+    private final QuestionService questionService;
 
-    public LessonController(LessonService lessonService) {
+    public LessonController(LessonService lessonService, QuestionService questionService) {
         this.lessonService = lessonService;
+        this.questionService = questionService;
     }
 
-    @GetMapping
+    @GetMapping("/subtopics/{subtopicId}/lessons")
     public ResponseEntity<List<LessonResponse>> getLessons(
-            @RequestParam UUID subtopicId) {
-        return ResponseEntity.ok(lessonService.getLessonsBySubtopic(subtopicId));
+            @PathVariable UUID subtopicId,
+            Authentication authentication) {
+        UUID userId = authentication == null ? null : UUID.fromString(authentication.getName());
+        return ResponseEntity.ok(lessonService.getLessonsForSubtopic(subtopicId, userId));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<LessonResponse> getLesson(@PathVariable UUID id) {
-        return ResponseEntity.ok(lessonService.getLessonById(id));
+    @PostMapping("/lessons/{lessonId}/complete")
+    public ResponseEntity<Void> completeLesson(
+            @PathVariable UUID lessonId,
+            Authentication authentication) {
+        if (authentication == null) return ResponseEntity.status(401).build();
+        UUID userId = UUID.fromString(authentication.getName());
+        lessonService.completeLesson(lessonId, userId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/subtopics/{subtopicId}/quiz")
+    public ResponseEntity<List<QuestionResponse>> getQuiz(
+            @PathVariable UUID subtopicId,
+            @RequestParam(defaultValue = "5") int count) {
+        return ResponseEntity.ok(questionService.getUsableQuizForSubtopic(subtopicId, count));
     }
 }

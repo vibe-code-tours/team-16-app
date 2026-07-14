@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
 
@@ -35,19 +35,14 @@ export function TopicDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <h1 className="text-xl font-bold text-purple-600">NerdQuiz</h1>
-          <Link
-            to="/map"
-            className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
-          >
-            Back to map
-          </Link>
-        </div>
-      </header>
-
       <main className="mx-auto max-w-3xl px-4 py-8">
+        <button
+          onClick={() => selectedLesson ? setSelectedLessonId(null) : navigate('/map')}
+          className="mb-4 inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700"
+        >
+          ← Back
+        </button>
+
         {lessons.length === 0 ? (
           <div className="text-center py-12">
             <h2 className="text-xl font-bold text-gray-900 mb-2">No Lessons Yet</h2>
@@ -57,12 +52,6 @@ export function TopicDetail() {
           </div>
         ) : selectedLesson ? (
           <div>
-            <button
-              onClick={() => setSelectedLessonId(null)}
-              className="mb-4 text-sm text-purple-600 hover:text-purple-700 flex items-center gap-1"
-            >
-              ← Back to lessons
-            </button>
             <LessonContent
               lesson={selectedLesson}
               onComplete={() => completeLesson(selectedLesson.id)}
@@ -76,11 +65,29 @@ export function TopicDetail() {
               Complete each lesson to unlock the next one.
             </p>
 
+            <div className="mb-6">
+              <button
+                onClick={() => topicId && navigate(`/quiz/${topicId}`)}
+                className="w-full rounded-xl border-2 border-purple-600 bg-purple-600 p-4 text-left text-white transition hover:bg-purple-700"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold">Take the 5-question quiz</h3>
+                    <p className="text-sm text-purple-100">
+                      Test yourself and earn XP for every correct answer.
+                    </p>
+                  </div>
+                  <span aria-hidden="true">→</span>
+                </div>
+              </button>
+            </div>
+
             <div className="space-y-3">
               {lessons.map((lesson, index) => {
-                const status = getLessonStatus(lesson.id)
-                const isLocked = status === 'locked' && index > 0
-                const isCompleted = status === 'completed'
+                const isCompleted = getLessonStatus(lesson.id) === 'completed'
+                const previousCompleted =
+                  index === 0 || getLessonStatus(lessons[index - 1].id) === 'completed'
+                const isLocked = !isCompleted && !previousCompleted
 
                 return (
                   <button
@@ -128,17 +135,6 @@ export function TopicDetail() {
                 )
               })}
             </div>
-
-            {topicId && (
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <button
-                  onClick={() => navigate(`/quiz/${topicId}`)}
-                  className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
-                >
-                  Practice Quiz — 5 Questions
-                </button>
-              </div>
-            )}
           </div>
         )}
       </main>

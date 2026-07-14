@@ -13,6 +13,7 @@ export interface Lesson {
   xp_reward: number
   display_order: number
   published: boolean
+  status: 'locked' | 'unlocked' | 'in_progress' | 'completed'
 }
 
 export interface ContentBlock {
@@ -57,37 +58,22 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
       setError(null)
 
       try {
-        // Fetch lessons from backend API
-        const lessonsData = await api.get<Lesson[]>(`/api/v1/lessons?subtopicId=${subtopicId}`)
-
+        const data = await api.get<Lesson[]>(`/api/v1/subtopics/${subtopicId}/lessons`)
         if (cancelled) return
-
-        setLessons(lessonsData ?? [])
-
-        // Fetch user's lesson progress if logged in
-        if (user?.id && lessonsData && lessonsData.length > 0) {
-          try {
-            const progressData = await api.get<LessonProgress[]>(
-              `/api/v1/me/lessons/progress?lessonIds=${lessonsData.map(l => l.id).join(',')}`
-            )
-            if (!cancelled) {
-              setProgress(progressData ?? [])
-            }
-          } catch {
-            // Progress fetch failed, continue without progress
-            if (!cancelled) {
-              setProgress([])
-            }
-          }
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : 'Failed to load lessons')
-        }
+        setLessons(data)
+        setProgress(
+          data.map((l) => ({
+            lesson_id: l.id,
+            status: l.status,
+            started_at: null,
+            completed_at: null,
+          }))
+        )
+      } catch (e) {
+        if (cancelled) return
+        setError(e instanceof Error ? e.message : 'Failed to load lessons')
       } finally {
-        if (!cancelled) {
-          setLoading(false)
-        }
+        if (!cancelled) setLoading(false)
       }
     }
 
@@ -100,33 +86,25 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
 
   const completeLesson = async (lessonId: string) => {
     if (!user?.id) return
-
     try {
-      await api.post(`/api/v1/me/lessons/${lessonId}/progress/complete`)
-
-      // Update local state
-      const existing = progress.find((p) => p.lesson_id === lessonId)
-      if (existing) {
-        setProgress((prev) =>
-          prev.map((p) =>
+      await api.post<void>(`/api/v1/lessons/${lessonId}/complete`)
+      const completedAt = new Date().toISOString()
+      setProgress((prev) => {
+        const existing = prev.find((p) => p.lesson_id === lessonId)
+        if (existing) {
+          return prev.map((p) =>
             p.lesson_id === lessonId
-              ? { ...p, status: 'completed', completed_at: new Date().toISOString() }
+              ? { ...p, status: 'completed', completed_at: completedAt }
               : p
           )
-        )
-      } else {
-        setProgress((prev) => [
+        }
+        return [
           ...prev,
-          {
-            lesson_id: lessonId,
-            status: 'completed',
-            started_at: new Date().toISOString(),
-            completed_at: new Date().toISOString(),
-          },
-        ])
-      }
-    } catch (err) {
-      console.error('Failed to complete lesson:', err)
+          { lesson_id: lessonId, status: 'completed', started_at: completedAt, completed_at: completedAt },
+        ]
+      })
+    } catch (e) {
+      console.error('Failed to complete lesson:', e)
     }
   }
 

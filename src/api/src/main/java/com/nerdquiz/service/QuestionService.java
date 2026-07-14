@@ -33,6 +33,12 @@ public class QuestionService {
                 .toList();
     }
 
+    public List<QuestionResponse> getUsableQuizForSubtopic(UUID subtopicId, int count) {
+        return questionRepository.findUsableQuizBySubtopic(subtopicId, count).stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
     public List<QuestionResponse> getByExamSession(String examSession, String subject) {
         return questionRepository.findByExamSessionAndSubject(examSession, subject).stream()
                 .map(this::toResponse)

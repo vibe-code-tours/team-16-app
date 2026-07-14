@@ -1,7 +1,6 @@
 package com.nerdquiz.model;
 
 import jakarta.persistence.*;
-import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -24,11 +23,11 @@ public class Lesson {
     @Column(columnDefinition = "TEXT")
     private String summary;
 
-    @Column(name = "content_blocks", columnDefinition = "jsonb")
+    @Column(name = "content_blocks", nullable = false, columnDefinition = "jsonb")
     private String contentBlocks = "[]";
 
-    @Column(name = "estimated_minutes")
-    private Integer estimatedMinutes;
+    @Column(name = "estimated_minutes", nullable = false)
+    private Integer estimatedMinutes = 3;
 
     @Column(name = "xp_reward", nullable = false)
     private Integer xpReward = 0;
@@ -37,18 +36,10 @@ public class Lesson {
     private Integer displayOrder = 0;
 
     @Column(nullable = false)
-    private Boolean published = true;
+    private Boolean published = false;
 
-    @Column(name = "created_at")
-    private Instant createdAt = Instant.now();
-
-    @Column(name = "updated_at")
-    private Instant updatedAt = Instant.now();
-
-    // Constructors
     public Lesson() {}
 
-    // Getters and Setters
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
 
@@ -78,10 +69,4 @@ public class Lesson {
 
     public Boolean getPublished() { return published; }
     public void setPublished(Boolean published) { this.published = published; }
-
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
-
-    public Instant getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
 }

@@ -11,17 +11,19 @@ import { LessonPage } from "./routes/LessonPage";
 import { QuizPage } from "./routes/QuizPage";
 import { MistakeGarden } from "./routes/MistakeGarden";
 import { UserProfile } from "./routes/UserProfile";
-import ExamSimulation from "./routes/ExamSimulation";
+import { ExamPage } from "./routes/ExamPage";
+import { AiDraftPreview } from "./routes/AiDraftPreview";
 
 export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Public routes - no layout */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          {/* Public routes - no header, no sidebar */}
+          <Route path="/" element={<Layout showSidebar={false} showHeader={false}><LandingPage /></Layout>} />
+          <Route path="/login" element={<Layout showSidebar={false} showHeader={false}><LoginPage /></Layout>} />
+          <Route path="/register" element={<Layout showSidebar={false} showHeader={false}><RegisterPage /></Layout>} />
+          <Route path="/ai-draft" element={<Layout showSidebar={false}><AiDraftPreview /></Layout>} />
 
           {/* Protected routes - with layout */}
           <Route
@@ -85,11 +87,11 @@ export default function App() {
             }
           />
           <Route
-            path="/exam/:sessionId?"
+            path="/exam"
             element={
               <ProtectedRoute>
                 <Layout>
-                  <ExamSimulation />
+                  <ExamPage />
                 </Layout>
               </ProtectedRoute>
             }

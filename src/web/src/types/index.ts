@@ -19,4 +19,19 @@ export interface AuthContextType {
   signInWithGoogle: () => Promise<{ error?: string }>
   signOut: () => Promise<void>
   updateProfile: (updates: { display_name?: string }) => Promise<{ error?: string }>
+  refreshUser: () => Promise<void>
+}
+
+export interface QuestionChoice {
+  label: string
+  text: string
+}
+
+export interface QuizQuestion {
+  id: string
+  subtopic_id: string
+  question_text: string
+  choices: QuestionChoice[]
+  correct_answer: string
+  explanation: string | null
 }
