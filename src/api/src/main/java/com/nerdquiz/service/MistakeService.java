@@ -1,5 +1,8 @@
 package com.nerdquiz.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nerdquiz.dto.MistakeResponse;
 import com.nerdquiz.exception.MistakeNotFoundException;
 import com.nerdquiz.exception.QuestionNotFoundException;
@@ -22,11 +25,14 @@ public class MistakeService {
 
     private final UserMistakeRepository userMistakeRepository;
     private final QuestionRepository questionRepository;
+    private final ObjectMapper objectMapper;
 
     public MistakeService(UserMistakeRepository userMistakeRepository,
-                          QuestionRepository questionRepository) {
+                          QuestionRepository questionRepository,
+                          ObjectMapper objectMapper) {
         this.userMistakeRepository = userMistakeRepository;
         this.questionRepository = questionRepository;
+        this.objectMapper = objectMapper;
     }
 
     @Transactional(readOnly = true)
@@ -102,6 +108,8 @@ public class MistakeService {
             mistake.getQuestionId(),
             question != null ? question.getQuestionText() : null,
             question != null ? question.getCorrectAnswer() : null,
+            parseChoices(question),
+            question != null ? question.getExplanation() : null,
             mistake.getSource(),
             mistake.getSourceSessionId(),
             mistake.getLastUserAnswer(),
@@ -113,5 +121,17 @@ public class MistakeService {
             mistake.getNextReviewAt(),
             mistake.getResolvedAt()
         );
+    }
+
+    private JsonNode parseChoices(Question question) {
+        if (question == null || question.getChoices() == null) {
+            return objectMapper.createArrayNode();
+        }
+
+        try {
+            return objectMapper.readTree(question.getChoices());
+        } catch (JsonProcessingException exception) {
+            return objectMapper.createArrayNode();
+        }
     }
 }

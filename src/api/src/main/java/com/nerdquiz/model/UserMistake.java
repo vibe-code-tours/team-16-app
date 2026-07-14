@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user_mistakes")
+@Table(name = "mistakes")
 public class UserMistake {
 
     @Id
@@ -47,9 +47,6 @@ public class UserMistake {
 
     @Column(name = "resolved_at")
     private Instant resolvedAt;
-
-    @Column(name = "created_at")
-    private Instant createdAt = Instant.now();
 
     // Constructors
     public UserMistake() {}
@@ -94,6 +91,4 @@ public class UserMistake {
     public Instant getResolvedAt() { return resolvedAt; }
     public void setResolvedAt(Instant resolvedAt) { this.resolvedAt = resolvedAt; }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }

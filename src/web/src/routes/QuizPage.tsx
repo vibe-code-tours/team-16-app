@@ -88,11 +88,16 @@ export function QuizPage() {
     }
 
     if (!user) return
-    await supabase.from('user_mistakes').insert({
-      user_id: user.id,
-      question_id: currentQuestion.id,
-      selected_label: selectedLabel,
-    })
+    try {
+      await api.post('/api/v1/me/mistakes', {
+        questionId: currentQuestion.id,
+        source: 'quiz',
+        sourceSessionId: null,
+        userAnswer: selectedLabel,
+      })
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : 'Failed to save mistake')
+    }
   }
 
   const handleNext = async () => {
