@@ -41,7 +41,7 @@ verifies it, and trusts the user identity from the token.
 | `src/api/` | Spring Boot backend (Java 25, REST API) |
 | `src/web/` | React frontend (Tailwind CSS, React Router) |
 | `supabase/migrations/` | Database schema (version-controlled SQL) |
-| `supabase/seed.sql` | Local dev seed data |
+| `supabase/seed_data/` | Seed data SQL files (exam questions, lessons) |
 | `docs/` | This file, REQUIREMENTS.md, decision records |
 | `docs/gsd/` | How-we-work, feature board, architecture boundaries |
 | `docs/decisions/` | Architecture Decision Records (ADRs) |

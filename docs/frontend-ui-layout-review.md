@@ -32,9 +32,15 @@
 
 > **Note:** `QuizSession.tsx` and `QuizResult.tsx` exist as files but are **not wired into the router**.
 
-### No Shared Layout Shell
+### Shared Layout Shell (Added post-review)
 
-There is **no shared layout, navbar, sidebar, or footer component**. Every route page builds its own full-page layout independently. `ProtectedRoute` is purely an auth guard (spinner → redirect or render children) with no visual output.
+> **Update (2026-07-15):** A shared layout now exists. `Layout.tsx` provides a shell
+> with `Header.tsx` (sticky top nav with XP/streak/stats) and `Sidebar.tsx`
+> (desktop left sidebar, collapsible). Some pages (LessonPage, ExamPage) still
+> build their own headers — this is a known inconsistency.
+
+There is now a shared layout (`Layout.tsx`) with `Header.tsx` and `Sidebar.tsx`.
+`ProtectedRoute` is purely an auth guard (spinner → redirect or render children) with no visual output.
 
 ### Page-by-Page Layout
 

@@ -54,17 +54,38 @@ These are fixed for the demo — don't add new categories without team agreement
 
 ## Frontend routing
 
-| Route | Component | Auth required |
-|---|---|---|
-| `/` | LandingPage | No |
-| `/login` | LoginPage | No |
-| `/register` | RegisterPage | No |
-| `/map` | LearningMap | Yes |
-| `/topic/:id` | TopicDetail (lesson) | Yes |
-| `/quiz/:topicId` | QuizSession | Yes |
-| `/exam/:examId` | ExamSimulation | Yes |
-| `/mistakes` | MistakeGarden | Yes |
-| `/profile` | Profile (stretch) | Yes |
+| Route | Component | Auth required | Data source |
+|---|---|---|---|
+| `/` | LandingPage | No | Static |
+| `/login` | LoginPage | No | Supabase Auth |
+| `/register` | RegisterPage | No | Supabase Auth |
+| `/ai-draft` | AiDraftPreview | No | Static markdown files |
+| `/map` | LearningMap | Yes | Backend API: `GET /api/v1/topics` |
+| `/map/:topicId` | TopicDetail | Yes | Backend API: `GET /api/v1/subtopics/{id}/lessons` |
+| `/lesson/:lessonId` | LessonPage | Yes | ⚠️ Direct Supabase (not via backend) |
+| `/quiz/:subtopicId` | QuizPage | Yes | Backend API: `GET /api/v1/subtopics/{id}/quiz` + direct Supabase for mistakes/XP |
+| `/exam` | ExamPage | Yes | ⚠️ Direct Supabase (RPC + table inserts) |
+| `/mistakes` | MistakeGarden | Yes | ⚠️ Direct Supabase (`user_mistakes` table) |
+| `/profile` | UserProfile | Yes | Supabase Auth + direct Supabase (`user_profiles` table) |
+
+### Data access pattern
+
+**Via backend API (verified by JWT):**
+- Topics: `GET /api/v1/topics`
+- Lessons: `GET /api/v1/subtopics/{id}/lessons`, `POST /api/v1/lessons/{id}/complete`
+- Quiz: `GET /api/v1/subtopics/{id}/quiz`, `POST /api/v1/quizzes/start`, `POST /api/v1/quizzes/{id}/answers`, `GET /api/v1/quizzes/{id}/result`
+- Streak: `POST /api/v1/me/streak`
+
+**Direct Supabase (RLS only, no backend verification):**
+- LessonPage reads `lessons` + `subtopics` directly
+- QuizPage inserts into `user_mistakes` and calls `increment_user_xp` RPC
+- ExamPage calls `get_exam_questions` RPC, inserts into `exam_sessions`, `exam_answers`, `exam_heart_events`
+- MistakeGarden reads/updates `user_mistakes` directly
+- useAuth/UserProfile reads/writes `user_profiles` directly
+
+> **Note:** Direct Supabase calls are a known deviation from the intended architecture
+> (Frontend → Backend → Supabase). These features work via Supabase RLS policies but
+> bypass JWT verification and backend business logic. See feature-board.md known gaps.
 
 ## What you can decide freely
 
