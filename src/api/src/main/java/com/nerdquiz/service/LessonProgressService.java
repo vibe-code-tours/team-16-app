@@ -40,10 +40,13 @@ public class LessonProgressService {
                     return newProgress;
                 });
 
-        if (!Boolean.TRUE.equals(progress.getCompleted())) {
-            progress.setCompleted(true);
-            progress.setCompletedAt(Instant.now());
-            progress.setUpdatedAt(Instant.now());
+        if (!"completed".equals(progress.getStatus())) {
+            Instant completedAt = Instant.now();
+            progress.setStatus("completed");
+            if (progress.getStartedAt() == null) {
+                progress.setStartedAt(completedAt);
+            }
+            progress.setCompletedAt(completedAt);
             userLessonProgressRepository.save(progress);
         }
 
@@ -54,19 +57,16 @@ public class LessonProgressService {
         UserLessonProgress progress = new UserLessonProgress();
         progress.setUserId(userId);
         progress.setLessonId(lessonId);
-        progress.setCompleted(false);
         return toResponse(progress);
     }
 
     private LessonProgressResponse toResponse(UserLessonProgress progress) {
         return new LessonProgressResponse(
-            progress.getId(),
             progress.getUserId(),
             progress.getLessonId(),
-            progress.getCompleted(),
-            progress.getCompletedAt(),
-            progress.getCreatedAt(),
-            progress.getUpdatedAt()
+            progress.getStatus(),
+            progress.getStartedAt(),
+            progress.getCompletedAt()
         );
     }
 }
