@@ -55,7 +55,7 @@ export default function App() {
             }
           />
           <Route
-            path="/quiz/:quizId"
+            path="/quiz/:subtopicId"
             element={
               <ProtectedRoute>
                 <Layout>
