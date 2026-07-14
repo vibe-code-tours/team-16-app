@@ -6,14 +6,15 @@ import type { ExamSummary } from '../../../types/Exam'
 interface ExamStartScreenProps {
   exams: ExamSummary[]
   isLoading: boolean
+  isStarting?: boolean
   onStart: (examSession: string, subject: string) => void
 }
 
-export function ExamStartScreen({ exams, isLoading, onStart }: ExamStartScreenProps) {
+export function ExamStartScreen({ exams, isLoading, isStarting = false, onStart }: ExamStartScreenProps) {
   // Group exams by session
   const sessions = exams.reduce<Record<string, ExamSummary[]>>((acc, exam) => {
-    if (!acc[exam.exam_session]) acc[exam.exam_session] = []
-    acc[exam.exam_session].push(exam)
+    if (!acc[exam.examSession]) acc[exam.examSession] = []
+    acc[exam.examSession].push(exam)
     return acc
   }, {})
 
@@ -63,9 +64,9 @@ export function ExamStartScreen({ exams, isLoading, onStart }: ExamStartScreenPr
                 </div>
 
                 <div className="mt-4 flex items-center gap-4 text-sm text-gray-500">
-                  <span>📝 {exam.question_count} questions</span>
-                  <span>⏱ {exam.time_limit_minutes} min</span>
-                  <span>❤️ {exam.initial_hearts} hearts</span>
+                  <span>📝 {exam.questionCount} questions</span>
+                  <span>⏱ {exam.timeLimitMinutes} min</span>
+                  <span>❤️ {exam.initialHearts} hearts</span>
                 </div>
 
                 {exam.subject === 'B' && (
@@ -77,9 +78,10 @@ export function ExamStartScreen({ exams, isLoading, onStart }: ExamStartScreenPr
 
                 <Button
                   className="mt-4 w-full"
-                  onClick={() => onStart(exam.exam_session, exam.subject)}
+                  disabled={isStarting}
+                  onClick={() => onStart(exam.examSession, exam.subject)}
                 >
-                  Start Exam
+                  {isStarting ? 'Starting...' : 'Start Exam'}
                 </Button>
               </Card>
             ))}

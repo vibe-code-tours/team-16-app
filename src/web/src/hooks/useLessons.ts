@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { supabase } from '../lib/supabase'
+import { api } from '../lib/api'
 import { useAuth } from './useAuth'
 
 export interface Lesson {
@@ -56,36 +56,39 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
       setLoading(true)
       setError(null)
 
-      const { data: lessonsData, error: lessonsError } = await supabase
-        .from('lessons')
-        .select('*')
-        .eq('subtopic_id', subtopicId)
-        .eq('published', true)
-        .order('display_order', { ascending: true })
+      try {
+        // Fetch lessons from backend API
+        const lessonsData = await api.get<Lesson[]>(`/api/v1/lessons?subtopicId=${subtopicId}`)
 
-      if (cancelled) return
-      if (lessonsError) {
-        setError(lessonsError.message)
-        setLoading(false)
-        return
-      }
+        if (cancelled) return
 
-      setLessons(lessonsData ?? [])
+        setLessons(lessonsData ?? [])
 
-      if (user?.id && lessonsData && lessonsData.length > 0) {
-        const lessonIds = lessonsData.map((l) => l.id)
-        const { data: progressData } = await supabase
-          .from('user_lesson_progress')
-          .select('*')
-          .eq('user_id', user.id)
-          .in('lesson_id', lessonIds)
-
+        // Fetch user's lesson progress if logged in
+        if (user?.id && lessonsData && lessonsData.length > 0) {
+          try {
+            const progressData = await api.get<LessonProgress[]>(
+              `/api/v1/me/lessons/progress?lessonIds=${lessonsData.map(l => l.id).join(',')}`
+            )
+            if (!cancelled) {
+              setProgress(progressData ?? [])
+            }
+          } catch {
+            // Progress fetch failed, continue without progress
+            if (!cancelled) {
+              setProgress([])
+            }
+          }
+        }
+      } catch (err) {
         if (!cancelled) {
-          setProgress(progressData ?? [])
+          setError(err instanceof Error ? err.message : 'Failed to load lessons')
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
         }
       }
-
-      setLoading(false)
     }
 
     load()
@@ -98,19 +101,12 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
   const completeLesson = async (lessonId: string) => {
     if (!user?.id) return
 
-    const existing = progress.find((p) => p.lesson_id === lessonId)
+    try {
+      await api.post(`/api/v1/me/lessons/${lessonId}/progress/complete`)
 
-    if (existing) {
-      const { error } = await supabase
-        .from('user_lesson_progress')
-        .update({
-          status: 'completed',
-          completed_at: new Date().toISOString(),
-        })
-        .eq('user_id', user.id)
-        .eq('lesson_id', lessonId)
-
-      if (!error) {
+      // Update local state
+      const existing = progress.find((p) => p.lesson_id === lessonId)
+      if (existing) {
         setProgress((prev) =>
           prev.map((p) =>
             p.lesson_id === lessonId
@@ -118,17 +114,7 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
               : p
           )
         )
-      }
-    } else {
-      const { error } = await supabase.from('user_lesson_progress').insert({
-        user_id: user.id,
-        lesson_id: lessonId,
-        status: 'completed',
-        started_at: new Date().toISOString(),
-        completed_at: new Date().toISOString(),
-      })
-
-      if (!error) {
+      } else {
         setProgress((prev) => [
           ...prev,
           {
@@ -139,6 +125,8 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
           },
         ])
       }
+    } catch (err) {
+      console.error('Failed to complete lesson:', err)
     }
   }
 

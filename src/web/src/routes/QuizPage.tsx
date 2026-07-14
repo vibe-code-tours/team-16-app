@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
-import { supabase } from '../lib/supabase'
-import type { Question, Option } from '../types'
+import { api } from '../lib/api'
+
+interface QuizQuestion {
+  id: string
+  text: string
+  choices: { label: string; text: string }[]
+  correctAnswer: string
+}
 
 export function QuizPage() {
   const { quizId } = useParams<{ quizId: string }>()
   const navigate = useNavigate()
   const { user } = useAuth()
-  
-  const [questions, setQuestions] = useState<{ question: Question; options: Option[] }[]>([])
+
+  const [questions, setQuestions] = useState<QuizQuestion[]>([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null)
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [isAnswered, setIsAnswered] = useState(false)
   const [score, setScore] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -21,67 +27,51 @@ export function QuizPage() {
     async function fetchQuiz() {
       if (!quizId) return
       setLoading(true)
-      
-      const { error: quizError } = await supabase
-        .from('quizzes')
-        .select('id')
-        .eq('id', quizId)
-        .single()
 
-      if (quizError) {
-        console.error('Error fetching quiz:', quizError.message)
-        setLoading(false)
-        return
+      try {
+        // Use backend API to start a quiz session
+        const session = await api.post<{ id: string; questions: QuizQuestion[] }>(
+          '/api/v1/quizzes/start',
+          { questionCount: 10 }
+        )
+        setQuestions(session.questions || [])
+      } catch (error) {
+        console.error('Error starting quiz:', error)
       }
 
-      const { data: questionsData, error: qError } = await supabase
-        .from('questions')
-        .select('*, options(*)')
-        .eq('quiz_id', quizId)
-        .order('created_at', { ascending: true })
-
-      if (qError) {
-        console.error('Error fetching questions:', qError.message)
-      } else {
-        const formattedQuestions = (questionsData || []).map(q => ({
-          question: q,
-          options: q.options as Option[]
-        }))
-        setQuestions(formattedQuestions)
-      }
       setLoading(false)
     }
 
     fetchQuiz()
   }, [quizId])
 
-  const handleOptionSelect = (optionId: string) => {
+  const handleOptionSelect = (label: string) => {
     if (isAnswered) return
-    setSelectedOptionId(optionId)
+    setSelectedAnswer(label)
   }
 
   const handleSubmitAnswer = async () => {
-    if (!selectedOptionId) return
-    
+    if (!selectedAnswer) return
+
     const currentQuestion = questions[currentQuestionIndex]
-    const correctOption = currentQuestion.options.find(o => o.is_correct)
-    
+    const isCorrect = selectedAnswer === currentQuestion.correctAnswer
+
     setIsAnswered(true)
-    
-    if (selectedOptionId === correctOption?.id) {
+
+    if (isCorrect) {
       setScore(prev => prev + 1)
     } else {
-      // Record mistake in Supabase
+      // Record mistake via backend API
       if (user) {
-        const { error } = await supabase
-          .from('user_mistakes')
-          .insert({
-            user_id: user.id,
-            question_id: currentQuestion.question.id,
-            option_id: selectedOptionId,
+        try {
+          await api.post('/api/v1/me/mistakes', {
+            questionId: currentQuestion.id,
+            source: 'quiz',
+            userAnswer: selectedAnswer,
           })
-        
-        if (error) console.error('Error recording mistake:', error.message)
+        } catch (error) {
+          console.error('Error recording mistake:', error)
+        }
       }
     }
   }
@@ -89,7 +79,7 @@ export function QuizPage() {
   const handleNext = async () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1)
-      setSelectedOptionId(null)
+      setSelectedAnswer(null)
       setIsAnswered(false)
     } else {
       await finishQuiz()
@@ -98,20 +88,15 @@ export function QuizPage() {
 
   const finishQuiz = async () => {
     setFinished(true)
-    
-    // If this was the last question, we need to check if the current one was correct too
-    const lastQuestion = questions[currentQuestionIndex]
-    const lastCorrect = lastQuestion.options.find(o => o.is_correct)?.id === selectedOptionId
-    const finalScore = lastCorrect ? score + 1 : score
-    const finalXp = finalScore * 10
 
+    // XP is handled by the backend quiz session
+    // Just refresh user profile to get updated XP
     if (user) {
-      const { error } = await supabase
-        .from('user_profiles')
-        .update({ total_xp: (user.total_xp || 0) + finalXp })
-        .eq('id', user.id)
-      
-      if (error) console.error('Error updating XP:', error.message)
+      try {
+        await api.get('/api/v1/me/profile')
+      } catch (error) {
+        console.error('Error refreshing profile:', error)
+      }
     }
   }
 
@@ -140,7 +125,7 @@ export function QuizPage() {
             <p className="text-sm text-purple-600 font-medium">XP Earned</p>
             <p className="text-3xl font-bold text-purple-700">+{score * 10} XP</p>
           </div>
-          <button 
+          <button
             onClick={() => navigate('/map')}
             className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
           >
@@ -165,7 +150,7 @@ export function QuizPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
-          <button 
+          <button
             onClick={() => navigate('/map')}
             className="text-purple-600 hover:text-purple-800 flex items-center gap-2 font-medium"
           >
@@ -183,8 +168,8 @@ export function QuizPage() {
       <main className="mx-auto max-w-2xl px-4 py-8">
         <div className="mb-8">
           <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-purple-600 transition-all duration-500" 
+            <div
+              className="h-full bg-purple-600 transition-all duration-500"
               style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
             ></div>
           </div>
@@ -192,13 +177,13 @@ export function QuizPage() {
 
         <div className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-6 leading-relaxed">
-            {currentQ.question.text}
+            {currentQ.text}
           </h2>
-          
+
           <div className="space-y-3">
-            {currentQ.options.map((option) => {
-              const isCorrect = option.is_correct
-              const isSelected = selectedOptionId === option.id
+            {currentQ.choices.map((choice) => {
+              const isCorrect = choice.label === currentQ.correctAnswer
+              const isSelected = selectedAnswer === choice.label
               const showFeedback = isAnswered
 
               let bgColor = 'bg-white'
@@ -219,14 +204,14 @@ export function QuizPage() {
 
               return (
                 <button
-                  key={option.id}
-                  onClick={() => handleOptionSelect(option.id)}
+                  key={choice.label}
+                  onClick={() => handleOptionSelect(choice.label)}
                   disabled={showFeedback}
                   className={`w-full text-left p-4 rounded-xl border-2 transition-all ${bgColor} ${borderColor} ${textColor} ${
                     isSelected ? 'border-purple-600 ring-2 ring-purple-100' : ''
                   }`}
                 >
-                  {option.text}
+                  {choice.text}
                 </button>
               )
             })}
@@ -235,15 +220,15 @@ export function QuizPage() {
 
         <div className="flex justify-end">
           {!isAnswered ? (
-            <button 
+            <button
               onClick={handleSubmitAnswer}
-              disabled={!selectedOptionId}
+              disabled={!selectedAnswer}
               className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Check Answer
             </button>
           ) : (
-            <button 
+            <button
               onClick={handleNext}
               className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700"
             >

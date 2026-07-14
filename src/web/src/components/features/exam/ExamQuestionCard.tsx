@@ -24,9 +24,9 @@ export function ExamQuestionCard({
       <div className="mb-4 flex items-start justify-between">
         <div className="flex items-center gap-2">
           <span className="text-sm font-bold text-purple-600">
-            Q{question.question_number}
+            Q{question.questionNumber}
           </span>
-          {!question.is_required && (
+          {!question.isRequired && (
             <Badge variant="warning">Optional</Badge>
           )}
           <Badge
@@ -44,15 +44,15 @@ export function ExamQuestionCard({
       </div>
 
       {/* Question text */}
-      <div className="mb-6 text-gray-900 leading-relaxed">{question.question_text}</div>
+      <div className="mb-6 text-gray-900 leading-relaxed">{question.questionText}</div>
 
       {/* Choices */}
       <div className="space-y-3">
         {question.choices.map((choice) => {
           const isSelected = selectedAnswer === choice.label
-          const isCorrect = result?.is_correct && isSelected
-          const isWrong = result && !result.is_correct && isSelected
-          const showCorrectAnswer = result && !result.is_correct && choice.label === result.correct_answer
+          const isCorrect = result?.isCorrect && isSelected
+          const isWrong = result && !result.isCorrect && isSelected
+          const showCorrectAnswer = result && !result.isCorrect && choice.label === result.correctAnswer
 
           let borderColor = 'border-gray-200'
           let bgColor = 'bg-white'
@@ -94,15 +94,15 @@ export function ExamQuestionCard({
       {result && (
         <div
           className={`mt-4 rounded-xl p-4 ${
-            result.is_correct
+            result.isCorrect
               ? 'border border-green-200 bg-green-50 text-green-700'
               : 'border border-red-200 bg-red-50 text-red-700'
           }`}
         >
           <div className="flex items-center gap-2 font-medium">
-            {result.is_correct ? '✅ Correct!' : '❌ Incorrect'}
-            {!result.is_correct && (
-              <span className="text-sm">(Answer: {result.correct_answer})</span>
+            {result.isCorrect ? '✅ Correct!' : '❌ Incorrect'}
+            {!result.isCorrect && (
+              <span className="text-sm">(Answer: {result.correctAnswer})</span>
             )}
           </div>
           {result.explanation && (

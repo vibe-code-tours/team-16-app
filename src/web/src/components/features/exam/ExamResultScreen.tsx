@@ -9,7 +9,7 @@ interface ExamResultScreenProps {
 }
 
 export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) {
-  const percentage = Math.round(result.score_percentage)
+  const percentage = Math.round(result.scorePercentage)
 
   return (
     <div className="space-y-6">
@@ -38,16 +38,16 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
           </div>
           <div className="rounded-xl bg-green-50 p-4">
             <div className="text-3xl font-bold text-green-600">
-              {result.correct_answers}/{result.total_questions}
+              {result.correctAnswers}/{result.totalQuestions}
             </div>
             <div className="text-sm text-gray-600">Correct</div>
           </div>
           <div className="rounded-xl bg-amber-50 p-4">
-            <div className="text-3xl font-bold text-amber-600">{result.xp_earned}</div>
+            <div className="text-3xl font-bold text-amber-600">{result.xpEarned}</div>
             <div className="text-sm text-gray-600">XP Earned</div>
           </div>
           <div className="rounded-xl bg-red-50 p-4">
-            <div className="text-3xl font-bold text-red-600">{result.hearts_remaining}</div>
+            <div className="text-3xl font-bold text-red-600">{result.heartsRemaining}</div>
             <div className="text-sm text-gray-600">Hearts Left</div>
           </div>
         </div>
@@ -59,9 +59,9 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
         <div className="space-y-3">
           {result.answers.map((answer) => (
             <div
-              key={answer.question_id}
+              key={answer.questionId}
               className={`rounded-xl border p-4 ${
-                answer.is_correct
+                answer.isCorrect
                   ? 'border-green-200 bg-green-50'
                   : 'border-red-200 bg-red-50'
               }`}
@@ -70,22 +70,22 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-gray-900">
-                      Q{answer.question_number}
+                      Q{answer.questionNumber}
                     </span>
-                    {answer.is_correct ? (
+                    {answer.isCorrect ? (
                       <Badge variant="success">✓ Correct</Badge>
                     ) : (
                       <Badge variant="error">✗ Incorrect</Badge>
                     )}
                   </div>
                   <p className="mt-1 text-sm text-gray-700 line-clamp-2">
-                    {answer.question_text}
+                    {answer.questionText}
                   </p>
-                  {!answer.is_correct && (
+                  {!answer.isCorrect && (
                     <div className="mt-2 text-sm">
-                      <span className="text-red-600">Your answer: {answer.user_answer}</span>
+                      <span className="text-red-600">Your answer: {answer.userAnswer}</span>
                       <span className="mx-2 text-gray-400">|</span>
-                      <span className="text-green-600">Correct: {answer.correct_answer}</span>
+                      <span className="text-green-600">Correct: {answer.correctAnswer}</span>
                     </div>
                   )}
                   {answer.explanation && (

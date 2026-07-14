@@ -1,65 +1,65 @@
 export interface ExamSummary {
   id: string
-  exam_session: string
+  examSession: string
   subject: string
   title: string
-  question_count: number
-  time_limit_minutes: number
-  initial_hearts: number
+  questionCount: number
+  timeLimitMinutes: number
+  initialHearts: number
 }
 
 export interface ExamQuestion {
   id: string
-  question_number: number
-  question_text: string
+  questionNumber: number
+  questionText: string
   images: { url: string; alt: string }[]
   choices: { label: string; text: string }[]
   difficulty: 'easy' | 'medium' | 'hard'
-  is_required: boolean
+  isRequired: boolean
 }
 
 export interface ExamSession {
-  session_id: string
-  exam_session: string
+  sessionId: string
+  examSession: string
   subject: string
   title: string
   questions: ExamQuestion[]
-  total_questions: number
-  hearts_remaining: number
-  initial_hearts: number
-  time_limit_minutes: number
-  expires_at: string
+  totalQuestions: number
+  heartsRemaining: number
+  initialHearts: number
+  timeLimitMinutes: number
+  expiresAt: string
   status: string
 }
 
 export interface ExamAnswerResult {
-  question_id: string
-  user_answer: string | null
-  is_correct: boolean
-  correct_answer: string
+  questionId: string
+  userAnswer: string | null
+  isCorrect: boolean
+  correctAnswer: string
   explanation: string | null
-  hearts_remaining: number
-  exam_complete: boolean
+  heartsRemaining: number
+  examComplete: boolean
 }
 
 export interface ExamAnswerDetail {
-  question_id: string
-  question_number: number
-  question_text: string
-  user_answer: string
-  correct_answer: string
-  is_correct: boolean
+  questionId: string
+  questionNumber: number
+  questionText: string
+  userAnswer: string
+  correctAnswer: string
+  isCorrect: boolean
   explanation: string | null
 }
 
 export interface ExamResult {
-  session_id: string
-  total_questions: number
-  answered_questions: number
-  correct_answers: number
-  score_percentage: number
-  xp_earned: number
+  sessionId: string
+  totalQuestions: number
+  answeredQuestions: number
+  correctAnswers: number
+  scorePercentage: number
+  xpEarned: number
   passed: boolean
-  hearts_remaining: number
+  heartsRemaining: number
   answers: ExamAnswerDetail[]
 }

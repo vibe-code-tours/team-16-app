@@ -1,14 +1,17 @@
 import { useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useExamSimulation } from '../hooks/useExamSimulation'
+import { useAuth } from '../hooks/useAuth'
 import { ExamStartScreen } from '../components/features/exam/ExamStartScreen'
 import { ExamQuestionCard } from '../components/features/exam/ExamQuestionCard'
 import { ExamTimer } from '../components/features/exam/ExamTimer'
 import { ExamProgressBar } from '../components/features/exam/ExamProgressBar'
 import { ExamResultScreen } from '../components/features/exam/ExamResultScreen'
 import { Button } from '../components/ui/Button'
-import { Card } from '../components/ui/Card'
 
 export default function ExamSimulation() {
+  const { user } = useAuth()
+  const navigate = useNavigate()
   const {
     availableExams,
     session,
@@ -53,7 +56,7 @@ export default function ExamSimulation() {
   useEffect(() => {
     if (!session || !currentQuestion) return
     const answer = answers[currentQuestion.id]
-    if (answer?.submitted && answer.result?.exam_complete) {
+    if (answer?.submitted && answer.result?.examComplete) {
       // Exam ended — don't auto-advance, result will show
       return
     }
@@ -80,7 +83,7 @@ export default function ExamSimulation() {
   if (session) {
     const currentAnswer = currentQuestion ? answers[currentQuestion.id] : null
     const isAnswered = currentAnswer?.submitted === true
-    const isAnsweredCorrectly = currentAnswer?.result?.is_correct === true
+    const isAnsweredCorrectly = currentAnswer?.result?.isCorrect === true
 
     // Check if all questions are answered
     const allAnswered = session.questions.every(
@@ -101,7 +104,7 @@ export default function ExamSimulation() {
             <div className="flex items-center gap-4">
               {/* Hearts */}
               <div className="flex items-center gap-1">
-                {Array.from({ length: session.initial_hearts }).map((_, i) => (
+                {Array.from({ length: session.initialHearts }).map((_, i) => (
                   <span key={i} className={i < heartsRemaining ? 'text-red-500' : 'text-gray-300'}>
                     ❤️
                   </span>
@@ -160,7 +163,7 @@ export default function ExamSimulation() {
               {!isAnswered ? (
                 <>
                   {/* Skip button for optional questions */}
-                  {!currentQuestion?.is_required && (
+                  {!currentQuestion?.isRequired && (
                     <Button
                       variant="ghost"
                       onClick={handleSubmitAnswer}
@@ -171,7 +174,7 @@ export default function ExamSimulation() {
                   )}
                   <Button
                     onClick={handleSubmitAnswer}
-                    disabled={isSubmitting || (!currentAnswer?.selected && currentQuestion?.is_required)}
+                    disabled={isSubmitting || (!currentAnswer?.selected && currentQuestion?.isRequired)}
                   >
                     {isSubmitting ? 'Submitting...' : 'Submit Answer'}
                   </Button>
@@ -215,11 +218,34 @@ export default function ExamSimulation() {
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-4 py-6">
-        <ExamStartScreen
-          exams={availableExams}
-          isLoading={isLoading}
-          onStart={startExam}
-        />
+        {error && (
+          <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert">
+            {error}
+          </div>
+        )}
+        {!user ? (
+          <div className="rounded-xl border border-gray-200 bg-white p-8 text-center">
+            <h2 className="text-xl font-bold text-gray-900">Login Required</h2>
+            <p className="mt-2 text-gray-600">
+              You need to be logged in to start an exam simulation.
+            </p>
+            <div className="mt-6 flex justify-center gap-4">
+              <Button onClick={() => navigate('/login')}>
+                Log In
+              </Button>
+              <Button variant="outline" onClick={() => navigate('/register')}>
+                Sign Up
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <ExamStartScreen
+            exams={availableExams}
+            isLoading={isLoading}
+            isStarting={isLoading && availableExams.length > 0}
+            onStart={startExam}
+          />
+        )}
       </main>
     </div>
   )

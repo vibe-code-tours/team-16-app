@@ -60,7 +60,7 @@ export function useExamSimulation(): UseExamSimulationReturn {
   useEffect(() => {
     if (!session || session.status !== 'in_progress') return
 
-    const expiresAt = new Date(session.expires_at).getTime()
+    const expiresAt = new Date(session.expiresAt).getTime()
     const updateTimer = () => {
       const now = Date.now()
       const remaining = Math.max(0, Math.floor((expiresAt - now) / 1000))
@@ -99,7 +99,7 @@ export function useExamSimulation(): UseExamSimulationReturn {
       setSession(newSession)
       setCurrentIndex(0)
       setAnswers({})
-      setHeartsRemaining(newSession.hearts_remaining)
+      setHeartsRemaining(newSession.heartsRemaining)
       setResult(null)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to start exam')
@@ -122,15 +122,16 @@ export function useExamSimulation(): UseExamSimulationReturn {
   const submitAnswer = useCallback(
     async (questionId: string): Promise<ExamAnswerResult | null> => {
       if (!session) return null
+      if (isSubmitting) return null
       const selected = answers[questionId]?.selected
       // Allow null answer for optional questions (skip)
-      if (!selected && !isSubmitting) return null
+      if (!selected) return null
 
       setIsSubmitting(true)
       setError(null)
       try {
         const response = await api.post<ExamAnswerResult>(
-          `/api/v1/exams/${session.session_id}/answers`,
+          `/api/v1/exams/${session.sessionId}/answers`,
           { questionId, answer: selected }
         )
 
@@ -138,12 +139,12 @@ export function useExamSimulation(): UseExamSimulationReturn {
           ...prev,
           [questionId]: { selected, submitted: true, result: response },
         }))
-        setHeartsRemaining(response.hearts_remaining)
+        setHeartsRemaining(response.heartsRemaining)
 
-        if (response.exam_complete) {
+        if (response.examComplete) {
           // Exam ended due to hearts running out — fetch full result
           const examResult = await api.get<ExamResult>(
-            `/api/v1/exams/${session.session_id}/result`
+            `/api/v1/exams/${session.sessionId}/result`
           )
           setResult(examResult)
         }
@@ -176,7 +177,7 @@ export function useExamSimulation(): UseExamSimulationReturn {
     setIsLoading(true)
     setError(null)
     try {
-      const examResult = await api.post<ExamResult>(`/api/v1/exams/${session.session_id}/complete`)
+      const examResult = await api.post<ExamResult>(`/api/v1/exams/${session.sessionId}/complete`)
       setResult(examResult)
       return examResult
     } catch (err) {

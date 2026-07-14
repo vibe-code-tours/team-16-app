@@ -5,8 +5,8 @@ import type { ExamQuestion } from '../../../../types/Exam'
 
 const mockQuestion: ExamQuestion = {
   id: 'q1',
-  question_number: 1,
-  question_text: 'What is 2 + 2?',
+  questionNumber: 1,
+  questionText: 'What is 2 + 2?',
   images: [],
   choices: [
     { label: 'a', text: '3' },
@@ -15,7 +15,7 @@ const mockQuestion: ExamQuestion = {
     { label: 'd', text: '6' },
   ],
   difficulty: 'easy',
-  is_required: true,
+  isRequired: true,
 }
 
 describe('ExamQuestionCard', () => {
@@ -76,13 +76,13 @@ describe('ExamQuestionCard', () => {
         selectedAnswer="b"
         isSubmitted={true}
         result={{
-          question_id: 'q1',
-          user_answer: 'b',
-          is_correct: true,
-          correct_answer: 'b',
+          questionId: 'q1',
+          userAnswer: 'b',
+          isCorrect: true,
+          correctAnswer: 'b',
           explanation: 'Basic arithmetic',
-          hearts_remaining: 5,
-          exam_complete: false,
+          heartsRemaining: 5,
+          examComplete: false,
         }}
         onSelect={vi.fn()}
       />
@@ -98,13 +98,13 @@ describe('ExamQuestionCard', () => {
         selectedAnswer="a"
         isSubmitted={true}
         result={{
-          question_id: 'q1',
-          user_answer: 'a',
-          is_correct: false,
-          correct_answer: 'b',
+          questionId: 'q1',
+          userAnswer: 'a',
+          isCorrect: false,
+          correctAnswer: 'b',
           explanation: 'Basic arithmetic',
-          hearts_remaining: 4,
-          exam_complete: false,
+          heartsRemaining: 4,
+          examComplete: false,
         }}
         onSelect={vi.fn()}
       />
@@ -117,7 +117,7 @@ describe('ExamQuestionCard', () => {
   it('shows Optional badge for optional questions', () => {
     render(
       <ExamQuestionCard
-        question={{ ...mockQuestion, is_required: false }}
+        question={{ ...mockQuestion, isRequired: false }}
         selectedAnswer={null}
         isSubmitted={false}
         result={null}
@@ -135,13 +135,13 @@ describe('ExamQuestionCard', () => {
         selectedAnswer="b"
         isSubmitted={true}
         result={{
-          question_id: 'q1',
-          user_answer: 'b',
-          is_correct: true,
-          correct_answer: 'b',
+          questionId: 'q1',
+          userAnswer: 'b',
+          isCorrect: true,
+          correctAnswer: 'b',
           explanation: '2 + 2 = 4',
-          hearts_remaining: 5,
-          exam_complete: false,
+          heartsRemaining: 5,
+          examComplete: false,
         }}
         onSelect={vi.fn()}
       />

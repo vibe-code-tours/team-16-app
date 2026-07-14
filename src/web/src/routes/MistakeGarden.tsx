@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
-import { supabase } from '../lib/supabase'
-import type { Question, Option } from '../types'
+import { api } from '../lib/api'
 
 interface Mistake {
   id: string
-  created_at: string
-  questions: Question
-  options: Option // The wrong option selected
-  correct_option: Option // Added via join
+  createdAt: string
+  questionId: string
+  questionText: string
+  userAnswer: string
+  correctAnswer: string
+  explanation: string | null
+  source: string
+  reviewed: boolean
 }
 
 export function MistakeGarden() {
@@ -21,48 +24,14 @@ export function MistakeGarden() {
   useEffect(() => {
     async function fetchMistakes() {
       setLoading(true)
-      
-      const { data, error } = await supabase
-        .from('user_mistakes')
-        .select(`
-          id,
-          created_at,
-          questions (
-            id,
-            text
-          ),
-          options (
-            id,
-            text
-          )
-        `)
-        .eq('user_id', user?.id)
-        .order('created_at', { ascending: false })
 
-      if (error) {
-        console.error('Error fetching mistakes:', error.message)
-      } else {
-        // We also need to fetch the correct option for each mistake to show the solution
-        const processedMistakes = await Promise.all(
-          (data || []).map(async (m: any) => {
-            const { data: optionsData } = await supabase
-              .from('options')
-              .select('*')
-              .eq('question_id', m.questions.id)
-              .eq('is_correct', true)
-              .single()
-            
-            return {
-              id: m.id,
-              created_at: m.created_at,
-              questions: m.questions,
-              options: m.options,
-              correct_option: optionsData
-            }
-          })
-        )
-        setMistakes(processedMistakes)
+      try {
+        const data = await api.get<Mistake[]>('/api/v1/me/mistakes')
+        setMistakes(data || [])
+      } catch (error) {
+        console.error('Error fetching mistakes:', error)
       }
+
       setLoading(false)
     }
 
@@ -71,11 +40,20 @@ export function MistakeGarden() {
     }
   }, [user])
 
+  const markAsReviewed = async (mistakeId: string) => {
+    try {
+      await api.put(`/api/v1/me/mistakes/${mistakeId}/review`)
+      setMistakes(prev => prev.filter(m => m.id !== mistakeId))
+    } catch (error) {
+      console.error('Error marking mistake as reviewed:', error)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
-          <button 
+          <button
             onClick={() => navigate('/map')}
             className="text-purple-600 hover:text-purple-800 flex items-center gap-2 font-medium"
           >
@@ -112,34 +90,38 @@ export function MistakeGarden() {
               <div key={mistake.id} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                 <div className="flex items-start justify-between mb-4">
                   <div className="text-sm text-gray-400">
-                    {new Date(mistake.created_at).toLocaleDateString()}
+                    {new Date(mistake.createdAt).toLocaleDateString()}
                   </div>
-                  <button 
-                    onClick={async () => {
-                      await supabase.from('user_mistakes').update({ reviewed: true }).eq('id', mistake.id)
-                      setMistakes(prev => prev.filter(m => m.id !== mistake.id))
-                    }}
+                  <button
+                    onClick={() => markAsReviewed(mistake.id)}
                     className="text-xs font-medium text-green-600 hover:text-green-700 bg-green-50 px-2 py-1 rounded"
                   >
                     Mark as Reviewed
                   </button>
                 </div>
-                
+
                 <div className="mb-4">
                   <p className="text-sm font-medium text-gray-500 mb-1">Question</p>
-                  <p className="text-lg text-gray-900">{mistake.questions.text}</p>
+                  <p className="text-lg text-gray-900">{mistake.questionText}</p>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="p-4 rounded-xl bg-red-50 border border-red-100">
                     <p className="text-xs font-bold text-red-600 uppercase mb-1">Your Answer</p>
-                    <p className="text-gray-700">{mistake.options.text}</p>
+                    <p className="text-gray-700">{mistake.userAnswer}</p>
                   </div>
                   <div className="p-4 rounded-xl bg-green-50 border border-green-100">
                     <p className="text-xs font-bold text-green-600 uppercase mb-1">Correct Answer</p>
-                    <p className="text-gray-700">{mistake.correct_option?.text || 'N/A'}</p>
+                    <p className="text-gray-700">{mistake.correctAnswer}</p>
                   </div>
                 </div>
+
+                {mistake.explanation && (
+                  <div className="mt-4 p-4 rounded-xl bg-blue-50 border border-blue-100">
+                    <p className="text-xs font-bold text-blue-600 uppercase mb-1">Explanation</p>
+                    <p className="text-gray-700">{mistake.explanation}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>

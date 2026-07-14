@@ -4,31 +4,31 @@ import { ExamResultScreen } from '../ExamResultScreen'
 import type { ExamResult } from '../../../../types/Exam'
 
 const mockResult: ExamResult = {
-  session_id: 'session-1',
-  total_questions: 60,
-  answered_questions: 60,
-  correct_answers: 50,
-  score_percentage: 83.33,
-  xp_earned: 500,
+  sessionId: 'session-1',
+  totalQuestions: 60,
+  answeredQuestions: 60,
+  correctAnswers: 50,
+  scorePercentage: 83.33,
+  xpEarned: 500,
   passed: true,
-  hearts_remaining: 3,
+  heartsRemaining: 3,
   answers: [
     {
-      question_id: 'q1',
-      question_number: 1,
-      question_text: 'What is 2 + 2?',
-      user_answer: 'b',
-      correct_answer: 'b',
-      is_correct: true,
+      questionId: 'q1',
+      questionNumber: 1,
+      questionText: 'What is 2 + 2?',
+      userAnswer: 'b',
+      correctAnswer: 'b',
+      isCorrect: true,
       explanation: 'Basic arithmetic',
     },
     {
-      question_id: 'q2',
-      question_number: 2,
-      question_text: 'What is 3 + 3?',
-      user_answer: 'a',
-      correct_answer: 'b',
-      is_correct: false,
+      questionId: 'q2',
+      questionNumber: 2,
+      questionText: 'What is 3 + 3?',
+      userAnswer: 'a',
+      correctAnswer: 'b',
+      isCorrect: false,
       explanation: '3 + 3 = 6',
     },
   ],
@@ -43,7 +43,7 @@ describe('ExamResultScreen', () => {
   })
 
   it('shows keep studying when failed', () => {
-    const failedResult = { ...mockResult, passed: false, score_percentage: 50 }
+    const failedResult = { ...mockResult, passed: false, scorePercentage: 50 }
     render(<ExamResultScreen result={failedResult} onTryAgain={vi.fn()} />)
 
     expect(screen.getByText('📚')).toBeInTheDocument()

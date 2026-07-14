@@ -32,6 +32,7 @@ public class ExamService {
     private final ExamAnswerRepository examAnswerRepository;
     private final ExamHeartEventRepository examHeartEventRepository;
     private final QuestionRepository questionRepository;
+    private final UserProfileRepository userProfileRepository;
     private final ObjectMapper objectMapper;
 
     public ExamService(ExamRepository examRepository,
@@ -39,12 +40,14 @@ public class ExamService {
                        ExamAnswerRepository examAnswerRepository,
                        ExamHeartEventRepository examHeartEventRepository,
                        QuestionRepository questionRepository,
+                       UserProfileRepository userProfileRepository,
                        ObjectMapper objectMapper) {
         this.examRepository = examRepository;
         this.examSessionRepository = examSessionRepository;
         this.examAnswerRepository = examAnswerRepository;
         this.examHeartEventRepository = examHeartEventRepository;
         this.questionRepository = questionRepository;
+        this.userProfileRepository = userProfileRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -57,6 +60,17 @@ public class ExamService {
 
     @Transactional
     public ExamSessionResponse startExam(UUID userId, StartExamRequest request) {
+        // Ensure user profile exists (needed for FK constraint on exam_sessions)
+        if (!userProfileRepository.existsById(userId)) {
+            com.nerdquiz.model.UserProfile profile = new com.nerdquiz.model.UserProfile();
+            profile.setId(userId);
+            profile.setEmail("");
+            profile.setTotalXp(0);
+            profile.setStreakCount(0);
+            profile.setLongestStreak(0);
+            userProfileRepository.save(profile);
+        }
+
         Exam exam = examRepository.findByExamSessionAndSubject(request.examSession(), request.subject())
                 .orElseThrow(() -> new RuntimeException(
                     "No exam found for session " + request.examSession() + " subject " + request.subject()));

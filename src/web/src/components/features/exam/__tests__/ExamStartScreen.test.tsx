@@ -6,21 +6,21 @@ import type { ExamSummary } from '../../../../types/Exam'
 const mockExams: ExamSummary[] = [
   {
     id: '1',
-    exam_session: '2021-april',
+    examSession: '2021-april',
     subject: 'A',
     title: '2021 April FE Subject A',
-    question_count: 60,
-    time_limit_minutes: 150,
-    initial_hearts: 5,
+    questionCount: 60,
+    timeLimitMinutes: 150,
+    initialHearts: 5,
   },
   {
     id: '2',
-    exam_session: '2021-april',
+    examSession: '2021-april',
     subject: 'B',
     title: '2021 April FE Subject B',
-    question_count: 8,
-    time_limit_minutes: 150,
-    initial_hearts: 5,
+    questionCount: 8,
+    timeLimitMinutes: 150,
+    initialHearts: 5,
   },
 ]
 

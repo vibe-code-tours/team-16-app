@@ -17,6 +17,8 @@ import com.nerdquiz.exception.UnauthorizedQuizAccessException;
 import com.nerdquiz.exception.QuizAlreadyCompletedException;
 import com.nerdquiz.exception.QuestionNotFoundException;
 import com.nerdquiz.exception.UserProfileNotFoundException;
+import com.nerdquiz.exception.LessonNotFoundException;
+import com.nerdquiz.exception.MistakeNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -95,6 +97,26 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
             "type", "https://nerdquiz.com/errors/not-found",
             "title", "User Profile Not Found",
+            "status", 404,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(LessonNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleLessonNotFound(LessonNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "type", "https://nerdquiz.com/errors/not-found",
+            "title", "Lesson Not Found",
+            "status", 404,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(MistakeNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleMistakeNotFound(MistakeNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "type", "https://nerdquiz.com/errors/not-found",
+            "title", "Mistake Not Found",
             "status", 404,
             "detail", ex.getMessage()
         ));
