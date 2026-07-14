@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 export function UserProfile() {
@@ -37,18 +36,7 @@ export function UserProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-2xl items-center gap-3 px-4 py-3">
-          <Link
-            to="/map"
-            className="text-sm text-purple-600 hover:text-purple-700"
-          >
-            ← Back to map
-          </Link>
-        </div>
-      </header>
-
+    <div>
       <main className="mx-auto max-w-2xl px-4 py-8">
         <h1 className="mb-6 text-2xl font-bold text-gray-900">Profile</h1>
 
