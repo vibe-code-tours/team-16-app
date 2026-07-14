@@ -4,11 +4,10 @@ import com.nerdquiz.dto.TopicProgressResponse;
 import com.nerdquiz.dto.TopicResponse;
 import com.nerdquiz.model.Subtopic;
 import com.nerdquiz.model.Topic;
-import com.nerdquiz.model.UserSubtopicMastery;
+import com.nerdquiz.repository.LessonRepository;
 import com.nerdquiz.repository.QuestionRepository;
 import com.nerdquiz.repository.SubtopicRepository;
 import com.nerdquiz.repository.TopicRepository;
-import com.nerdquiz.repository.UserSubtopicMasteryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,17 +24,17 @@ public class TopicService {
 
     private final TopicRepository topicRepository;
     private final SubtopicRepository subtopicRepository;
-    private final UserSubtopicMasteryRepository masteryRepository;
     private final QuestionRepository questionRepository;
+    private final LessonRepository lessonRepository;
 
     public TopicService(TopicRepository topicRepository,
                         SubtopicRepository subtopicRepository,
-                        UserSubtopicMasteryRepository masteryRepository,
-                        QuestionRepository questionRepository) {
+                        QuestionRepository questionRepository,
+                        LessonRepository lessonRepository) {
         this.topicRepository = topicRepository;
         this.subtopicRepository = subtopicRepository;
-        this.masteryRepository = masteryRepository;
         this.questionRepository = questionRepository;
+        this.lessonRepository = lessonRepository;
     }
 
     @Transactional(readOnly = true)
@@ -57,10 +56,19 @@ public class TopicService {
                         QuestionRepository.SubtopicQuestionCount::getSubtopicId,
                         QuestionRepository.SubtopicQuestionCount::getCnt));
 
-        Map<UUID, UserSubtopicMastery> masteryBySubtopic = userId == null
+        Map<UUID, Long> totalLessonsBySubtopic = lessonRepository
+                .countPublishedLessonsBySubtopic()
+                .stream()
+                .collect(Collectors.toMap(
+                        LessonRepository.SubtopicLessonCount::getSubtopicId,
+                        LessonRepository.SubtopicLessonCount::getCnt));
+
+        Map<UUID, Long> completedLessonsBySubtopic = userId == null
                 ? Map.of()
-                : masteryRepository.findByUserId(userId).stream()
-                        .collect(Collectors.toMap(UserSubtopicMastery::getSubtopicId, m -> m));
+                : lessonRepository.countCompletedLessonsBySubtopicForUser(userId).stream()
+                        .collect(Collectors.toMap(
+                                LessonRepository.SubtopicLessonCount::getSubtopicId,
+                                LessonRepository.SubtopicLessonCount::getCnt));
 
         Map<UUID, List<Subtopic>> byCategoryId = subtopics.stream()
                 .collect(Collectors.groupingBy(Subtopic::getTopicId));
@@ -77,12 +85,17 @@ public class TopicService {
                 int questionCount = questionCountBySubtopic
                         .getOrDefault(sub.getId(), 0L).intValue();
 
-                UserSubtopicMastery mastery = masteryBySubtopic.get(sub.getId());
-                TopicProgressResponse progress = mastery == null
-                        ? null
-                        : toProgress(mastery, questionCount);
+                int totalLessons = totalLessonsBySubtopic.getOrDefault(sub.getId(), 0L).intValue();
+                int completedLessons = completedLessonsBySubtopic.getOrDefault(sub.getId(), 0L).intValue();
 
-                String status = deriveStatus(progress, previousId, masteryBySubtopic, questionCountBySubtopic);
+                boolean prereqCompleted = previousId == null
+                        || isSubtopicCompleted(previousId, totalLessonsBySubtopic, completedLessonsBySubtopic);
+
+                String status = deriveStatus(totalLessons, completedLessons, prereqCompleted);
+
+                TopicProgressResponse progress = completedLessons > 0
+                        ? new TopicProgressResponse(sub.getId(), status, completedLessons, completedLessons, null)
+                        : null;
 
                 String description = sub.getDescription() == null || sub.getDescription().isBlank()
                         ? DEFAULT_DESCRIPTION
@@ -108,31 +121,18 @@ public class TopicService {
         return result;
     }
 
-    private TopicProgressResponse toProgress(UserSubtopicMastery mastery, int questionCount) {
-        int answered = mastery.getQuestionsSeen();
-        int correct = mastery.getQuestionsCorrect();
-        String status = (questionCount > 0 && answered >= questionCount)
-                ? "completed"
-                : (answered > 0 ? "in_progress" : "not_started");
-        return new TopicProgressResponse(
-                mastery.getSubtopicId(),
-                status,
-                answered,
-                correct,
-                mastery.getLastPracticedAt()
-        );
+    private static boolean isSubtopicCompleted(UUID subtopicId,
+                                               Map<UUID, Long> totals,
+                                               Map<UUID, Long> completed) {
+        long total = totals.getOrDefault(subtopicId, 0L);
+        long done = completed.getOrDefault(subtopicId, 0L);
+        return total > 0 && done >= total;
     }
 
-    private String deriveStatus(TopicProgressResponse progress,
-                                UUID prerequisiteId,
-                                Map<UUID, UserSubtopicMastery> masteryBySubtopic,
-                                Map<UUID, Long> questionCountBySubtopic) {
-        if (progress != null) return progress.status();
-        if (prerequisiteId == null) return "not_started";
-        UserSubtopicMastery prereq = masteryBySubtopic.get(prerequisiteId);
-        if (prereq == null) return "locked";
-        int prereqQuestions = questionCountBySubtopic.getOrDefault(prerequisiteId, 0L).intValue();
-        boolean prereqCompleted = prereqQuestions > 0 && prereq.getQuestionsSeen() >= prereqQuestions;
-        return prereqCompleted ? "not_started" : "locked";
+    private static String deriveStatus(int totalLessons, int completedLessons, boolean prereqCompleted) {
+        if (!prereqCompleted) return "locked";
+        if (totalLessons > 0 && completedLessons >= totalLessons) return "completed";
+        if (completedLessons > 0) return "in_progress";
+        return "not_started";
     }
 }

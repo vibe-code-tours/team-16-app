@@ -19,7 +19,7 @@ interface Mistake {
   id: string
   created_at: string
   selected_label: string
-  questions: ItpecQuestion
+  questions: ItpecQuestion[]
 }
 
 export function MistakeGarden() {
@@ -51,7 +51,7 @@ export function MistakeGarden() {
       if (error) {
         console.error('Error fetching mistakes:', error.message)
       } else {
-        setMistakes(data || [])
+        setMistakes((data as Mistake[]) || [])
       }
       setLoading(false)
     }
@@ -88,7 +88,7 @@ export function MistakeGarden() {
       ) : (
         <div className="grid grid-cols-1 gap-6">
           {mistakes.map((mistake) => {
-            const q = mistake.questions
+            const q = mistake.questions?.[0]
             return (
               <div key={mistake.id} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                 <div className="flex items-start justify-between mb-4">
