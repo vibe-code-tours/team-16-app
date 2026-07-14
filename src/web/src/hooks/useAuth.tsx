@@ -6,6 +6,18 @@ import type { UserProfile, AuthContextType } from '../types'
 
 const AuthContext = createContext<AuthContextType | null>(null)
 
+interface ApiUserProfile {
+  id: string
+  displayName: string
+  avatarUrl: string | null
+  email: string | null
+  totalXp: number
+  streakCount: number
+  lastLoginAt: string | null
+  createdAt: string
+  updatedAt: string
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null)
   const [session, setSession] = useState<Session | null>(null)
@@ -39,7 +51,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   async function fetchUserProfile(authUser: User) {
-    const userId = authUser.id
     // Extract name from OAuth metadata, fallback to email prefix
     const oauthName = authUser.user_metadata?.full_name
       || authUser.user_metadata?.name
@@ -51,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     try {
       // Use backend API to get or create profile
-      const profile = await api.post<{ id: string; displayName: string; avatarUrl: string; email: string; totalXp: number; streakCount: number }>('/api/v1/me/profile', {
+      const profile = await api.post<ApiUserProfile>('/api/v1/me/profile', {
         email: authUser.email,
         displayName: oauthName,
         avatarUrl: oauthAvatar,
@@ -73,6 +84,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email: profile.email,
         total_xp: profile.totalXp,
         streak_count: newStreak ?? profile.streakCount,
+        last_login_at: profile.lastLoginAt,
+        created_at: profile.createdAt,
+        updated_at: profile.updatedAt,
       })
     } catch {
       setUser(null)

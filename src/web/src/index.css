@@ -1,1 +1,70 @@
 @import "tailwindcss";
+
+@keyframes learning-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes learning-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.88) rotate(-4deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes learning-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.learning-hero-enter {
+  animation: learning-rise 240ms ease-out both;
+}
+
+.learning-owl-enter {
+  animation: learning-pop 260ms ease-out 80ms both;
+}
+
+.learning-feature-enter,
+.learning-topic-enter {
+  animation: learning-rise 220ms ease-out both;
+}
+
+.learning-feature-enter:nth-child(2),
+.learning-feature-enter:nth-child(5) {
+  animation-delay: 40ms;
+}
+
+.learning-feature-enter:nth-child(3),
+.learning-feature-enter:nth-child(6) {
+  animation-delay: 80ms;
+}
+
+.learning-progress-reveal {
+  animation: learning-progress 280ms ease-out both;
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-hero-enter,
+  .learning-owl-enter,
+  .learning-feature-enter,
+  .learning-topic-enter,
+  .learning-progress-reveal {
+    animation: none;
+  }
+}

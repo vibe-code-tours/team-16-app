@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { cn } from '../../lib/cn'
+import { Badge } from '../ui/Badge'
 import type { TopicCategory, TopicWithStatus } from '../../types/topic'
 
 interface TopicNodeProps {
@@ -30,10 +31,10 @@ export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
   const isInProgress = status === 'in_progress'
 
   const cardClasses = cn(
-    'group flex items-center gap-4 rounded-2xl border border-gray-200 border-l-4 bg-white p-4 transition',
+    'group flex items-center gap-4 rounded-2xl border border-gray-200 border-l-4 bg-white p-4 transition-all duration-200',
     CATEGORY_ACCENT[category],
     isLocked && 'border-l-gray-300 opacity-60',
-    !isLocked && 'hover:border-gray-300 hover:shadow-sm'
+    !isLocked && 'hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md'
   )
 
   const stepBadgeClasses = cn(
@@ -96,18 +97,18 @@ export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
 
 function CompletedBadge() {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+    <Badge variant="success" className="gap-1 text-[10px] font-semibold uppercase tracking-wide">
       <CheckIcon className="h-3 w-3" aria-hidden="true" />
       Done
-    </span>
+    </Badge>
   )
 }
 
 function InProgressBadge() {
   return (
-    <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-purple-700">
+    <Badge className="bg-purple-100 text-[10px] font-semibold uppercase tracking-wide text-purple-700">
       In progress
-    </span>
+    </Badge>
   )
 }
 
