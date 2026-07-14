@@ -10,7 +10,7 @@ import { LessonPage } from "./routes/LessonPage";
 import { QuizPage } from "./routes/QuizPage";
 import { MistakeGarden } from "./routes/MistakeGarden";
 import { UserProfile } from "./routes/UserProfile";
-import { ExamPage } from "./routes/ExamPage";
+import ExamSimulation from "./routes/ExamSimulation";
 
 export default function App() {
   return (
@@ -75,7 +75,7 @@ export default function App() {
             path="/exam"
             element={
               <ProtectedRoute>
-                <ExamPage />
+                <ExamSimulation />
               </ProtectedRoute>
             }
           />

@@ -40,6 +40,7 @@ public class SecurityConfig {
                 // When adding new public endpoints, add a requestMatchers() line AND annotate with @Public.
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/v1/health").permitAll()
+                .requestMatchers("/api/v1/exams/sessions").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
