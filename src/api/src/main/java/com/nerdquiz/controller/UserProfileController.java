@@ -1,6 +1,7 @@
 package com.nerdquiz.controller;
 
 import com.nerdquiz.dto.UpdateUserProfileRequest;
+import com.nerdquiz.dto.UpsertUserProfileRequest;
 import com.nerdquiz.dto.UserProfileResponse;
 import com.nerdquiz.service.UserProfileService;
 import jakarta.validation.Valid;
@@ -24,6 +25,19 @@ public class UserProfileController {
     public ResponseEntity<UserProfileResponse> getProfile(Authentication authentication) {
         UUID userId = UUID.fromString(authentication.getName());
         return ResponseEntity.ok(userProfileService.getProfile(userId));
+    }
+
+    @PostMapping
+    public ResponseEntity<UserProfileResponse> upsertProfile(
+            Authentication authentication,
+            @RequestBody UpsertUserProfileRequest request) {
+        UUID userId = UUID.fromString(authentication.getName());
+        return ResponseEntity.ok(userProfileService.upsertProfile(
+                userId,
+                request.email(),
+                request.displayName(),
+                request.avatarUrl()
+        ));
     }
 
     @PutMapping

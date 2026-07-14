@@ -26,7 +26,7 @@ npm install -g supabase
 
 ```bash
 git clone <your-repo-url> && cd team-16-app
-cp .env.example .env        # fill in real values locally — never commit .env
+cp .env.example src/api/.env # fill in real values locally — never commit .env
 ```
 
 ### 2. Start the local database
@@ -87,6 +87,21 @@ Requires a running Postgres instance (Supabase CLI or external).
 ---
 
 ## Remote Supabase (Staging/Production)
+
+The backend deployment must use Supabase's **session pooler**. The direct
+`db.<project-ref>.supabase.co` endpoint is IPv6-only by default, while Cloud Run
+outbound connections are IPv4. In Supabase Dashboard, open **Connect**, select
+**Session pooler**, and configure these GitHub production secrets:
+
+```text
+DATABASE_URL=jdbc:postgresql://aws-0-REGION.pooler.supabase.com:5432/postgres?sslmode=require
+DB_USER=postgres.PROJECT_REF
+DB_PASSWORD=YOUR_RAW_DATABASE_PASSWORD
+```
+
+Use the raw database password for `DB_PASSWORD`; do not URL-encode it. The
+deployment workflow rejects direct database URLs so an unreachable revision is
+not deployed again.
 
 To push migrations to a hosted Supabase project:
 

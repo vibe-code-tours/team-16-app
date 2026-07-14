@@ -85,10 +85,10 @@ export default function App() {
             }
           />
           <Route
-            path="/exam"
+            path="/exam/:sessionId?"
             element={
               <ProtectedRoute>
-                <Layout showSidebar={false}>
+                <Layout>
                   <ExamSimulation />
                 </Layout>
               </ProtectedRoute>
