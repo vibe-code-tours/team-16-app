@@ -14,12 +14,10 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.110.2",
     "@testing-library/react": "^16.3.2",
-    "clsx": "^2.1.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.18.1",
-    "tailwind-merge": "^3.6.0",
     "vitest": "^4.1.10"
   },
   "devDependencies": {
@@ -29,8 +27,12 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "jsdom": "^29.1.1",
+    "lucide-react": "^1.24.0",
     "oxlint": "^1.71.0",
+    "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.2",
     "typescript": "~6.0.2",
     "vite": "^8.1.1"
