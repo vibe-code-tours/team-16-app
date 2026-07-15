@@ -13,4 +13,8 @@ public interface QuizAnswerRepository extends JpaRepository<QuizAnswer, UUID> {
     List<QuizAnswer> findByQuizSessionId(UUID quizSessionId);
 
     long countByQuizSessionIdAndIsCorrect(UUID quizSessionId, Boolean isCorrect);
+
+    long countByQuizSessionId(UUID quizSessionId);
+
+    boolean existsByQuizSessionIdAndQuestionId(UUID quizSessionId, UUID questionId);
 }

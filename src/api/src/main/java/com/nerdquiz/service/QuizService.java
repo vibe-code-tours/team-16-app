@@ -5,8 +5,10 @@ import com.nerdquiz.exception.*;
 import com.nerdquiz.model.Question;
 import com.nerdquiz.model.QuizAnswer;
 import com.nerdquiz.model.QuizSession;
+import com.nerdquiz.model.QuizSessionQuestion;
 import com.nerdquiz.repository.QuestionRepository;
 import com.nerdquiz.repository.QuizAnswerRepository;
+import com.nerdquiz.repository.QuizSessionQuestionRepository;
 import com.nerdquiz.repository.QuizSessionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,15 +27,18 @@ public class QuizService {
     private final QuestionRepository questionRepository;
     private final QuizSessionRepository quizSessionRepository;
     private final QuizAnswerRepository quizAnswerRepository;
+    private final QuizSessionQuestionRepository quizSessionQuestionRepository;
     private final QuestionService questionService;
 
     public QuizService(QuestionRepository questionRepository,
                        QuizSessionRepository quizSessionRepository,
                        QuizAnswerRepository quizAnswerRepository,
+                       QuizSessionQuestionRepository quizSessionQuestionRepository,
                        QuestionService questionService) {
         this.questionRepository = questionRepository;
         this.quizSessionRepository = quizSessionRepository;
         this.quizAnswerRepository = quizAnswerRepository;
+        this.quizSessionQuestionRepository = quizSessionQuestionRepository;
         this.questionService = questionService;
     }
 
@@ -58,6 +63,13 @@ public class QuizService {
         session.setSubtopicId(request.subtopicId());
         session.setQuestionCount(questions.size());
         session = quizSessionRepository.save(session);
+
+        // Persist issued questions so submitAnswer can validate against them
+        for (int i = 0; i < questions.size(); i++) {
+            QuizSessionQuestion sq = new QuizSessionQuestion(
+                session.getId(), questions.get(i).getId(), i + 1);
+            quizSessionQuestionRepository.save(sq);
+        }
 
         // Convert to response (without correct answers)
         List<QuestionResponse> questionResponses = questions.stream()
@@ -89,6 +101,16 @@ public class QuizService {
             throw new QuizAlreadyCompletedException();
         }
 
+        // Validate that the question was issued for this session
+        if (!quizSessionQuestionRepository.existsByQuizSessionIdAndQuestionId(sessionId, request.questionId())) {
+            throw new QuestionNotInQuizSessionException();
+        }
+
+        // Reject duplicate answers for the same question in this session
+        if (quizAnswerRepository.existsByQuizSessionIdAndQuestionId(sessionId, request.questionId())) {
+            throw new DuplicateAnswerException();
+        }
+
         Question question = questionRepository.findById(request.questionId())
                 .orElseThrow(() -> new QuestionNotFoundException());
 
@@ -106,9 +128,9 @@ public class QuizService {
             session.setXpEarned(session.getXpEarned() + XP_PER_CORRECT_ANSWER);
         }
 
-        // Check if all questions answered
-        List<QuizAnswer> allAnswers = quizAnswerRepository.findByQuizSessionId(sessionId);
-        if (allAnswers.size() + 1 >= session.getQuestionCount()) {
+        // Check if all questions answered (count includes the answer we're about to save)
+        long answeredCount = quizAnswerRepository.countByQuizSessionId(sessionId);
+        if (answeredCount + 1 >= session.getQuestionCount()) {
             session.setStatus("completed");
             session.setCompletedAt(Instant.now());
         }

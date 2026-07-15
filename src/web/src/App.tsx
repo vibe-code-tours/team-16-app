@@ -12,6 +12,7 @@ import { QuizPage } from "./routes/QuizPage";
 import { MistakeGarden } from "./routes/MistakeGarden";
 import { UserProfile } from "./routes/UserProfile";
 import { ExamPage } from "./routes/ExamPage";
+import { QuizListingPage } from "./routes/QuizListingPage";
 import { AiDraftPreview } from "./routes/AiDraftPreview";
 
 export default function App() {
@@ -32,6 +33,16 @@ export default function App() {
               <ProtectedRoute>
                 <Layout>
                   <LearningMap />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quizzes"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <QuizListingPage />
                 </Layout>
               </ProtectedRoute>
             }
