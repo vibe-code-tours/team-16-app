@@ -83,17 +83,31 @@ export function QuizPage() {
     const correct = selectedLabel === currentQuestion.correct_answer
     if (correct) {
       setScore((s) => s + 1)
-      return
     }
 
     if (!user) return
-    try {
-      await api.post('/api/v1/mistakes', {
+
+    const trackingRequests = [
+      api.post('/api/v1/me/weak-points/answers', {
         questionId: currentQuestion.id,
         selectedLabel,
-      })
-    } catch (e) {
-      console.error('Failed to record mistake:', e)
+      }),
+    ]
+
+    if (!correct) {
+      trackingRequests.push(
+        api.post('/api/v1/mistakes', {
+          questionId: currentQuestion.id,
+          selectedLabel,
+        }),
+      )
+    }
+
+    const results = await Promise.allSettled(trackingRequests)
+    for (const result of results) {
+      if (result.status === 'rejected') {
+        console.error('Failed to record quiz activity:', result.reason)
+      }
     }
   }
 

@@ -43,6 +43,9 @@ class QuizServiceTest {
     @Mock
     private QuestionService questionService;
 
+    @Mock
+    private WeakPointService weakPointService;
+
     @InjectMocks
     private QuizService quizService;
 
@@ -121,6 +124,7 @@ class QuizServiceTest {
         assertTrue(result.isCorrect());
         assertEquals(1, sampleSession.getScore());
         assertEquals(10, sampleSession.getXpEarned());
+        verify(weakPointService).updateMastery(userId, sampleQuestion.getId(), true);
     }
 
     @Test
@@ -148,6 +152,7 @@ class QuizServiceTest {
         assertFalse(result.isCorrect());
         assertEquals(0, sampleSession.getScore());
         assertEquals(0, sampleSession.getXpEarned());
+        verify(weakPointService).updateMastery(userId, sampleQuestion.getId(), false);
     }
 
     @Test
