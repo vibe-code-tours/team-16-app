@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
 import { api } from '../lib/api'
-import { supabase } from '../lib/supabase'
 import type { QuizQuestion } from '../types'
 
 interface QuizQuestionFromApi {
@@ -89,14 +88,12 @@ export function QuizPage() {
 
     if (!user) return
     try {
-      await api.post('/api/v1/me/mistakes', {
+      await api.post('/api/v1/mistakes', {
         questionId: currentQuestion.id,
-        source: 'quiz',
-        sourceSessionId: null,
-        userAnswer: selectedLabel,
+        selectedLabel,
       })
-    } catch (requestError) {
-      setError(requestError instanceof Error ? requestError.message : 'Failed to save mistake')
+    } catch (e) {
+      console.error('Failed to record mistake:', e)
     }
   }
 
@@ -117,8 +114,12 @@ export function QuizPage() {
     const earnedXp = score * XP_PER_CORRECT
     if (earnedXp === 0) return
 
-    await supabase.rpc('increment_user_xp', { delta: earnedXp })
-    await refreshUser()
+    try {
+      await api.post('/api/v1/me/xp', { delta: earnedXp })
+      await refreshUser()
+    } catch (e) {
+      console.error('Failed to award quiz XP:', e)
+    }
   }
 
   if (loading) {

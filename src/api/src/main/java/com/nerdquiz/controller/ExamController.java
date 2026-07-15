@@ -1,14 +1,21 @@
 package com.nerdquiz.controller;
 
-import com.nerdquiz.annotation.Public;
-import com.nerdquiz.dto.*;
+import com.nerdquiz.dto.FinishExamRequest;
+import com.nerdquiz.dto.FinishExamResponse;
+import com.nerdquiz.dto.StartExamRequest;
+import com.nerdquiz.dto.StartExamResponse;
+import com.nerdquiz.dto.SubmitExamAnswerRequest;
+import com.nerdquiz.dto.SubmitExamAnswerResponse;
 import com.nerdquiz.service.ExamService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,14 +28,8 @@ public class ExamController {
         this.examService = examService;
     }
 
-    @Public
-    @GetMapping("/sessions")
-    public ResponseEntity<List<ExamSummaryResponse>> getAvailableExams() {
-        return ResponseEntity.ok(examService.getAvailableExams());
-    }
-
     @PostMapping("/start")
-    public ResponseEntity<ExamSessionResponse> startExam(
+    public ResponseEntity<StartExamResponse> startExam(
             Authentication authentication,
             @Valid @RequestBody StartExamRequest request) {
         UUID userId = UUID.fromString(authentication.getName());
@@ -36,7 +37,7 @@ public class ExamController {
     }
 
     @PostMapping("/{sessionId}/answers")
-    public ResponseEntity<ExamAnswerResponse> submitAnswer(
+    public ResponseEntity<SubmitExamAnswerResponse> submitAnswer(
             Authentication authentication,
             @PathVariable UUID sessionId,
             @Valid @RequestBody SubmitExamAnswerRequest request) {
@@ -44,19 +45,12 @@ public class ExamController {
         return ResponseEntity.ok(examService.submitAnswer(userId, sessionId, request));
     }
 
-    @PostMapping("/{sessionId}/complete")
-    public ResponseEntity<ExamResultResponse> completeExam(
+    @PostMapping("/{sessionId}/finish")
+    public ResponseEntity<FinishExamResponse> finishExam(
             Authentication authentication,
-            @PathVariable UUID sessionId) {
+            @PathVariable UUID sessionId,
+            @Valid @RequestBody FinishExamRequest request) {
         UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(examService.completeExam(userId, sessionId));
-    }
-
-    @GetMapping("/{sessionId}/result")
-    public ResponseEntity<ExamResultResponse> getResult(
-            Authentication authentication,
-            @PathVariable UUID sessionId) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(examService.getResult(userId, sessionId));
+        return ResponseEntity.ok(examService.finishExam(userId, sessionId, request));
     }
 }

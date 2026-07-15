@@ -1,6 +1,8 @@
 package com.nerdquiz.model;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -15,7 +17,7 @@ public class ExamSession {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
-    @Column(name = "exam_id", nullable = false)
+    @Column(name = "exam_id")
     private UUID examId;
 
     @Column(name = "total_questions", nullable = false)
@@ -25,7 +27,7 @@ public class ExamSession {
     private Integer correctAnswers = 0;
 
     @Column(name = "score_percentage")
-    private Double scorePercentage;
+    private BigDecimal scorePercentage;
 
     @Column(name = "initial_hearts", nullable = false)
     private Integer initialHearts;
@@ -48,8 +50,6 @@ public class ExamSession {
     @Column(nullable = false)
     private String status = "in_progress";
 
-    public ExamSession() {}
-
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
 
@@ -65,8 +65,8 @@ public class ExamSession {
     public Integer getCorrectAnswers() { return correctAnswers; }
     public void setCorrectAnswers(Integer correctAnswers) { this.correctAnswers = correctAnswers; }
 
-    public Double getScorePercentage() { return scorePercentage; }
-    public void setScorePercentage(Double scorePercentage) { this.scorePercentage = scorePercentage; }
+    public BigDecimal getScorePercentage() { return scorePercentage; }
+    public void setScorePercentage(BigDecimal scorePercentage) { this.scorePercentage = scorePercentage; }
 
     public Integer getInitialHearts() { return initialHearts; }
     public void setInitialHearts(Integer initialHearts) { this.initialHearts = initialHearts; }

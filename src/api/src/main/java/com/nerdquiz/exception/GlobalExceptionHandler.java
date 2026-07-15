@@ -7,18 +7,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.nerdquiz.exception.QuizSessionNotFoundException;
-import com.nerdquiz.exception.NoQuestionsAvailableException;
-import com.nerdquiz.exception.UnauthorizedQuizAccessException;
-import com.nerdquiz.exception.QuizAlreadyCompletedException;
-import com.nerdquiz.exception.QuestionNotFoundException;
-import com.nerdquiz.exception.UserProfileNotFoundException;
-import com.nerdquiz.exception.LessonNotFoundException;
-import com.nerdquiz.exception.MistakeNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -47,6 +37,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
             "type", "https://nerdquiz.com/errors/not-found",
             "title", "Quiz Session Not Found",
+            "status", 404,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(ExamSessionNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleExamSessionNotFound(ExamSessionNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "type", "https://nerdquiz.com/errors/not-found",
+            "title", "Exam Session Not Found",
             "status", 404,
             "detail", ex.getMessage()
         ));
@@ -92,16 +92,6 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    @ExceptionHandler(UserProfileNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleUserProfileNotFound(UserProfileNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-            "type", "https://nerdquiz.com/errors/not-found",
-            "title", "User Profile Not Found",
-            "status", 404,
-            "detail", ex.getMessage()
-        ));
-    }
-
     @ExceptionHandler(LessonNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleLessonNotFound(LessonNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
@@ -112,11 +102,11 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    @ExceptionHandler(MistakeNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleMistakeNotFound(MistakeNotFoundException ex) {
+    @ExceptionHandler(UserProfileNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleUserProfileNotFound(UserProfileNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
             "type", "https://nerdquiz.com/errors/not-found",
-            "title", "Mistake Not Found",
+            "title", "User Profile Not Found",
             "status", 404,
             "detail", ex.getMessage()
         ));

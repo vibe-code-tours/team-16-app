@@ -1,26 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { api } from '../lib/api'
 
-interface DbLesson {
+interface LessonDetail {
   id: string
   subtopic_id: string
+  topic_id: string
+  subtopic_name: string
   title: string
   content_blocks: unknown[]
   summary: string | null
 }
 
-interface DbSubtopic {
-  id: string
-  name: string
-  topic_id: string
-}
-
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>()
   const navigate = useNavigate()
-  const [lesson, setLesson] = useState<DbLesson | null>(null)
-  const [subtopic, setSubtopic] = useState<DbSubtopic | null>(null)
+  const [lesson, setLesson] = useState<LessonDetail | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -28,27 +23,15 @@ export function LessonPage() {
       if (!lessonId) return
 
       setLoading(true)
-      const { data: lessonData, error: lessonError } = await supabase
-        .from('lessons')
-        .select('id, subtopic_id, title, content_blocks, summary')
-        .eq('id', lessonId)
-        .single()
-
-      if (lessonError) {
-        console.error('Error fetching lesson:', lessonError.message)
+      try {
+        const lessonData = await api.get<LessonDetail>(`/api/v1/lessons/${lessonId}`)
+        setLesson(lessonData)
+      } catch (e) {
+        console.error('Error fetching lesson:', e)
+        setLesson(null)
+      } finally {
         setLoading(false)
-        return
       }
-
-      const { data: subtopicData } = await supabase
-        .from('subtopics')
-        .select('id, name, topic_id')
-        .eq('id', lessonData.subtopic_id)
-        .single()
-
-      setLesson(lessonData)
-      setSubtopic(subtopicData || null)
-      setLoading(false)
     }
 
     fetchLessonData()
@@ -75,7 +58,7 @@ export function LessonPage() {
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <button
-            onClick={() => navigate(`/map/${subtopic?.topic_id}`)}
+            onClick={() => navigate(`/map/${lesson.topic_id}`)}
             className="text-purple-600 hover:text-purple-800 flex items-center gap-2 font-medium"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -90,7 +73,7 @@ export function LessonPage() {
       <main className="mx-auto max-w-3xl px-4 py-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            {subtopic?.name}
+            {lesson.subtopic_name}
           </h2>
           {lesson.summary && (
             <p className="text-gray-500">{lesson.summary}</p>
@@ -139,7 +122,7 @@ export function LessonPage() {
 
         <div className="mt-8 flex justify-center">
           <button
-            onClick={() => navigate(`/map/${subtopic?.topic_id}`)}
+            onClick={() => navigate(`/map/${lesson.topic_id}`)}
             className="rounded-lg bg-purple-600 px-8 py-3 font-bold text-white transition-colors hover:bg-purple-700"
           >
             I've read it!

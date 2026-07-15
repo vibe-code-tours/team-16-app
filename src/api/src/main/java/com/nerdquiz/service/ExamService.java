@@ -1,312 +1,197 @@
 package com.nerdquiz.service;
 
 import com.nerdquiz.dto.*;
-import com.nerdquiz.exception.*;
-import com.nerdquiz.model.*;
-import com.nerdquiz.repository.*;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nerdquiz.exception.ExamSessionNotFoundException;
+import com.nerdquiz.exception.NoQuestionsAvailableException;
+import com.nerdquiz.exception.QuestionNotFoundException;
+import com.nerdquiz.exception.UnauthorizedQuizAccessException;
+import com.nerdquiz.model.ExamAnswer;
+import com.nerdquiz.model.ExamHeartEvent;
+import com.nerdquiz.model.ExamSession;
+import com.nerdquiz.model.Question;
+import com.nerdquiz.repository.ExamAnswerRepository;
+import com.nerdquiz.repository.ExamHeartEventRepository;
+import com.nerdquiz.repository.ExamSessionRepository;
+import com.nerdquiz.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class ExamService {
 
+    private static final int DEFAULT_QUESTION_COUNT = 60;
+    private static final int TIME_LIMIT_MINUTES = 60;
+    private static final int INITIAL_HEARTS = 3;
     private static final int XP_PER_CORRECT_ANSWER = 10;
-    private static final double PASS_THRESHOLD = 60.0;
+    private static final Set<String> ALLOWED_DIFFICULTIES = Set.of("easy", "medium", "hard");
+    private static final Set<String> FINISH_STATUSES = Set.of("completed", "expired", "abandoned");
 
-    // Subject B selection rules: Q1 compulsory, Q2-Q5 select 2, Q6 compulsory, Q7-Q8 select 1
-    private static final Set<Integer> SUBJECT_B_REQUIRED = Set.of(1, 6);
-    private static final Set<Integer> SUBJECT_B_OPTIONAL_FIRST = Set.of(2, 3, 4, 5);
-    private static final Set<Integer> SUBJECT_B_OPTIONAL_SECOND = Set.of(7, 8);
-    private static final int SUBJECT_B_SELECT_FIRST = 2;
-    private static final int SUBJECT_B_SELECT_SECOND = 1;
-
-    private final ExamRepository examRepository;
+    private final QuestionRepository questionRepository;
     private final ExamSessionRepository examSessionRepository;
     private final ExamAnswerRepository examAnswerRepository;
     private final ExamHeartEventRepository examHeartEventRepository;
-    private final QuestionRepository questionRepository;
-    private final UserProfileRepository userProfileRepository;
-    private final ObjectMapper objectMapper;
+    private final QuestionService questionService;
+    private final UserService userService;
 
-    public ExamService(ExamRepository examRepository,
+    public ExamService(QuestionRepository questionRepository,
                        ExamSessionRepository examSessionRepository,
                        ExamAnswerRepository examAnswerRepository,
                        ExamHeartEventRepository examHeartEventRepository,
-                       QuestionRepository questionRepository,
-                       UserProfileRepository userProfileRepository,
-                       ObjectMapper objectMapper) {
-        this.examRepository = examRepository;
+                       QuestionService questionService,
+                       UserService userService) {
+        this.questionRepository = questionRepository;
         this.examSessionRepository = examSessionRepository;
         this.examAnswerRepository = examAnswerRepository;
         this.examHeartEventRepository = examHeartEventRepository;
-        this.questionRepository = questionRepository;
-        this.userProfileRepository = userProfileRepository;
-        this.objectMapper = objectMapper;
-    }
-
-    @Transactional(readOnly = true)
-    public List<ExamSummaryResponse> getAvailableExams() {
-        return examRepository.findByPublishedTrueOrderByExamSessionDescSubjectAsc().stream()
-                .map(ExamSummaryResponse::from)
-                .toList();
+        this.questionService = questionService;
+        this.userService = userService;
     }
 
     @Transactional
-    public ExamSessionResponse startExam(UUID userId, StartExamRequest request) {
-        // Ensure user profile exists (needed for FK constraint on exam_sessions)
-        if (!userProfileRepository.existsById(userId)) {
-            com.nerdquiz.model.UserProfile profile = new com.nerdquiz.model.UserProfile();
-            profile.setId(userId);
-            profile.setEmail("");
-            profile.setTotalXp(0);
-            profile.setStreakCount(0);
-            userProfileRepository.save(profile);
-        }
+    public StartExamResponse startExam(UUID userId, StartExamRequest request) {
+        int questionCount = request.questionCount() == null ? DEFAULT_QUESTION_COUNT : request.questionCount();
+        String difficulty = normalizeDifficulty(request.difficulty());
 
-        Exam exam = examRepository.findByExamSessionAndSubject(request.examSession(), request.subject())
-                .orElseThrow(() -> new RuntimeException(
-                    "No exam found for session " + request.examSession() + " subject " + request.subject()));
-
-        List<Question> questions = questionRepository.findByExamSessionAndSubject(
-                request.examSession(), request.subject()).stream()
-                .sorted(Comparator.comparing(Question::getQuestionNumber))
-                .toList();
-
+        List<Question> questions = questionRepository.findUsableExamQuestions(questionCount, difficulty);
         if (questions.isEmpty()) {
             throw new NoQuestionsAvailableException();
         }
 
-        // Create exam session
+        Instant startedAt = Instant.now();
         ExamSession session = new ExamSession();
         session.setUserId(userId);
-        session.setExamId(exam.getId());
         session.setTotalQuestions(questions.size());
-        session.setInitialHearts(exam.getInitialHearts());
-        session.setHeartsRemaining(exam.getInitialHearts());
-        session.setTimeLimitMinutes(exam.getTimeLimitMinutes());
-        session.setExpiresAt(Instant.now().plus(exam.getTimeLimitMinutes(), ChronoUnit.MINUTES));
-        session = examSessionRepository.save(session);
+        session.setInitialHearts(INITIAL_HEARTS);
+        session.setHeartsRemaining(INITIAL_HEARTS);
+        session.setTimeLimitMinutes(TIME_LIMIT_MINUTES);
+        session.setStartedAt(startedAt);
+        session.setExpiresAt(startedAt.plusSeconds(TIME_LIMIT_MINUTES * 60L));
+        session.setStatus("in_progress");
+        ExamSession savedSession = examSessionRepository.save(session);
 
-        // Create answer slots for each question
-        List<ExamAnswer> answerSlots = new ArrayList<>();
-        for (int i = 0; i < questions.size(); i++) {
-            ExamAnswer answerSlot = new ExamAnswer();
-            answerSlot.setExamSessionId(session.getId());
-            answerSlot.setQuestionId(questions.get(i).getId());
-            answerSlot.setSequenceNumber(i + 1);
-            answerSlots.add(answerSlot);
-        }
-        examAnswerRepository.saveAll(answerSlots);
-
-        // Convert questions to response (without correct answers)
-        List<ExamQuestionResponse> questionResponses = questions.stream()
-                .map(q -> toQuestionResponse(q, request.subject()))
-                .toList();
-
-        return new ExamSessionResponse(
-            session.getId(),
-            request.examSession(),
-            request.subject(),
-            exam.getTitle(),
-            questionResponses,
-            session.getTotalQuestions(),
-            session.getHeartsRemaining(),
-            session.getInitialHearts(),
-            session.getTimeLimitMinutes(),
-            session.getExpiresAt(),
-            session.getStatus()
+        return new StartExamResponse(
+                savedSession.getId(),
+                questions.stream().map(questionService::toResponse).toList(),
+                savedSession.getHeartsRemaining(),
+                savedSession.getTimeLimitMinutes(),
+                savedSession.getExpiresAt()
         );
     }
 
     @Transactional
-    public ExamAnswerResponse submitAnswer(UUID userId, UUID sessionId, SubmitExamAnswerRequest request) {
-        ExamSession session = examSessionRepository.findByIdAndUserId(sessionId, userId)
-                .orElseThrow(() -> new RuntimeException("Exam session not found"));
-
+    public SubmitExamAnswerResponse submitAnswer(UUID userId, UUID sessionId, SubmitExamAnswerRequest request) {
+        ExamSession session = getOwnedSession(userId, sessionId);
         if (!"in_progress".equals(session.getStatus())) {
-            throw new RuntimeException("Exam is no longer in progress");
+            throw new IllegalArgumentException("Exam session is already finished");
         }
 
-        if (Instant.now().isAfter(session.getExpiresAt())) {
-            session.setStatus("expired");
-            examSessionRepository.save(session);
-            throw new RuntimeException("Exam has expired");
-        }
-
-        ExamAnswer answer = examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, request.questionId())
-                .orElseThrow(() -> new RuntimeException("Question not found in this exam session"));
-
-        // Get the question to check correct answer
         Question question = questionRepository.findById(request.questionId())
-                .orElseThrow(() -> new QuestionNotFoundException());
+                .orElseThrow(QuestionNotFoundException::new);
+        boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(request.answer());
 
-        boolean isCorrect = request.answer() != null &&
-                question.getCorrectAnswer().equalsIgnoreCase(request.answer());
-
+        ExamAnswer answer = examAnswerRepository
+                .findByExamSessionIdAndQuestionId(sessionId, request.questionId())
+                .orElseGet(ExamAnswer::new);
+        boolean isNewAnswer = answer.getId() == null;
+        answer.setExamSessionId(sessionId);
+        answer.setQuestionId(request.questionId());
+        answer.setSequenceNumber(request.sequenceNumber());
         answer.setUserAnswer(request.answer());
         answer.setIsCorrect(isCorrect);
-        answer.setAnsweredAt(Instant.now());
+        answer.setResponseTimeMs(request.responseTimeMs());
+        ExamAnswer savedAnswer = examAnswerRepository.save(answer);
 
-        int heartsRemaining = session.getHeartsRemaining();
-
-        // Handle hearts for incorrect answers
-        if (!isCorrect && request.answer() != null) {
-            session.setHeartsRemaining(session.getHeartsRemaining() - 1);
-            heartsRemaining = session.getHeartsRemaining();
-
-            ExamHeartEvent heartEvent = new ExamHeartEvent();
-            heartEvent.setExamSessionId(sessionId);
-            heartEvent.setQuestionId(request.questionId());
-            heartEvent.setDelta(-1);
-            heartEvent.setReason("Incorrect answer");
-            examHeartEventRepository.save(heartEvent);
-
-            // Auto-complete if no hearts left
-            if (heartsRemaining <= 0) {
-                session.setStatus("completed");
-                session.setCompletedAt(Instant.now());
-                calculateFinalScore(session);
-            }
+        if (!isCorrect && isNewAnswer) {
+            session.setHeartsRemaining(Math.max(0, session.getHeartsRemaining() - 1));
+            ExamHeartEvent event = new ExamHeartEvent();
+            event.setExamSessionId(sessionId);
+            event.setQuestionId(request.questionId());
+            event.setDelta(-1);
+            event.setReason("wrong_answer");
+            examHeartEventRepository.save(event);
         }
 
-        examAnswerRepository.save(answer);
         examSessionRepository.save(session);
-
-        return new ExamAnswerResponse(
-            request.questionId(),
-            request.answer(),
-            isCorrect,
-            question.getCorrectAnswer(),
-            question.getExplanation(),
-            heartsRemaining,
-            "completed".equals(session.getStatus())
+        return new SubmitExamAnswerResponse(
+                savedAnswer.getId(),
+                savedAnswer.getQuestionId(),
+                savedAnswer.getUserAnswer(),
+                savedAnswer.getIsCorrect(),
+                session.getHeartsRemaining()
         );
     }
 
     @Transactional
-    public ExamResultResponse completeExam(UUID userId, UUID sessionId) {
-        ExamSession session = examSessionRepository.findByIdAndUserId(sessionId, userId)
-                .orElseThrow(() -> new RuntimeException("Exam session not found"));
-
-        if (!"in_progress".equals(session.getStatus())) {
-            // Already completed or expired — just return results
-            return buildResultResponse(session);
+    public FinishExamResponse finishExam(UUID userId, UUID sessionId, FinishExamRequest request) {
+        ExamSession session = getOwnedSession(userId, sessionId);
+        String requestedStatus = request.status() == null ? "completed" : request.status();
+        if (!FINISH_STATUSES.contains(requestedStatus)) {
+            throw new IllegalArgumentException("Invalid exam status");
         }
 
-        session.setStatus("completed");
-        session.setCompletedAt(Instant.now());
-        calculateFinalScore(session);
-        examSessionRepository.save(session);
+        int correctAnswers = (int) examAnswerRepository.countByExamSessionIdAndIsCorrectTrue(sessionId);
+        BigDecimal scorePercentage = calculateScorePercentage(correctAnswers, session.getTotalQuestions());
+        int xpEarned = correctAnswers * XP_PER_CORRECT_ANSWER;
+        boolean shouldAwardXp = "in_progress".equals(session.getStatus()) && !"abandoned".equals(requestedStatus);
 
-        return buildResultResponse(session);
-    }
+        if ("in_progress".equals(session.getStatus())) {
+            session.setCorrectAnswers(correctAnswers);
+            session.setScorePercentage(scorePercentage);
+            session.setCompletedAt(Instant.now());
+            session.setStatus(requestedStatus);
+            examSessionRepository.save(session);
+        }
 
-    @Transactional(readOnly = true)
-    public ExamResultResponse getResult(UUID userId, UUID sessionId) {
-        ExamSession session = examSessionRepository.findByIdAndUserId(sessionId, userId)
-                .orElseThrow(() -> new RuntimeException("Exam session not found"));
+        if (shouldAwardXp && xpEarned > 0) {
+            userService.incrementUserXp(userId, xpEarned);
+        }
 
-        return buildResultResponse(session);
-    }
+        int reportedXp = "abandoned".equals(session.getStatus()) ? 0 : xpEarned;
 
-    private void calculateFinalScore(ExamSession session) {
-        long correctCount = examAnswerRepository.countByExamSessionIdAndIsCorrectTrue(session.getId());
-        session.setCorrectAnswers((int) correctCount);
-        double percentage = session.getTotalQuestions() > 0
-                ? (correctCount * 100.0) / session.getTotalQuestions()
-                : 0.0;
-        session.setScorePercentage(Math.round(percentage * 100.0) / 100.0);
-    }
-
-    private ExamResultResponse buildResultResponse(ExamSession session) {
-        List<ExamAnswer> answers = examAnswerRepository.findByExamSessionIdOrderBySequenceNumberAsc(session.getId());
-
-        List<UUID> questionIds = answers.stream()
-                .map(ExamAnswer::getQuestionId)
-                .toList();
-        Map<UUID, Question> questionMap = questionRepository.findByIdIn(questionIds).stream()
-                .collect(Collectors.toMap(Question::getId, q -> q));
-
-        int answeredCount = (int) answers.stream()
-                .filter(a -> a.getUserAnswer() != null)
-                .count();
-
-        List<ExamResultResponse.ExamAnswerDetail> answerDetails = answers.stream()
-                .filter(a -> a.getUserAnswer() != null)
-                .map(answer -> {
-                    Question question = questionMap.get(answer.getQuestionId());
-                    return new ExamResultResponse.ExamAnswerDetail(
-                        answer.getQuestionId(),
-                        question.getQuestionNumber(),
-                        question.getQuestionText(),
-                        answer.getUserAnswer(),
-                        question.getCorrectAnswer(),
-                        answer.getIsCorrect(),
-                        question.getExplanation()
-                    );
-                })
-                .toList();
-
-        int correctCount = session.getCorrectAnswers() != null ? session.getCorrectAnswers() : 0;
-        int xpEarned = correctCount * XP_PER_CORRECT_ANSWER;
-        boolean passed = session.getScorePercentage() != null && session.getScorePercentage() >= PASS_THRESHOLD;
-
-        return new ExamResultResponse(
-            session.getId(),
-            session.getTotalQuestions(),
-            answeredCount,
-            correctCount,
-            session.getScorePercentage(),
-            xpEarned,
-            passed,
-            session.getHeartsRemaining(),
-            answerDetails
+        return new FinishExamResponse(
+                session.getId(),
+                session.getTotalQuestions(),
+                correctAnswers,
+                scorePercentage,
+                session.getHeartsRemaining(),
+                session.getStatus(),
+                reportedXp
         );
     }
 
-    private ExamQuestionResponse toQuestionResponse(Question question, String subject) {
-        try {
-            JsonNode imagesNode = objectMapper.readTree(
-                    question.getImages() != null ? question.getImages() : "[]");
-            JsonNode choicesNode = objectMapper.readTree(question.getChoices());
-
-            boolean isRequired = isQuestionRequired(question.getQuestionNumber(), subject);
-
-            return new ExamQuestionResponse(
-                question.getId(),
-                question.getQuestionNumber(),
-                question.getQuestionText(),
-                imagesNode,
-                choicesNode,
-                question.getDifficulty(),
-                isRequired
-            );
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to parse question JSON", e);
+    private ExamSession getOwnedSession(UUID userId, UUID sessionId) {
+        ExamSession session = examSessionRepository.findById(sessionId)
+                .orElseThrow(ExamSessionNotFoundException::new);
+        if (!session.getUserId().equals(userId)) {
+            throw new UnauthorizedQuizAccessException();
         }
+        return session;
     }
 
-    /**
-     * Determines if a question is required based on real ITPEC FE exam rules.
-     * Subject A: all questions compulsory.
-     * Subject B: Q1 compulsory, Q2-Q5 select 2 of 4, Q6 compulsory, Q7-Q8 select 1 of 2.
-     */
-    private boolean isQuestionRequired(int questionNumber, String subject) {
-        if ("A".equals(subject)) {
-            return true; // All Subject A questions are compulsory
+    private String normalizeDifficulty(String difficulty) {
+        if (difficulty == null || difficulty.isBlank() || "all".equalsIgnoreCase(difficulty)) {
+            return null;
         }
-        // Subject B rules
-        if (SUBJECT_B_REQUIRED.contains(questionNumber)) {
-            return true;
+        String normalized = difficulty.toLowerCase();
+        if (!ALLOWED_DIFFICULTIES.contains(normalized)) {
+            throw new IllegalArgumentException("Invalid difficulty");
         }
-        // Optional questions are not individually required
-        return false;
+        return normalized;
+    }
+
+    private BigDecimal calculateScorePercentage(int correctAnswers, int totalQuestions) {
+        if (totalQuestions <= 0) {
+            return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        }
+        return BigDecimal.valueOf(correctAnswers)
+                .multiply(BigDecimal.valueOf(100))
+                .divide(BigDecimal.valueOf(totalQuestions), 2, RoundingMode.HALF_UP);
     }
 }

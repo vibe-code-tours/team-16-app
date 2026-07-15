@@ -1,6 +1,7 @@
 package com.nerdquiz.model;
 
 import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -32,8 +33,6 @@ public class ExamAnswer {
 
     @Column(name = "answered_at", nullable = false)
     private Instant answeredAt = Instant.now();
-
-    public ExamAnswer() {}
 
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
