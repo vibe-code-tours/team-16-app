@@ -1,2 +1,2 @@
 pymupdf>=1.26,<2
-Pillow>=11,<13
+Pillow>=12.3.0,<13
