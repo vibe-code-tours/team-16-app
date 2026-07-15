@@ -59,7 +59,7 @@ jobs:
       # ---------- Java / Spring Boot (runs only if src/api/build.gradle exists) ----------
       - name: Setup Java
         if: ${{ hashFiles('src/api/build.gradle') != '' }}
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "25"
