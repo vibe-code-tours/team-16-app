@@ -3,6 +3,7 @@ export interface UserProfile {
   email: string | null
   display_name: string | null
   avatar_url: string | null
+  role: 'admin' | 'user'
   total_xp: number
   streak_count: number
   last_login_at: string | null
@@ -34,4 +35,19 @@ export interface QuizQuestion {
   choices: QuestionChoice[]
   correct_answer: string
   explanation: string | null
+}
+
+export interface TopicEngagement {
+  topicName: string
+  quizCount: number
+  avgScore: number
+}
+
+export interface AdminStats {
+  totalUsers: number
+  activeToday: number
+  activeThisWeek: number
+  totalQuizAttempts: number
+  totalExamAttempts: number
+  topicEngagement: TopicEngagement[]
 }

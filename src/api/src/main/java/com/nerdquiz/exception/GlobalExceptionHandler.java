@@ -17,6 +17,7 @@ import com.nerdquiz.exception.UnauthorizedQuizAccessException;
 import com.nerdquiz.exception.QuizAlreadyCompletedException;
 import com.nerdquiz.exception.QuestionNotFoundException;
 import com.nerdquiz.exception.UserProfileNotFoundException;
+import com.nerdquiz.exception.AdminAccessDeniedException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -96,6 +97,16 @@ public class GlobalExceptionHandler {
             "type", "https://nerdquiz.com/errors/not-found",
             "title", "User Profile Not Found",
             "status", 404,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(AdminAccessDeniedException.class)
+    public ResponseEntity<Map<String, Object>> handleAdminAccessDenied(AdminAccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
+            "type", "https://nerdquiz.com/errors/forbidden",
+            "title", "Admin Access Required",
+            "status", 403,
             "detail", ex.getMessage()
         ));
     }

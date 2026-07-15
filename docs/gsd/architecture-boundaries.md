@@ -37,6 +37,8 @@ Frontend (React)                Supabase Auth           Backend (Spring Boot)
 - Frontend calls Supabase Auth directly (not through backend)
 - Backend is a pure resource server — no auth endpoints, no passwords
 - User ID comes from JWT `sub` claim, never from request body
+- Admin role stored in `user_profiles.role` column (`'admin'` | `'user'`, default `'user'`)
+- Admin-only endpoints check role via JWT filter → return 403 for non-admins
 
 ## Shared topic categories
 
@@ -67,6 +69,7 @@ These are fixed for the demo — don't add new categories without team agreement
 | `/exam` | ExamPage | Yes | ⚠️ Direct Supabase (RPC + table inserts) |
 | `/mistakes` | MistakeGarden | Yes | ⚠️ Direct Supabase (`user_mistakes` table) |
 | `/profile` | UserProfile | Yes | Supabase Auth + direct Supabase (`user_profiles` table) |
+| `/admin` | AdminDashboard | Yes (admin role) | Backend API: `GET /api/v1/admin/stats` |
 
 ### Data access pattern
 
@@ -75,6 +78,7 @@ These are fixed for the demo — don't add new categories without team agreement
 - Lessons: `GET /api/v1/subtopics/{id}/lessons`, `POST /api/v1/lessons/{id}/complete`
 - Quiz: `GET /api/v1/subtopics/{id}/quiz`, `POST /api/v1/quizzes/start`, `POST /api/v1/quizzes/{id}/answers`, `GET /api/v1/quizzes/{id}/result`
 - Streak: `POST /api/v1/me/streak`
+- Admin stats: `GET /api/v1/admin/stats` (admin role required)
 
 **Direct Supabase (RLS only, no backend verification):**
 - LessonPage reads `lessons` + `subtopics` directly

@@ -32,6 +32,7 @@
 | Additional exams | Extract and seed 1-2 more exam sessions if time allows |
 | Subject-B questions | Add if extraction progress allows |
 | Performance tuning | API response times, frontend load speed |
+| Admin dashboard (stats) | Role-gated summary page: total users, active users, quiz attempts, topic engagement. Uses existing data (no new tracking tables). Requires `role` column on `user_profiles`. |
 
 ## Explicitly out of scope (this project)
 
@@ -40,7 +41,7 @@
 - Advanced gamification (leaderboards, achievements, social features)
 - Native mobile app
 - Payment / subscription model
-- Admin dashboard for content management
+- Full admin panel for content management (CRUD on questions, lessons, etc.)
 
 ## Non-functional requirements
 

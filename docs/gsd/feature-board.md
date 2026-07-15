@@ -24,6 +24,7 @@
 | 17 | Weak point analysis | | Week 2 stretch | DB index `idx_mastery_weak_points` exists. No backend/frontend code |
 | 18 | Additional exams | | Week 2 stretch | Extraction pipeline ready for remaining exam sessions |
 | 19 | Backend Dockerization | Myo Min Lin | Finished | Multi-stage Dockerfile (Gradle + Java 25), docker-compose.yml orchestrating backend + Supabase local. [Issue #12](https://github.com/vibe-code-tours/team-16-app/issues/12) |
+| 20 | Admin dashboard (stats) | | Week 2 | Role-gated summary: total users, active users, quiz attempts, topic engagement. Requires `role` column on `user_profiles`. All data already tracked in existing tables |
 
 ## Week 1 target: #1–15 functional (local demo)
 ## Week 2 target: #16–20 + polish (public demo)

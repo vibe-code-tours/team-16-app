@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./hooks/useAuth.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AdminRoute } from "./components/AdminRoute";
 import { Layout } from "./components/layout";
 import { LandingPage } from "./routes/LandingPage";
 import { LoginPage } from "./routes/LoginPage";
@@ -13,6 +14,7 @@ import { MistakeGarden } from "./routes/MistakeGarden";
 import { UserProfile } from "./routes/UserProfile";
 import { ExamPage } from "./routes/ExamPage";
 import { AiDraftPreview } from "./routes/AiDraftPreview";
+import { AdminDashboard } from "./routes/AdminDashboard";
 
 export default function App() {
   return (
@@ -93,6 +95,18 @@ export default function App() {
                 <Layout>
                   <ExamPage />
                 </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminRoute>
+                  <Layout>
+                    <AdminDashboard />
+                  </Layout>
+                </AdminRoute>
               </ProtectedRoute>
             }
           />

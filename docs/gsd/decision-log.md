@@ -8,6 +8,7 @@
 |---|----------|---------|------------|--------|-----|
 | D2 | Who handles data extraction? | Dedicated pair / Everyone takes turns | 2 people dedicated, others review | Pending (Myat owns extraction — 3 sessions seeded) | — |
 | D3 | Mascot design | AI-generated / Hand-drawn / Free asset | AI-generated (fast, cute, unique) | Pending | — |
+| D4 | Admin dashboard for platform stats | Out of scope / Stats summary page / Full admin panel | Stats summary page (Week 2), role-gated, grows later | Decided 2026-07-15 — moved from out-of-scope to Week 2. See feature #20 | — |
 
 ## Resolved decisions
 
