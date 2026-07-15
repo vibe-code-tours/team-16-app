@@ -35,7 +35,6 @@ public class QuizService {
                        QuizSessionRepository quizSessionRepository,
                        QuizAnswerRepository quizAnswerRepository,
                        QuizSessionQuestionRepository quizSessionQuestionRepository,
-                       QuestionService questionService) {
                        QuestionService questionService,
                        WeakPointService weakPointService) {
         this.questionRepository = questionRepository;
