@@ -1,4 +1,1 @@
--- 008_secure_update_user_streak.sql
--- SUPERSEDED BY 001_initial_schema.sql
--- This migration is intentionally empty. Profile and streak management
--- is now handled by the user_stats table and the Spring Boot backend.
+

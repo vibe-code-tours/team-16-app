@@ -1,5 +1,1 @@
--- 002_create_content_schema.sql
--- SUPERSEDED BY 001_initial_schema.sql
--- This migration is intentionally empty. The tables it originally defined
--- (topics, lessons, quizzes, questions, options) are now created by
--- 001_initial_schema.sql with a more comprehensive schema.
+

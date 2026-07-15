@@ -1,4 +1,1 @@
--- 003_seed_more_content.sql
--- SUPERSEDED BY seed_data/ directory
--- This migration is intentionally empty. Seed data is now managed
--- via supabase/seed_data/*.sql files and loaded with supabase db reset.
+
