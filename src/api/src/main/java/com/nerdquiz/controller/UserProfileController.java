@@ -30,7 +30,7 @@ public class UserProfileController {
     @PostMapping
     public ResponseEntity<UserProfileResponse> upsertProfile(
             Authentication authentication,
-            @RequestBody UpsertUserProfileRequest request) {
+            @Valid @RequestBody UpsertUserProfileRequest request) {
         UUID userId = UUID.fromString(authentication.getName());
         return ResponseEntity.ok(userProfileService.upsertProfile(
                 userId,

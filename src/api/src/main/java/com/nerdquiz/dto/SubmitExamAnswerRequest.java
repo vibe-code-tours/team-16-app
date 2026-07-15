@@ -10,5 +10,5 @@ public record SubmitExamAnswerRequest(
     @NotNull UUID questionId,
     @NotNull @Min(1) Integer sequenceNumber,
     @NotBlank String answer,
-    @Min(0) Integer responseTimeMs
+    @NotNull @Min(0) Integer responseTimeMs
 ) {}
