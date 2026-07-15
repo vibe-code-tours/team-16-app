@@ -59,28 +59,12 @@ jobs:
           docker push $IMAGE:${{ github.sha }}
 
       - name: Write env-vars file
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          if [[ "$DATABASE_URL" != jdbc:postgresql://*.pooler.supabase.com:5432/* ]]; then
-            echo "::error::DATABASE_URL must be the Supabase session-pooler JDBC URL on port 5432 (the direct db.* host is IPv6-only)."
-            exit 1
-          fi
-          if [[ "$DB_USER" != postgres.* || -z "$DB_PASSWORD" ]]; then
-            echo "::error::DB_USER must be the pooler user (postgres.<project-ref>) and DB_PASSWORD must be set."
-            exit 1
-          fi
-          node -e 'require("fs").writeFileSync("/tmp/env-vars", JSON.stringify({
-            DATABASE_URL: process.env.DATABASE_URL,
-            DB_USER: process.env.DB_USER,
-            DB_PASSWORD: process.env.DB_PASSWORD,
-            SUPABASE_URL: process.env.SUPABASE_URL,
-            SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY
-          }))'
+          cat <<EOF > /tmp/env-vars
+          DATABASE_URL: "${{ secrets.DATABASE_URL }}"
+          SUPABASE_URL: "${{ secrets.SUPABASE_URL }}"
+          SUPABASE_ANON_KEY: "${{ secrets.SUPABASE_ANON_KEY }}"
+          EOF
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy $SERVICE_NAME \
