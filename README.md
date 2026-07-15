@@ -26,7 +26,7 @@ npm install -g supabase
 
 ```bash
 git clone <your-repo-url> && cd team-16-app
-cp .env.example .env        # fill in real values locally — never commit .env
+cp .env.example src/api/.env # fill in real values locally — never commit .env
 ```
 
 ### 2. Start the local database
@@ -88,6 +88,15 @@ Requires a running Postgres instance (Supabase CLI or external).
 
 ## Remote Supabase (Staging/Production)
 
+The backend deployment must use Supabase's **session pooler**. The direct
+`db.<project-ref>.supabase.co` endpoint is IPv6-only by default, while Cloud Run
+outbound connections are IPv4. In Supabase Dashboard, open **Connect**, select
+**Session pooler**, and configure these GitHub production secrets:
+
+Use the raw database password for `DB_PASSWORD`; do not URL-encode it. The
+deployment workflow rejects direct database URLs so an unreachable revision is
+not deployed again.
+
 To push migrations to a hosted Supabase project:
 
 ```bash
@@ -102,30 +111,30 @@ Find your project ref in Supabase Dashboard → **Settings** → **General** →
 
 ## Stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | React, Tailwind CSS, React Router v7 |
-| Backend | Java 25, Spring Boot |
-| Database | Supabase (Postgres) |
-| Auth | Supabase Auth (JWT) |
-| Frontend deploy | Netlify (static hosting, CDN) |
-| Backend deploy | Docker → Cloud Run / Render |
-| Local dev | Supabase CLI + npm + Gradle |
+| Layer           | Technology                           |
+| --------------- | ------------------------------------ |
+| Frontend        | React, Tailwind CSS, React Router v7 |
+| Backend         | Java 25, Spring Boot                 |
+| Database        | Supabase (Postgres)                  |
+| Auth            | Supabase Auth (JWT)                  |
+| Frontend deploy | Netlify (static hosting, CDN)        |
+| Backend deploy  | Docker → Cloud Run / Render          |
+| Local dev       | Supabase CLI + npm + Gradle          |
 
 ## Project structure
 
-| Path | What |
-|---|---|
-| `src/api/` | Spring Boot REST API |
-| `src/web/` | React SPA (Vite) |
-| `docker-compose.yml` | Backend Docker setup (Spring Boot) |
-| `netlify.toml` | Frontend deployment config (Netlify) |
-| `supabase/` | Migrations, seed data, config |
-| `docs/` | ARCHITECTURE.md, REQUIREMENTS.md, decision records |
-| `docs/gsd/` | How-we-work, feature board, architecture boundaries |
-| `.claude/rules/` | Coding conventions for AI-assisted development |
-| `.claude/skills/` | ITPEC PDF extraction, PR review (`/pr-review`), requirements sync (`/sync-reqs`) |
-| `.github/` | CI, security, PR/issue templates |
+| Path                 | What                                                                             |
+| -------------------- | -------------------------------------------------------------------------------- |
+| `src/api/`           | Spring Boot REST API                                                             |
+| `src/web/`           | React SPA (Vite)                                                                 |
+| `docker-compose.yml` | Backend Docker setup (Spring Boot)                                               |
+| `netlify.toml`       | Frontend deployment config (Netlify)                                             |
+| `supabase/`          | Migrations, seed data, config                                                    |
+| `docs/`              | ARCHITECTURE.md, REQUIREMENTS.md, decision records                               |
+| `docs/gsd/`          | How-we-work, feature board, architecture boundaries                              |
+| `.claude/rules/`     | Coding conventions for AI-assisted development                                   |
+| `.claude/skills/`    | ITPEC PDF extraction, PR review (`/pr-review`), requirements sync (`/sync-reqs`) |
+| `.github/`           | CI, security, PR/issue templates                                                 |
 
 ## Team
 
@@ -135,17 +144,17 @@ Find your project ref in Supabase Dashboard → **Settings** → **General** →
 
 ## What's already set up for you
 
-| File | Gives you |
-|---|---|
-| `.github/workflows/ci.yml` | lint · typecheck · test · build on every PR |
-| `.github/workflows/security.yml` | gitleaks (leaked keys) + semgrep (SAST) — advisory |
-| `.github/dependabot.yml` | weekly PRs for vulnerable / outdated dependencies |
-| `netlify.toml` | Frontend deploy config (SPA routing, build settings) |
-| `docker-compose.yml` | Backend Docker setup for local/production |
-| `.env.example` | secret hygiene — copy to `.env`, never commit real keys |
-| `.github/pull_request_template.md` · `ISSUE_TEMPLATE/` · `CODEOWNERS` | small reviewed PRs, one-owner issues |
-| `docs/ARCHITECTURE.md` · `docs/decisions/` | a 1-page overview + lightweight ADRs |
-| `working-agreement.md` | how your team works (GitHub Flow + rotating roles) |
+| File                                                                  | Gives you                                               |
+| --------------------------------------------------------------------- | ------------------------------------------------------- |
+| `.github/workflows/ci.yml`                                            | lint · typecheck · test · build on every PR             |
+| `.github/workflows/security.yml`                                      | gitleaks (leaked keys) + semgrep (SAST) — advisory      |
+| `.github/dependabot.yml`                                              | weekly PRs for vulnerable / outdated dependencies       |
+| `netlify.toml`                                                        | Frontend deploy config (SPA routing, build settings)    |
+| `docker-compose.yml`                                                  | Backend Docker setup for local/production               |
+| `.env.example`                                                        | secret hygiene — copy to `.env`, never commit real keys |
+| `.github/pull_request_template.md` · `ISSUE_TEMPLATE/` · `CODEOWNERS` | small reviewed PRs, one-owner issues                    |
+| `docs/ARCHITECTURE.md` · `docs/decisions/`                            | a 1-page overview + lightweight ADRs                    |
+| `working-agreement.md`                                                | how your team works (GitHub Flow + rotating roles)      |
 
 **Git rule:** branch → `/pr-review` → commit → PR → merge. No push to `main`, no self-merge. Automated review is the primary quality gate; teammate review is only needed for schema/API/auth changes.
 

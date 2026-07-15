@@ -2,7 +2,10 @@ package com.nerdquiz.controller;
 
 import com.nerdquiz.dto.QuestionResponse;
 import com.nerdquiz.service.QuestionService;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/questions")
+@Validated
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -20,7 +24,7 @@ public class QuestionController {
 
     @GetMapping("/random")
     public ResponseEntity<List<QuestionResponse>> getRandomQuestions(
-            @RequestParam(defaultValue = "5") int count) {
+            @RequestParam(defaultValue = "5") @Min(1) @Max(50) int count) {
         return ResponseEntity.ok(questionService.getRandomQuestions(count));
     }
 

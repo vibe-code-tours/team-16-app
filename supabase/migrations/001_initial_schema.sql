@@ -1,8 +1,4 @@
--- NerdQuiz complete initial schema
--- Run once against a new Supabase project.
-
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
 CREATE OR REPLACE FUNCTION set_updated_at()
 RETURNS TRIGGER LANGUAGE plpgsql AS $$
 BEGIN
@@ -10,9 +6,6 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
--- ---------- Profiles and curriculum ----------
-
 CREATE TABLE profiles (
   user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   display_name TEXT,
@@ -21,7 +14,6 @@ CREATE TABLE profiles (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
 CREATE TABLE topics (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
@@ -33,7 +25,6 @@ CREATE TABLE topics (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
 CREATE TABLE subtopics (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   topic_id UUID NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
@@ -47,7 +38,6 @@ CREATE TABLE subtopics (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (topic_id, slug)
 );
-
 CREATE TABLE lessons (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   subtopic_id UUID NOT NULL REFERENCES subtopics(id) ON DELETE CASCADE,
@@ -63,14 +53,12 @@ CREATE TABLE lessons (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (subtopic_id, slug)
 );
-
 CREATE TABLE lesson_prerequisites (
   lesson_id UUID NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
   prerequisite_lesson_id UUID NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
   PRIMARY KEY (lesson_id, prerequisite_lesson_id),
   CHECK (lesson_id <> prerequisite_lesson_id)
 );
-
 CREATE TABLE user_lesson_progress (
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   lesson_id UUID NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
@@ -81,9 +69,6 @@ CREATE TABLE user_lesson_progress (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   PRIMARY KEY (user_id, lesson_id)
 );
-
--- ---------- Question bank and original sources ----------
-
 CREATE TABLE questions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   subtopic_id UUID REFERENCES subtopics(id) ON DELETE SET NULL,
@@ -116,7 +101,6 @@ CREATE TABLE questions (
   UNIQUE (exam_session, subject, question_number),
   CHECK (times_correct <= times_answered)
 );
-
 CREATE TABLE question_subtopics (
   question_id UUID NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
   subtopic_id UUID NOT NULL REFERENCES subtopics(id) ON DELETE CASCADE,
@@ -126,12 +110,8 @@ CREATE TABLE question_subtopics (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   PRIMARY KEY (question_id, subtopic_id)
 );
-
 CREATE UNIQUE INDEX uq_question_primary_subtopic
   ON question_subtopics(question_id) WHERE is_primary;
-
--- ---------- Five-question and adaptive quizzes ----------
-
 CREATE TABLE quiz_sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -149,7 +129,6 @@ CREATE TABLE quiz_sessions (
   status TEXT NOT NULL DEFAULT 'in_progress'
     CHECK (status IN ('in_progress', 'completed', 'abandoned'))
 );
-
 CREATE TABLE quiz_session_questions (
   quiz_session_id UUID NOT NULL REFERENCES quiz_sessions(id) ON DELETE CASCADE,
   question_id UUID NOT NULL REFERENCES questions(id),
@@ -157,7 +136,6 @@ CREATE TABLE quiz_session_questions (
   PRIMARY KEY (quiz_session_id, sequence_number),
   UNIQUE (quiz_session_id, question_id)
 );
-
 CREATE TABLE quiz_answers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   quiz_session_id UUID NOT NULL REFERENCES quiz_sessions(id) ON DELETE CASCADE,
@@ -170,9 +148,6 @@ CREATE TABLE quiz_answers (
   answered_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (quiz_session_id, question_id)
 );
-
--- ---------- Real exam simulation ----------
-
 CREATE TABLE exams (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   exam_session TEXT NOT NULL,
@@ -186,7 +161,6 @@ CREATE TABLE exams (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (exam_session, subject)
 );
-
 CREATE TABLE exam_questions (
   exam_id UUID NOT NULL REFERENCES exams(id) ON DELETE CASCADE,
   question_id UUID NOT NULL REFERENCES questions(id),
@@ -194,7 +168,6 @@ CREATE TABLE exam_questions (
   PRIMARY KEY (exam_id, sequence_number),
   UNIQUE (exam_id, question_id)
 );
-
 CREATE TABLE exam_sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -213,7 +186,6 @@ CREATE TABLE exam_sessions (
   CHECK (hearts_remaining <= initial_hearts),
   CHECK (correct_answers <= total_questions)
 );
-
 CREATE TABLE exam_answers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   exam_session_id UUID NOT NULL REFERENCES exam_sessions(id) ON DELETE CASCADE,
@@ -226,7 +198,6 @@ CREATE TABLE exam_answers (
   UNIQUE (exam_session_id, question_id),
   UNIQUE (exam_session_id, sequence_number)
 );
-
 CREATE TABLE exam_heart_events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   exam_session_id UUID NOT NULL REFERENCES exam_sessions(id) ON DELETE CASCADE,
@@ -235,9 +206,6 @@ CREATE TABLE exam_heart_events (
   reason TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
--- ---------- Motivation, mastery, and weak points ----------
-
 CREATE TABLE user_stats (
   user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   total_xp INT NOT NULL DEFAULT 0 CHECK (total_xp >= 0),
@@ -253,7 +221,6 @@ CREATE TABLE user_stats (
   CHECK (current_streak <= longest_streak OR longest_streak = 0),
   CHECK (total_correct <= total_questions_answered)
 );
-
 CREATE TABLE xp_events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -264,7 +231,6 @@ CREATE TABLE xp_events (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (user_id, idempotency_key)
 );
-
 CREATE TABLE user_daily_activity (
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   activity_date DATE NOT NULL,
@@ -272,7 +238,6 @@ CREATE TABLE user_daily_activity (
   xp_earned INT NOT NULL DEFAULT 0 CHECK (xp_earned >= 0),
   PRIMARY KEY (user_id, activity_date)
 );
-
 CREATE TABLE user_subtopic_mastery (
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   subtopic_id UUID NOT NULL REFERENCES subtopics(id) ON DELETE CASCADE,
@@ -285,9 +250,6 @@ CREATE TABLE user_subtopic_mastery (
   PRIMARY KEY (user_id, subtopic_id),
   CHECK (questions_correct <= questions_seen)
 );
-
--- ---------- Mistake Garden ----------
-
 CREATE TABLE mistakes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -304,7 +266,6 @@ CREATE TABLE mistakes (
   resolved_at TIMESTAMPTZ,
   UNIQUE (user_id, question_id)
 );
-
 CREATE TABLE mistake_reviews (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   mistake_id UUID NOT NULL REFERENCES mistakes(id) ON DELETE CASCADE,
@@ -313,9 +274,6 @@ CREATE TABLE mistake_reviews (
   confidence INT CHECK (confidence BETWEEN 1 AND 5),
   reviewed_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
--- ---------- Flashcards and spaced repetition ----------
-
 CREATE TABLE flashcards (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   subtopic_id UUID NOT NULL REFERENCES subtopics(id) ON DELETE CASCADE,
@@ -326,7 +284,6 @@ CREATE TABLE flashcards (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
 CREATE TABLE user_flashcard_state (
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   flashcard_id UUID NOT NULL REFERENCES flashcards(id) ON DELETE CASCADE,
@@ -338,7 +295,6 @@ CREATE TABLE user_flashcard_state (
   last_reviewed_at TIMESTAMPTZ,
   PRIMARY KEY (user_id, flashcard_id)
 );
-
 CREATE TABLE flashcard_reviews (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -348,9 +304,6 @@ CREATE TABLE flashcard_reviews (
   next_interval_days NUMERIC(8,2),
   reviewed_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
--- ---------- Indexes ----------
-
 CREATE INDEX idx_subtopics_topic ON subtopics(topic_id, display_order);
 CREATE INDEX idx_lessons_subtopic ON lessons(subtopic_id, display_order);
 CREATE INDEX idx_questions_exam ON questions(exam_session, subject, question_number);
@@ -367,9 +320,6 @@ CREATE INDEX idx_mastery_weak_points ON user_subtopic_mastery(user_id, mastery_s
 CREATE INDEX idx_mistakes_review_queue ON mistakes(user_id, resolved_at, next_review_at);
 CREATE INDEX idx_flashcards_subtopic ON flashcards(subtopic_id);
 CREATE INDEX idx_flashcard_due ON user_flashcard_state(user_id, due_at);
-
--- ---------- Updated-at triggers ----------
-
 CREATE TRIGGER profiles_updated_at BEFORE UPDATE ON profiles
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 CREATE TRIGGER topics_updated_at BEFORE UPDATE ON topics
@@ -390,9 +340,6 @@ CREATE TRIGGER mastery_updated_at BEFORE UPDATE ON user_subtopic_mastery
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 CREATE TRIGGER flashcards_updated_at BEFORE UPDATE ON flashcards
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-
--- ---------- Row-level security ----------
-
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE topics ENABLE ROW LEVEL SECURITY;
 ALTER TABLE subtopics ENABLE ROW LEVEL SECURITY;
@@ -418,7 +365,6 @@ ALTER TABLE mistake_reviews ENABLE ROW LEVEL SECURITY;
 ALTER TABLE flashcards ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_flashcard_state ENABLE ROW LEVEL SECURITY;
 ALTER TABLE flashcard_reviews ENABLE ROW LEVEL SECURITY;
-
 CREATE POLICY "Public topics" ON topics FOR SELECT USING (published);
 CREATE POLICY "Public subtopics" ON subtopics FOR SELECT USING (published);
 CREATE POLICY "Public lessons" ON lessons FOR SELECT USING (published);
@@ -428,7 +374,6 @@ CREATE POLICY "Public question classifications" ON question_subtopics FOR SELECT
 CREATE POLICY "Public exams" ON exams FOR SELECT USING (published);
 CREATE POLICY "Public exam questions" ON exam_questions FOR SELECT USING (true);
 CREATE POLICY "Public flashcards" ON flashcards FOR SELECT USING (published);
-
 CREATE POLICY "Own profile" ON profiles FOR ALL
   USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "Own lesson progress" ON user_lesson_progress FOR ALL
@@ -461,14 +406,10 @@ CREATE POLICY "Own flashcard state" ON user_flashcard_state FOR ALL
   USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "Own flashcard reviews" ON flashcard_reviews FOR ALL
   USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
-
--- ---------- Storage ----------
-
 INSERT INTO storage.buckets (id, name, public) VALUES
   ('question-images', 'question-images', true),
   ('exam-reference-docs', 'exam-reference-docs', true)
 ON CONFLICT (id) DO NOTHING;
-
 CREATE POLICY "Public question images" ON storage.objects FOR SELECT
   USING (bucket_id = 'question-images');
 CREATE POLICY "Public exam reference documents" ON storage.objects FOR SELECT
@@ -479,16 +420,12 @@ CREATE POLICY "Service role manages question images" ON storage.objects FOR ALL
 CREATE POLICY "Service role manages reference documents" ON storage.objects FOR ALL
   USING (bucket_id = 'exam-reference-docs' AND auth.role() = 'service_role')
   WITH CHECK (bucket_id = 'exam-reference-docs' AND auth.role() = 'service_role');
-
--- ---------- Initial curriculum ----------
-
 INSERT INTO topics (name, slug, description, display_order) VALUES
   ('Technology', 'technology', 'IT infrastructure, databases, networks, and programming', 1),
   ('Security', 'security', 'Information security, cryptography, and network security', 2),
   ('Management', 'management', 'Project management, quality assurance, and development processes', 3),
   ('Strategy', 'strategy', 'Business strategy, intellectual property, and IT governance', 4),
   ('Business', 'business', 'Business operations, finance, and procurement', 5);
-
 INSERT INTO subtopics (topic_id, name, slug, display_order) VALUES
   ((SELECT id FROM topics WHERE slug = 'technology'), 'Computer Architecture', 'computer-architecture', 1),
   ((SELECT id FROM topics WHERE slug = 'technology'), 'Data Structures', 'data-structures', 2),

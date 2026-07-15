@@ -1,6 +1,11 @@
 # NerdQuiz Database Schema
 
-> Source: `supabase/migrations/001_initial_schema.sql`
+> Source: `supabase/migrations/001_initial_schema.sql` + subsequent migrations
+>
+> ⚠️ **Note:** Migrations 003 and 005 created `user_profiles` and `user_mistakes`
+> tables that overlap with `profiles` and `mistakes` from 001. The duplicate tables
+> are the ones currently used by the frontend. See `docs/gsd/feature-board.md` known
+> gaps for consolidation plan.
 
 ## AUTH_USERS
 

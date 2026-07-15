@@ -1,27 +1,43 @@
 server:
   port: ${PORT:8080}
 
+logging:
+  level:
+    com.nerdquiz.config.JwtAuthenticationFilter: DEBUG
+    com.nerdquiz.config.JwtUtil: DEBUG
+
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:54322/postgres?user=postgres&password=postgres}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:54322/postgres}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      # Keep each Cloud Run instance's footprint small; Supavisor handles the
+      # shared pool in front of Postgres.
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:5}
+      minimum-idle: ${DB_POOL_MIN_IDLE:0}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT_MS:10000}
+      validation-timeout: ${DB_VALIDATION_TIMEOUT_MS:5000}
+      data-source-properties:
+        sslmode: ${DB_SSL_MODE:prefer}
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
+    open-in-view: false
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 
   jackson:
     serialization:
       write-dates-as-timestamps: false
 
-app:
-  cors:
-    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5100,http://localhost:5173,http://localhost:3000,https://nerdquiz-16.netlify.app}
+#app:
+#  cors:
+#    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5100,http://localhost:5173,http://localhost:3000,https://nerdquiz-16.netlify.app}
 
 # Supabase JWT configuration
 supabase:
