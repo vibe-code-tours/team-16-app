@@ -17,6 +17,7 @@ export function LessonPage() {
   const navigate = useNavigate()
   const [lesson, setLesson] = useState<LessonDetail | null>(null)
   const [loading, setLoading] = useState(true)
+  const [completing, setCompleting] = useState(false)
 
   useEffect(() => {
     async function fetchLessonData() {
@@ -51,6 +52,18 @@ export function LessonPage() {
         <p className="text-gray-500">Lesson not found.</p>
       </div>
     )
+  }
+
+  const handleComplete = async () => {
+    if (!lessonId) return
+    setCompleting(true)
+    try {
+      await api.post(`/api/v1/lessons/${lessonId}/complete`)
+    } catch (e) {
+      console.error('Failed to mark lesson complete:', e)
+    } finally {
+      navigate(`/map/${lesson.topic_id}`)
+    }
   }
 
   return (
@@ -122,10 +135,11 @@ export function LessonPage() {
 
         <div className="mt-8 flex justify-center">
           <button
-            onClick={() => navigate(`/map/${lesson.topic_id}`)}
-            className="rounded-lg bg-purple-600 px-8 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+            onClick={handleComplete}
+            disabled={completing}
+            className="rounded-lg bg-purple-600 px-8 py-3 font-bold text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
           >
-            I've read it!
+            {completing ? 'Saving...' : "I've read it!"}
           </button>
         </div>
       </main>
