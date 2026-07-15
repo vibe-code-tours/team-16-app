@@ -29,17 +29,21 @@ public class QuizService {
     private final QuizAnswerRepository quizAnswerRepository;
     private final QuizSessionQuestionRepository quizSessionQuestionRepository;
     private final QuestionService questionService;
+    private final WeakPointService weakPointService;
 
     public QuizService(QuestionRepository questionRepository,
                        QuizSessionRepository quizSessionRepository,
                        QuizAnswerRepository quizAnswerRepository,
                        QuizSessionQuestionRepository quizSessionQuestionRepository,
                        QuestionService questionService) {
+                       QuestionService questionService,
+                       WeakPointService weakPointService) {
         this.questionRepository = questionRepository;
         this.quizSessionRepository = quizSessionRepository;
         this.quizAnswerRepository = quizAnswerRepository;
         this.quizSessionQuestionRepository = quizSessionQuestionRepository;
         this.questionService = questionService;
+        this.weakPointService = weakPointService;
     }
 
     @Transactional
@@ -137,6 +141,9 @@ public class QuizService {
 
         quizSessionRepository.save(session);
         QuizAnswer savedAnswer = quizAnswerRepository.save(answer);
+
+        weakPointService.updateMastery(userId, request.questionId(), isCorrect);
+
         return toAnswerResponse(savedAnswer);
     }
 

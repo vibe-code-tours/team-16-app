@@ -14,6 +14,7 @@ import { UserProfile } from "./routes/UserProfile";
 import { ExamPage } from "./routes/ExamPage";
 import { QuizListingPage } from "./routes/QuizListingPage";
 import { AiDraftPreview } from "./routes/AiDraftPreview";
+import { WeakPointAnalysis } from "./routes/WeakPointAnalysis";
 
 export default function App() {
   return (
@@ -103,6 +104,16 @@ export default function App() {
               <ProtectedRoute>
                 <Layout>
                   <ExamPage />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/weak-points"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <WeakPointAnalysis />
                 </Layout>
               </ProtectedRoute>
             }
