@@ -9,10 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -44,100 +46,129 @@ class ExamControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Test
-    void getAvailableExams_ReturnsExams() throws Exception {
-        ExamSummaryResponse exam = new ExamSummaryResponse(
-            UUID.randomUUID(), "2021-april", "A", "2021 April FE Subject A",
-            60, 150, 5
-        );
-        when(examService.getAvailableExams()).thenReturn(List.of(exam));
-
-        mockMvc.perform(get("/api/v1/exams/sessions"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].examSession").value("2021-april"))
-                .andExpect(jsonPath("$[0].subject").value("A"))
-                .andExpect(jsonPath("$[0].questionCount").value(60));
-    }
-
-    @Test
-    void getAvailableExams_EmptyList_ReturnsEmptyArray() throws Exception {
-        when(examService.getAvailableExams()).thenReturn(List.of());
-
-        mockMvc.perform(get("/api/v1/exams/sessions"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$").isEmpty());
+    private UsernamePasswordAuthenticationToken authenticatedUser() {
+        return new UsernamePasswordAuthenticationToken(UUID.randomUUID().toString(), null);
     }
 
     @Test
     void startExam_ReturnsSession() throws Exception {
-        ExamSessionResponse session = new ExamSessionResponse(
-            UUID.randomUUID(), "2021-april", "A", "2021 April FE Subject A",
-            List.of(new ExamQuestionResponse(
-                UUID.randomUUID(), 1, "What is 2+2?",
+        UUID questionId = UUID.randomUUID();
+        StartExamResponse response = new StartExamResponse(
+            UUID.randomUUID(),
+            List.of(new QuestionResponse(
+                questionId, null, "2021-april", "A", 1,
+                "What is 2+2?",
                 objectMapper.readTree("[]"),
                 objectMapper.readTree("[{\"label\":\"a\",\"text\":\"3\"},{\"label\":\"b\",\"text\":\"4\"}]"),
-                "easy", true
+                "b", null, "easy"
             )),
-            60, 5, 5, 150,
-            Instant.now().plus(150, ChronoUnit.MINUTES),
-            "in_progress"
+            3, 60,
+            Instant.now().plus(60, ChronoUnit.MINUTES)
         );
         when(examService.startExam(any(UUID.class), any(StartExamRequest.class)))
-                .thenReturn(session);
+                .thenReturn(response);
 
         mockMvc.perform(post("/api/v1/exams/start")
+                        .principal(authenticatedUser())
                         .contentType("application/json")
-                        .content("{\"examSession\":\"2021-april\",\"subject\":\"A\"}"))
+                        .content("{\"questionCount\":60,\"difficulty\":\"medium\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.examSession").value("2021-april"))
-                .andExpect(jsonPath("$.subject").value("A"))
-                .andExpect(jsonPath("$.status").value("in_progress"));
+                .andExpect(jsonPath("$.questions").isArray())
+                .andExpect(jsonPath("$.heartsRemaining").value(3))
+                .andExpect(jsonPath("$.timeLimitMinutes").value(60));
+    }
+
+    @Test
+    void startExam_InvalidDifficulty_ReturnsBadRequest() throws Exception {
+        when(examService.startExam(any(UUID.class), any(StartExamRequest.class)))
+                .thenThrow(new IllegalArgumentException("Invalid difficulty"));
+
+        mockMvc.perform(post("/api/v1/exams/start")
+                        .principal(authenticatedUser())
+                        .contentType("application/json")
+                        .content("{\"questionCount\":10,\"difficulty\":\"impossible\"}"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
     void submitAnswer_ReturnsAnswerResult() throws Exception {
-        ExamAnswerResponse answer = new ExamAnswerResponse(
-            UUID.randomUUID(), "b", true, "b", "Basic arithmetic",
-            5, false
+        UUID questionId = UUID.randomUUID();
+        SubmitExamAnswerResponse response = new SubmitExamAnswerResponse(
+            UUID.randomUUID(), questionId, "b", true, 5
         );
         when(examService.submitAnswer(any(UUID.class), any(UUID.class), any(SubmitExamAnswerRequest.class)))
-                .thenReturn(answer);
+                .thenReturn(response);
 
         mockMvc.perform(post("/api/v1/exams/" + UUID.randomUUID() + "/answers")
+                        .principal(authenticatedUser())
                         .contentType("application/json")
-                        .content("{\"questionId\":\"" + UUID.randomUUID() + "\",\"answer\":\"b\"}"))
+                        .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"b\",\"responseTimeMs\":5000}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.isCorrect").value(true))
                 .andExpect(jsonPath("$.heartsRemaining").value(5));
     }
 
     @Test
-    void completeExam_ReturnsResults() throws Exception {
-        ExamResultResponse result = new ExamResultResponse(
-            UUID.randomUUID(), 60, 60, 50, 83.33,
-            500, true, 3, List.of()
+    void submitAnswer_WrongAnswer_DecreasesHearts() throws Exception {
+        UUID questionId = UUID.randomUUID();
+        SubmitExamAnswerResponse response = new SubmitExamAnswerResponse(
+            UUID.randomUUID(), questionId, "a", false, 4
         );
-        when(examService.completeExam(any(UUID.class), any(UUID.class)))
-                .thenReturn(result);
+        when(examService.submitAnswer(any(UUID.class), any(UUID.class), any(SubmitExamAnswerRequest.class)))
+                .thenReturn(response);
 
-        mockMvc.perform(post("/api/v1/exams/" + UUID.randomUUID() + "/complete"))
+        mockMvc.perform(post("/api/v1/exams/" + UUID.randomUUID() + "/answers")
+                        .principal(authenticatedUser())
+                        .contentType("application/json")
+                        .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"a\",\"responseTimeMs\":3000}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.passed").value(true))
-                .andExpect(jsonPath("$.scorePercentage").value(83.33));
+                .andExpect(jsonPath("$.isCorrect").value(false))
+                .andExpect(jsonPath("$.heartsRemaining").value(4));
     }
 
     @Test
-    void getResult_ReturnsResults() throws Exception {
-        ExamResultResponse result = new ExamResultResponse(
-            UUID.randomUUID(), 60, 60, 50, 83.33,
-            500, true, 3, List.of()
-        );
-        when(examService.getResult(any(UUID.class), any(UUID.class)))
-                .thenReturn(result);
+    void submitAnswer_MissingFields_ReturnsBadRequest() throws Exception {
+        mockMvc.perform(post("/api/v1/exams/" + UUID.randomUUID() + "/answers")
+                        .principal(authenticatedUser())
+                        .contentType("application/json")
+                        .content("{}"))
+                .andExpect(status().isBadRequest());
+    }
 
-        mockMvc.perform(get("/api/v1/exams/" + UUID.randomUUID() + "/result"))
+    @Test
+    void finishExam_ReturnsResults() throws Exception {
+        FinishExamResponse response = new FinishExamResponse(
+            UUID.randomUUID(), 60, 50,
+            BigDecimal.valueOf(83.33), 3, "completed", 500
+        );
+        when(examService.finishExam(any(UUID.class), any(UUID.class), any(FinishExamRequest.class)))
+                .thenReturn(response);
+
+        mockMvc.perform(post("/api/v1/exams/" + UUID.randomUUID() + "/finish")
+                        .principal(authenticatedUser())
+                        .contentType("application/json")
+                        .content("{\"status\":\"completed\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.passed").value(true));
+                .andExpect(jsonPath("$.status").value("completed"))
+                .andExpect(jsonPath("$.correctAnswers").value(50))
+                .andExpect(jsonPath("$.xpEarned").value(500));
+    }
+
+    @Test
+    void finishExam_Abandoned_NoXp() throws Exception {
+        FinishExamResponse response = new FinishExamResponse(
+            UUID.randomUUID(), 60, 30,
+            BigDecimal.valueOf(50.00), 2, "abandoned", 0
+        );
+        when(examService.finishExam(any(UUID.class), any(UUID.class), any(FinishExamRequest.class)))
+                .thenReturn(response);
+
+        mockMvc.perform(post("/api/v1/exams/" + UUID.randomUUID() + "/finish")
+                        .principal(authenticatedUser())
+                        .contentType("application/json")
+                        .content("{\"status\":\"abandoned\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("abandoned"))
+                .andExpect(jsonPath("$.xpEarned").value(0));
     }
 }
