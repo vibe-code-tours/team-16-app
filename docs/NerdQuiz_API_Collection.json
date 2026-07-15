@@ -1,0 +1,1147 @@
+{
+  "info": {
+    "name": "NerdQuiz API",
+    "description": "Complete API collection for NerdQuiz — ITPEC FE exam prep platform.\n\n## Setup\n1. Set `base_url` to your backend URL (e.g. `https://your-api.onrender.com`)\n2. Set `jwt_token` to a valid Supabase JWT bearer token\n3. Public endpoints (Health, Exam Sessions) work without auth\n\n## Auth\nAll endpoints except Health and Exam Sessions require:\n```\nAuthorization: Bearer {{jwt_token}}\n```\n\n## Supabase Cloud\n- **Supabase URL:** Set `supabase_url` variable\n- **Supabase Anon Key:** Set `supabase_anon_key` variable (for direct Supabase calls if needed)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "YOUR_SUPABASE_JWT_TOKEN_HERE",
+      "type": "string"
+    },
+    {
+      "key": "supabase_url",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "supabase_anon_key",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Get JWT Token",
+      "description": "Get a Supabase JWT token by signing in. Use this first, then copy the token into the `jwt_token` collection variable.\n\n**Steps:**\n1. If you don't have a user yet, run **Sign Up** first\n2. Run **Sign In** with your email + password\n3. Copy the `access_token` from the response\n4. Set it as the `jwt_token` collection variable",
+      "item": [
+        {
+          "name": "Sign Up (create new user)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if (res.access_token) {",
+                  "    pm.collectionVariables.set('jwt_token', res.access_token);",
+                  "    console.log('Token saved! Access token: ' + res.access_token.substring(0, 50) + '...');",
+                  "} else {",
+                  "    console.log('Sign up response: ' + JSON.stringify(res));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{supabase_url}}/auth/v1/signup",
+              "host": ["{{supabase_url}}"],
+              "path": ["auth", "v1", "signup"]
+            },
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{supabase_anon_key}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"TestPass123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sign In (get JWT token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if (res.access_token) {",
+                  "    pm.collectionVariables.set('jwt_token', res.access_token);",
+                  "    pm.collectionVariables.set('user_id', res.user.id);",
+                  "    console.log('Token saved!');",
+                  "    console.log('User ID: ' + res.user.id);",
+                  "    console.log('Access token: ' + res.access_token.substring(0, 50) + '...');",
+                  "} else {",
+                  "    console.log('Sign in failed: ' + JSON.stringify(res));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{supabase_url}}/auth/v1/token?grant_type=password",
+              "host": ["{{supabase_url}}"],
+              "path": ["auth", "v1", "token"],
+              "query": [
+                {
+                  "key": "grant_type",
+                  "value": "password"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{supabase_anon_key}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"TestPass123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if (res.access_token) {",
+                  "    pm.collectionVariables.set('jwt_token', res.access_token);",
+                  "    console.log('Token refreshed!');",
+                  "} else {",
+                  "    console.log('Refresh failed: ' + JSON.stringify(res));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{supabase_url}}/auth/v1/token?grant_type=refresh_token",
+              "host": ["{{supabase_url}}"],
+              "path": ["auth", "v1", "token"],
+              "query": [
+                {
+                  "key": "grant_type",
+                  "value": "refresh_token"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{supabase_anon_key}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh_token\": \"YOUR_REFRESH_TOKEN_HERE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current User (from token)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{supabase_url}}/auth/v1/user",
+              "host": ["{{supabase_url}}"],
+              "path": ["auth", "v1", "user"]
+            },
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{supabase_anon_key}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ]
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "description": "Public health check endpoints — no auth required",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/health",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "health"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Profile",
+      "description": "User identity and profile management — requires auth",
+      "item": [
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "me"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Streak",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me/streak",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "me", "streak"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "me", "profile"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "me", "profile"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"Nerd Student\",\n  \"avatarUrl\": \"https://example.com/avatar.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Topics",
+      "description": "Learning map topics — the prerequisite chain for study",
+      "item": [
+        {
+          "name": "Get All Topics (Learning Map)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/topics",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "topics"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Lessons",
+      "description": "Lesson content and progress tracking",
+      "item": [
+        {
+          "name": "Get Lessons by Subtopic",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/lessons?subtopicId={{subtopic_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lessons"],
+              "query": [
+                {
+                  "key": "subtopicId",
+                  "value": "{{subtopic_id}}",
+                  "description": "UUID of the subtopic to get lessons for"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Lesson by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/lessons/{{lesson_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lessons", "{{lesson_id}}"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Lesson Progress",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me/lessons/{{lesson_id}}/progress",
+              "host": ["{{base_url}}"],
+              "path": [
+                "api",
+                "v1",
+                "me",
+                "lessons",
+                "{{lesson_id}}",
+                "progress"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Lesson Complete",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me/lessons/{{lesson_id}}/progress/complete",
+              "host": ["{{base_url}}"],
+              "path": [
+                "api",
+                "v1",
+                "me",
+                "lessons",
+                "{{lesson_id}}",
+                "progress",
+                "complete"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Questions",
+      "description": "Question retrieval — random, by session, and stats",
+      "item": [
+        {
+          "name": "Get Random Questions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/questions/random?count=5",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "questions", "random"],
+              "query": [
+                {
+                  "key": "count",
+                  "value": "5",
+                  "description": "Number of random questions (default: 5)"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Questions by Exam Session",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/questions/session/2025-October?subject=A",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "questions", "session", "2025-October"],
+              "query": [
+                {
+                  "key": "subject",
+                  "value": "A",
+                  "description": "Exam subject (A or B)"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Question Stats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/questions/stats?examSession=2025-October&subject=A",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "questions", "stats"],
+              "query": [
+                {
+                  "key": "examSession",
+                  "value": "2025-October",
+                  "description": "Exam session identifier"
+                },
+                {
+                  "key": "subject",
+                  "value": "A",
+                  "description": "Exam subject (A or B)"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Quiz (Practice)",
+      "description": "Practice quiz flow — start, answer, view results. No hearts system.",
+      "item": [
+        {
+          "name": "Start Quiz",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/quizzes/start",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "quizzes", "start"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subtopicId\": null,\n  \"questionCount\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Start a practice quiz. Pass subtopicId to filter by subtopic, or null for random. questionCount: 1-10."
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Quiz Answer",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/quizzes/{{quiz_session_id}}/answers",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "quizzes", "{{quiz_session_id}}", "answers"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": \"00000000-0000-0000-0000-000000000000\",\n  \"answer\": \"a\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Submit an answer for a quiz question. answer must match /^[a-d]$/."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Quiz Result",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/quizzes/{{quiz_session_id}}/result",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "quizzes", "{{quiz_session_id}}", "result"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Exam Simulation",
+      "description": "ITPEC FE exam simulation with hearts/lives system. Public endpoint for session listing.",
+      "item": [
+        {
+          "name": "List Exam Sessions (Public)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/exams/sessions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "exams", "sessions"]
+            }
+          },
+          "description": "Get available exam sessions. PUBLIC — no auth required.",
+          "response": []
+        },
+        {
+          "name": "Start Exam",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/exams/start",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "exams", "start"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"examSession\": \"2025-October\",\n  \"subject\": \"A\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Start an exam simulation. examSession and subject are required. Subject must be A or B."
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Exam Answer",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/exams/{{exam_session_id}}/answers",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "exams", "{{exam_session_id}}", "answers"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": \"00000000-0000-0000-0000-000000000000\",\n  \"answer\": \"a\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Submit an answer for an exam question. Wrong answers cost 1 heart. 0 hearts = auto-complete."
+          },
+          "response": []
+        },
+        {
+          "name": "Complete Exam",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/exams/{{exam_session_id}}/complete",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "exams", "{{exam_session_id}}", "complete"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "description": "Manually complete an exam early. Returns final results."
+        },
+        {
+          "name": "Get Exam Result",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/exams/{{exam_session_id}}/result",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "exams", "{{exam_session_id}}", "result"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Mistake Garden",
+      "description": "Track and review wrong answers — the Mistake Garden feature",
+      "item": [
+        {
+          "name": "Get All Mistakes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me/mistakes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "me", "mistakes"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Mistake",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me/mistakes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "me", "mistakes"]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": \"00000000-0000-0000-0000-000000000000\",\n  \"source\": \"quiz\",\n  \"sourceSessionId\": \"00000000-0000-0000-0000-000000000000\",\n  \"userAnswer\": \"a\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Add a mistake record. Increments count if same question was already missed."
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Mistake Reviewed",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/v1/me/mistakes/{{mistake_id}}/review",
+              "host": ["{{base_url}}"],
+              "path": [
+                "api",
+                "v1",
+                "me",
+                "mistakes",
+                "{{mistake_id}}",
+                "review"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Supabase Direct",
+      "description": "Direct Supabase REST API calls (bypasses Spring Boot backend). Uses Supabase URL + anon key.",
+      "item": [
+        {
+          "name": "Get All Questions (Supabase)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.request.headers.add({",
+                  "    key: 'apikey',",
+                  "    value: pm.environment.get('supabase_anon_key'),",
+                  "    type: 'text'",
+                  "});",
+                  "pm.request.headers.add({",
+                  "    key: 'Authorization',",
+                  "    value: 'Bearer ' + pm.environment.get('supabase_anon_key'),",
+                  "    type: 'text'",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{supabase_url}}/rest/v1/questions?select=*&limit=10",
+              "host": ["{{supabase_url}}"],
+              "path": ["rest", "v1", "questions"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Max rows to return"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{supabase_anon_key}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_anon_key}}"
+              }
+            ]
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Topics (Supabase)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.request.headers.add({",
+                  "    key: 'apikey',",
+                  "    value: pm.environment.get('supabase_anon_key'),",
+                  "    type: 'text'",
+                  "});",
+                  "pm.request.headers.add({",
+                  "    key: 'Authorization',",
+                  "    value: 'Bearer ' + pm.environment.get('supabase_anon_key'),",
+                  "    type: 'text'",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{supabase_url}}/rest/v1/topics?select=*&order=order.asc",
+              "host": ["{{supabase_url}}"],
+              "path": ["rest", "v1", "topics"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "order",
+                  "value": "order.asc"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{supabase_anon_key}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_anon_key}}"
+              }
+            ]
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Lessons (Supabase)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.request.headers.add({",
+                  "    key: 'apikey',",
+                  "    value: pm.environment.get('supabase_anon_key'),",
+                  "    type: 'text'",
+                  "});",
+                  "pm.request.headers.add({",
+                  "    key: 'Authorization',",
+                  "    value: 'Bearer ' + pm.environment.get('supabase_anon_key'),",
+                  "    type: 'text'",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{supabase_url}}/rest/v1/lessons?select=*&published=eq.true&order=display_order.asc",
+              "host": ["{{supabase_url}}"],
+              "path": ["rest", "v1", "lessons"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "published",
+                  "value": "eq.true"
+                },
+                {
+                  "key": "order",
+                  "value": "display_order.asc"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{supabase_anon_key}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_anon_key}}"
+              }
+            ]
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Profiles (Supabase)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.request.headers.add({",
+                  "    key: 'apikey',",
+                  "    value: pm.environment.get('supabase_anon_key'),",
+                  "    type: 'text'",
+                  "});",
+                  "pm.request.headers.add({",
+                  "    key: 'Authorization',",
+                  "    value: 'Bearer ' + pm.environment.get('supabase_anon_key'),",
+                  "    type: 'text'",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{supabase_url}}/rest/v1/user_profiles?select=*&limit=5",
+              "host": ["{{supabase_url}}"],
+              "path": ["rest", "v1", "user_profiles"],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "*"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{supabase_anon_key}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_anon_key}}"
+              }
+            ]
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
