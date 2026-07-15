@@ -1,0 +1,1 @@
+- [Feature Audit 2026-07-15](feature-audit-2026-07-15.md) — full feature status: 12 done, 3 broken/missing, 6 not implemented, priority fixes list

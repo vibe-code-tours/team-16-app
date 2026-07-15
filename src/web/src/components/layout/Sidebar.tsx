@@ -82,7 +82,7 @@ export function Sidebar({ navItems = defaultNavItems, isOpen, onClose, showNavIt
   return (
     <>
       {/* Desktop Sidebar */}
-      {showNavItems && isOpen && (
+      {showNavItems && (
         <aside className="hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-64 lg:bg-white lg:border-r lg:border-gray-200">
           <div className="flex flex-col flex-1 min-h-0 pt-16">
             <div className="flex-1 flex flex-col pb-4 overflow-y-auto">
