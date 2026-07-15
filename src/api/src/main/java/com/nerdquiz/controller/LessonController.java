@@ -1,5 +1,6 @@
 package com.nerdquiz.controller;
 
+import com.nerdquiz.dto.LessonDetailResponse;
 import com.nerdquiz.dto.LessonResponse;
 import com.nerdquiz.dto.QuestionResponse;
 import com.nerdquiz.service.LessonService;
@@ -39,6 +40,11 @@ public class LessonController {
         UUID userId = UUID.fromString(authentication.getName());
         lessonService.completeLesson(lessonId, userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/lessons/{lessonId}")
+    public ResponseEntity<LessonDetailResponse> getLesson(@PathVariable UUID lessonId) {
+        return ResponseEntity.ok(lessonService.getLesson(lessonId));
     }
 
     @GetMapping("/subtopics/{subtopicId}/quiz")

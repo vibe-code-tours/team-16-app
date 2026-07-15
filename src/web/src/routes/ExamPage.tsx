@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
-import { supabase } from '../lib/supabase'
+import { api } from '../lib/api'
 import type { QuizQuestion } from '../types'
 
 const EXAM_DURATION_MINUTES = 60
@@ -17,9 +17,46 @@ interface ExamQuestion {
   isCorrect?: boolean
 }
 
+interface QuestionFromApi {
+  id: string
+  subtopicId: string
+  questionText: string
+  choices: QuizQuestion['choices']
+  correctAnswer: string
+  explanation: string | null
+}
+
+interface StartExamResponse {
+  sessionId: string
+  questions: QuestionFromApi[]
+  heartsRemaining: number
+  timeLimitMinutes: number
+}
+
+interface SubmitExamAnswerResponse {
+  isCorrect: boolean
+  heartsRemaining: number
+}
+
+interface FinishExamResponse {
+  xpEarned: number
+  heartsRemaining: number
+}
+
+function toQuizQuestion(question: QuestionFromApi): QuizQuestion {
+  return {
+    id: question.id,
+    subtopic_id: question.subtopicId,
+    question_text: question.questionText,
+    choices: question.choices,
+    correct_answer: question.correctAnswer,
+    explanation: question.explanation,
+  }
+}
+
 export function ExamPage() {
   const navigate = useNavigate()
-  const { user, refreshUser } = useAuth()
+  const { refreshUser } = useAuth()
 
   const [questions, setQuestions] = useState<ExamQuestion[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -29,6 +66,7 @@ export function ExamPage() {
   const [loadError, setLoadError] = useState<string | null>(null)
   const [finished, setFinished] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [recordingAnswer, setRecordingAnswer] = useState(false)
   const [difficulty, setDifficulty] = useState<Difficulty>('all')
   const [started, setStarted] = useState(false)
   const [awardedXp, setAwardedXp] = useState<number | null>(null)
@@ -39,55 +77,27 @@ export function ExamPage() {
   const loadQuestions = useCallback(async () => {
     setLoading(true)
     setLoadError(null)
-    const { data, error } = await supabase.rpc('get_exam_questions', {
-      question_count: TOTAL_QUESTIONS,
-      difficulty_filter: difficulty === 'all' ? null : difficulty,
-    })
-    if (error) {
-      setLoadError(error.message)
+    sessionIdRef.current = null
+
+    try {
+      const data = await api.post<StartExamResponse>('/api/v1/exams/start', {
+        questionCount: TOTAL_QUESTIONS,
+        difficulty: difficulty === 'all' ? null : difficulty,
+      })
+      sessionIdRef.current = data.sessionId
+      setQuestions(data.questions.map((q) => ({ question: toQuizQuestion(q) })))
+      setHearts(data.heartsRemaining)
+      setTimeLeft(data.timeLimitMinutes * 60)
+    } catch (e) {
+      setLoadError(e instanceof Error ? e.message : 'Failed to load exam')
+    } finally {
       setLoading(false)
-      return
     }
-    setQuestions(((data ?? []) as QuizQuestion[]).map((q) => ({ question: q })))
-    setLoading(false)
   }, [difficulty])
 
   useEffect(() => {
     if (started) loadQuestions()
   }, [started, loadQuestions])
-
-  // Create the exam_sessions row once questions have loaded.
-  useEffect(() => {
-    if (!user || !started || loading || questions.length === 0 || sessionIdRef.current) return
-
-    const totalQuestions = questions.length
-    const startedAt = new Date()
-    const expiresAt = new Date(startedAt.getTime() + EXAM_DURATION_MINUTES * 60 * 1000)
-
-    ;(async () => {
-      const { data, error } = await supabase
-        .from('exam_sessions')
-        .insert({
-          user_id: user.id,
-          exam_id: null,
-          total_questions: totalQuestions,
-          initial_hearts: INITIAL_HEARTS,
-          hearts_remaining: INITIAL_HEARTS,
-          time_limit_minutes: EXAM_DURATION_MINUTES,
-          started_at: startedAt.toISOString(),
-          expires_at: expiresAt.toISOString(),
-          status: 'in_progress',
-        })
-        .select('id')
-        .single()
-
-      if (error) {
-        console.error('Failed to create exam session:', error.message)
-        return
-      }
-      sessionIdRef.current = data.id
-    })()
-  }, [user, started, loading, questions.length])
 
   useEffect(() => {
     if (finished || loading || questions.length === 0) return
@@ -118,31 +128,25 @@ export function ExamPage() {
     const correctCount = questions.filter((q) => q.isCorrect).length
     const xp = correctCount * XP_PER_CORRECT
     setAwardedXp(xp)
-    if (!user) return
 
-    const total = questions.length
-    const scorePct = total === 0 ? 0 : Number(((correctCount / total) * 100).toFixed(2))
     const status = timeLeft === 0 ? 'expired' : 'completed'
 
     ;(async () => {
       if (sessionIdRef.current) {
-        await supabase
-          .from('exam_sessions')
-          .update({
-            correct_answers: correctCount,
-            score_percentage: scorePct,
-            hearts_remaining: Math.max(0, hearts),
-            completed_at: new Date().toISOString(),
-            status,
-          })
-          .eq('id', sessionIdRef.current)
-      }
-      if (xp > 0) {
-        await supabase.rpc('increment_user_xp', { delta: xp })
-        await refreshUser()
+        try {
+          const result = await api.post<FinishExamResponse>(
+            `/api/v1/exams/${sessionIdRef.current}/finish`,
+            { status }
+          )
+          setAwardedXp(result.xpEarned)
+          setHearts(result.heartsRemaining)
+          if (result.xpEarned > 0) await refreshUser()
+        } catch (e) {
+          console.error('Failed to finish exam:', e)
+        }
       }
     })()
-  }, [finished, questions, user, refreshUser, hearts, timeLeft])
+  }, [finished, questions, refreshUser, timeLeft])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -152,51 +156,56 @@ export function ExamPage() {
 
   const handleAnswer = useCallback(
     (answer: string) => {
-      if (submitted || finished) return
+      if (submitted || recordingAnswer || finished) return
 
       const current = questions[currentIndex]
       const isCorrect = current.question.correct_answer === answer
       const sequenceNumber = currentIndex + 1
+      const sessionId = sessionIdRef.current
 
       setQuestions((prev) =>
         prev.map((q, i) => (i === currentIndex ? { ...q, selectedAnswer: answer, isCorrect } : q))
       )
       setSubmitted(true)
 
-      if (!isCorrect) setHearts((prev) => prev - 1)
-
-      const sessionId = sessionIdRef.current
       if (!sessionId) return
 
       ;(async () => {
-        await supabase.from('exam_answers').insert({
-          exam_session_id: sessionId,
-          question_id: current.question.id,
-          sequence_number: sequenceNumber,
-          user_answer: answer,
-          is_correct: isCorrect,
-        })
-        if (!isCorrect) {
-          await supabase.from('exam_heart_events').insert({
-            exam_session_id: sessionId,
-            question_id: current.question.id,
-            delta: -1,
-            reason: 'wrong_answer',
-          })
+        setRecordingAnswer(true)
+        try {
+          const result = await api.post<SubmitExamAnswerResponse>(
+            `/api/v1/exams/${sessionId}/answers`,
+            {
+              questionId: current.question.id,
+              sequenceNumber,
+              answer,
+            }
+          )
+          setQuestions((prev) =>
+            prev.map((q, i) =>
+              i === currentIndex ? { ...q, isCorrect: result.isCorrect } : q
+            )
+          )
+          setHearts(result.heartsRemaining)
+        } catch (e) {
+          console.error('Failed to record exam answer:', e)
+        } finally {
+          setRecordingAnswer(false)
         }
       })()
     },
-    [currentIndex, questions, submitted, finished]
+    [currentIndex, questions, submitted, recordingAnswer, finished]
   )
 
   const handleNext = useCallback(() => {
+    if (recordingAnswer) return
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1)
       setSubmitted(false)
     } else {
       setFinished(true)
     }
-  }, [currentIndex, questions.length])
+  }, [currentIndex, questions.length, recordingAnswer])
 
   const restartExam = useCallback(() => {
     finishedOnceRef.current = false
@@ -207,6 +216,7 @@ export function ExamPage() {
     setTimeLeft(EXAM_DURATION_MINUTES * 60)
     setFinished(false)
     setSubmitted(false)
+    setRecordingAnswer(false)
     setAwardedXp(null)
     loadQuestions()
   }, [loadQuestions])
@@ -368,14 +378,13 @@ export function ExamPage() {
             onClick={async () => {
               if (!confirm('Are you sure you want to quit the exam? Your progress will be lost.')) return
               if (sessionIdRef.current) {
-                await supabase
-                  .from('exam_sessions')
-                  .update({
-                    hearts_remaining: Math.max(0, hearts),
-                    completed_at: new Date().toISOString(),
+                try {
+                  await api.post(`/api/v1/exams/${sessionIdRef.current}/finish`, {
                     status: 'abandoned',
                   })
-                  .eq('id', sessionIdRef.current)
+                } catch (e) {
+                  console.error('Failed to abandon exam:', e)
+                }
               }
               navigate('/map')
             }}
@@ -444,7 +453,7 @@ export function ExamPage() {
                 <button
                   key={choice.label}
                   onClick={() => handleAnswer(choice.label)}
-                  disabled={submitted}
+                  disabled={submitted || recordingAnswer}
                   className={`w-full rounded-xl border-2 p-4 text-left transition-all ${styles}`}
                 >
                   <span className="mr-2 font-medium">{choice.label}.</span>
@@ -476,6 +485,7 @@ export function ExamPage() {
           {submitted ? (
             <button
               onClick={handleNext}
+              disabled={recordingAnswer}
               className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700"
             >
               {currentIndex < questions.length - 1 ? 'Next Question' : 'Finish Exam'}

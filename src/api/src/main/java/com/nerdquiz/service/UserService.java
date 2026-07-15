@@ -57,4 +57,31 @@ public class UserService {
 
         return updatedStreaks.getFirst();
     }
+
+    @Transactional
+    public int incrementUserXp(UUID userId, int delta) {
+        if (delta < 0) {
+            throw new IllegalArgumentException("XP delta must be non-negative");
+        }
+
+        List<Integer> updatedXp = jdbcTemplate.query(
+            """
+            UPDATE public.user_profiles
+            SET total_xp = COALESCE(total_xp, 0) + ?
+            WHERE id = ?
+            RETURNING total_xp
+            """,
+            (ps) -> {
+                ps.setInt(1, delta);
+                ps.setObject(2, userId);
+            },
+            (rs, rowNum) -> rs.getInt("total_xp")
+        );
+
+        if (updatedXp.isEmpty()) {
+            throw new UserProfileNotFoundException();
+        }
+
+        return updatedXp.getFirst();
+    }
 }

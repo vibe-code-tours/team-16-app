@@ -46,6 +46,7 @@ class QuestionControllerTest {
         // Arrange
         QuestionResponse question = new QuestionResponse(
             UUID.randomUUID(),
+            UUID.randomUUID(),
             "2025-october",
             "A",
             1,

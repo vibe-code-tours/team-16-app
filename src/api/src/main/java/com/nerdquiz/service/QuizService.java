@@ -181,6 +181,7 @@ public class QuizService {
 
             return new QuestionResponse(
                 question.getId(),
+                question.getSubtopicId(),
                 question.getExamSession(),
                 question.getSubject(),
                 question.getQuestionNumber(),
@@ -206,6 +207,7 @@ public class QuizService {
 
             return new QuestionResponse(
                 question.getId(),
+                question.getSubtopicId(),
                 question.getExamSession(),
                 question.getSubject(),
                 question.getQuestionNumber(),
