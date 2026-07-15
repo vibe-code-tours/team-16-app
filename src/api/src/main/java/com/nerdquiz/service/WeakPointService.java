@@ -1,6 +1,7 @@
 package com.nerdquiz.service;
 
 import com.nerdquiz.dto.WeakPointResponse;
+import com.nerdquiz.exception.QuestionNotFoundException;
 import com.nerdquiz.model.Question;
 import com.nerdquiz.model.UserSubtopicMastery;
 import com.nerdquiz.repository.QuestionRepository;
@@ -55,6 +56,15 @@ public class WeakPointService {
         mastery.setLastPracticedAt(Instant.now());
 
         masteryRepository.save(mastery);
+    }
+
+    @Transactional
+    public void recordPracticeAnswer(UUID userId, UUID questionId, String selectedLabel) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(QuestionNotFoundException::new);
+        boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(selectedLabel);
+
+        updateMastery(userId, questionId, isCorrect);
     }
 
     @Transactional(readOnly = true)
