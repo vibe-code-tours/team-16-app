@@ -17,11 +17,11 @@ const CATEGORY_ACCENT: Record<TopicCategory, string> = {
 }
 
 const CATEGORY_STEP_BG: Record<TopicCategory, string> = {
-  Technology: 'bg-purple-100 text-purple-700',
-  Security: 'bg-red-100 text-red-700',
-  Management: 'bg-blue-100 text-blue-700',
-  Strategy: 'bg-emerald-100 text-emerald-700',
-  Business: 'bg-amber-100 text-amber-700',
+  Technology: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400',
+  Security: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
+  Management: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+  Strategy: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400',
+  Business: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400',
 }
 
 export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
@@ -31,15 +31,15 @@ export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
   const isInProgress = status === 'in_progress'
 
   const cardClasses = cn(
-    'group flex items-center gap-4 rounded-2xl border border-gray-200 border-l-4 bg-white p-4 transition-all duration-200',
+    'group flex items-center gap-4 rounded-2xl border border-gray-200 dark:border-gray-700 border-l-4 bg-white dark:bg-gray-800 p-4 transition-all duration-200',
     CATEGORY_ACCENT[category],
-    isLocked && 'border-l-gray-300 opacity-60',
-    !isLocked && 'hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md'
+    isLocked && 'border-l-gray-300 dark:border-l-gray-600 opacity-60',
+    !isLocked && 'hover:-translate-y-0.5 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md'
   )
 
   const stepBadgeClasses = cn(
     'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold',
-    isLocked ? 'bg-gray-100 text-gray-400' : CATEGORY_STEP_BG[category]
+    isLocked ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500' : CATEGORY_STEP_BG[category]
   )
 
   const meta = isLocked
@@ -57,19 +57,19 @@ export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
       </div>
       <div className="min-w-0 flex-1">
         <div className="mb-0.5 flex items-center gap-2">
-          <h3 className="truncate text-base font-semibold text-gray-900">{title}</h3>
+          <h3 className="truncate text-base font-semibold text-gray-900 dark:text-gray-100">{title}</h3>
           {isCompleted ? <CompletedBadge /> : null}
           {isInProgress ? <InProgressBadge /> : null}
         </div>
-        <p className="line-clamp-2 text-xs text-gray-500">{description}</p>
-        <p className="mt-1 text-xs font-medium text-gray-600">{meta}</p>
+        <p className="line-clamp-2 text-xs text-gray-500 dark:text-gray-400">{description}</p>
+        <p className="mt-1 text-xs font-medium text-gray-600 dark:text-gray-400">{meta}</p>
       </div>
       <ChevronIcon
         className={cn(
           'h-5 w-5 shrink-0 transition',
           isLocked
-            ? 'text-gray-300'
-            : 'text-gray-400 group-hover:translate-x-0.5 group-hover:text-gray-600'
+            ? 'text-gray-300 dark:text-gray-600'
+            : 'text-gray-400 dark:text-gray-500 group-hover:translate-x-0.5 group-hover:text-gray-600 dark:group-hover:text-gray-300'
         )}
         aria-hidden="true"
       />
@@ -88,7 +88,7 @@ export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
     <Link
       to={`/map/${topic.id}`}
       aria-label={`Open ${title}`}
-      className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 rounded-2xl"
+      className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 dark:focus-visible:ring-offset-gray-800 focus-visible:ring-offset-2 rounded-2xl"
     >
       {cardContent}
     </Link>
@@ -106,7 +106,7 @@ function CompletedBadge() {
 
 function InProgressBadge() {
   return (
-    <Badge className="bg-purple-100 text-[10px] font-semibold uppercase tracking-wide text-purple-700">
+    <Badge className="bg-purple-100 dark:bg-purple-900/30 text-[10px] font-semibold uppercase tracking-wide text-purple-700 dark:text-purple-400">
       In progress
     </Badge>
   )

@@ -35,9 +35,9 @@ export function WeakPointAnalysis() {
       <section aria-labelledby="focus-breakdown-title" className="mt-2">
         <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-purple-600">Your learning radar</p>
-            <h2 id="focus-breakdown-title" className="mt-1 text-2xl font-bold tracking-tight text-gray-950">Topic breakdown</h2>
-            <p className="mt-1 text-sm text-gray-500">Explore each topic and jump directly into focused practice.</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-purple-600 dark:text-purple-400">Your learning radar</p>
+            <h2 id="focus-breakdown-title" className="mt-1 text-2xl font-bold tracking-tight text-gray-950 dark:text-gray-50">Topic breakdown</h2>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Explore each topic and jump directly into focused practice.</p>
           </div>
 
           <div className="flex max-w-full gap-2 overflow-x-auto pb-1" role="group" aria-label="Filter topics by mastery">
@@ -49,11 +49,11 @@ export function WeakPointAnalysis() {
                   key={filter.value}
                   type="button"
                   onClick={() => setActiveFilter(filter.value)}
-                  className={`inline-flex min-h-10 shrink-0 items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 motion-reduce:transition-none ${isActive ? 'bg-gray-950 text-white shadow-md' : 'border border-gray-200 bg-white text-gray-500 hover:border-purple-200 hover:bg-purple-50 hover:text-purple-700'}`}
+                  className={`inline-flex min-h-10 shrink-0 items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 motion-reduce:transition-none ${isActive ? 'bg-gray-950 dark:bg-white text-white dark:text-gray-950 shadow-md' : 'border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:border-purple-200 dark:hover:border-purple-700 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:text-purple-700 dark:hover:text-purple-400'}`}
                   aria-pressed={isActive}
                 >
                   {filter.label}
-                  <span className={`rounded-full px-1.5 py-0.5 text-[10px] ${isActive ? 'bg-white/15 text-white' : 'bg-gray-100 text-gray-500'}`}>{count}</span>
+                  <span className={`rounded-full px-1.5 py-0.5 text-[10px] ${isActive ? 'bg-white/15 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'}`}>{count}</span>
                 </button>
               )
             })}
@@ -149,9 +149,9 @@ function LoadingState() {
     <div className="mx-auto max-w-6xl" role="status" aria-label="Loading weak point analysis">
       <div className="h-72 animate-pulse rounded-3xl bg-gradient-to-br from-purple-200 to-fuchsia-100" />
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {[0, 1, 2, 3].map((item) => <div key={item} className="h-32 animate-pulse rounded-2xl bg-gray-200" />)}
+        {[0, 1, 2, 3].map((item) => <div key={item} className="h-32 animate-pulse rounded-2xl bg-gray-200 dark:bg-gray-700" />)}
       </div>
-      <div className="mt-6 h-56 animate-pulse rounded-3xl bg-gray-200" />
+      <div className="mt-6 h-56 animate-pulse rounded-3xl bg-gray-200 dark:bg-gray-700" />
       <span className="sr-only">Loading your personalized analysis…</span>
     </div>
   )
@@ -159,10 +159,10 @@ function LoadingState() {
 
 function ErrorState({ message }: { message: string }) {
   return (
-    <div className="mx-auto max-w-2xl rounded-3xl border border-rose-200 bg-white p-8 text-center shadow-sm" role="alert">
-      <span className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-rose-50 text-2xl" aria-hidden="true">!</span>
-      <h1 className="mt-4 text-2xl font-bold text-gray-950">We couldn&apos;t build your analysis</h1>
-      <p className="mt-2 text-sm text-gray-500">{message}</p>
+    <div className="mx-auto max-w-2xl rounded-3xl border border-rose-200 dark:border-red-800 bg-white dark:bg-gray-800 p-8 text-center shadow-sm" role="alert">
+      <span className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-2xl" aria-hidden="true">!</span>
+      <h1 className="mt-4 text-2xl font-bold text-gray-950 dark:text-gray-50">We couldn&apos;t build your analysis</h1>
+      <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{message}</p>
       <button type="button" onClick={() => window.location.reload()} className="mt-6 min-h-11 rounded-xl bg-purple-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2">
         Try again
       </button>
@@ -174,8 +174,8 @@ function EmptyState() {
   return (
     <div className="learning-hero-enter mx-auto max-w-3xl overflow-hidden rounded-3xl border border-purple-200 bg-gradient-to-br from-purple-50 via-white to-amber-50 p-8 text-center shadow-sm sm:p-12">
       <span className="mx-auto flex size-20 items-center justify-center rounded-3xl bg-white text-4xl shadow-md ring-1 ring-purple-100" aria-hidden="true">📊</span>
-      <h1 className="mt-6 text-3xl font-bold text-gray-950">Your learning radar is ready</h1>
-      <p className="mx-auto mt-3 max-w-lg text-gray-500">Complete a quiz and we&apos;ll turn your answers into a personalized focus plan.</p>
+      <h1 className="mt-6 text-3xl font-bold text-gray-950 dark:text-gray-50">Your learning radar is ready</h1>
+      <p className="mx-auto mt-3 max-w-lg text-gray-500 dark:text-gray-400">Complete a quiz and we&apos;ll turn your answers into a personalized focus plan.</p>
       <Link to="/quizzes" className="mt-7 inline-flex min-h-11 items-center justify-center rounded-xl bg-purple-600 px-6 py-3 text-sm font-bold text-white shadow-md hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2">
         Take a quiz
       </Link>
@@ -185,11 +185,11 @@ function EmptyState() {
 
 function FilterEmptyState({ filter, onClear }: { filter: FocusFilter; onClear: () => void }) {
   return (
-    <div className="rounded-3xl border border-dashed border-gray-300 bg-white p-10 text-center">
+    <div className="rounded-3xl border border-dashed border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 p-10 text-center">
       <span className="text-3xl" aria-hidden="true">✨</span>
-      <h3 className="mt-3 text-lg font-bold text-gray-900">No {getFilterLabel(filter).toLowerCase()} topics right now</h3>
-      <p className="mt-1 text-sm text-gray-500">Try another filter to explore your complete analysis.</p>
-      <button type="button" onClick={onClear} className="mt-5 min-h-10 rounded-xl bg-gray-950 px-4 py-2 text-sm font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2">
+      <h3 className="mt-3 text-lg font-bold text-gray-900 dark:text-gray-100">No {getFilterLabel(filter).toLowerCase()} topics right now</h3>
+      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Try another filter to explore your complete analysis.</p>
+      <button type="button" onClick={onClear} className="mt-5 min-h-10 rounded-xl bg-gray-950 dark:bg-white px-4 py-2 text-sm font-bold text-white dark:text-gray-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2">
         Show all topics
       </button>
     </div>

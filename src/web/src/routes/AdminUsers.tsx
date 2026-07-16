@@ -40,7 +40,7 @@ export function AdminUsers() {
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <Users className="h-6 w-6 text-purple-600" />
-        <h1 className="text-2xl font-bold text-gray-900">Users</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Users</h1>
       </div>
 
       <UserFilters filters={filters} onFilterChange={updateFilters} />
@@ -58,7 +58,7 @@ export function AdminUsers() {
       {/* Mobile cards */}
       <div className="space-y-3 md:hidden">
         {users.length === 0 ? (
-          <div className="rounded-xl border border-gray-200 bg-white p-8 text-center text-gray-500">
+          <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 text-center text-gray-500 dark:text-gray-400">
             No users found
           </div>
         ) : (
