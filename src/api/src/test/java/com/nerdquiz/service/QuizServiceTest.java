@@ -46,6 +46,9 @@ class QuizServiceTest {
     @Mock
     private WeakPointService weakPointService;
 
+    @Mock
+    private UserDailyActivityService activityService;
+
     @InjectMocks
     private QuizService quizService;
 

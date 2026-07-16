@@ -149,7 +149,7 @@ describe('UserDrawer', () => {
     })
 
     renderDrawer({ userId: 'user-1' })
-    fireEvent.click(screen.getByText('activity'))
+    fireEvent.click(screen.getByText('Activity'))
     expect(screen.getByText('Technology')).toBeInTheDocument()
   })
 
@@ -165,7 +165,7 @@ describe('UserDrawer', () => {
     })
 
     renderDrawer({ userId: 'user-1' })
-    fireEvent.click(screen.getByText('performance'))
+    fireEvent.click(screen.getByText('Performance'))
     expect(screen.getByText('Quiz Performance')).toBeInTheDocument()
   })
 

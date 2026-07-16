@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { UserFilters } from './UserFilters'
 import type { UserFilters as UserFiltersType } from '../../../types'
 
@@ -13,11 +13,11 @@ const defaultFilters: UserFiltersType = {
 }
 
 describe('UserFilters', () => {
-  let onFilterChange: ReturnType<typeof vi.fn>
+  let onFilterChange: (updates: Partial<UserFiltersType>) => void
 
   beforeEach(() => {
     vi.clearAllMocks()
-    onFilterChange = vi.fn()
+    onFilterChange = vi.fn() as unknown as (updates: Partial<UserFiltersType>) => void
   })
 
   it('renders all filter presets', () => {

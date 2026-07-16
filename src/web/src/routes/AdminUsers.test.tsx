@@ -38,7 +38,7 @@ const defaultMock = {
     role: '',
     filter: '',
     sort: 'last_login_at',
-    order: 'desc',
+    order: 'desc' as const,
     page: 1,
   },
   updateFilters: vi.fn(),

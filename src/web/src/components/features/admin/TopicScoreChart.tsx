@@ -46,7 +46,7 @@ export function TopicScoreChart({ data }: TopicScoreChartProps) {
             borderRadius: '8px',
             fontSize: '14px',
           }}
-          formatter={(value: number) => [`${value}%`, 'Avg Score']}
+          formatter={(value) => [`${String(value)}%`, 'Avg Score']}
         />
         <Bar dataKey="avgScore" fill="#22c55e" radius={[0, 4, 4, 0]} name="Avg Score" />
       </BarChart>

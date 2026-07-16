@@ -12,9 +12,11 @@ import java.util.UUID;
 public class UserService {
 
     private final JdbcTemplate jdbcTemplate;
+    private final UserDailyActivityService activityService;
 
-    public UserService(JdbcTemplate jdbcTemplate) {
+    public UserService(JdbcTemplate jdbcTemplate, UserDailyActivityService activityService) {
         this.jdbcTemplate = jdbcTemplate;
+        this.activityService = activityService;
     }
 
     @Transactional
@@ -62,6 +64,9 @@ public class UserService {
             throw new UserProfileNotFoundException();
         }
 
+        // Record daily activity on login (streak update)
+        activityService.recordActivity(userId, 0, 0);
+
         return updatedStreaks.getFirst();
     }
 
@@ -88,6 +93,8 @@ public class UserService {
         if (updatedXp.isEmpty()) {
             throw new UserProfileNotFoundException();
         }
+
+        activityService.recordActivity(userId, 0, delta);
 
         return updatedXp.getFirst();
     }

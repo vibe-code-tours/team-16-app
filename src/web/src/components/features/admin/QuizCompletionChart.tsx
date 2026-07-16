@@ -45,7 +45,7 @@ export function QuizCompletionChart({ completed, total }: QuizCompletionChartPro
             borderRadius: '8px',
             fontSize: '14px',
           }}
-          formatter={(value: number) => [`${value} sessions`]}
+          formatter={(value) => [`${String(value)} sessions`]}
         />
         <Legend />
       </PieChart>

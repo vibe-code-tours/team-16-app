@@ -46,7 +46,7 @@ export function ExamPassChart({ passRate, totalAttempts }: ExamPassChartProps) {
             borderRadius: '8px',
             fontSize: '14px',
           }}
-          formatter={(value: number) => [`${value} exams`]}
+          formatter={(value) => [`${String(value)} exams`]}
         />
         <Legend />
       </PieChart>
