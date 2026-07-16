@@ -1,7 +1,3 @@
--- Seed lessons for Technology subtopics
--- Each lesson has content_blocks in JSONB format
-
--- Computer Architecture lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'computer-architecture'),
@@ -34,7 +30,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'computer-architecture'),
@@ -47,7 +42,6 @@ VALUES (
   2,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'computer-architecture'),
@@ -60,8 +54,6 @@ VALUES (
   3,
   true
 );
-
--- Data Structures lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'data-structures'),
@@ -74,7 +66,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'data-structures'),
@@ -87,7 +78,6 @@ VALUES (
   2,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'data-structures'),
@@ -100,8 +90,6 @@ VALUES (
   3,
   true
 );
-
--- Algorithms lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'algorithms'),
@@ -114,7 +102,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'algorithms'),
@@ -127,8 +114,6 @@ VALUES (
   2,
   true
 );
-
--- Databases lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'databases'),
@@ -141,7 +126,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'databases'),
@@ -154,8 +138,6 @@ VALUES (
   2,
   true
 );
-
--- Networking lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'networking'),
@@ -168,7 +150,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'networking'),
@@ -181,8 +162,6 @@ VALUES (
   2,
   true
 );
-
--- Operating Systems lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'operating-systems'),
@@ -195,7 +174,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'operating-systems'),
@@ -208,8 +186,6 @@ VALUES (
   2,
   true
 );
-
--- Software Development lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'software-development'),
@@ -222,7 +198,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'software-development'),
@@ -235,8 +210,6 @@ VALUES (
   2,
   true
 );
-
--- Security subtopics lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'cryptography'),
@@ -249,7 +222,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'cryptography'),
@@ -262,7 +234,6 @@ VALUES (
   2,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'network-security'),
@@ -275,7 +246,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'network-security'),
@@ -288,7 +258,6 @@ VALUES (
   2,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'access-control'),
@@ -301,7 +270,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'security-threats'),
@@ -314,8 +282,6 @@ VALUES (
   1,
   true
 );
-
--- Management subtopics lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'project-management'),
@@ -328,7 +294,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'project-management'),
@@ -341,7 +306,6 @@ VALUES (
   2,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'quality-assurance'),
@@ -354,7 +318,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'development-processes'),
@@ -367,8 +330,6 @@ VALUES (
   1,
   true
 );
-
--- Strategy subtopics lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'intellectual-property'),
@@ -381,7 +342,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'it-governance'),
@@ -394,7 +354,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'business-strategy'),
@@ -407,8 +366,6 @@ VALUES (
   1,
   true
 );
-
--- Business subtopics lessons
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'finance'),
@@ -421,7 +378,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'procurement'),
@@ -434,7 +390,6 @@ VALUES (
   1,
   true
 );
-
 INSERT INTO lessons (subtopic_id, title, slug, summary, content_blocks, estimated_minutes, xp_reward, display_order, published)
 VALUES (
   (SELECT id FROM subtopics WHERE slug = 'business-operations'),

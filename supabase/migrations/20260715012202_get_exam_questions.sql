@@ -1,7 +1,3 @@
--- Return a random set of usable Subject-A questions for the exam simulation.
--- Filters out questions with empty choices or a non-single-letter correct_answer
--- (those are complex ITPEC B-style questions with sub-parts).
-
 CREATE OR REPLACE FUNCTION public.get_exam_questions(
   question_count INTEGER DEFAULT 60,
   difficulty_filter TEXT DEFAULT NULL
@@ -17,5 +13,4 @@ RETURNS SETOF public.questions AS $$
   ORDER BY random()
   LIMIT question_count;
 $$ LANGUAGE sql STABLE;
-
 GRANT EXECUTE ON FUNCTION public.get_exam_questions(INTEGER, TEXT) TO anon, authenticated;

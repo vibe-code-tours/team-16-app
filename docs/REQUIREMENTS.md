@@ -32,7 +32,7 @@
 | Additional exams | Extract and seed 1-2 more exam sessions if time allows |
 | Subject-B questions | Add if extraction progress allows |
 | Performance tuning | API response times, frontend load speed |
-| Admin dashboard (stats) | Role-gated summary page: total users, active users, quiz attempts, topic engagement. Uses existing data (no new tracking tables). Requires `role` column on `user_profiles`. |
+| Admin dashboard (stats) | Role-gated dashboard with: stat cards (total users, active today/this week, quiz/exam attempts, avg scores, exam pass rate), charts (daily active users line chart, topic engagement bar charts, quiz completion pie chart, exam pass/fail pie chart). User management page with searchable/sortable table, quick filters (Active Today, Inactive 30d+, New 7d), detail drawer with tabs (Overview, Activity, Performance), and actions (change role, reset streak, deactivate, CSV export). Requires `role` column on `user_profiles`. Uses Recharts for visualization. |
 
 ## Explicitly out of scope (this project)
 

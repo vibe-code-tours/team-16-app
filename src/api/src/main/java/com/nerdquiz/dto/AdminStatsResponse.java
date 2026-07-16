@@ -8,5 +8,12 @@ public record AdminStatsResponse(
     long activeThisWeek,
     long totalQuizAttempts,
     long totalExamAttempts,
-    List<TopicEngagementResponse> topicEngagement
+    long totalQuizSessions,
+    long totalExamSessions,
+    double avgQuizScore,
+    double avgExamScore,
+    long examPassRate,
+    long quizCompletionRate,
+    List<TopicEngagementResponse> topicEngagement,
+    List<DailyActiveUsersResponse> dailyActiveUsers
 ) {}

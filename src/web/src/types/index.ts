@@ -43,11 +43,71 @@ export interface TopicEngagement {
   avgScore: number
 }
 
+export interface DailyActiveUsers {
+  date: string
+  activeUsers: number
+}
+
 export interface AdminStats {
   totalUsers: number
   activeToday: number
   activeThisWeek: number
   totalQuizAttempts: number
   totalExamAttempts: number
+  totalQuizSessions: number
+  totalExamSessions: number
+  avgQuizScore: number
+  avgExamScore: number
+  examPassRate: number
+  quizCompletionRate: number
   topicEngagement: TopicEngagement[]
+  dailyActiveUsers: DailyActiveUsers[]
+}
+
+export interface AdminUserSummary {
+  id: string
+  displayName: string | null
+  email: string
+  avatarUrl: string | null
+  role: 'admin' | 'user' | 'deactivated'
+  status: 'active' | 'inactive'
+  totalXp: number
+  streakCount: number
+  lastLoginAt: string | null
+  createdAt: string
+}
+
+export interface RecentActivity {
+  type: 'quiz' | 'exam'
+  topicName: string
+  score: number
+  completedAt: string
+}
+
+export interface AdminUserDetail extends AdminUserSummary {
+  longestStreak: number
+  totalQuizzes: number
+  completedQuizzes: number
+  avgQuizScore: number
+  totalExams: number
+  completedExams: number
+  avgExamScore: number
+  examPassRate: number
+  recentActivity: RecentActivity[]
+}
+
+export interface AdminUserListResponse {
+  users: AdminUserSummary[]
+  total: number
+  page: number
+  pageSize: number
+}
+
+export interface UserFilters {
+  search: string
+  role: string
+  filter: string
+  sort: string
+  order: 'asc' | 'desc'
+  page: number
 }

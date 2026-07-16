@@ -54,10 +54,13 @@ export function Header({ onMenuToggle }: HeaderProps) {
         <div className="flex items-center gap-4">
           {user && (
             <>
-              <div className="hidden sm:flex items-center gap-2 text-sm">
-                <span className="text-purple-600 font-semibold">⚡ {user.total_xp ?? 0}</span>
-                <span className="text-orange-500 font-semibold">🔥 {user.streak_count ?? 0}</span>
-              </div>
+              {/* Hide XP and Streak for admin users */}
+              {user.role !== 'admin' && (
+                <div className="hidden sm:flex items-center gap-2 text-sm">
+                  <span className="text-purple-600 font-semibold">⚡ {user.total_xp ?? 0}</span>
+                  <span className="text-orange-500 font-semibold">🔥 {user.streak_count ?? 0}</span>
+                </div>
+              )}
 
               {/* User Dropdown */}
               <div className="relative" ref={dropdownRef}>

@@ -49,13 +49,14 @@ public class QuestionService {
         return questionRepository.countByExamSessionAndSubject(examSession, subject);
     }
 
-    private QuestionResponse toResponse(Question question) {
+    public QuestionResponse toResponse(Question question) {
         try {
             JsonNode imagesNode = objectMapper.readTree(question.getImages() != null ? question.getImages() : "[]");
             JsonNode choicesNode = objectMapper.readTree(question.getChoices());
 
             return new QuestionResponse(
                 question.getId(),
+                question.getSubtopicId(),
                 question.getExamSession(),
                 question.getSubject(),
                 question.getQuestionNumber(),
