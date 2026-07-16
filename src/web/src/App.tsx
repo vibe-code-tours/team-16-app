@@ -14,9 +14,11 @@ import { QuizPage } from "./routes/QuizPage";
 import { MistakeGarden } from "./routes/MistakeGarden";
 import { UserProfile } from "./routes/UserProfile";
 import { ExamPage } from "./routes/ExamPage";
+import { QuizListingPage } from "./routes/QuizListingPage";
 import { AiDraftPreview } from "./routes/AiDraftPreview";
 import { AdminDashboard } from "./routes/AdminDashboard";
 import { AdminUsers } from "./routes/AdminUsers";
+import { WeakPointAnalysis } from "./routes/WeakPointAnalysis";
 
 export default function App() {
   return (
@@ -39,6 +41,16 @@ export default function App() {
                     <LearningMap />
                   </Layout>
                 </StudentRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quizzes"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <QuizListingPage />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -133,6 +145,16 @@ export default function App() {
                     <AdminUsers />
                   </Layout>
                 </AdminRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/weak-points"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <WeakPointAnalysis />
+                </Layout>
               </ProtectedRoute>
             }
           />

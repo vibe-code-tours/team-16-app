@@ -17,7 +17,7 @@ export function QuizResult() {
           <p className="text-gray-600 mb-4">
             Please complete a quiz first.
           </p>
-          <Link to="/quiz">
+          <Link to="/quizzes">
             <Button>Start Quiz</Button>
           </Link>
         </Card>
@@ -146,7 +146,7 @@ export function QuizResult() {
         <div className="mt-8 flex gap-4">
           <Button
             variant="outline"
-            onClick={() => navigate('/quiz')}
+            onClick={() => navigate('/quizzes')}
             className="flex-1"
           >
             Try Again

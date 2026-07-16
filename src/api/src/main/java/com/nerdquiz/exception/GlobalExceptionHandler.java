@@ -106,6 +106,16 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    @ExceptionHandler(MistakeNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleMistakeNotFound(MistakeNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "type", "https://nerdquiz.com/errors/not-found",
+            "title", "Mistake Not Found",
+            "status", 404,
+            "detail", ex.getMessage()
+        ));
+    }
+
     @ExceptionHandler(UserProfileNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleUserProfileNotFound(UserProfileNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(

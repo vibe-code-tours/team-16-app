@@ -1,11 +1,14 @@
 package com.nerdquiz.service;
 
 import com.nerdquiz.dto.*;
+import com.nerdquiz.exception.DuplicateAnswerException;
+import com.nerdquiz.exception.QuestionNotInQuizSessionException;
 import com.nerdquiz.model.Question;
 import com.nerdquiz.model.QuizAnswer;
 import com.nerdquiz.model.QuizSession;
 import com.nerdquiz.repository.QuestionRepository;
 import com.nerdquiz.repository.QuizAnswerRepository;
+import com.nerdquiz.repository.QuizSessionQuestionRepository;
 import com.nerdquiz.repository.QuizSessionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +38,13 @@ class QuizServiceTest {
     private QuizAnswerRepository quizAnswerRepository;
 
     @Mock
+    private QuizSessionQuestionRepository quizSessionQuestionRepository;
+
+    @Mock
     private QuestionService questionService;
+
+    @Mock
+    private WeakPointService weakPointService;
 
     @InjectMocks
     private QuizService quizService;
@@ -95,10 +104,14 @@ class QuizServiceTest {
         // Arrange
         when(quizSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
+        when(quizSessionQuestionRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(true);
+        when(quizAnswerRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(false);
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
-        when(quizAnswerRepository.findByQuizSessionId(sessionId))
-                .thenReturn(List.of());
+        when(quizAnswerRepository.countByQuizSessionId(sessionId))
+                .thenReturn(0L);
         when(quizAnswerRepository.save(any(QuizAnswer.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -111,6 +124,7 @@ class QuizServiceTest {
         assertTrue(result.isCorrect());
         assertEquals(1, sampleSession.getScore());
         assertEquals(10, sampleSession.getXpEarned());
+        verify(weakPointService).updateMastery(userId, sampleQuestion.getId(), true);
     }
 
     @Test
@@ -118,10 +132,14 @@ class QuizServiceTest {
         // Arrange
         when(quizSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
+        when(quizSessionQuestionRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(true);
+        when(quizAnswerRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(false);
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
-        when(quizAnswerRepository.findByQuizSessionId(sessionId))
-                .thenReturn(List.of());
+        when(quizAnswerRepository.countByQuizSessionId(sessionId))
+                .thenReturn(0L);
         when(quizAnswerRepository.save(any(QuizAnswer.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -134,6 +152,7 @@ class QuizServiceTest {
         assertFalse(result.isCorrect());
         assertEquals(0, sampleSession.getScore());
         assertEquals(0, sampleSession.getXpEarned());
+        verify(weakPointService).updateMastery(userId, sampleQuestion.getId(), false);
     }
 
     @Test
@@ -142,11 +161,15 @@ class QuizServiceTest {
         sampleSession.setQuestionCount(1);
         when(quizSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
+        when(quizSessionQuestionRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(true);
+        when(quizAnswerRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(false);
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
         // Already has 0 answers, adding 1 will match questionCount
-        when(quizAnswerRepository.findByQuizSessionId(sessionId))
-                .thenReturn(List.of());
+        when(quizAnswerRepository.countByQuizSessionId(sessionId))
+                .thenReturn(0L);
         when(quizAnswerRepository.save(any(QuizAnswer.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -158,6 +181,38 @@ class QuizServiceTest {
         // Assert
         assertEquals("completed", sampleSession.getStatus());
         assertNotNull(sampleSession.getCompletedAt());
+    }
+
+    @Test
+    void submitAnswer_QuestionNotInSession_ThrowsException() {
+        // Arrange
+        when(quizSessionRepository.findById(sessionId))
+                .thenReturn(Optional.of(sampleSession));
+        when(quizSessionQuestionRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(false);
+
+        SubmitAnswerRequest request = new SubmitAnswerRequest(sampleQuestion.getId(), "b");
+
+        // Act & Assert
+        assertThrows(QuestionNotInQuizSessionException.class,
+                () -> quizService.submitAnswer(userId, sessionId, request));
+    }
+
+    @Test
+    void submitAnswer_DuplicateAnswer_ThrowsException() {
+        // Arrange
+        when(quizSessionRepository.findById(sessionId))
+                .thenReturn(Optional.of(sampleSession));
+        when(quizSessionQuestionRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(true);
+        when(quizAnswerRepository.existsByQuizSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(true);
+
+        SubmitAnswerRequest request = new SubmitAnswerRequest(sampleQuestion.getId(), "b");
+
+        // Act & Assert
+        assertThrows(DuplicateAnswerException.class,
+                () -> quizService.submitAnswer(userId, sessionId, request));
     }
 
     @Test
