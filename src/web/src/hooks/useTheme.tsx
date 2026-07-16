@@ -17,7 +17,11 @@ function getInitialTheme(): Theme {
   const stored = localStorage.getItem(STORAGE_KEY)
   if (stored === 'light' || stored === 'dark') return stored
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  if (typeof window.matchMedia === 'function') {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
+
+  return 'light'
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -37,6 +41,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored) return // User has an explicit preference — don't override
+
+    if (typeof window.matchMedia !== 'function') return
 
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
     function handleChange(e: MediaQueryListEvent) {
