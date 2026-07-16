@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+:root {
+  --color-primary: #0ea5e9;
+  --color-xp-gold: #fbbf24;
+  --color-xp-green: #22c55e;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
 @keyframes learning-rise {
   from {
     opacity: 0;
@@ -67,4 +77,21 @@
   .learning-progress-reveal {
     animation: none;
   }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
 }

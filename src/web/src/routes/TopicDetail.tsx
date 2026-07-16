@@ -19,34 +19,34 @@ export function TopicDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Loading lessons...</div>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-gray-500 dark:text-gray-400">Loading lessons...</div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-red-500">Error: {error}</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <main className="mx-auto max-w-3xl px-4 py-8">
         <button
           onClick={() => selectedLesson ? setSelectedLessonId(null) : navigate('/map')}
-          className="mb-4 inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700"
+          className="mb-4 inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
         >
           ← Back
         </button>
 
         {lessons.length === 0 ? (
           <div className="text-center py-12">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">No Lessons Yet</h2>
-            <p className="text-gray-500">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">No Lessons Yet</h2>
+            <p className="text-gray-500 dark:text-gray-400">
               Lessons for this topic are coming soon. Check back later!
             </p>
           </div>
@@ -60,8 +60,8 @@ export function TopicDetail() {
           </div>
         ) : (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Lessons</h2>
-            <p className="text-sm text-gray-500 mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Lessons</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
               Complete each lesson to unlock the next one.
             </p>
 
@@ -96,10 +96,10 @@ export function TopicDetail() {
                     disabled={isLocked}
                     className={`w-full text-left p-4 rounded-xl border transition ${
                       isLocked
-                        ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
+                        ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed dark:border-gray-700 dark:bg-gray-800'
                         : isCompleted
-                        ? 'border-green-200 bg-green-50 hover:bg-green-100'
-                        : 'border-gray-200 bg-white hover:border-purple-300 hover:shadow-sm'
+                        ? 'border-green-200 bg-green-50 hover:bg-green-100 dark:border-green-800 dark:bg-green-900/30 dark:hover:bg-green-900/50'
+                        : 'border-gray-200 bg-white hover:border-purple-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:hover:border-purple-500'
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -109,25 +109,25 @@ export function TopicDetail() {
                             isCompleted
                               ? 'bg-green-500 text-white'
                               : isLocked
-                              ? 'bg-gray-200 text-gray-400'
-                              : 'bg-purple-100 text-purple-700'
+                              ? 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500'
+                              : 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
                           }`}
                         >
                           {isCompleted ? '✓' : index + 1}
                         </span>
                         <div>
-                          <h3 className="font-medium text-gray-900">{lesson.title}</h3>
-                          <p className="text-sm text-gray-500">
+                          <h3 className="font-medium text-gray-900 dark:text-gray-100">{lesson.title}</h3>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
                             {lesson.estimated_minutes} min · {lesson.xp_reward} XP
                           </p>
                         </div>
                       </div>
                       {isLocked && (
-                        <span className="text-gray-400 text-sm">🔒</span>
+                        <span className="text-gray-400 dark:text-gray-500 text-sm">🔒</span>
                       )}
                     </div>
                     {lesson.summary && (
-                      <p className="mt-2 text-sm text-gray-600 ml-11">
+                      <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 ml-11">
                         {lesson.summary}
                       </p>
                     )}

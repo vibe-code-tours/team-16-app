@@ -1,6 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { ThemeProvider } from '../../../hooks/useTheme'
 import { TopicQuizChart } from './TopicQuizChart'
+
+const renderWithTheme = (ui: React.ReactElement) =>
+  render(<ThemeProvider>{ui}</ThemeProvider>)
 
 class MockResizeObserver {
   private callback: ResizeObserverCallback
@@ -27,7 +31,7 @@ afterAll(() => {
 
 describe('TopicQuizChart', () => {
   it('shows empty state when data is empty', () => {
-    render(
+    renderWithTheme(
       <div style={{ width: 600, height: 300 }}>
         <TopicQuizChart data={[]} />
       </div>,
@@ -36,7 +40,7 @@ describe('TopicQuizChart', () => {
   })
 
   it('renders chart with data', () => {
-    const { container } = render(
+    const { container } = renderWithTheme(
       <div style={{ width: 600, height: 300 }}>
         <TopicQuizChart data={[{ topicName: 'Technology', quizCount: 50, avgScore: 75 }]} />
       </div>,

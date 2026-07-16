@@ -53,15 +53,15 @@ export function RegisterPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="mb-2 text-center text-3xl font-bold text-gray-900">
+        <h1 className="mb-2 text-center text-3xl font-bold text-gray-900 dark:text-gray-100">
           Create your account
         </h1>
-        <p className="mb-8 text-center text-gray-500">
+        <p className="mb-8 text-center text-gray-500 dark:text-gray-400">
           Start your ITPEC FE exam prep journey
         </p>
 
         {error && (
-          <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+          <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/30 dark:text-red-400">
             {error.includes('already exists') ? (
               <>
                 An account with this email already exists.{' '}
@@ -72,7 +72,7 @@ export function RegisterPage() {
         )}
 
         {success && (
-          <div className="mb-4 rounded-lg bg-green-50 p-3 text-sm text-green-700">
+          <div className="mb-4 rounded-lg bg-green-50 p-3 text-sm text-green-700 dark:bg-green-900/30 dark:text-green-400">
             Account created! Check your email to confirm your account, then{' '}
             <Link to="/login" className="font-medium underline">sign in</Link>.
           </div>
@@ -82,7 +82,7 @@ export function RegisterPage() {
           <>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Email
                 </label>
                 <input
@@ -91,13 +91,13 @@ export function RegisterPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
                   placeholder="you@example.com"
                 />
               </div>
 
               <div>
-                <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Password
                 </label>
                 <div className="relative">
@@ -107,13 +107,13 @@ export function RegisterPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                     tabIndex={-1}
                   >
                     {showPassword ? (
@@ -131,7 +131,7 @@ export function RegisterPage() {
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="mb-1 block text-sm font-medium text-gray-700">
+                <label htmlFor="confirmPassword" className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Confirm Password
                 </label>
                 <div className="relative">
@@ -141,13 +141,13 @@ export function RegisterPage() {
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirm(!showConfirm)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                     tabIndex={-1}
                   >
                     {showConfirm ? (
@@ -174,14 +174,14 @@ export function RegisterPage() {
             </form>
 
             <div className="my-6 flex items-center gap-3">
-              <div className="h-px flex-1 bg-gray-200" />
-              <span className="text-sm text-gray-400">or</span>
-              <div className="h-px flex-1 bg-gray-200" />
+              <div className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
+              <span className="text-sm text-gray-400 dark:text-gray-500">or</span>
+              <div className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
             </div>
 
             <button
               onClick={handleGoogleSignIn}
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-700 font-medium hover:bg-gray-50"
+              className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-700 font-medium hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24">
                 <path
@@ -206,9 +206,9 @@ export function RegisterPage() {
           </>
         )}
 
-        <p className="mt-8 text-center text-sm text-gray-500">
+        <p className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
           Already have an account?{' '}
-          <Link to="/login" className="font-medium text-purple-600 hover:text-purple-700">
+          <Link to="/login" className="font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300">
             Sign in
           </Link>
         </p>

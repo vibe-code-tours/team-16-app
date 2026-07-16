@@ -20,7 +20,7 @@ function SortHeader({ label, sortKey, currentSort, currentOrder, onSort }: {
   const isActive = currentSort === sortKey
   return (
     <th
-      className="cursor-pointer select-none px-4 py-3 text-left text-xs font-medium text-gray-500 hover:text-gray-700"
+      className="cursor-pointer select-none px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
       onClick={() => onSort(sortKey)}
     >
       <span className="inline-flex items-center gap-1">
@@ -45,13 +45,13 @@ export function UserTable({ users, filters, onSort, onSelectUser }: UserTablePro
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="border-b border-gray-100 bg-gray-50">
-            <th className="px-4 py-3 text-xs font-medium text-gray-500">User</th>
-            <th className="px-4 py-3 text-xs font-medium text-gray-500">Role</th>
-            <th className="px-4 py-3 text-xs font-medium text-gray-500">Status</th>
+          <tr className="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+            <th className="px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400">User</th>
+            <th className="px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400">Role</th>
+            <th className="px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400">Status</th>
             <SortHeader label="Last Active" sortKey="last_login_at" currentSort={filters.sort} currentOrder={filters.order} onSort={toggleOrder} />
             <SortHeader label="XP" sortKey="total_xp" currentSort={filters.sort} currentOrder={filters.order} onSort={toggleOrder} />
             <SortHeader label="Streak" sortKey="streak_count" currentSort={filters.sort} currentOrder={filters.order} onSort={toggleOrder} />
@@ -63,20 +63,20 @@ export function UserTable({ users, filters, onSort, onSelectUser }: UserTablePro
             <tr
               key={user.id}
               onClick={() => onSelectUser(user.id)}
-              className="cursor-pointer border-b border-gray-50 transition-colors hover:bg-gray-50 last:border-0"
+              className="cursor-pointer border-b border-gray-50 dark:border-gray-700 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50 last:border-0"
             >
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3">
                   {user.avatarUrl ? (
                     <img src={user.avatarUrl} alt="" className="h-8 w-8 rounded-full" />
                   ) : (
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 text-sm font-medium text-purple-700">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 text-sm font-medium text-purple-700 dark:text-purple-400">
                       {(user.displayName || user.email).charAt(0).toUpperCase()}
                     </div>
                   )}
                   <div>
-                    <p className="font-medium text-gray-900">{user.displayName || 'Unnamed'}</p>
-                    <p className="text-xs text-gray-500">{user.email}</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">{user.displayName || 'Unnamed'}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
                   </div>
                 </div>
               </td>
@@ -86,15 +86,15 @@ export function UserTable({ users, filters, onSort, onSelectUser }: UserTablePro
                 </Badge>
               </td>
               <td className="px-4 py-3">
-                <span className={`inline-flex items-center gap-1.5 text-xs font-medium ${user.status === 'active' ? 'text-green-700' : 'text-gray-500'}`}>
-                  <span className={`h-1.5 w-1.5 rounded-full ${user.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}`} />
+                <span className={`inline-flex items-center gap-1.5 text-xs font-medium ${user.status === 'active' ? 'text-green-700 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${user.status === 'active' ? 'bg-green-500' : 'bg-gray-400 dark:bg-gray-500'}`} />
                   {user.status === 'active' ? 'Active' : 'Inactive'}
                 </span>
               </td>
-              <td className="px-4 py-3 text-gray-700">{timeAgo(user.lastLoginAt)}</td>
-              <td className="px-4 py-3 font-medium text-gray-900">{(user.totalXp ?? 0).toLocaleString()}</td>
-              <td className="px-4 py-3 text-gray-700">{user.streakCount ?? 0}d</td>
-              <td className="px-4 py-3 text-gray-700">{new Date(user.createdAt).toLocaleDateString()}</td>
+              <td className="px-4 py-3 text-gray-700 dark:text-gray-300">{timeAgo(user.lastLoginAt)}</td>
+              <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{(user.totalXp ?? 0).toLocaleString()}</td>
+              <td className="px-4 py-3 text-gray-700 dark:text-gray-300">{user.streakCount ?? 0}d</td>
+              <td className="px-4 py-3 text-gray-700 dark:text-gray-300">{new Date(user.createdAt).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>

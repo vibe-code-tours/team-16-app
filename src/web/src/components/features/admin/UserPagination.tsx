@@ -17,7 +17,7 @@ export function UserPagination({ page, pageSize, total, onPageChange }: UserPagi
 
   return (
     <div className="flex items-center justify-between">
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-gray-600 dark:text-gray-400">
         Showing {start.toLocaleString()}–{end.toLocaleString()} of {total.toLocaleString()} users
       </p>
 
@@ -49,7 +49,7 @@ export function UserPagination({ page, pageSize, total, onPageChange }: UserPagi
               className={`h-8 w-8 rounded-lg text-sm font-medium transition-colors ${
                 pageNum === page
                   ? 'bg-purple-600 text-white'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
               {pageNum}

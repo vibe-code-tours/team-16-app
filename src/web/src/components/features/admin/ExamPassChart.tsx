@@ -10,7 +10,7 @@ const COLORS = ['#22c55e', '#ef4444']
 export function ExamPassChart({ passRate, totalAttempts }: ExamPassChartProps) {
   if (totalAttempts === 0) {
     return (
-      <div className="flex h-64 items-center justify-center text-gray-500">
+      <div className="flex h-64 items-center justify-center text-gray-500 dark:text-gray-400">
         No exam data yet
       </div>
     )

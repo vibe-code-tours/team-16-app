@@ -17,19 +17,22 @@ const ACHIEVEMENTS: Achievement[] = [
     title: 'Quick learner',
     description: 'Completed 10 quizzes',
     icon: 'zap',
-    iconClassName: 'bg-amber-100 text-amber-600 ring-amber-200',
+    iconClassName:
+      'bg-amber-100 text-amber-600 ring-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:ring-amber-700',
   },
   {
     title: 'On fire',
     description: '3 day learning streak',
     icon: 'flame',
-    iconClassName: 'bg-orange-100 text-orange-600 ring-orange-200',
+    iconClassName:
+      'bg-orange-100 text-orange-600 ring-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:ring-orange-700',
   },
   {
     title: 'Sharp mind',
     description: 'Scored 90% or higher',
     icon: 'target',
-    iconClassName: 'bg-emerald-100 text-emerald-600 ring-emerald-200',
+    iconClassName:
+      'bg-emerald-100 text-emerald-600 ring-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:ring-emerald-700',
   },
 ] as const
 
@@ -87,16 +90,16 @@ export function UserProfile() {
     <div className="mx-auto flex max-w-6xl flex-col gap-6 pb-8">
       <header className="learning-hero-enter flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-purple-600">
+          <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-purple-600 dark:text-purple-400">
             <Icon name="sparkles" className="size-4" aria-hidden="true" />
             Learner dashboard
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-gray-950 sm:text-4xl">Your profile</h1>
-          <p className="mt-2 max-w-2xl text-gray-500">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-gray-50 sm:text-4xl">Your profile</h1>
+          <p className="mt-2 max-w-2xl text-gray-500 dark:text-gray-400">
             See your momentum, celebrate milestones, and keep your learning streak alive.
           </p>
         </div>
-        <span className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+        <span className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
           <span className="size-2 animate-pulse rounded-full bg-emerald-500" aria-hidden="true" />
           Profile up to date
         </span>
@@ -134,7 +137,7 @@ export function UserProfile() {
           <button
             type="button"
             onClick={signOut}
-            className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+            className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-red-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
           >
             <Icon name="log-out" className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
             Sign out
@@ -327,23 +330,23 @@ function StatsGrid({ totalXp, streakCount }: { totalXp: number; streakCount: num
 
 function StatCard({ stat }: { stat: StatItem }) {
   const colorClasses = {
-    amber: 'bg-amber-50 text-amber-600 ring-amber-100',
-    orange: 'bg-orange-50 text-orange-600 ring-orange-100',
-    purple: 'bg-purple-50 text-purple-600 ring-purple-100',
-    emerald: 'bg-emerald-50 text-emerald-600 ring-emerald-100',
+    amber: 'bg-amber-50 text-amber-600 ring-amber-100 dark:bg-amber-900/30 dark:text-amber-400 dark:ring-amber-700',
+    orange: 'bg-orange-50 text-orange-600 ring-orange-100 dark:bg-orange-900/30 dark:text-orange-400 dark:ring-orange-700',
+    purple: 'bg-purple-50 text-purple-600 ring-purple-100 dark:bg-purple-900/30 dark:text-purple-400 dark:ring-purple-700',
+    emerald: 'bg-emerald-50 text-emerald-600 ring-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400 dark:ring-emerald-700',
   }
   return (
-    <article className="learning-feature-enter group rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-purple-200 hover:shadow-lg hover:shadow-purple-100/60">
+    <article className="learning-feature-enter group rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-purple-200 hover:shadow-lg hover:shadow-purple-100/60 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-purple-700 dark:hover:shadow-purple-900/30">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-medium text-gray-500">{stat.label}</p>
-          <p className="mt-1 text-2xl font-bold text-gray-950">{stat.value}</p>
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{stat.label}</p>
+          <p className="mt-1 text-2xl font-bold text-gray-950 dark:text-gray-50">{stat.value}</p>
         </div>
         <span className={`flex size-11 items-center justify-center rounded-2xl ring-1 transition-transform duration-200 group-hover:scale-110 ${colorClasses[stat.color]}`}>
           <Icon name={stat.icon} className="size-5" aria-hidden="true" />
         </span>
       </div>
-      <p className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+      <p className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
         <Icon name="bar-chart" className="size-3.5" aria-hidden="true" />
         {stat.detail}
       </p>
@@ -353,14 +356,14 @@ function StatCard({ stat }: { stat: StatItem }) {
 
 function WeeklyActivity() {
   return (
-    <section className="learning-feature-enter rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="weekly-activity-title">
+    <section className="learning-feature-enter rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800" aria-labelledby="weekly-activity-title">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-600">Momentum</p>
-          <h2 id="weekly-activity-title" className="mt-1 text-xl font-bold text-gray-950">Weekly activity</h2>
-          <p className="mt-1 text-sm text-gray-500">You studied 3h 26m this week. Keep it going!</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-600 dark:text-purple-400">Momentum</p>
+          <h2 id="weekly-activity-title" className="mt-1 text-xl font-bold text-gray-950 dark:text-gray-50">Weekly activity</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">You studied 3h 26m this week. Keep it going!</p>
         </div>
-        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-purple-50 px-3 py-1.5 text-xs font-semibold text-purple-700">
+        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-purple-50 px-3 py-1.5 text-xs font-semibold text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
           <Icon name="calendar" className="size-3.5" aria-hidden="true" />
           Last 7 days
         </span>
@@ -369,15 +372,15 @@ function WeeklyActivity() {
       <div className="mt-8 grid h-48 grid-cols-7 items-end gap-2 sm:gap-4" aria-label="Minutes studied each day">
         {WEEKLY_ACTIVITY.map((item, index) => (
           <div key={item.day} className="group flex h-full flex-col items-center justify-end gap-2">
-            <span className="text-xs font-bold text-purple-700 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">{item.minutes}m</span>
-            <div className="relative flex w-full flex-1 items-end justify-center overflow-hidden rounded-xl bg-purple-50">
+            <span className="text-xs font-bold text-purple-700 dark:text-purple-400 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">{item.minutes}m</span>
+            <div className="relative flex w-full flex-1 items-end justify-center overflow-hidden rounded-xl bg-purple-50 dark:bg-purple-900/30">
               <div
                 className="learning-progress-reveal w-full rounded-xl bg-gradient-to-t from-purple-600 to-fuchsia-400 transition-all duration-200 group-hover:from-purple-700 group-hover:to-fuchsia-500"
                 style={{ height: `${item.value}%`, animationDelay: `${index * 45}ms` }}
                 title={`${item.day}: ${item.minutes} minutes`}
               />
             </div>
-            <span className={`text-xs font-semibold ${item.day === 'Sun' ? 'text-purple-700' : 'text-gray-400'}`}>{item.day}</span>
+            <span className={`text-xs font-semibold ${item.day === 'Sun' ? 'text-purple-700 dark:text-purple-400' : 'text-gray-400 dark:text-gray-500'}`}>{item.day}</span>
           </div>
         ))}
       </div>
@@ -387,24 +390,24 @@ function WeeklyActivity() {
 
 function Achievements() {
   return (
-    <section className="learning-feature-enter rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="achievements-title">
+    <section className="learning-feature-enter rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800" aria-labelledby="achievements-title">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-600">Milestones</p>
-          <h2 id="achievements-title" className="mt-1 text-xl font-bold text-gray-950">Recent achievements</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-600 dark:text-purple-400">Milestones</p>
+          <h2 id="achievements-title" className="mt-1 text-xl font-bold text-gray-950 dark:text-gray-50">Recent achievements</h2>
         </div>
-        <span className="text-sm font-semibold text-gray-400">3 unlocked</span>
+        <span className="text-sm font-semibold text-gray-400 dark:text-gray-500">3 unlocked</span>
       </div>
 
       <div className="mt-5 grid gap-3 md:grid-cols-3">
         {ACHIEVEMENTS.map((achievement) => {
           return (
-            <article key={achievement.title} className="group rounded-2xl border border-gray-100 bg-gray-50/80 p-4 transition-all duration-200 hover:border-purple-200 hover:bg-purple-50/50">
+            <article key={achievement.title} className="group rounded-2xl border border-gray-100 bg-gray-50/80 p-4 transition-all duration-200 hover:border-purple-200 hover:bg-purple-50/50 dark:border-gray-700 dark:bg-gray-900/80 dark:hover:border-purple-700 dark:hover:bg-purple-900/30">
               <div className={`flex size-11 items-center justify-center rounded-2xl ring-1 transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-110 ${achievement.iconClassName}`}>
                 <Icon name={achievement.icon} className="size-5" aria-hidden="true" />
               </div>
-              <h3 className="mt-4 font-bold text-gray-900">{achievement.title}</h3>
-              <p className="mt-1 text-xs leading-5 text-gray-500">{achievement.description}</p>
+              <h3 className="mt-4 font-bold text-gray-900 dark:text-gray-100">{achievement.title}</h3>
+              <p className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">{achievement.description}</p>
             </article>
           )
         })}
@@ -415,13 +418,13 @@ function Achievements() {
 
 function AccountCard({ email, memberSince }: { email: string | null; memberSince: string }) {
   return (
-    <section className="learning-feature-enter rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="account-title">
+    <section className="learning-feature-enter rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800" aria-labelledby="account-title">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-600">Personal</p>
-          <h2 id="account-title" className="mt-1 text-xl font-bold text-gray-950">Account</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-600 dark:text-purple-400">Personal</p>
+          <h2 id="account-title" className="mt-1 text-xl font-bold text-gray-950 dark:text-gray-50">Account</h2>
         </div>
-        <span className="flex size-10 items-center justify-center rounded-2xl bg-purple-50 text-purple-600">
+        <span className="flex size-10 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
           <Icon name="user" className="size-5" aria-hidden="true" />
         </span>
       </div>
@@ -437,12 +440,12 @@ function AccountCard({ email, memberSince }: { email: string | null; memberSince
 function AccountDetail({ icon, label, value }: { icon: IconName; label: string; value: string }) {
   return (
     <div className="flex items-start gap-3">
-      <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500">
+      <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400">
         <Icon name={icon} className="size-4" aria-hidden="true" />
       </span>
       <div className="min-w-0">
-        <dt className="text-xs font-medium text-gray-400">{label}</dt>
-        <dd className="mt-0.5 break-all text-sm font-semibold text-gray-800">{value}</dd>
+        <dt className="text-xs font-medium text-gray-400 dark:text-gray-500">{label}</dt>
+        <dd className="mt-0.5 break-all text-sm font-semibold text-gray-800 dark:text-gray-200">{value}</dd>
       </div>
     </div>
   )
@@ -450,28 +453,28 @@ function AccountDetail({ icon, label, value }: { icon: IconName; label: string; 
 
 function NextGoal() {
   return (
-    <section className="learning-feature-enter overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 shadow-sm sm:p-6" aria-labelledby="next-goal-title">
+    <section className="learning-feature-enter overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 shadow-sm sm:p-6 dark:border-amber-700 dark:bg-gray-800" aria-labelledby="next-goal-title">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200 dark:bg-gray-700 dark:text-amber-400 dark:ring-amber-700">
             <Icon name="award" className="size-3.5" aria-hidden="true" />
             Almost there
           </span>
-          <h2 id="next-goal-title" className="mt-3 text-lg font-bold text-gray-950">Quiz champion</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">Complete 2 more quizzes to unlock your next badge.</p>
+          <h2 id="next-goal-title" className="mt-3 text-lg font-bold text-gray-950 dark:text-gray-50">Quiz champion</h2>
+          <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">Complete 2 more quizzes to unlock your next badge.</p>
         </div>
         <span className="text-4xl" aria-hidden="true">🏆</span>
       </div>
-      <div className="mt-5 h-2 overflow-hidden rounded-full bg-amber-200/70" role="progressbar" aria-label="Quiz champion achievement progress" aria-valuemin={0} aria-valuemax={10} aria-valuenow={8}>
+      <div className="mt-5 h-2 overflow-hidden rounded-full bg-amber-200/70 dark:bg-amber-900/30" role="progressbar" aria-label="Quiz champion achievement progress" aria-valuemin={0} aria-valuemax={10} aria-valuenow={8}>
         <div className="learning-progress-reveal h-full w-4/5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500" />
       </div>
-      <div className="mt-2 flex items-center justify-between text-xs font-semibold text-amber-800">
+      <div className="mt-2 flex items-center justify-between text-xs font-semibold text-amber-800 dark:text-amber-400">
         <span>8 of 10 quizzes</span>
         <span>80%</span>
       </div>
       <Link
         to="/quizzes"
-        className="group mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-gray-950 px-4 py-2.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-purple-700 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2"
+        className="group mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-gray-950 px-4 py-2.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-purple-700 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 dark:bg-white dark:text-gray-900 dark:hover:bg-purple-600"
       >
         Continue learning
         <Icon name="chevron-right" className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
