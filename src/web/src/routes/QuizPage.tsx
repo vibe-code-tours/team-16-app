@@ -113,7 +113,7 @@ export function QuizPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-purple-600" />
       </div>
     )
@@ -121,8 +121,8 @@ export function QuizPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <div className="max-w-md rounded-xl border border-red-200 bg-red-50 p-6 text-center text-sm text-red-700">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+        <div className="max-w-md rounded-xl border border-red-200 bg-red-50 p-6 text-center text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
           Couldn't load quiz: {error}
         </div>
       </div>
@@ -131,10 +131,10 @@ export function QuizPage() {
 
   if (questions.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <div className="max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center">
-          <h2 className="mb-2 text-xl font-bold text-gray-900">No quiz available yet</h2>
-          <p className="mb-6 text-sm text-gray-500">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+        <div className="max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center dark:border-gray-700 dark:bg-gray-800">
+          <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">No quiz available yet</h2>
+          <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
             We don't have any practice questions for this subtopic yet. Try another topic on the map.
           </p>
           <button
@@ -151,21 +151,21 @@ export function QuizPage() {
   if (finished) {
     const earnedXp = score * XP_PER_CORRECT
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
-          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-100 text-3xl text-purple-600">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+        <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
+          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-100 text-3xl text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
             🎉
           </div>
-          <h2 className="mb-2 text-2xl font-bold text-gray-900">Quiz complete!</h2>
-          <p className="mb-6 text-gray-500">
+          <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Quiz complete!</h2>
+          <p className="mb-6 text-gray-500 dark:text-gray-400">
             You scored{' '}
-            <span className="font-bold text-purple-600">
+            <span className="font-bold text-purple-600 dark:text-purple-400">
               {score} / {questions.length}
             </span>
           </p>
-          <div className="mb-8 rounded-xl bg-purple-50 p-4">
-            <p className="text-sm font-medium text-purple-600">XP earned</p>
-            <p className="text-3xl font-bold text-purple-700">+{earnedXp} XP</p>
+          <div className="mb-8 rounded-xl bg-purple-50 p-4 dark:bg-purple-900/30">
+            <p className="text-sm font-medium text-purple-600 dark:text-purple-400">XP earned</p>
+            <p className="text-3xl font-bold text-purple-700 dark:text-purple-300">+{earnedXp} XP</p>
           </div>
           <button
             onClick={() => navigate('/map')}
@@ -181,30 +181,30 @@ export function QuizPage() {
   const isCorrect = isAnswered && selectedLabel === currentQuestion.correct_answer
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-200 bg-white">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <button
             onClick={() => navigate('/map')}
-            className="flex items-center gap-2 font-medium text-purple-600 hover:text-purple-800"
+            className="flex items-center gap-2 font-medium text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300"
           >
             ← Quit quiz
           </button>
-          <div className="text-sm font-medium text-gray-500">
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
             Question {index + 1} of {questions.length}
           </div>
         </div>
       </header>
 
       <main className="mx-auto max-w-2xl px-4 py-8">
-        <div className="mb-8 h-2 w-full overflow-hidden rounded-full bg-gray-200">
+        <div className="mb-8 h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
             className="h-full bg-purple-600 transition-all duration-500"
             style={{ width: `${((index + 1) / questions.length) * 100}%` }}
           />
         </div>
 
-        <h2 className="mb-6 whitespace-pre-line text-lg font-semibold leading-relaxed text-gray-900">
+        <h2 className="mb-6 whitespace-pre-line text-lg font-semibold leading-relaxed text-gray-900 dark:text-gray-100">
           {currentQuestion.question_text}
         </h2>
 
@@ -213,10 +213,10 @@ export function QuizPage() {
             const isSelected = selectedLabel === choice.label
             const isCorrectChoice = choice.label === currentQuestion.correct_answer
 
-            let styles = 'border-gray-200 bg-white text-gray-700'
-            if (isAnswered && isCorrectChoice) styles = 'border-green-500 bg-green-50 text-green-800'
-            else if (isAnswered && isSelected) styles = 'border-red-500 bg-red-50 text-red-800'
-            else if (isSelected) styles = 'border-purple-600 bg-purple-50 text-purple-800'
+            let styles = 'border-gray-200 bg-white text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
+            if (isAnswered && isCorrectChoice) styles = 'border-green-500 bg-green-50 text-green-800 dark:border-green-500 dark:bg-green-900/30 dark:text-green-400'
+            else if (isAnswered && isSelected) styles = 'border-red-500 bg-red-50 text-red-800 dark:border-red-500 dark:bg-red-900/30 dark:text-red-400'
+            else if (isSelected) styles = 'border-purple-600 bg-purple-50 text-purple-800 dark:border-purple-500 dark:bg-purple-900/30 dark:text-purple-300'
 
             return (
               <button
@@ -235,7 +235,9 @@ export function QuizPage() {
         {isAnswered && currentQuestion.explanation ? (
           <div
             className={`mb-6 rounded-xl border p-4 text-sm ${
-              isCorrect ? 'border-green-200 bg-green-50 text-green-800' : 'border-orange-200 bg-orange-50 text-orange-800'
+              isCorrect
+                ? 'border-green-200 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400'
+                : 'border-orange-200 bg-orange-50 text-orange-800 dark:border-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
             }`}
           >
             <p className="mb-1 font-bold">{isCorrect ? 'Correct!' : 'Not quite.'}</p>

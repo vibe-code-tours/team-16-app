@@ -34,10 +34,10 @@ export function ChoiceList({
               ${
                 isSelected
                   ? 'border-primary-500 bg-primary-50'
-                  : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
               }
-              ${isCorrect ? 'border-green-500 bg-green-50' : ''}
-              ${isWrong ? 'border-red-500 bg-red-50' : ''}
+              ${isCorrect ? 'border-green-500 bg-green-50 dark:bg-green-900/30' : ''}
+              ${isWrong ? 'border-red-500 bg-red-50 dark:bg-red-900/30' : ''}
               ${disabled ? 'cursor-not-allowed opacity-75' : 'cursor-pointer'}
             `}
           >
@@ -51,7 +51,7 @@ export function ChoiceList({
                       ? 'border-primary-500 bg-primary-500'
                       : isCorrect
                       ? 'border-green-500 bg-green-500'
-                      : 'border-gray-300'
+                      : 'border-gray-300 dark:border-gray-600'
                   }
                 `}
               >
@@ -62,10 +62,10 @@ export function ChoiceList({
 
               {/* Choice label and text */}
               <div className="flex-1">
-                <span className="font-medium text-gray-700 uppercase">
+                <span className="font-medium text-gray-700 dark:text-gray-300 uppercase">
                   {choice.label})
                 </span>{' '}
-                <span className="text-gray-800">{choice.text}</span>
+                <span className="text-gray-800 dark:text-gray-200">{choice.text}</span>
               </div>
 
               {/* Correct/Wrong indicator */}

@@ -11,21 +11,21 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
   switch (block.type) {
     case 'heading':
       return (
-        <h3 className="text-lg font-bold text-gray-900 mt-6 mb-3">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mt-6 mb-3">
           <ReactMarkdown>{block.content}</ReactMarkdown>
         </h3>
       )
 
     case 'text':
       return (
-        <div className="prose prose-sm max-w-none text-gray-700 mb-4">
+        <div className="prose prose-sm max-w-none text-gray-700 dark:text-gray-300 mb-4">
           <ReactMarkdown>{block.content}</ReactMarkdown>
         </div>
       )
 
     case 'list':
       return (
-        <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700">
+        <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700 dark:text-gray-300">
           {block.items?.map((item, i) => (
             <li key={i}>
               <ReactMarkdown>{item}</ReactMarkdown>
@@ -38,7 +38,7 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
       return (
         <div className="mb-4">
           {block.language && (
-            <div className="text-xs text-gray-500 mb-1">{block.language}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{block.language}</div>
           )}
           <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-sm">
             <code>{block.content}</code>
@@ -48,10 +48,10 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
 
     case 'tip':
       return (
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-4">
+        <div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-4 rounded-r-lg mb-4">
           <div className="flex items-start gap-2">
             <span className="text-blue-500 text-lg">💡</span>
-            <div className="prose prose-sm max-w-none text-blue-800">
+            <div className="prose prose-sm max-w-none text-blue-800 dark:text-blue-300">
               <ReactMarkdown>{block.content}</ReactMarkdown>
             </div>
           </div>
@@ -60,10 +60,10 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
 
     case 'warning':
       return (
-        <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg mb-4">
+        <div className="bg-amber-50 dark:bg-amber-900/30 border-l-4 border-amber-500 p-4 rounded-r-lg mb-4">
           <div className="flex items-start gap-2">
             <span className="text-amber-500 text-lg">⚠️</span>
-            <div className="prose prose-sm max-w-none text-amber-800">
+            <div className="prose prose-sm max-w-none text-amber-800 dark:text-amber-300">
               <ReactMarkdown>{block.content}</ReactMarkdown>
             </div>
           </div>
@@ -72,10 +72,10 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
 
     case 'example':
       return (
-        <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-4">
+        <div className="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 p-4 rounded-r-lg mb-4">
           <div className="flex items-start gap-2">
             <span className="text-green-500 text-lg">📝</span>
-            <div className="prose prose-sm max-w-none text-green-800">
+            <div className="prose prose-sm max-w-none text-green-800 dark:text-green-300">
               <ReactMarkdown>{block.content}</ReactMarkdown>
             </div>
           </div>
@@ -89,23 +89,23 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
 
 export function LessonContent({ lesson, onComplete, isCompleted }: LessonContentProps) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">{lesson.title}</h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{lesson.title}</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {lesson.estimated_minutes} min · {lesson.xp_reward} XP
           </p>
         </div>
         {isCompleted && (
-          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+          <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-sm font-medium">
             ✓ Completed
           </span>
         )}
       </div>
 
       {lesson.summary && (
-        <p className="text-gray-600 mb-6 pb-4 border-b border-gray-100">
+        <p className="text-gray-600 dark:text-gray-400 mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
           {lesson.summary}
         </p>
       )}
@@ -117,7 +117,7 @@ export function LessonContent({ lesson, onComplete, isCompleted }: LessonContent
       </div>
 
       {!isCompleted && (
-        <div className="mt-6 pt-4 border-t border-gray-100">
+        <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
           <button
             onClick={onComplete}
             className="w-full bg-purple-600 text-white py-3 rounded-lg font-medium hover:bg-purple-700 transition"

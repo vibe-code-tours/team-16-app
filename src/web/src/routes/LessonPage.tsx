@@ -40,7 +40,7 @@ export function LessonPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div className="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
       </div>
     )
@@ -48,8 +48,8 @@ export function LessonPage() {
 
   if (!lesson) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-50">
-        <p className="text-gray-500">Lesson not found.</p>
+      <div className="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
+        <p className="text-gray-500 dark:text-gray-400">Lesson not found.</p>
       </div>
     )
   }
@@ -67,8 +67,8 @@ export function LessonPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-200 bg-white">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <button
             onClick={() => navigate(`/map/${lesson.topic_id}`)}
@@ -79,30 +79,30 @@ export function LessonPage() {
             </svg>
             Back to Topic
           </button>
-          <h1 className="text-xl font-bold text-gray-900">{lesson.title}</h1>
+          <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">{lesson.title}</h1>
         </div>
       </header>
 
       <main className="mx-auto max-w-3xl px-4 py-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {lesson.subtopic_name}
           </h2>
           {lesson.summary && (
-            <p className="text-gray-500">{lesson.summary}</p>
+            <p className="text-gray-500 dark:text-gray-400">{lesson.summary}</p>
           )}
         </div>
 
-        <div className="rounded-2xl bg-white p-8 shadow-sm border border-gray-200">
+        <div className="rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-sm border border-gray-200 dark:border-gray-700">
           {(lesson.content_blocks as Array<Record<string, unknown>>).map((block, i) => {
             switch (block.type) {
               case 'heading':
-                return <h3 key={i} className="text-xl font-bold text-gray-900 mt-6 mb-3">{block.content as string}</h3>
+                return <h3 key={i} className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6 mb-3">{block.content as string}</h3>
               case 'text':
-                return <p key={i} className="text-gray-700 mb-3 leading-relaxed">{block.content as string}</p>
+                return <p key={i} className="text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">{block.content as string}</p>
               case 'list':
                 return (
-                  <ul key={i} className="list-disc list-inside space-y-1 mb-3 text-gray-700">
+                  <ul key={i} className="list-disc list-inside space-y-1 mb-3 text-gray-700 dark:text-gray-300">
                     {(block.items as string[]).map((item, j) => (
                       <li key={j}>{item}</li>
                     ))}
@@ -110,21 +110,21 @@ export function LessonPage() {
                 )
               case 'tip':
                 return (
-                  <div key={i} className="p-4 rounded-lg bg-blue-50 border border-blue-200 mb-3">
-                    <p className="text-sm text-blue-700">{block.content as string}</p>
+                  <div key={i} className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 mb-3">
+                    <p className="text-sm text-blue-700 dark:text-blue-400">{block.content as string}</p>
                   </div>
                 )
               case 'warning':
                 return (
-                  <div key={i} className="p-4 rounded-lg bg-amber-50 border border-amber-200 mb-3">
-                    <p className="text-sm text-amber-700">{block.content as string}</p>
+                  <div key={i} className="p-4 rounded-lg bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 mb-3">
+                    <p className="text-sm text-amber-700 dark:text-amber-400">{block.content as string}</p>
                   </div>
                 )
               case 'example':
                 return (
-                  <div key={i} className="p-4 rounded-lg bg-green-50 border border-green-200 mb-3">
-                    <p className="text-xs font-bold text-green-600 uppercase mb-1">Example</p>
-                    <p className="text-sm text-green-700">{block.content as string}</p>
+                  <div key={i} className="p-4 rounded-lg bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 mb-3">
+                    <p className="text-xs font-bold text-green-600 dark:text-green-400 uppercase mb-1">Example</p>
+                    <p className="text-sm text-green-700 dark:text-green-400">{block.content as string}</p>
                   </div>
                 )
               default:

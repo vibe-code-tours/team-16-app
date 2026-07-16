@@ -74,9 +74,9 @@ function PdfRegionBlock({ block }: { block: Extract<DraftBlock, { type: 'pdf_reg
   const page = block.page ?? 1
 
   return (
-    <div className="rounded-md border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
+    <div className="rounded-md border border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 p-4 text-sm text-amber-950 dark:text-amber-400">
       <div className="mb-2 flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-950">
+        <span className="rounded-full bg-amber-200 dark:bg-amber-900/30 px-2 py-0.5 text-xs font-semibold text-amber-950 dark:text-amber-400">
           pdf_region
         </span>
         <span>Page {page}</span>
@@ -84,7 +84,7 @@ function PdfRegionBlock({ block }: { block: Extract<DraftBlock, { type: 'pdf_reg
       </div>
       {block.reason && <p className="mb-3 leading-relaxed">{block.reason}</p>}
       {block.contains && block.contains.length > 0 && (
-        <p className="mb-3 text-xs uppercase text-amber-800">
+        <p className="mb-3 text-xs uppercase text-amber-800 dark:text-amber-400">
           Contains: {block.contains.join(', ')}
         </p>
       )}
@@ -92,7 +92,7 @@ function PdfRegionBlock({ block }: { block: Extract<DraftBlock, { type: 'pdf_reg
         href={`${SOURCE_PDF}#page=${page}`}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex rounded-md border border-amber-400 px-3 py-2 font-medium text-amber-950 hover:bg-amber-100"
+        className="inline-flex rounded-md border border-amber-400 dark:border-amber-800 px-3 py-2 font-medium text-amber-950 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30"
       >
         Open PDF page
       </a>
@@ -109,7 +109,7 @@ function DraftBlocks({ blocks }: { blocks: DraftBlock[] }) {
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-semibold uppercase text-gray-500">Review Regions</h3>
+      <h3 className="text-sm font-semibold uppercase text-gray-500 dark:text-gray-400">Review Regions</h3>
       {pdfRegions.map((block, index) => (
         <PdfRegionBlock key={index} block={block} />
       ))}
@@ -167,19 +167,19 @@ export function AiDraftPreview() {
   )
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-200 bg-white">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-sm font-medium uppercase text-gray-500">AI extraction POC</p>
-              <h1 className="mt-1 text-2xl font-bold text-gray-950">2021 April A Draft Preview</h1>
+              <p className="text-sm font-medium uppercase text-gray-500 dark:text-gray-400">AI extraction POC</p>
+              <h1 className="mt-1 text-2xl font-bold text-gray-950 dark:text-gray-50">2021 April A Draft Preview</h1>
             </div>
             <a
               href={`${DRAFT_BASE}/extraction-report.json`}
               target="_blank"
               rel="noreferrer"
-              className="rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               Report JSON
             </a>
@@ -193,8 +193,8 @@ export function AiDraftPreview() {
                     onClick={() => setActiveFile(draft.filename)}
                     className={`rounded-md border px-3 py-2 text-sm font-medium ${
                       activeFile === draft.filename
-                        ? 'border-gray-950 bg-gray-950 text-white'
-                        : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                        ? 'border-gray-950 dark:border-white bg-gray-950 dark:bg-white text-white dark:text-gray-950'
+                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                     }`}
                   >
                     Q{metadataValue(draft.metadata.question_no).padStart(2, '0')}
@@ -204,7 +204,7 @@ export function AiDraftPreview() {
                   <button
                     key={filename}
                     disabled
-                    className="rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-400"
+                    className="rounded-md border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm text-gray-400 dark:text-gray-500"
                   >
                     {filename}
                   </button>
@@ -215,24 +215,24 @@ export function AiDraftPreview() {
 
       <main className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[220px_minmax(0,1fr)] lg:px-8">
         <aside className="space-y-3">
-          <div className="rounded-md border border-gray-200 bg-white p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase text-gray-500">Safety State</h2>
+          <div className="rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+            <h2 className="mb-3 text-sm font-semibold uppercase text-gray-500 dark:text-gray-400">Safety State</h2>
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-between gap-3">
-                <span className="text-gray-500">Status</span>
-                <span className="font-semibold text-gray-950">
+                <span className="text-gray-500 dark:text-gray-400">Status</span>
+                <span className="font-semibold text-gray-950 dark:text-gray-50">
                   {metadataValue(activeDraft?.metadata.status)}
                 </span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-gray-500">Source</span>
-                <span className="font-semibold text-gray-950">
+                <span className="text-gray-500 dark:text-gray-400">Source</span>
+                <span className="font-semibold text-gray-950 dark:text-gray-50">
                   {metadataValue(activeDraft?.metadata.source)}
                 </span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-gray-500">Verified</span>
-                <span className="font-semibold text-gray-950">
+                <span className="text-gray-500 dark:text-gray-400">Verified</span>
+                <span className="font-semibold text-gray-950 dark:text-gray-50">
                   {metadataValue(activeDraft?.metadata.verified_against_pdf)}
                 </span>
               </div>
@@ -242,8 +242,8 @@ export function AiDraftPreview() {
           <div
             className={`rounded-md border p-4 text-sm ${
               readyWarnings.length > 0
-                ? 'border-red-300 bg-red-50 text-red-900'
-                : 'border-green-300 bg-green-50 text-green-900'
+                ? 'border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-900/30 text-red-900 dark:text-red-400'
+                : 'border-green-300 dark:border-green-800 bg-green-50 dark:bg-green-900/30 text-green-900 dark:text-green-400'
             }`}
           >
             {readyWarnings.length > 0
@@ -252,32 +252,32 @@ export function AiDraftPreview() {
           </div>
         </aside>
 
-        <section className="min-w-0 rounded-md border border-gray-200 bg-white p-5">
-          {loading && <p className="text-gray-600">Loading draft Markdown...</p>}
-          {error && <p className="text-red-700">{error}</p>}
+        <section className="min-w-0 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5">
+          {loading && <p className="text-gray-600 dark:text-gray-400">Loading draft Markdown...</p>}
+          {error && <p className="text-red-700 dark:text-red-400">{error}</p>}
           {activeDraft && !loading && !error && (
             <div className="space-y-6">
-              <div className="flex flex-wrap items-center gap-2 border-b border-gray-100 pb-4">
-                <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-700">
+              <div className="flex flex-wrap items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-4">
+                <span className="rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs font-semibold text-gray-700 dark:text-gray-300">
                   {activeDraft.filename}
                 </span>
-                <span className="rounded-full bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-800">
+                <span className="rounded-full bg-amber-100 dark:bg-amber-900/30 px-2 py-1 text-xs font-semibold text-amber-800 dark:text-amber-400">
                   draft only
                 </span>
-                <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-800">
+                <span className="rounded-full bg-blue-100 dark:bg-blue-900/30 px-2 py-1 text-xs font-semibold text-blue-800 dark:text-blue-400">
                   human review required
                 </span>
               </div>
 
-              <article className="max-w-none text-gray-900">
+              <article className="max-w-none text-gray-900 dark:text-gray-100">
                 <ReactMarkdown
                   components={{
                     h1: ({ children }) => (
-                      <h1 className="mb-4 text-2xl font-bold text-gray-950">{children}</h1>
+                      <h1 className="mb-4 text-2xl font-bold text-gray-950 dark:text-gray-50">{children}</h1>
                     ),
                     p: ({ children }) => <p className="mb-4 leading-7">{children}</p>,
                     blockquote: ({ children }) => (
-                      <blockquote className="mb-5 rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900">
+                      <blockquote className="mb-5 rounded-md border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 px-4 py-3 text-amber-900 dark:text-amber-400">
                         {children}
                       </blockquote>
                     ),

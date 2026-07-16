@@ -48,7 +48,7 @@ export function UserDrawer({ userId, onClose, onUserUpdated }: UserDrawerProps) 
       <div className="fixed inset-0 z-40 bg-black/30" onClick={onClose} />
 
       {/* Drawer */}
-      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-xl flex flex-col md:right-0 md:max-w-lg">
+      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white dark:bg-gray-900 shadow-xl flex flex-col md:right-0 md:max-w-lg">
         {loading && !user ? (
           <div className="flex flex-1 items-center justify-center">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-purple-500 border-t-transparent" />
@@ -61,19 +61,19 @@ export function UserDrawer({ userId, onClose, onUserUpdated }: UserDrawerProps) 
         ) : user ? (
           <>
             {/* Header */}
-            <div className="border-b border-gray-200 p-6">
+            <div className="border-b border-gray-200 dark:border-gray-700 p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   {user.avatarUrl ? (
                     <img src={user.avatarUrl} alt="" className="h-12 w-12 rounded-full" />
                   ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 text-lg font-medium text-purple-700">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 text-lg font-medium text-purple-700 dark:text-purple-400">
                       {(user.displayName || user.email).charAt(0).toUpperCase()}
                     </div>
                   )}
                   <div>
-                    <h2 className="text-lg font-semibold text-gray-900">{user.displayName || 'Unnamed'}</h2>
-                    <p className="flex items-center gap-1.5 text-sm text-gray-500">
+                    <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{user.displayName || 'Unnamed'}</h2>
+                    <p className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
                       <Mail className="h-3.5 w-3.5" />
                       {user.email}
                     </p>
@@ -81,21 +81,21 @@ export function UserDrawer({ userId, onClose, onUserUpdated }: UserDrawerProps) 
                       <Badge variant={user.role === 'admin' ? 'info' : user.role === 'deactivated' ? 'error' : 'default'}>
                         {user.role}
                       </Badge>
-                      <span className={`inline-flex items-center gap-1 text-xs font-medium ${user.status === 'active' ? 'text-green-700' : 'text-gray-500'}`}>
-                        <span className={`h-1.5 w-1.5 rounded-full ${user.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}`} />
+                      <span className={`inline-flex items-center gap-1 text-xs font-medium ${user.status === 'active' ? 'text-green-700 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                        <span className={`h-1.5 w-1.5 rounded-full ${user.status === 'active' ? 'bg-green-500' : 'bg-gray-400 dark:bg-gray-500'}`} />
                         {user.status === 'active' ? 'Active' : 'Inactive'}
                       </span>
                     </div>
                   </div>
                 </div>
-                <button onClick={onClose} className="rounded-lg p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                <button onClick={onClose} className="rounded-lg p-1 text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-600 dark:hover:text-gray-300">
                   <X className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
             {/* Tabs */}
-            <div className="flex border-b border-gray-200 px-6">
+            <div className="flex border-b border-gray-200 dark:border-gray-700 px-6">
               {([
                 { key: 'overview' as Tab, icon: LayoutDashboard, label: 'Overview' },
                 { key: 'activity' as Tab, icon: Activity, label: 'Activity' },
@@ -106,8 +106,8 @@ export function UserDrawer({ userId, onClose, onUserUpdated }: UserDrawerProps) 
                   onClick={() => setActiveTab(key)}
                   className={`flex items-center gap-1.5 border-b-2 px-4 py-3 text-sm font-medium transition-colors ${
                     activeTab === key
-                      ? 'border-purple-600 text-purple-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                      ? 'border-purple-600 text-purple-600 dark:text-purple-400'
+                      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -132,7 +132,7 @@ export function UserDrawer({ userId, onClose, onUserUpdated }: UserDrawerProps) 
                     <StatBox icon={<CheckCircle className="h-4 w-4" />} iconColor="text-emerald-500" label="Pass Rate" value={`${user.examPassRate}%`} />
                   </div>
 
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                     <span className="flex items-center gap-1.5">
                       <Calendar className="h-3.5 w-3.5" />
                       Joined {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : '—'}
@@ -148,29 +148,29 @@ export function UserDrawer({ userId, onClose, onUserUpdated }: UserDrawerProps) 
               {activeTab === 'activity' && (
                 <div>
                   {user.recentActivity.length === 0 ? (
-                    <p className="text-center text-gray-500">No recent activity</p>
+                    <p className="text-center text-gray-500 dark:text-gray-400">No recent activity</p>
                   ) : (
                     <div className="space-y-3">
                       {user.recentActivity.map((activity, i) => (
-                        <div key={i} className="flex items-center justify-between rounded-lg border border-gray-100 p-3">
+                        <div key={i} className="flex items-center justify-between rounded-lg border border-gray-100 dark:border-gray-700 p-3">
                           <div className="flex items-center gap-3">
                             <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${
-                              activity.type === 'quiz' ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-blue-600'
+                              activity.type === 'quiz' ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' : 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
                             }`}>
                               {activity.type === 'quiz' ? <Brain className="h-4 w-4" /> : <FileText className="h-4 w-4" />}
                             </div>
                             <div>
                               <span className={`inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium ${
-                                activity.type === 'quiz' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
+                                activity.type === 'quiz' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
                               }`}>
                                 {activity.type}
                               </span>
-                              <p className="mt-0.5 text-sm font-medium text-gray-900">{activity.topicName}</p>
+                              <p className="mt-0.5 text-sm font-medium text-gray-900 dark:text-gray-100">{activity.topicName}</p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-sm font-medium text-gray-900">{activity.score}%</p>
-                            <p className="flex items-center justify-end gap-1 text-xs text-gray-500">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{activity.score}%</p>
+                            <p className="flex items-center justify-end gap-1 text-xs text-gray-500 dark:text-gray-400">
                               <Clock className="h-3 w-3" />
                               {activity.completedAt ? timeAgo(activity.completedAt) : '—'}
                             </p>
@@ -192,7 +192,7 @@ export function UserDrawer({ userId, onClose, onUserUpdated }: UserDrawerProps) 
             </div>
 
             {/* Actions */}
-            <div className="border-t border-gray-200 p-6">
+            <div className="border-t border-gray-200 dark:border-gray-700 p-6">
               {showConfirmAction === 'deactivate' ? (
                 <div className="space-y-3">
                   <p className="text-sm text-red-600">Deactivate this user? They will not be able to log in.</p>
@@ -203,7 +203,7 @@ export function UserDrawer({ userId, onClose, onUserUpdated }: UserDrawerProps) 
                 </div>
               ) : showConfirmAction === 'resetStreak' ? (
                 <div className="space-y-3">
-                  <p className="text-sm text-gray-700">Reset this user's streak to 0?</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">Reset this user's streak to 0?</p>
                   <div className="flex gap-2">
                     <Button size="sm" variant="ghost" onClick={() => setShowConfirmAction(null)}>Cancel</Button>
                     <Button size="sm" variant="outline" onClick={handleResetStreak}>Confirm Reset</Button>
@@ -238,12 +238,12 @@ function StatBox({ icon, iconColor, label, value }: {
   value: string
 }) {
   return (
-    <div className="rounded-lg bg-gray-50 p-3">
+    <div className="rounded-lg bg-gray-50 dark:bg-gray-800 p-3">
       <div className="flex items-center gap-1.5">
         <span className={iconColor}>{icon}</span>
-        <p className="text-xs text-gray-500">{label}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">{label}</p>
       </div>
-      <p className="mt-1 text-lg font-semibold text-gray-900">{value}</p>
+      <p className="mt-1 text-lg font-semibold text-gray-900 dark:text-gray-100">{value}</p>
     </div>
   )
 }
@@ -256,14 +256,14 @@ function PerformanceBar({ icon, iconColor, label, value, barColor }: {
   barColor: string
 }) {
   return (
-    <div className="rounded-lg bg-gray-50 p-4">
+    <div className="rounded-lg bg-gray-50 dark:bg-gray-800 p-4">
       <div className="flex items-center gap-2">
         <span className={iconColor}>{icon}</span>
-        <h4 className="text-sm font-medium text-gray-700">{label}</h4>
+        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</h4>
       </div>
       <div className="mt-3 flex items-end gap-2">
         <div className={`h-3 rounded-l ${barColor}`} style={{ width: `${Math.min(value, 100)}%` }} />
-        <span className="text-xs font-medium text-gray-600">{value.toFixed(1)}%</span>
+        <span className="text-xs font-medium text-gray-600 dark:text-gray-400">{value.toFixed(1)}%</span>
       </div>
     </div>
   )

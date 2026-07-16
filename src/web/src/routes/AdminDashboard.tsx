@@ -33,13 +33,13 @@ export function AdminDashboard() {
   if (!stats) {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
-        <p className="text-gray-500">No data available</p>
+        <p className="text-gray-500 dark:text-gray-400">No data available</p>
       </div>
     )
   }
 
   const statCards = [
-    { label: 'Total Users', value: stats.totalUsers, color: 'text-purple-700' },
+    { label: 'Total Users', value: stats.totalUsers, color: 'text-purple-700 dark:text-purple-400' },
     { label: 'Active Today', value: stats.activeToday, color: 'text-green-700' },
     { label: 'Active This Week', value: stats.activeThisWeek, color: 'text-blue-700' },
     { label: 'Quiz Attempts', value: stats.totalQuizAttempts, color: 'text-amber-700' },
@@ -51,16 +51,16 @@ export function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {statCards.map((card) => (
           <div
             key={card.label}
-            className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
+            className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm"
           >
-            <p className="text-sm font-medium text-gray-500">{card.label}</p>
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{card.label}</p>
             <p className={`mt-2 text-3xl font-bold ${card.color}`}>
               {typeof card.value === 'number' ? card.value.toLocaleString() : card.value}
             </p>
@@ -69,9 +69,9 @@ export function AdminDashboard() {
       </div>
 
       {/* Daily Active Users Chart */}
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-5 py-4">
-          <h2 className="text-lg font-semibold text-gray-900">Daily Active Users (30 days)</h2>
+      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+        <div className="border-b border-gray-200 dark:border-gray-700 px-5 py-4">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Daily Active Users (30 days)</h2>
         </div>
         <div className="p-5">
           <ActiveUsersChart data={stats.dailyActiveUsers} />
@@ -80,18 +80,18 @@ export function AdminDashboard() {
 
       {/* Topic Engagement Charts */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-200 px-5 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Quiz Count by Topic</h2>
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+          <div className="border-b border-gray-200 dark:border-gray-700 px-5 py-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Quiz Count by Topic</h2>
           </div>
           <div className="p-5">
             <TopicQuizChart data={stats.topicEngagement} />
           </div>
         </div>
 
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-200 px-5 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Avg Score by Topic</h2>
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+          <div className="border-b border-gray-200 dark:border-gray-700 px-5 py-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Avg Score by Topic</h2>
           </div>
           <div className="p-5">
             <TopicScoreChart data={stats.topicEngagement} />
@@ -101,9 +101,9 @@ export function AdminDashboard() {
 
       {/* Completion & Pass Rate Charts */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-200 px-5 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Quiz Completion</h2>
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+          <div className="border-b border-gray-200 dark:border-gray-700 px-5 py-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Quiz Completion</h2>
           </div>
           <div className="flex justify-center p-5">
             <QuizCompletionChart
@@ -113,9 +113,9 @@ export function AdminDashboard() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-200 px-5 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Exam Pass Rate</h2>
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
+          <div className="border-b border-gray-200 dark:border-gray-700 px-5 py-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Exam Pass Rate</h2>
           </div>
           <div className="flex justify-center p-5">
             <ExamPassChart

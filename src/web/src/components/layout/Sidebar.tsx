@@ -110,11 +110,11 @@ export function Sidebar({ navItems = defaultNavItems, isOpen, onClose, showNavIt
           onClick={onClose}
           className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
             isActive
-              ? 'bg-purple-50 text-purple-600'
-              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+              ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400'
+              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200'
           }`}
         >
-          <span className={isActive ? 'text-purple-600' : 'text-gray-400'}>
+          <span className={isActive ? 'text-purple-600 dark:text-purple-400' : 'text-gray-400 dark:text-gray-500'}>
             {item.icon}
           </span>
           <span>{item.label}</span>
@@ -127,7 +127,7 @@ export function Sidebar({ navItems = defaultNavItems, isOpen, onClose, showNavIt
     <>
       {/* Desktop Sidebar */}
       {showNavItems && (
-        <aside className="hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-64 lg:bg-white lg:border-r lg:border-gray-200">
+        <aside className="hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-64 lg:bg-white dark:lg:bg-gray-800 lg:border-r lg:border-gray-200 dark:lg:border-gray-700">
           <div className="flex flex-col flex-1 min-h-0 pt-16">
             <div className="flex-1 flex flex-col pb-4 overflow-y-auto">
               <nav className="flex-1 px-2 space-y-1">
@@ -143,16 +143,16 @@ export function Sidebar({ navItems = defaultNavItems, isOpen, onClose, showNavIt
         <div className="lg:hidden fixed inset-0 z-[60]">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity"
+            className="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 transition-opacity"
             onClick={onClose}
           />
           {/* Drawer panel */}
-          <div className="fixed inset-y-0 left-0 flex flex-col w-64 bg-white shadow-xl">
-            <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
-              <span className="text-xl font-bold text-purple-600">NerdQuiz</span>
+          <div className="fixed inset-y-0 left-0 flex flex-col w-64 bg-white dark:bg-gray-800 shadow-xl">
+            <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
+              <span className="text-xl font-bold text-purple-600 dark:text-purple-400">NerdQuiz</span>
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg text-gray-500 hover:bg-gray-100"
+                className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

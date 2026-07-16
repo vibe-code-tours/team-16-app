@@ -19,7 +19,7 @@ export function WeakPointCard({ topic, subtopics, rank }: WeakPointCardProps) {
   const mastery = getMasteryState(topic.masteryScore)
 
   return (
-    <article className={`learning-topic-enter overflow-hidden rounded-3xl border bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-purple-100/50 motion-reduce:transition-none ${mastery.borderClassName}`}>
+    <article className={`learning-topic-enter overflow-hidden rounded-3xl border bg-white dark:bg-gray-800 shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-purple-100/50 motion-reduce:transition-none ${mastery.borderClassName}`}>
       <details className="group" open={expanded} onToggle={(event) => setExpanded(event.currentTarget.open)}>
         <summary className="list-none cursor-pointer p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-500 sm:p-6 [&::-webkit-details-marker]:hidden">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
@@ -32,10 +32,10 @@ export function WeakPointCard({ topic, subtopics, rank }: WeakPointCardProps) {
                   <span className={`inline-flex rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider ${mastery.badgeClassName}`}>
                     {rank === 1 ? 'Top priority' : mastery.label}
                   </span>
-                  <span className="text-xs font-medium text-gray-400">Focus #{rank}</span>
+                  <span className="text-xs font-medium text-gray-400 dark:text-gray-500">Focus #{rank}</span>
                 </div>
-                <h3 className="mt-2 truncate text-xl font-bold text-gray-950 sm:text-2xl">{topic.topicName}</h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <h3 className="mt-2 truncate text-xl font-bold text-gray-950 dark:text-gray-50 sm:text-2xl">{topic.topicName}</h3>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   {topic.questionsSeen} {topic.questionsSeen === 1 ? 'answer' : 'answers'} analyzed · {practicedSubtopics.length} active {practicedSubtopics.length === 1 ? 'subtopic' : 'subtopics'}
                 </p>
               </div>
@@ -44,25 +44,25 @@ export function WeakPointCard({ topic, subtopics, rank }: WeakPointCardProps) {
             <div className="flex items-center gap-4 sm:gap-6">
               <div className="min-w-32 flex-1 lg:w-48 lg:flex-none">
                 <div className="flex items-center justify-between text-xs font-semibold">
-                  <span className="text-gray-400">Mastery</span>
+                  <span className="text-gray-400 dark:text-gray-500">Mastery</span>
                   <span className={mastery.textClassName}>{percentage}%</span>
                 </div>
-                <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-gray-100" role="progressbar" aria-label={`${topic.topicName} mastery`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={percentage}>
+                <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700" role="progressbar" aria-label={`${topic.topicName} mastery`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={percentage}>
                   <div className={`learning-progress-reveal h-full rounded-full bg-gradient-to-r ${mastery.progressClassName}`} style={{ width: `${percentage}%` }} />
                 </div>
               </div>
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-gray-400 transition-all duration-200 group-open:rotate-180 group-hover:bg-purple-50 group-hover:text-purple-600 motion-reduce:transform-none motion-reduce:transition-none" aria-hidden="true">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-400 dark:text-gray-500 transition-all duration-200 group-open:rotate-180 group-hover:bg-purple-50 dark:group-hover:bg-purple-900/30 group-hover:text-purple-600 dark:group-hover:text-purple-400 motion-reduce:transform-none motion-reduce:transition-none" aria-hidden="true">
                 <ChevronDownIcon />
               </span>
             </div>
           </div>
         </summary>
 
-        <div className="border-t border-gray-100 px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
+        <div className="border-t border-gray-100 dark:border-gray-700 px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-bold text-gray-900">Subtopic breakdown</p>
-              <p className="mt-0.5 text-xs text-gray-500">Lower scores are shown first so you know where to begin.</p>
+              <p className="text-sm font-bold text-gray-900 dark:text-gray-100">Subtopic breakdown</p>
+              <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">Lower scores are shown first so you know where to begin.</p>
             </div>
             {nextPractice ? (
               <Link
@@ -94,20 +94,20 @@ function SubtopicRow({ subtopic }: { subtopic: SubtopicMastery }) {
   return (
     <Link
       to={`/quiz/${subtopic.subtopicId}`}
-      className="group/row flex min-h-20 items-center gap-3 rounded-2xl border border-transparent bg-gray-50/80 p-3 transition-all duration-200 hover:border-purple-200 hover:bg-purple-50/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 motion-reduce:transition-none"
+      className="group/row flex min-h-20 items-center gap-3 rounded-2xl border border-transparent bg-gray-50/80 dark:bg-gray-700/50 p-3 transition-all duration-200 hover:border-purple-200 dark:hover:border-purple-700 hover:bg-purple-50/60 dark:hover:bg-purple-900/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 motion-reduce:transition-none"
       aria-label={`${isPracticed ? 'Practice' : 'Start'} ${subtopic.subtopicName}`}
     >
-      <span className={`flex size-10 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${isPracticed ? mastery.iconClassName : 'bg-white text-gray-400 ring-1 ring-gray-200'}`} aria-hidden="true">
+      <span className={`flex size-10 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${isPracticed ? mastery.iconClassName : 'bg-white dark:bg-gray-700 text-gray-400 dark:text-gray-500 ring-1 ring-gray-200 dark:ring-gray-600'}`} aria-hidden="true">
         {isPracticed ? `${percentage}%` : '○'}
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-3">
-          <p className="truncate text-sm font-semibold text-gray-800 group-hover/row:text-purple-800">{subtopic.subtopicName}</p>
-          <span className="shrink-0 text-xs font-semibold text-gray-400">
+          <p className="truncate text-sm font-semibold text-gray-800 dark:text-gray-200 group-hover/row:text-purple-800 dark:group-hover/row:text-purple-400">{subtopic.subtopicName}</p>
+          <span className="shrink-0 text-xs font-semibold text-gray-400 dark:text-gray-500">
             {isPracticed ? `${subtopic.questionsCorrect}/${subtopic.questionsSeen}` : 'Not started'}
           </span>
         </div>
-        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white ring-1 ring-gray-100" aria-hidden="true">
+        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white dark:bg-gray-700 ring-1 ring-gray-100 dark:ring-gray-600" aria-hidden="true">
           <div className={`learning-progress-reveal h-full rounded-full bg-gradient-to-r ${isPracticed ? mastery.progressClassName : 'from-gray-200 to-gray-200'}`} style={{ width: `${percentage}%` }} />
         </div>
       </div>

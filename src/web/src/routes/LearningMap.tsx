@@ -66,16 +66,16 @@ export function LearningMap() {
       <section id="learning-path" aria-labelledby="learning-path-title" className="scroll-mt-24">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <Badge className="mb-2 bg-purple-100 text-purple-700">Your roadmap</Badge>
-            <h2 id="learning-path-title" className="text-2xl font-bold text-gray-900">
+            <Badge className="mb-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">Your roadmap</Badge>
+            <h2 id="learning-path-title" className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               Follow your learning journey
             </h2>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               Clear each stop, collect XP, and get closer to exam day confidence.
             </p>
           </div>
           {!loading && !error && topics.length > 0 ? (
-            <p className="text-sm font-semibold text-purple-700">
+            <p className="text-sm font-semibold text-purple-700 dark:text-purple-400">
               {learningSummary.completedTopics} of {learningSummary.totalTopics} stops cleared
             </p>
           ) : null}
@@ -127,14 +127,14 @@ function WelcomeHero({
   return (
     <section
       aria-labelledby="welcome-heading"
-      className="learning-hero-enter relative overflow-hidden rounded-3xl border border-purple-200 bg-gradient-to-br from-purple-50 via-white to-amber-50 p-6 shadow-sm sm:p-8"
+      className="learning-hero-enter relative overflow-hidden rounded-3xl border border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 via-white to-amber-50 dark:from-purple-900/40 dark:via-gray-800 dark:to-amber-900/20 p-6 shadow-sm sm:p-8"
     >
       <div
-        className="absolute -right-10 -top-12 size-40 rounded-full bg-purple-100/70"
+        className="absolute -right-10 -top-12 size-40 rounded-full bg-purple-100/70 dark:bg-purple-500/20"
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-16 right-24 size-32 rounded-full bg-amber-100/70"
+        className="absolute -bottom-16 right-24 size-32 rounded-full bg-amber-100/70 dark:bg-amber-500/20"
         aria-hidden="true"
       />
 
@@ -142,39 +142,39 @@ function WelcomeHero({
         <div>
           <div className="mb-5 flex items-center gap-4">
             <span
-              className="learning-owl-enter flex size-20 shrink-0 items-center justify-center rounded-3xl bg-white text-5xl shadow-md ring-1 ring-purple-100"
+              className="learning-owl-enter flex size-20 shrink-0 items-center justify-center rounded-3xl bg-white dark:bg-gray-700 text-5xl shadow-md ring-1 ring-purple-100 dark:ring-purple-800"
               aria-hidden="true"
             >
               🦉
             </span>
             <div>
-              <Badge className="mb-2 bg-purple-100 text-purple-700">Today&apos;s quest</Badge>
-              <p className="text-sm font-semibold text-purple-700">ITPEC FE adventure</p>
+              <Badge className="mb-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">Today&apos;s quest</Badge>
+              <p className="text-sm font-semibold text-purple-700 dark:text-purple-400">ITPEC FE adventure</p>
             </div>
           </div>
 
-          <h1 id="welcome-heading" className="max-w-2xl text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 id="welcome-heading" className="max-w-2xl text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
             Ready for your next win, {learnerName}?
           </h1>
-          <p className="mt-3 max-w-2xl text-base text-gray-600 sm:text-lg">{motivation}</p>
+          <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-400 sm:text-lg">{motivation}</p>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <ContinueAction summary={summary} isLoading={isLoading} hasError={hasError} />
             <a
               href="#learning-path"
-              className="inline-flex min-h-11 items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold text-purple-700 transition-colors duration-200 hover:bg-purple-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2"
+              className="inline-flex min-h-11 items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold text-purple-700 dark:text-purple-400 transition-colors duration-200 hover:bg-purple-100 dark:hover:bg-purple-900/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2"
             >
               View full roadmap
             </a>
           </div>
         </div>
 
-        <Card className="relative border-purple-100 bg-white/90" padding="lg">
+        <Card className="relative border-purple-100 dark:border-purple-800 bg-white/90 dark:bg-gray-800/90" padding="lg">
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-xs font-medium uppercase tracking-widest text-gray-500">Journey progress</p>
-                <p className="mt-1 text-3xl font-bold text-gray-900">
+                <p className="text-xs font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400">Journey progress</p>
+                <p className="mt-1 text-3xl font-bold text-gray-900 dark:text-gray-100">
                   {isLoading ? '—' : `${summary.progressPercent}%`}
                 </p>
               </div>
@@ -205,7 +205,7 @@ function ContinueAction({ summary, isLoading, hasError }: ContinueActionProps) {
 
   if (isLoading) {
     return (
-      <span className={`${baseClasses} cursor-wait bg-purple-200 text-purple-700 shadow-none`} role="status">
+      <span className={`${baseClasses} cursor-wait bg-purple-200 dark:bg-purple-800 text-purple-700 dark:text-purple-300 shadow-none`} role="status">
         Finding your next stop…
       </span>
     )
@@ -246,7 +246,7 @@ function ContinueAction({ summary, isLoading, hasError }: ContinueActionProps) {
 function JourneyProgress({ percent, isLoading }: { percent: number; isLoading: boolean }) {
   if (isLoading) {
     return (
-      <div className="h-3 overflow-hidden rounded-full bg-gray-200" role="status" aria-label="Loading journey progress">
+      <div className="h-3 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700" role="status" aria-label="Loading journey progress">
         <div className="h-full w-1/3 animate-pulse rounded-full bg-purple-300" />
       </div>
     )
@@ -254,7 +254,7 @@ function JourneyProgress({ percent, isLoading }: { percent: number; isLoading: b
 
   return (
     <div
-      className="h-3 overflow-hidden rounded-full bg-gray-200"
+      className="h-3 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
       role="progressbar"
       aria-label="Overall learning progress"
       aria-valuemin={0}
@@ -270,12 +270,12 @@ function JourneyProgress({ percent, isLoading }: { percent: number; isLoading: b
 
 function StatCard({ label, value, icon }: { label: string; value: string; icon: string }) {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-gray-50 p-3">
-      <dt className="text-xs font-medium text-gray-500">
+    <div className="rounded-2xl border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 p-3">
+      <dt className="text-xs font-medium text-gray-500 dark:text-gray-400">
         <span className="mr-1" aria-hidden="true">{icon}</span>
         {label}
       </dt>
-      <dd className="mt-1 text-xl font-bold text-gray-900">{value}</dd>
+      <dd className="mt-1 text-xl font-bold text-gray-900 dark:text-gray-100">{value}</dd>
     </div>
   )
 }
@@ -291,7 +291,7 @@ function CategorySection({ category, topics }: CategorySectionProps) {
   return (
     <section
       aria-labelledby={`cat-${category}`}
-      className={`learning-topic-enter rounded-3xl border border-t-4 border-gray-200 bg-white p-4 shadow-sm sm:p-6 ${CATEGORY_PANEL_ACCENT[category]}`}
+      className={`learning-topic-enter rounded-3xl border border-t-4 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm sm:p-6 ${CATEGORY_PANEL_ACCENT[category]}`}
     >
       <MileMarker category={category} completed={completed} total={topics.length} />
       <ol className="mt-5 flex flex-col">
@@ -319,10 +319,10 @@ function MileMarker({ category, completed, total }: MileMarkerProps) {
         <span className="size-3 rounded-full border-2 border-white bg-white/40" />
       </div>
       <div className="min-w-0 flex-1">
-        <h3 id={`cat-${category}`} className="text-sm font-bold uppercase tracking-widest text-gray-900">
+        <h3 id={`cat-${category}`} className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-gray-100">
           {category}
         </h3>
-        <p className="text-xs text-gray-500">Milestone · {completed} of {total} cleared</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">Milestone · {completed} of {total} cleared</p>
       </div>
       {completed === total ? <Badge variant="success">Complete</Badge> : null}
     </div>
@@ -331,7 +331,7 @@ function MileMarker({ category, completed, total }: MileMarkerProps) {
 
 function Connector() {
   return (
-    <div className="ml-6 h-6 border-l-2 border-dashed border-purple-200" aria-hidden="true" />
+    <div className="ml-6 h-6 border-l-2 border-dashed border-purple-200 dark:border-purple-800" aria-hidden="true" />
   )
 }
 
@@ -340,7 +340,7 @@ function LoadingState() {
     <div className="flex flex-col gap-3" role="status" aria-label="Loading your learning journey">
       <span className="sr-only">Loading your learning journey…</span>
       {Array.from({ length: 4 }).map((_, index) => (
-        <div key={index} className="h-24 animate-pulse rounded-2xl bg-gray-200" aria-hidden="true" />
+        <div key={index} className="h-24 animate-pulse rounded-2xl bg-gray-200 dark:bg-gray-700" aria-hidden="true" />
       ))}
     </div>
   )
@@ -348,7 +348,7 @@ function LoadingState() {
 
 function ErrorState({ message }: { message: string }) {
   return (
-    <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">
+    <div role="alert" className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 p-5 text-sm text-red-700 dark:text-red-400">
       <p className="font-bold">Your roadmap took a little detour.</p>
       <p className="mt-1">Couldn&apos;t load topics: {message}. Check your connection and try again.</p>
     </div>
@@ -359,8 +359,8 @@ function EmptyState() {
   return (
     <Card className="text-center" padding="lg">
       <span className="text-4xl" aria-hidden="true">🌱</span>
-      <h3 className="mt-3 text-lg font-bold text-gray-900">Your learning path is sprouting</h3>
-      <p className="mt-1 text-sm text-gray-500">
+      <h3 className="mt-3 text-lg font-bold text-gray-900 dark:text-gray-100">Your learning path is sprouting</h3>
+      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
         No topics are available yet. Try an exam challenge while new stops are being prepared.
       </p>
       <Link

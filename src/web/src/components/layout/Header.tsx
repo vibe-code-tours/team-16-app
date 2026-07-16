@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { useState, useRef, useEffect } from 'react'
+import { ThemeToggle } from '../ui/ThemeToggle'
 
 interface HeaderProps {
   onMenuToggle: () => void
@@ -32,13 +33,13 @@ export function Header({ onMenuToggle }: HeaderProps) {
   }, [dropdownOpen])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <div className="flex h-16 items-center justify-between px-4 lg:px-6">
         {/* Left: Hamburger (mobile) + Logo */}
         <div className="flex items-center gap-3">
           <button
             onClick={onMenuToggle}
-            className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 lg:hidden"
+            className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 lg:hidden"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -46,19 +47,21 @@ export function Header({ onMenuToggle }: HeaderProps) {
           </button>
           <Link to="/map" className="flex items-center gap-2">
             <span className="text-2xl">🦉</span>
-            <span className="text-xl font-bold text-purple-600">NerdQuiz</span>
+            <span className="text-xl font-bold text-purple-600 dark:text-purple-400">NerdQuiz</span>
           </Link>
         </div>
 
-        {/* Right: XP + Streak + User Dropdown */}
+        {/* Right: Theme Toggle + XP + Streak + User Dropdown */}
         <div className="flex items-center gap-4">
+          <ThemeToggle />
+
           {user && (
             <>
               {/* Hide XP and Streak for admin users */}
               {user.role !== 'admin' && (
                 <div className="hidden sm:flex items-center gap-2 text-sm">
-                  <span className="text-purple-600 font-semibold">⚡ {user.total_xp ?? 0}</span>
-                  <span className="text-orange-500 font-semibold">🔥 {user.streak_count ?? 0}</span>
+                  <span className="text-purple-600 dark:text-purple-400 font-semibold">⚡ {user.total_xp ?? 0}</span>
+                  <span className="text-orange-500 dark:text-orange-400 font-semibold">🔥 {user.streak_count ?? 0}</span>
                 </div>
               )}
 
@@ -66,7 +69,7 @@ export function Header({ onMenuToggle }: HeaderProps) {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   {user.avatar_url ? (
                     <img
@@ -75,15 +78,15 @@ export function Header({ onMenuToggle }: HeaderProps) {
                       className="h-6 w-6 rounded-full"
                     />
                   ) : (
-                    <div className="h-6 w-6 rounded-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-xs text-gray-500">
+                    <div className="h-6 w-6 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
+                      <span className="text-xs text-gray-500 dark:text-gray-300">
                         {user.display_name?.[0] || user.email?.[0] || '?'}
                       </span>
                     </div>
                   )}
                   <span className="hidden sm:inline">{user.display_name || 'Profile'}</span>
                   <svg
-                    className={`h-4 w-4 text-gray-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+                    className={`h-4 w-4 text-gray-400 dark:text-gray-500 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -93,10 +96,10 @@ export function Header({ onMenuToggle }: HeaderProps) {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50">
+                  <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-1 z-50">
                     <Link
                       to="/profile"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                       onClick={() => setDropdownOpen(false)}
                     >
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,10 +107,10 @@ export function Header({ onMenuToggle }: HeaderProps) {
                       </svg>
                       Profile
                     </Link>
-                    <hr className="my-1 border-gray-200" />
+                    <hr className="my-1 border-gray-200 dark:border-gray-700" />
                     <button
                       onClick={handleSignOut}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
                     >
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

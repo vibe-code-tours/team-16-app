@@ -223,16 +223,16 @@ export function ExamPage() {
 
   if (!started) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+        <div className="w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 shadow-sm">
           <div className="mb-6 text-center">
             <div className="mb-4 text-5xl">📝</div>
-            <h1 className="mb-2 text-2xl font-bold text-gray-900">Exam Simulation</h1>
-            <p className="text-gray-500">60 questions • 60 minutes • 3 hearts</p>
+            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Exam Simulation</h1>
+            <p className="text-gray-500 dark:text-gray-400">60 questions • 60 minutes • 3 hearts</p>
           </div>
 
           <div className="mb-6">
-            <label className="mb-2 block text-sm font-medium text-gray-700">Select Difficulty</label>
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Select Difficulty</label>
             <div className="grid grid-cols-2 gap-2">
               {(['all', 'easy', 'medium', 'hard'] as Difficulty[]).map((d) => (
                 <button
@@ -240,8 +240,8 @@ export function ExamPage() {
                   onClick={() => setDifficulty(d)}
                   className={`rounded-lg border-2 px-4 py-2 transition-all ${
                     difficulty === d
-                      ? 'border-purple-500 bg-purple-50 text-purple-700'
-                      : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400'
+                      : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
                   {d.charAt(0).toUpperCase() + d.slice(1)}
@@ -259,7 +259,7 @@ export function ExamPage() {
             </button>
             <button
               onClick={() => navigate('/map')}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 hover:bg-gray-50"
+              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               Back to Map
             </button>
@@ -271,10 +271,10 @@ export function ExamPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-purple-600" />
-          <p className="text-gray-600">Loading exam questions...</p>
+          <p className="text-gray-600 dark:text-gray-400">Loading exam questions...</p>
         </div>
       </div>
     )
@@ -282,8 +282,8 @@ export function ExamPage() {
 
   if (loadError) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <div className="max-w-md rounded-xl border border-red-200 bg-red-50 p-6 text-center text-sm text-red-700">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+        <div className="max-w-md rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 p-6 text-center text-sm text-red-700 dark:text-red-400">
           Couldn't load exam: {loadError}
         </div>
       </div>
@@ -292,9 +292,9 @@ export function ExamPage() {
 
   if (questions.length === 0 && !finished) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
-          <p className="mb-4 text-gray-600">No exam questions available.</p>
+          <p className="mb-4 text-gray-600 dark:text-gray-400">No exam questions available.</p>
           <button
             onClick={() => navigate('/map')}
             className="rounded-lg bg-purple-600 px-6 py-2 text-white hover:bg-purple-700"
@@ -314,37 +314,37 @@ export function ExamPage() {
     const passed = score >= 60
 
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+        <div className="w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 text-center shadow-sm">
           <div className="mb-4 flex justify-center">
             <div
               className={`flex h-20 w-20 items-center justify-center rounded-full text-3xl ${
-                passed ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                passed ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'
               }`}
             >
               {passed ? '🎉' : '📚'}
             </div>
           </div>
 
-          <h2 className="mb-2 text-2xl font-bold text-gray-900">
+          <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
             {passed ? 'Congratulations!' : 'Keep Practicing!'}
           </h2>
-          <p className="mb-6 text-gray-500">
+          <p className="mb-6 text-gray-500 dark:text-gray-400">
             {passed ? 'You passed the exam simulation!' : 'You need 60% to pass. Try again!'}
           </p>
 
           <div className="mb-6 grid grid-cols-2 gap-4">
-            <div className="rounded-xl bg-purple-50 p-4">
-              <p className="text-3xl font-bold text-purple-700">{score}%</p>
-              <p className="text-sm text-purple-600">Score</p>
+            <div className="rounded-xl bg-purple-50 dark:bg-purple-900/30 p-4">
+              <p className="text-3xl font-bold text-purple-700 dark:text-purple-400">{score}%</p>
+              <p className="text-sm text-purple-600 dark:text-purple-400">Score</p>
             </div>
-            <div className="rounded-xl bg-blue-50 p-4">
-              <p className="text-3xl font-bold text-blue-700">+{xpEarned}</p>
-              <p className="text-sm text-blue-600">XP Earned</p>
+            <div className="rounded-xl bg-blue-50 dark:bg-blue-900/30 p-4">
+              <p className="text-3xl font-bold text-blue-700 dark:text-blue-400">+{xpEarned}</p>
+              <p className="text-sm text-blue-600 dark:text-blue-400">XP Earned</p>
             </div>
           </div>
 
-          <div className="mb-6 text-sm text-gray-500">
+          <div className="mb-6 text-sm text-gray-500 dark:text-gray-400">
             {correctCount} / {questions.length} correct • {answered} answered • Hearts remaining: {hearts}
           </div>
 
@@ -357,7 +357,7 @@ export function ExamPage() {
             </button>
             <button
               onClick={() => navigate('/map')}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 hover:bg-gray-50"
+              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               Back to Map
             </button>
@@ -371,8 +371,8 @@ export function ExamPage() {
   const timeWarning = timeLeft < 300
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="sticky top-0 z-10 border-b border-gray-200 bg-white">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <header className="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
           <button
             onClick={async () => {
@@ -395,7 +395,7 @@ export function ExamPage() {
 
           <div
             className={`flex items-center gap-2 font-mono text-lg font-bold ${
-              timeWarning ? 'text-red-600' : 'text-gray-900'
+              timeWarning ? 'text-red-600' : 'text-gray-900 dark:text-gray-100'
             }`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -410,7 +410,7 @@ export function ExamPage() {
 
           <div className="flex items-center gap-1">
             {Array.from({ length: INITIAL_HEARTS }).map((_, i) => (
-              <span key={i} className={`text-xl ${i < hearts ? 'text-red-500' : 'text-gray-300'}`}>
+              <span key={i} className={`text-xl ${i < hearts ? 'text-red-500' : 'text-gray-300 dark:text-gray-600'}`}>
                 ❤️
               </span>
             ))}
@@ -420,13 +420,13 @@ export function ExamPage() {
 
       <main className="mx-auto max-w-2xl px-4 py-6">
         <div className="mb-6">
-          <div className="mb-2 flex justify-between text-sm text-gray-500">
+          <div className="mb-2 flex justify-between text-sm text-gray-500 dark:text-gray-400">
             <span>
               Question {currentIndex + 1} of {questions.length}
             </span>
             <span>{Math.round(((currentIndex + 1) / questions.length) * 100)}%</span>
           </div>
-          <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+          <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
             <div
               className="h-full bg-purple-600 transition-all duration-300"
               style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
@@ -434,8 +434,8 @@ export function ExamPage() {
           </div>
         </div>
 
-        <div className="mb-6 rounded-2xl border border-gray-200 bg-white p-6">
-          <h2 className="mb-4 whitespace-pre-line text-lg font-semibold text-gray-900">
+        <div className="mb-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
+          <h2 className="mb-4 whitespace-pre-line text-lg font-semibold text-gray-900 dark:text-gray-100">
             {current.question.question_text}
           </h2>
 
@@ -444,10 +444,10 @@ export function ExamPage() {
               const isSelected = current.selectedAnswer === choice.label
               const isCorrectChoice = choice.label === current.question.correct_answer
 
-              let styles = 'border-gray-200 bg-white text-gray-700'
-              if (submitted && isCorrectChoice) styles = 'border-green-500 bg-green-50 text-green-700'
-              else if (submitted && isSelected) styles = 'border-red-500 bg-red-50 text-red-700'
-              else if (isSelected) styles = 'border-purple-500 bg-purple-50 text-purple-700'
+              let styles = 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+              if (submitted && isCorrectChoice) styles = 'border-green-500 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+              else if (submitted && isSelected) styles = 'border-red-500 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+              else if (isSelected) styles = 'border-purple-500 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400'
 
               return (
                 <button
@@ -467,14 +467,14 @@ export function ExamPage() {
         {submitted ? (
           <div
             className={`mb-6 rounded-xl border p-4 ${
-              current.isCorrect ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'
+              current.isCorrect ? 'border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30' : 'border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30'
             }`}
           >
-            <p className={`font-medium ${current.isCorrect ? 'text-green-700' : 'text-red-700'}`}>
+            <p className={`font-medium ${current.isCorrect ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`}>
               {current.isCorrect ? '✓ Correct!' : '✗ Incorrect'}
             </p>
             {!current.isCorrect ? (
-              <p className="mt-1 text-sm text-red-600">
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                 Correct answer: {current.question.correct_answer}
               </p>
             ) : null}
@@ -493,7 +493,7 @@ export function ExamPage() {
           ) : (
             <button
               onClick={() => setFinished(true)}
-              className="rounded-lg border border-gray-300 px-6 py-3 font-medium text-gray-700 hover:bg-gray-50"
+              className="rounded-lg border border-gray-300 dark:border-gray-600 px-6 py-3 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               Submit Early
             </button>
