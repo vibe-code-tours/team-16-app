@@ -92,6 +92,7 @@ public class UserProfileService {
             profile.getDisplayName(),
             profile.getAvatarUrl(),
             profile.getEmail(),
+            profile.getRole(),
             profile.getTotalXp(),
             profile.getStreakCount(),
             null,

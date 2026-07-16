@@ -20,6 +20,7 @@ describe('LearningMap', () => {
         email: 'ada@example.com',
         display_name: 'Ada Lovelace',
         avatar_url: null,
+        role: 'user',
         total_xp: 1250,
         streak_count: 7,
         last_login_at: null,

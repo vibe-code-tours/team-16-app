@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState, useEffect, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
 
@@ -8,8 +8,20 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { signIn, signInWithGoogle } = useAuth()
+  const [justSignedIn, setJustSignedIn] = useState(false)
+  const { signIn, signInWithGoogle, user, loading: authLoading } = useAuth()
   const navigate = useNavigate()
+
+  // Redirect after sign-in based on user role
+  useEffect(() => {
+    if (justSignedIn && !authLoading && user) {
+      if (user.role === 'admin') {
+        navigate('/admin', { replace: true })
+      } else {
+        navigate('/map', { replace: true })
+      }
+    }
+  }, [justSignedIn, authLoading, user, navigate])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -21,7 +33,8 @@ export function LoginPage() {
       setError(signInError)
       setLoading(false)
     } else {
-      navigate('/map')
+      setJustSignedIn(true)
+      // Don't navigate here - let useEffect handle it after user profile loads
     }
   }
 

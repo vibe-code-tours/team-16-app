@@ -11,6 +11,7 @@ interface ApiUserProfile {
   displayName: string
   avatarUrl: string | null
   email: string | null
+  role: 'admin' | 'user'
   totalXp: number
   streakCount: number
   lastLoginAt: string | null
@@ -36,10 +37,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, newSession) => {
+      async (event, newSession) => {
         setSession(newSession)
         if (newSession?.user) {
-          await fetchUserProfile(newSession.user)
+          // Only re-fetch profile on actual sign-in — TOKEN_REFRESHED just updates the session
+          if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+            await fetchUserProfile(newSession.user)
+          }
         } else {
           setUser(null)
           setLoading(false)
@@ -82,14 +86,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         display_name: profile.displayName,
         avatar_url: profile.avatarUrl,
         email: profile.email,
+        role: profile.role,
         total_xp: profile.totalXp,
         streak_count: newStreak ?? profile.streakCount,
         last_login_at: profile.lastLoginAt,
         created_at: profile.createdAt,
         updated_at: profile.updatedAt,
       })
-    } catch {
-      setUser(null)
+    } catch (error) {
+      // Don't wipe out existing user on transient backend failures (e.g. during token refresh).
+      // If a profile was already loaded, keep it rather than logging the user out.
+      console.error('Failed to fetch user profile:', error)
     } finally {
       setLoading(false)
     }
@@ -123,7 +130,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/map`,
+        redirectTo: `${window.location.origin}/map`, // Default redirect; ProtectedRoute or admin check will handle role-based routing
       },
     })
     return { error: error?.message }

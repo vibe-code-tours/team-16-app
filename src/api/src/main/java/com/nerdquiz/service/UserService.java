@@ -12,9 +12,11 @@ import java.util.UUID;
 public class UserService {
 
     private final JdbcTemplate jdbcTemplate;
+    private final UserDailyActivityService activityService;
 
-    public UserService(JdbcTemplate jdbcTemplate) {
+    public UserService(JdbcTemplate jdbcTemplate, UserDailyActivityService activityService) {
         this.jdbcTemplate = jdbcTemplate;
+        this.activityService = activityService;
     }
 
     @Transactional
@@ -25,6 +27,7 @@ public class UserService {
                 SELECT
                     id,
                     COALESCE(streak_count, 0) AS current_streak,
+                    COALESCE(longest_streak, 0) AS longest_streak,
                     last_login_at::date AS last_login_date
                 FROM public.user_profiles
                 WHERE id = ?
@@ -37,11 +40,17 @@ public class UserService {
                         WHEN last_login_date = CURRENT_DATE THEN current_streak
                         WHEN last_login_date = CURRENT_DATE - 1 THEN current_streak + 1
                         ELSE 1
-                    END AS new_streak
+                    END AS new_streak,
+                    CASE
+                        WHEN last_login_date = CURRENT_DATE THEN longest_streak
+                        WHEN last_login_date = CURRENT_DATE - 1 THEN GREATEST(longest_streak, current_streak + 1)
+                        ELSE GREATEST(longest_streak, 1)
+                    END AS new_longest
                 FROM profile
             )
             UPDATE public.user_profiles AS user_profiles
             SET streak_count = computed.new_streak,
+                longest_streak = computed.new_longest,
                 last_login_at = now()
             FROM computed
             WHERE user_profiles.id = computed.id
@@ -54,6 +63,9 @@ public class UserService {
         if (updatedStreaks.isEmpty()) {
             throw new UserProfileNotFoundException();
         }
+
+        // Record daily activity on login (streak update)
+        activityService.recordActivity(userId, 0, 0);
 
         return updatedStreaks.getFirst();
     }
@@ -81,6 +93,8 @@ public class UserService {
         if (updatedXp.isEmpty()) {
             throw new UserProfileNotFoundException();
         }
+
+        activityService.recordActivity(userId, 0, delta);
 
         return updatedXp.getFirst();
     }

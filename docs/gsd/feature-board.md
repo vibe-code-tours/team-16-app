@@ -25,9 +25,10 @@
 | 18 | Flashcards | | Week 2 stretch | DB schema ready (`flashcards`, `user_flashcard_state`, `flashcard_reviews`). No backend/frontend code |
 | 19 | Weak point analysis | | Week 2 stretch | DB index `idx_mastery_weak_points` exists. No backend/frontend code |
 | 20 | Additional exams | | Week 2 stretch | Extraction pipeline ready for remaining exam sessions |
+| 21 | Admin dashboard (stats) | | Week 2 | Role-gated dashboard with stat cards + charts (Recharts). User management page: searchable/sortable table, quick filters (Active Today, Inactive 30d+, New 7d), detail drawer (Overview/Activity/Performance tabs), actions (change role, reset streak, deactivate, CSV export). Backend: `AdminController` + `AdminService` (JdbcTemplate). Frontend: `AdminDashboard.tsx`, `AdminUsers.tsx` + 5 chart components + 5 user components. |
 
 ## Week 1 target: #1–16 functional (local demo) ✅ Complete
-## Week 2 target: #18–20 + polish (public demo)
+## Week 2 target: #18–21 + polish (public demo)
 
 ## Known gaps (from codebase audit 2026-07-15)
 

@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./hooks/useAuth.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AdminRoute } from "./components/AdminRoute";
+import { StudentRoute } from "./components/StudentRoute";
 import { Layout } from "./components/layout";
 import { LandingPage } from "./routes/LandingPage";
 import { LoginPage } from "./routes/LoginPage";
@@ -14,6 +16,9 @@ import { UserProfile } from "./routes/UserProfile";
 import { ExamPage } from "./routes/ExamPage";
 import { QuizListingPage } from "./routes/QuizListingPage";
 import { AiDraftPreview } from "./routes/AiDraftPreview";
+import { AdminDashboard } from "./routes/AdminDashboard";
+import { AdminUsers } from "./routes/AdminUsers";
+import { WeakPointAnalysis } from "./routes/WeakPointAnalysis";
 
 export default function App() {
   return (
@@ -31,9 +36,11 @@ export default function App() {
             path="/map"
             element={
               <ProtectedRoute>
-                <Layout>
-                  <LearningMap />
-                </Layout>
+                <StudentRoute>
+                  <Layout>
+                    <LearningMap />
+                  </Layout>
+                </StudentRoute>
               </ProtectedRoute>
             }
           />
@@ -51,9 +58,11 @@ export default function App() {
             path="/map/:topicId"
             element={
               <ProtectedRoute>
-                <Layout>
-                  <TopicDetail />
-                </Layout>
+                <StudentRoute>
+                  <Layout>
+                    <TopicDetail />
+                  </Layout>
+                </StudentRoute>
               </ProtectedRoute>
             }
           />
@@ -61,9 +70,11 @@ export default function App() {
             path="/lesson/:lessonId"
             element={
               <ProtectedRoute>
-                <Layout>
-                  <LessonPage />
-                </Layout>
+                <StudentRoute>
+                  <Layout>
+                    <LessonPage />
+                  </Layout>
+                </StudentRoute>
               </ProtectedRoute>
             }
           />
@@ -71,9 +82,11 @@ export default function App() {
             path="/quiz/:subtopicId"
             element={
               <ProtectedRoute>
-                <Layout>
-                  <QuizPage />
-                </Layout>
+                <StudentRoute>
+                  <Layout>
+                    <QuizPage />
+                  </Layout>
+                </StudentRoute>
               </ProtectedRoute>
             }
           />
@@ -81,9 +94,11 @@ export default function App() {
             path="/mistakes"
             element={
               <ProtectedRoute>
-                <Layout>
-                  <MistakeGarden />
-                </Layout>
+                <StudentRoute>
+                  <Layout>
+                    <MistakeGarden />
+                  </Layout>
+                </StudentRoute>
               </ProtectedRoute>
             }
           />
@@ -101,8 +116,44 @@ export default function App() {
             path="/exam"
             element={
               <ProtectedRoute>
+                <StudentRoute>
+                  <Layout>
+                    <ExamPage />
+                  </Layout>
+                </StudentRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminRoute>
+                  <Layout>
+                    <AdminDashboard />
+                  </Layout>
+                </AdminRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute>
+                <AdminRoute>
+                  <Layout>
+                    <AdminUsers />
+                  </Layout>
+                </AdminRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/weak-points"
+            element={
+              <ProtectedRoute>
                 <Layout>
-                  <ExamPage />
+                  <WeakPointAnalysis />
                 </Layout>
               </ProtectedRoute>
             }

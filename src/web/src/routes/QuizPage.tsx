@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth.tsx'
 import { api } from '../lib/api'
 import type { QuizQuestion } from '../types'
 
@@ -19,9 +18,8 @@ const XP_PER_CORRECT = 10
 export function QuizPage() {
   const { subtopicId } = useParams<{ subtopicId: string }>()
   const navigate = useNavigate()
-  const { user, refreshUser } = useAuth()
-
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
+  const [sessionId, setSessionId] = useState<string | null>(null)
   const [index, setIndex] = useState(0)
   const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
   const [isAnswered, setIsAnswered] = useState(false)
@@ -53,6 +51,15 @@ export function QuizPage() {
             explanation: q.explanation,
           }))
         )
+
+        // Create quiz session for tracking
+        if (!cancelled) {
+          const session = await api.post<{ id: string }>(
+            '/api/v1/quizzes/start',
+            { subtopicId, questionCount: data.length }
+          )
+          if (!cancelled) setSessionId(session.id)
+        }
       } catch (e) {
         if (cancelled) return
         setError(e instanceof Error ? e.message : 'Failed to load quiz')
@@ -83,43 +90,25 @@ export function QuizPage() {
     const correct = selectedLabel === currentQuestion.correct_answer
     if (correct) {
       setScore((s) => s + 1)
-      return
     }
 
-    if (!user) return
-    try {
-      await api.post('/api/v1/mistakes', {
+    // Submit answer to quiz session (backend tracks mastery + daily activity)
+    if (sessionId) {
+      api.post(`/api/v1/quizzes/${sessionId}/answers`, {
         questionId: currentQuestion.id,
-        selectedLabel,
-      })
-    } catch (e) {
-      console.error('Failed to record mistake:', e)
+        answer: selectedLabel,
+      }).catch((err) => console.error('Failed to record answer:', err))
     }
   }
 
-  const handleNext = async () => {
+  const handleNext = () => {
     if (!isLastQuestion) {
       setIndex((i) => i + 1)
       setSelectedLabel(null)
       setIsAnswered(false)
       return
     }
-    await finishQuiz()
-  }
-
-  const finishQuiz = async () => {
     setFinished(true)
-    if (!user) return
-
-    const earnedXp = score * XP_PER_CORRECT
-    if (earnedXp === 0) return
-
-    try {
-      await api.post('/api/v1/me/xp', { delta: earnedXp })
-      await refreshUser()
-    } catch (e) {
-      console.error('Failed to award quiz XP:', e)
-    }
   }
 
   if (loading) {
