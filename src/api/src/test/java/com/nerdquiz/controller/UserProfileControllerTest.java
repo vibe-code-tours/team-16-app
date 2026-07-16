@@ -50,6 +50,7 @@ class UserProfileControllerTest {
                 "Nerd Learner",
                 "https://example.com/avatar.png",
                 "learner@example.com",
+                "user",
                 0,
                 1,
                 1,

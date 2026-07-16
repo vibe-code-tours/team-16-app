@@ -30,19 +30,22 @@ public class QuizService {
     private final QuizSessionQuestionRepository quizSessionQuestionRepository;
     private final QuestionService questionService;
     private final WeakPointService weakPointService;
+    private final UserDailyActivityService activityService;
 
     public QuizService(QuestionRepository questionRepository,
                        QuizSessionRepository quizSessionRepository,
                        QuizAnswerRepository quizAnswerRepository,
                        QuizSessionQuestionRepository quizSessionQuestionRepository,
                        QuestionService questionService,
-                       WeakPointService weakPointService) {
+                       WeakPointService weakPointService,
+                       UserDailyActivityService activityService) {
         this.questionRepository = questionRepository;
         this.quizSessionRepository = quizSessionRepository;
         this.quizAnswerRepository = quizAnswerRepository;
         this.quizSessionQuestionRepository = quizSessionQuestionRepository;
         this.questionService = questionService;
         this.weakPointService = weakPointService;
+        this.activityService = activityService;
     }
 
     @Transactional
@@ -140,6 +143,11 @@ public class QuizService {
 
         quizSessionRepository.save(session);
         QuizAnswer savedAnswer = quizAnswerRepository.save(answer);
+
+        // Record daily activity when quiz is completed
+        if ("completed".equals(session.getStatus())) {
+            activityService.recordActivity(userId, 1, session.getXpEarned());
+        }
 
         weakPointService.updateMastery(userId, request.questionId(), isCorrect);
 

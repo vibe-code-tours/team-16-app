@@ -21,6 +21,9 @@ public class UserProfile {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String role = "user";
+
     @Column(name = "total_xp", nullable = false)
     private Integer totalXp = 0;
 
@@ -51,6 +54,9 @@ public class UserProfile {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
     public Integer getTotalXp() { return totalXp; }
     public void setTotalXp(Integer totalXp) { this.totalXp = totalXp; }

@@ -8,6 +8,7 @@ public record UserProfileResponse(
     String displayName,
     String avatarUrl,
     String email,
+    String role,
     Integer totalXp,
     Integer streakCount,
     Integer longestStreak,

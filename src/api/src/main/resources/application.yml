@@ -21,6 +21,7 @@ spring:
       validation-timeout: ${DB_VALIDATION_TIMEOUT_MS:5000}
       data-source-properties:
         sslmode: ${DB_SSL_MODE:prefer}
+        prepareThreshold: 0
 
   jpa:
     hibernate:
