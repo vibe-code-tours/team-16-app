@@ -120,7 +120,6 @@ export function UserProfile() {
         avatarUrl={avatarUrl}
         avatarFailed={avatarFailed}
         displayName={learnerName}
-        email={email}
         initials={initials}
         levelProgress={levelProgress}
         editingName={editingName}
@@ -167,7 +166,6 @@ interface ProfileHeroProps {
   avatarUrl: string | null;
   avatarFailed: boolean;
   displayName: string;
-  email: string | null;
   initials: string;
   levelProgress: LevelProgress;
   editingName: boolean;
@@ -185,7 +183,6 @@ function ProfileHero({
   avatarUrl,
   avatarFailed,
   displayName,
-  email,
   initials,
   levelProgress,
   editingName,
