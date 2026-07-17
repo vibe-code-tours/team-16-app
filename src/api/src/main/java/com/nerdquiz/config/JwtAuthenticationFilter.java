@@ -70,6 +70,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             log.debug("JWT verification failed: {}", e.getMessage());
             SecurityContextHolder.clearContext();
+
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/problem+json");
+            response.getWriter().write(
+                "{\"type\":\"urn:nerdquiz:unauthorized\","
+                + "\"title\":\"Unauthorized\",\"status\":401,"
+                + "\"detail\":\"Invalid or expired token\"}"
+            );
+            return;
         }
 
         filterChain.doFilter(request, response);

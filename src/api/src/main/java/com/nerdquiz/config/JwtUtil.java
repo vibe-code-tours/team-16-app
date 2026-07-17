@@ -26,6 +26,9 @@ public class JwtUtil {
 
     private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
 
+    /** Maximum allowed JWT token length — defense-in-depth against oversized payloads. */
+    private static final int MAX_TOKEN_LENGTH = 2048;
+
     private final String supabaseUrl;
     private volatile JWKSet cachedJwks;
     private volatile long cacheExpiry = 0;
@@ -45,6 +48,13 @@ public class JwtUtil {
      * @throws Exception if verification fails
      */
     public SignedJWT verify(String token) throws Exception {
+        if (token == null || token.isEmpty()) {
+            throw new IllegalArgumentException("Token must not be null or empty");
+        }
+        if (token.length() > MAX_TOKEN_LENGTH) {
+            throw new SecurityException("Invalid token");
+        }
+
         SignedJWT signedJWT = SignedJWT.parse(token);
 
         // Check expiration
