@@ -5,6 +5,7 @@ import com.nerdquiz.config.JwtUtil;
 import com.nerdquiz.dto.*;
 import com.nerdquiz.exception.AdminAccessDeniedException;
 import com.nerdquiz.exception.UserProfileNotFoundException;
+import com.nerdquiz.repository.UserProfileRepository;
 import com.nerdquiz.service.AdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -47,6 +48,9 @@ class AdminControllerTest {
 
     @MockitoBean
     private CorsConfig corsConfig;
+
+    @MockitoBean
+    private UserProfileRepository userProfileRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
