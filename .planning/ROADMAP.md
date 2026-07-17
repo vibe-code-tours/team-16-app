@@ -26,10 +26,10 @@ The admin dashboard adds a role-gated founders-only view to the existing NerdQui
   3. Non-admin users hitting `/admin` routes see a redirect or access denied
   4. The initial admin account is seeded and can authenticate
 
-**Plans:** 2 plansPlans:
+**Plans:** 1/2 plans executed
 **Wave 1**
 
-- [ ] 01-01-PLAN.md — DB migration (is_active + admin seed) + JWT hardening + InputSanitizer
+- [x] 01-01-PLAN.md — DB migration (is_active + admin seed) + JWT hardening + InputSanitizer
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -86,7 +86,7 @@ The admin dashboard adds a role-gated founders-only view to the existing NerdQui
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Security Foundation | 0/2 | Planning complete | - |
+| 1. Security Foundation | 1/2 | In Progress|  |
 | 2. Admin Endpoints | 0/0 | Not started | - |
 | 3. Stats & User List | 0/0 | Not started | - |
 | 4. User Management UI | 0/0 | Not started | - |
