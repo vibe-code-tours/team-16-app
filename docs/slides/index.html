@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NerdQuiz 3D Animation — Slide Deck</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 40px;
+      gap: 40px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--purple-light), var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 18px;
+      color: var(--text-secondary);
+    }
+
+    .header .meta {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .slide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 1600px;
+    }
+
+    .slide-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .slide-card:hover {
+      border-color: var(--purple);
+      box-shadow: 0 0 30px var(--purple-glow);
+      transform: translateY(-4px);
+    }
+
+    .slide-preview {
+      width: 100%;
+      height: 225px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-deep);
+    }
+
+    .slide-preview iframe {
+      width: 1920px;
+      height: 1080px;
+      transform: scale(0.208);
+      transform-origin: top left;
+      border: none;
+      pointer-events: none;
+    }
+
+    .slide-info {
+      padding: 16px 20px;
+    }
+
+    .slide-info-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .slide-info-num {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 12px;
+      color: var(--purple-light);
+      letter-spacing: 1px;
+    }
+
+    .slide-info-time {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .slide-info-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .slide-info-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 20px;
+      padding-bottom: 40px;
+    }
+
+    .footer-note a {
+      color: var(--purple-light);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>NerdQuiz 3D Animation</h1>
+    <p>14-slide visual storyboard for the 6-minute video</p>
+    <div class="meta">Click any slide to open full-size (1920×1080)</div>
+  </div>
+
+  <div class="slide-grid">
+    <a class="slide-card" href="01-intro.html" target="_blank">
+      <div class="slide-preview"><iframe src="01-intro.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 01</span><span class="slide-info-time">0:00 – 0:15</span></div>
+        <div class="slide-info-title">The World Before</div>
+        <div class="slide-info-desc">Dark room, scattered debris, Aung at his desk — the chaos of unstructured study</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="02-problem.html" target="_blank">
+      <div class="slide-preview"><iframe src="02-problem.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 02</span><span class="slide-info-time">0:15 – 0:45</span></div>
+        <div class="slide-info-title">Three Wounds</div>
+        <div class="slide-info-desc">Three crystalline shards — no structure, no retention, no motivation</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="03-awakening.html" target="_blank">
+      <div class="slide-preview"><iframe src="03-awakening.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 03</span><span class="slide-info-time">0:45 – 1:15</span></div>
+        <div class="slide-info-title">The Awakening</div>
+        <div class="slide-info-desc">Golden door opens — Aung enters the NerdQuiz universe with floating islands</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="04-learning-map.html" target="_blank">
+      <div class="slide-preview"><iframe src="04-learning-map.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 04</span><span class="slide-info-time">1:15 – 1:55</span></div>
+        <div class="slide-info-title">Islands of Knowledge</div>
+        <div class="slide-info-desc">Five floating islands — Technology, Security, Management, Strategy, Business</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="05-lesson.html" target="_blank">
+      <div class="slide-preview"><iframe src="05-lesson.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 05</span><span class="slide-info-time">1:55 – 2:25</span></div>
+        <div class="slide-info-title">Absorbing Knowledge</div>
+        <div class="slide-info-desc">Lesson orb with floating content panels — headings, tips, warnings, examples</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="06-quiz.html" target="_blank">
+      <div class="slide-preview"><iframe src="06-quiz.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 06</span><span class="slide-info-time">2:25 – 3:25</span></div>
+        <div class="slide-info-title">Trial by Question</div>
+        <div class="slide-info-desc">Quiz platform with choices, XP burst, correct/wrong feedback, explanation panel</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="07-mistake-garden.html" target="_blank">
+      <div class="slide-preview"><iframe src="07-mistake-garden.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 07</span><span class="slide-info-time">3:25 – 4:00</span></div>
+        <div class="slide-info-title">Mistake Garden</div>
+        <div class="slide-info-desc">Garden of flowers — wilted mistakes bloom into reviewed knowledge</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="08-weak-point.html" target="_blank">
+      <div class="slide-preview"><iframe src="08-weak-point.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 08</span><span class="slide-info-time">4:00 – 4:20</span></div>
+        <div class="slide-info-title">The Compass</div>
+        <div class="slide-info-desc">Compass pointing to weak topics — red/yellow/green mastery cards</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="09-exam-simulation.html" target="_blank">
+      <div class="slide-preview"><iframe src="09-exam-simulation.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 09</span><span class="slide-info-time">4:20 – 4:45</span></div>
+        <div class="slide-info-title">The Final Trial</div>
+        <div class="slide-info-desc">60-question grid, countdown timer, three hearts, dramatic score</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="10-admin-dashboard.html" target="_blank">
+      <div class="slide-preview"><iframe src="10-admin-dashboard.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 10</span><span class="slide-info-time">4:45 – 5:05</span></div>
+        <div class="slide-info-title">The Observatory</div>
+        <div class="slide-info-desc">Glass observatory — stat cards, charts, donut graph, user table</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="11-dark-mode.html" target="_blank">
+      <div class="slide-preview"><iframe src="11-dark-mode.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 11</span><span class="slide-info-time">5:05 – 5:15</span></div>
+        <div class="slide-info-title">Night Study</div>
+        <div class="slide-info-desc">Dark mode phone mockup — profile, XP bar, activity feed, constellation</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="12-ai-engine.html" target="_blank">
+      <div class="slide-preview"><iframe src="12-ai-engine.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 12</span><span class="slide-info-time">5:15 – 5:45</span></div>
+        <div class="slide-info-title">The Machine Behind the Magic</div>
+        <div class="slide-info-desc">Three AI agents — Extractor, Reviewer, Weaver — with data pipelines</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="13-next-chapter.html" target="_blank">
+      <div class="slide-preview"><iframe src="13-next-chapter.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 13</span><span class="slide-info-time">5:45 – 5:55</span></div>
+        <div class="slide-info-title">The Road Ahead</div>
+        <div class="slide-info-desc">Glowing roadmap — Flashcards, Subject-B, More Exam Sessions</div>
+      </div>
+    </a>
+
+    <a class="slide-card" href="14-outro.html" target="_blank">
+      <div class="slide-preview"><iframe src="14-outro.html" loading="lazy"></iframe></div>
+      <div class="slide-info">
+        <div class="slide-info-header"><span class="slide-info-num">SCENE 14</span><span class="slide-info-time">5:55 – 6:00</span></div>
+        <div class="slide-info-title">Aung Is Ready</div>
+        <div class="slide-info-desc">Knowledge constellation, Aung standing tall, NerdQuiz logo, credits</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer-note">
+    NerdQuiz 3D Animation Storyboard · 14 scenes · 6:00 runtime<br>
+    Open any slide in full screen for the intended 1920×1080 view
+  </div>
+</body>
+</html>

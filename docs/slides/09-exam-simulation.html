@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 09 — Exam Simulation</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: radial-gradient(ellipse at center, #1a0a2e, var(--bg-deep) 70%); }
+    .timer-display { position: absolute; top: 0; left: 50%; transform: translateX(-50%); text-align: center; opacity: 0; animation: fade-in-down 0.6s ease-out 0.3s forwards; }
+    .timer-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+    .timer-value { font-family: 'Space Grotesk', monospace; font-size: 56px; font-weight: 800; }
+    .timer-value.urgent { color: var(--red); text-shadow: 0 0 20px var(--red-glow); animation: pulse-glow 1s ease-in-out infinite; }
+    .hearts-container { position: absolute; top: 10px; right: 60px; display: flex; gap: 16px; opacity: 0; animation: fade-in-right 0.6s ease-out 0.5s forwards; }
+    .heart { font-size: 40px; }
+    .heart-active { filter: drop-shadow(0 0 8px rgba(239,68,68,0.5)); animation: heartbeat 1.5s ease-in-out infinite; }
+    .heart-active:nth-child(2) { animation-delay: 0.3s; }
+    .heart-lost { opacity: 0.2; filter: grayscale(1); transform: scale(0.8); }
+    .question-grid { position: absolute; top: 100px; left: 50%; transform: translateX(-50%); display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; width: 1100px; }
+    .q-cell { width: 80px; height: 50px; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--text-muted); font-family: 'Space Grotesk', monospace; opacity: 0; animation: fade-in-scale 0.3s ease-out forwards; }
+    .q-cell-answered { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); color: var(--green); }
+    .q-cell-current { background: rgba(124,58,237,0.2); border-color: var(--purple); color: var(--purple-light); box-shadow: 0 0 12px var(--purple-glow); animation: fade-in-scale 0.3s ease-out forwards, pulse-glow 2s ease-in-out infinite !important; }
+    .q-cell-wrong { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); color: var(--red); }
+    .active-question { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); width: 700px; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 24px 32px; backdrop-filter: blur(12px); opacity: 0; animation: slide-in-bottom 0.7s ease-out 0.8s forwards; }
+    .active-q-number { font-size: 12px; color: var(--purple-light); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 8px; }
+    .active-q-text { font-size: 18px; font-weight: 500; line-height: 1.5; margin-bottom: 16px; }
+    .active-choices { display: flex; gap: 12px; }
+    .active-choice { flex: 1; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; text-align: center; font-size: 15px; color: var(--text-secondary); transition: all 0.2s; }
+    .active-choice:hover { background: rgba(255,255,255,0.06); border-color: var(--purple-light); transform: translateY(-2px); }
+    .active-choice-letter { font-weight: 700; color: var(--text-primary); margin-right: 6px; }
+    .score-panel { position: absolute; top: 50%; right: 40px; transform: translateY(-50%); text-align: center; z-index: 10; opacity: 0; animation: fade-in-right 0.8s ease-out 1.0s forwards; }
+    .score-number { font-family: 'Space Grotesk', sans-serif; font-size: 72px; font-weight: 800; line-height: 1; }
+    .score-fail { color: var(--red); animation: pulse-glow 2s ease-in-out infinite; }
+    .score-label { font-size: 18px; color: var(--text-secondary); margin-top: 8px; }
+    .score-detail { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+    .difficulty { position: absolute; top: 10px; left: 60px; display: flex; gap: 8px; opacity: 0; animation: fade-in-left 0.6s ease-out 0.4s forwards; }
+    .diff-badge { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+    .diff-active { background: rgba(124,58,237,0.2); border: 1px solid var(--purple); color: var(--purple-light); animation: glow-border 2s ease-in-out infinite; }
+    .diff-inactive { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="grid-overlay"></div>
+    <div class="slide-number anim-fade-in-down delay-1">SCENE 09 / 14</div>
+    <div style="position:absolute;top:40px;text-align:center;z-index:10;width:100%;">
+      <span class="badge badge-gold anim-fade-in-scale delay-2">EXAM SIMULATION</span>
+      <h1 class="slide-title anim-fade-in-up delay-3" style="font-size:44px;margin-top:12px;">The <span class="gradient-text">Final Trial</span></h1>
+      <p class="burmese burmese-small anim-fade-in-up delay-4">အစမ်းဖြေကြည့်တယ်</p>
+    </div>
+    <div style="width:1400px;height:550px;position:relative;z-index:10;">
+      <div class="difficulty"><div class="diff-badge diff-inactive">Easy</div><div class="diff-badge diff-active">Medium</div><div class="diff-badge diff-inactive">Hard</div></div>
+      <div class="timer-display"><div class="timer-label">Time Remaining</div><div class="timer-value urgent">42:17</div></div>
+      <div class="hearts-container"><div class="heart heart-active">❤️</div><div class="heart heart-active">❤️</div><div class="heart heart-lost">🤍</div></div>
+      <div class="question-grid" id="qGrid"></div>
+      <div class="active-question">
+        <div class="active-q-number">Question 37 of 60</div>
+        <div class="active-q-text">In which OSI layer does a router operate?</div>
+        <div class="active-choices">
+          <div class="active-choice"><span class="active-choice-letter">A</span>Layer 1</div>
+          <div class="active-choice"><span class="active-choice-letter">B</span>Layer 2</div>
+          <div class="active-choice"><span class="active-choice-letter">C</span>Layer 3</div>
+          <div class="active-choice"><span class="active-choice-letter">D</span>Layer 4</div>
+        </div>
+      </div>
+      <div class="score-panel"><div class="score-number score-fail">48%</div><div class="score-label">Not Yet Passing</div><div class="score-detail">Need 70% to pass</div></div>
+    </div>
+    <div class="glow-orb orb-red animate-glow-pulse" style="width:300px;height:300px;top:-50px;right:100px;"></div>
+    <div class="slide-footer"><span class="slide-footer-text">4:20 – 4:45</span><span class="slide-footer-logo">NerdQuiz</span></div>
+  </div>
+  <script>
+    const grid = document.getElementById('qGrid');
+    for (let i = 1; i <= 60; i++) {
+      const cell = document.createElement('div');
+      let cls = 'q-cell';
+      if (i <= 28) cls = 'q-cell-answered';
+      else if (i === 29) cls = 'q-cell-wrong';
+      else if (i === 37) cls = 'q-cell-current';
+      cell.className = cls;
+      cell.textContent = i;
+      cell.style.animationDelay = (0.9 + i * 0.02) + 's';
+      grid.appendChild(cell);
+    }
+  </script>
+</body>
+</html>

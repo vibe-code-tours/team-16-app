@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 01 — Intro: The World Before</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: radial-gradient(ellipse at center, #1a1040 0%, var(--bg-deep) 70%); }
+    .debris { position: absolute; font-size: 48px; opacity: 0; animation: float-debris 8s ease-in-out infinite, fade-in-up 1s ease-out forwards; }
+    .debris:nth-child(1) { top: 12%; left: 8%; animation-delay: 0.3s, 0.3s; }
+    .debris:nth-child(2) { top: 25%; right: 12%; animation-delay: 1.2s, 0.6s; font-size: 36px; }
+    .debris:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 2.4s, 0.9s; font-size: 40px; }
+    .debris:nth-child(4) { top: 40%; right: 8%; animation-delay: 0.8s, 1.2s; font-size: 32px; }
+    .debris:nth-child(5) { bottom: 30%; right: 20%; animation-delay: 1.8s, 1.5s; font-size: 44px; }
+    .debris:nth-child(6) { top: 18%; left: 25%; animation-delay: 3s, 0.4s; font-size: 28px; }
+    .silhouette { width: 200px; height: 280px; background: linear-gradient(180deg, rgba(30,27,75,0.9), rgba(30,27,75,0.3)); border-radius: 100px 100px 60px 60px; position: relative; opacity: 0; animation: fade-in-up 1.2s ease-out 0.5s forwards; }
+    .silhouette::after { content: ''; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); width: 280px; height: 12px; background: radial-gradient(ellipse, rgba(124,58,237,0.3), transparent 70%); border-radius: 50%; }
+    .desk { width: 400px; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; position: relative; opacity: 0; animation: fade-in-up 1s ease-out 0.8s forwards; }
+    .desk::before { content: '💻'; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); font-size: 36px; opacity: 0.5; animation: float 4s ease-in-out 1.5s infinite; }
+    .cursor-blink { display: inline-block; width: 3px; height: 40px; background: var(--purple-light); animation: blink 1s step-end infinite; margin-left: 4px; vertical-align: middle; }
+    .logo-reveal { opacity: 0; animation: fade-in-up 1.5s ease-out 2.5s forwards; }
+    /* Ambient particle field */
+    .particle-field { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .ambient-p { position: absolute; width: 3px; height: 3px; background: var(--purple-light); border-radius: 50%; opacity: 0; animation: particle-drift 6s ease-in-out infinite; }
+    .ambient-p:nth-child(1) { left: 10%; top: 70%; --drift-x: 20px; --drift-y: -120px; animation-delay: 0s; }
+    .ambient-p:nth-child(2) { left: 30%; top: 80%; --drift-x: -15px; --drift-y: -100px; animation-delay: 1s; width: 2px; height: 2px; }
+    .ambient-p:nth-child(3) { left: 50%; top: 75%; --drift-x: 10px; --drift-y: -140px; animation-delay: 2s; }
+    .ambient-p:nth-child(4) { left: 70%; top: 85%; --drift-x: -20px; --drift-y: -110px; animation-delay: 3s; width: 2px; height: 2px; }
+    .ambient-p:nth-child(5) { left: 85%; top: 65%; --drift-x: 15px; --drift-y: -130px; animation-delay: 4s; }
+    .ambient-p:nth-child(6) { left: 45%; top: 90%; --drift-x: -10px; --drift-y: -90px; animation-delay: 2.5s; width: 4px; height: 4px; opacity: 0.3; }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="grid-overlay"></div>
+    <!-- Floating debris -->
+    <div class="debris">📄</div>
+    <div class="debris">❓</div>
+    <div class="debris">📝</div>
+    <div class="debris">📚</div>
+    <div class="debris">❓</div>
+    <div class="debris">🗂️</div>
+    <!-- Ambient particles rising -->
+    <div class="particle-field">
+      <div class="ambient-p"></div><div class="ambient-p"></div><div class="ambient-p"></div>
+      <div class="ambient-p"></div><div class="ambient-p"></div><div class="ambient-p"></div>
+    </div>
+    <!-- Central figure -->
+    <div style="display:flex;flex-direction:column;align-items:center;z-index:10;">
+      <div class="silhouette"></div>
+      <div style="height:40px"></div>
+      <div class="desk"></div>
+    </div>
+    <!-- Title text -->
+    <div style="position:absolute;top:80px;text-align:center;z-index:10;width:100%;">
+      <div class="slide-number anim-fade-in-down delay-1">SCENE 01 / 14</div>
+      <h1 class="slide-title anim-fade-in-up delay-2" style="margin-top:20px;"><span class="gradient-text">The World Before</span></h1>
+      <p class="slide-subtitle anim-fade-in-up delay-4" style="margin-top:16px;">Aung is 22. He exists in a world full of knowledge碎片 —<br>scattered, unconnected, overwhelming.</p>
+    </div>
+    <!-- Blinking cursor -->
+    <div style="position:absolute;bottom:140px;z-index:10;" class="anim-fade-in-scale delay-8">
+      <span style="font-family:'Space Grotesk',monospace;font-size:20px;color:var(--text-muted);">_</span>
+      <span class="cursor-blink"></span>
+    </div>
+    <!-- Logo reveal -->
+    <div class="logo-reveal" style="position:absolute;bottom:60px;z-index:10;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:48px;background:linear-gradient(135deg,var(--purple-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">NerdQuiz</div>
+    </div>
+    <!-- Glow orbs with pulse -->
+    <div class="glow-orb orb-purple animate-glow-pulse" style="width:400px;height:400px;top:-100px;right:-100px;"></div>
+    <div class="glow-orb orb-red animate-glow-pulse" style="width:300px;height:300px;bottom:-50px;left:-80px;animation-delay:1s;"></div>
+    <div class="slide-footer"><span class="slide-footer-text">0:00 – 0:15</span><span class="slide-footer-logo">NerdQuiz</span></div>
+  </div>
+</body>
+</html>
