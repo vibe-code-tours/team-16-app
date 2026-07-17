@@ -17,5 +17,5 @@ Security hardening for NerdQuiz — a gamified IT exam prep platform. The platfo
 | 001 | rate-limiting | standard | Given a Spring Boot endpoint, when >N requests/minute from one IP, then 429 is returned | **VALIDATED ✓** | [spring-boot, rate-limit, ddos] |
 | 002 | security-headers | standard | Given a Spring Boot response, when sent to browser, then it carries CSP, HSTS, X-Frame-Options | **VALIDATED ✓** | [spring-boot, headers, browser-hardening] |
 | 003 | input-validation-hardening | standard | Given malicious input, when hitting endpoints, then rejected cleanly | **VALIDATED ✓** | [spring-boot, security, input-validation] |
-| 004 | jwt-auth-hardening | standard | Given expired/tampered JWT, when hitting protected endpoint, then rejected with 401 | PENDING | [spring-boot, jwt, auth] |
+| 004 | jwt-auth-hardening | standard | Given expired/tampered JWT, when hitting protected endpoint, then rejected with 401 | **VALIDATED ✓** | [spring-boot, jwt, auth] |
 | 005 | supabase-rls-audit | standard | Given RLS policies, when a user tries to access another user's data, then denied | PENDING | [supabase, rls, data-security] |
