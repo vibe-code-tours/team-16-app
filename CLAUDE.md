@@ -454,6 +454,7 @@ An admin dashboard for NerdQuiz — a gamified IT exam prep platform for ITPEC F
 | extract-data | Full ITPEC FE data extraction pipeline — from official ZIP archives to Supabase-ready SQL seed data | `.claude/skills/extract-data/SKILL.md` |
 | pr-review | Automated code review on staged changes — checks conventions, security, correctness, and test coverage | `.claude/skills/pr-review/SKILL.md` |
 | sync-reqs | Sync feature changes from staged code to REQUIREMENTS.md, feature-board.md, and create ADRs when needed | `.claude/skills/sync-reqs/SKILL.md` |
+| spike-findings-team-16-app | Implementation patterns, constraints, and gotchas from security spike experiments — rate limiting, headers, input validation, JWT hardening, RLS | `.claude/skills/spike-findings-team-16-app/SKILL.md` |
 <!-- GSD:skills-end -->
 
 <!-- GSD:workflow-start source:GSD defaults -->
