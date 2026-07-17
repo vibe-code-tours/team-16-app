@@ -1,5 +1,7 @@
 package com.nerdquiz.config;
 
+import com.nerdquiz.model.UserProfile;
+import com.nerdquiz.repository.UserProfileRepository;
 import com.nimbusds.jwt.SignedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,10 +17,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * JWT authentication filter that intercepts every request,
- * verifies the Supabase JWT, and sets the SecurityContext.
+ * verifies the Supabase JWT, looks up the user profile for
+ * role and is_active status, and sets the SecurityContext.
  */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -27,9 +32,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final JwtUtil jwtUtil;
+    private final UserProfileRepository userProfileRepository;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil) {
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, UserProfileRepository userProfileRepository) {
         this.jwtUtil = jwtUtil;
+        this.userProfileRepository = userProfileRepository;
     }
 
     @Override
@@ -58,11 +65,42 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SignedJWT jwt = jwtUtil.verify(token);
             String userId = jwtUtil.extractUserId(jwt);
 
+            // Look up user profile for role and is_active status
+            UUID userUuid = UUID.fromString(userId);
+            Optional<UserProfile> profileOpt = userProfileRepository.findById(userUuid);
+
+            // Check is_active: reject deactivated users (null treated as active for backward compat)
+            if (profileOpt.isPresent() && Boolean.FALSE.equals(profileOpt.get().getIsActive())) {
+                log.debug("Deactivated user attempted access: {}", userId);
+                SecurityContextHolder.clearContext();
+
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/problem+json");
+                response.getWriter().write(
+                    "{\"type\":\"urn:nerdquiz:unauthorized\","
+                    + "\"title\":\"Unauthorized\",\"status\":401,"
+                    + "\"detail\":\"Account is deactivated\"}"
+                );
+                return;
+            }
+
+            // Determine authorities based on role
+            List<SimpleGrantedAuthority> authorities;
+            if (profileOpt.isPresent() && "admin".equals(profileOpt.get().getRole())) {
+                authorities = List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+                );
+            } else {
+                // Regular user or no profile found (graceful fallback)
+                authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+            }
+
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             userId,
                             null,
-                            List.of(new SimpleGrantedAuthority("ROLE_USER"))
+                            authorities
                     );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
