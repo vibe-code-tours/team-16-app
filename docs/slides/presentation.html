@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NerdQuiz — Full Platform Walkthrough</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --purple: #a855f7;
+      --purple-light: #c084fc;
+      --green: #22c55e;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --pink: #ec4899;
+      --text: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Slide Container */
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 80px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Title Slide */
+    .slide-title {
+      text-align: center;
+    }
+
+    .slide-title .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .slide-title h1 {
+      font-size: 72px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--purple-light), var(--green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .slide-title .subtitle {
+      font-size: 24px;
+      color: var(--text-secondary);
+      max-width: 700px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+
+    .slide-title .meta {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Content Slides */
+    .slide-content {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .slide-content.reverse {
+      grid-template-columns: 1fr 420px;
+    }
+
+    .slide-content.reverse .slide-text {
+      order: 2;
+    }
+
+    .slide-content.reverse .slide-image {
+      order: 1;
+    }
+
+    .slide-text {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .slide-text .slide-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--purple-light);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .slide-text h2 {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .slide-text .highlight {
+      background: linear-gradient(135deg, var(--purple-light), var(--green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-text p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .slide-text .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .slide-text .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .slide-text .feature-list li::before {
+      content: '→';
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .slide-image {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      background: var(--bg-card);
+    }
+
+    .slide-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Section Divider */
+    .slide-section {
+      text-align: center;
+    }
+
+    .slide-section .section-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+
+    .slide-section h2 {
+      font-size: 56px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .slide-section p {
+      font-size: 20px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Grid Slide */
+    .slide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .slide-grid.two-col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .grid-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .grid-card .grid-card-info {
+      padding: 16px 20px;
+    }
+
+    .grid-card .grid-card-info h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .grid-card .grid-card-info p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(18, 18, 26, 0.9);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50px;
+      padding: 10px 20px;
+      z-index: 100;
+    }
+
+    .nav button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .nav button:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+    }
+
+    .nav button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav .counter {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .nav .progress-bar {
+      width: 120px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .nav .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--purple), var(--green));
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    /* Keyboard hint */
+    .keyboard-hint {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+      opacity: 0.5;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: Title -->
+  <div class="slide slide-title active" data-slide="0">
+    <div class="badge">ITPEC FE Certification Prep</div>
+    <h1>NerdQuiz</h1>
+    <p class="subtitle">A gamified learning platform that turns IT exam preparation into an engaging, structured journey — lessons, quizzes, review, and exam simulation in one loop.</p>
+    <p class="meta">Full Platform Walkthrough · 15 pages · Built with React, Spring Boot, Supabase</p>
+  </div>
+
+  <!-- SLIDE 2: Landing Page -->
+  <div class="slide" data-slide="1">
+    <div class="slide-content">
+      <div class="slide-text">
+        <span class="slide-num">01 / Public</span>
+        <h2>First Impression:<br><span class="highlight">Landing Page</span></h2>
+        <p>Dark-themed hero with the NerdQuiz owl mascot. Clear value proposition and two CTAs — "Start learning free" and "Continue your journey."</p>
+        <ul class="feature-list">
+          <li>Gamified IT exam prep tagline</li>
+          <li>Today's Mission card with progress stats</li>
+          <li>6 feature cards showcasing the learning loop</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/01-landing.png" alt="Landing Page">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Login -->
+  <div class="slide" data-slide="2">
+    <div class="slide-content reverse">
+      <div class="slide-text">
+        <span class="slide-num">02 / Auth</span>
+        <h2>Sign In<br><span class="highlight">Simple & Secure</span></h2>
+        <p>Supabase Auth powers the login flow. Email/password authentication with Google OAuth option. JWT tokens verified by the Spring Boot backend.</p>
+        <ul class="feature-list">
+          <li>Email + password authentication</li>
+          <li>Google OAuth one-click sign-in</li>
+          <li>JWT verification on every backend request</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/02-login.png" alt="Login Page">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Register -->
+  <div class="slide" data-slide="3">
+    <div class="slide-content">
+      <div class="slide-text">
+        <span class="slide-num">03 / Auth</span>
+        <h2>Create Account<br><span class="highlight">Start Your Journey</span></h2>
+        <p>One-step registration. The user profile is auto-created on first login — no separate profile setup needed.</p>
+        <ul class="feature-list">
+          <li>Password confirmation validation</li>
+          <li>Auto profile creation on first login</li>
+          <li>Redirects to Learning Map after signup</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/03-register.png" alt="Register Page">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Learning Map -->
+  <div class="slide" data-slide="4">
+    <div class="slide-content reverse">
+      <div class="slide-text">
+        <span class="slide-num">04 / Core</span>
+        <h2>Learning Map<br><span class="highlight">Your Roadmap</span></h2>
+        <p>The central hub. Five milestone categories — Technology, Security, Management, Strategy, Business — with 20 topic stops. Clear each to unlock the next.</p>
+        <ul class="feature-list">
+          <li>XP counter and day streak in header</li>
+          <li>Continue-where-you-left-off CTA</li>
+          <li>Progress bar with journey stats</li>
+          <li>Locked/unlocked/in-progress states</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/04-learning-map.png" alt="Learning Map">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: Quiz Listing -->
+  <div class="slide" data-slide="5">
+    <div class="slide-content">
+      <div class="slide-text">
+        <span class="slide-num">05 / Quiz</span>
+        <h2>Quiz Listing<br><span class="highlight">Pick Your Challenge</span></h2>
+        <p>Browse all available topic quizzes. Each card shows the topic name, question count, and your current score. Jump straight into any unlocked quiz.</p>
+        <ul class="feature-list">
+          <li>Grid layout with topic cards</li>
+          <li>Score tracking per quiz</li>
+          <li>Quick access to any available quiz</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/05-quiz-listing.png" alt="Quiz Listing">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: Topic Detail -->
+  <div class="slide" data-slide="6">
+    <div class="slide-content reverse">
+      <div class="slide-text">
+        <span class="slide-num">06 / Topic</span>
+        <h2>Topic Detail<br><span class="highlight">Lessons + Quiz</span></h2>
+        <p>Each topic has bite-sized lessons to study first, then a 5-question quiz to prove understanding. Complete lessons to unlock the quiz.</p>
+        <ul class="feature-list">
+          <li>Sequential lesson unlock</li>
+          <li>5 min per lesson · 10 XP each</li>
+          <li>Quiz button appears after lessons</li>
+          <li>Completion checkmarks for done items</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/06-topic-detail.png" alt="Topic Detail">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: Lesson -->
+  <div class="slide" data-slide="7">
+    <div class="slide-content">
+      <div class="slide-text">
+        <span class="slide-num">07 / Lesson</span>
+        <h2>Bite-Sized Lessons<br><span class="highlight">Focused Learning</span></h2>
+        <p>Short, readable lessons designed for 5-minute study sessions. Content is structured with headings, tips, warnings, and examples for clarity.</p>
+        <ul class="feature-list">
+          <li>Markdown-rendered content</li>
+          <li>Progress tracking per lesson</li>
+          <li>Mark-as-complete to unlock next</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/07-lesson.png" alt="Lesson Page">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: Quiz -->
+  <div class="slide" data-slide="8">
+    <div class="slide-content reverse">
+      <div class="slide-text">
+        <span class="slide-num">08 / Quiz</span>
+        <h2>Practice Quiz<br><span class="highlight">Earn XP</span></h2>
+        <p>5-question quizzes test your understanding. Pick an answer, get instant feedback with explanations, and earn XP for every correct answer.</p>
+        <ul class="feature-list">
+          <li>Multiple choice with 4 options</li>
+          <li>Instant correct/wrong feedback</li>
+          <li>Explanation after each answer</li>
+          <li>XP reward for correct answers</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/08-quiz.png" alt="Quiz Page">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: Mistake Garden -->
+  <div class="slide" data-slide="9">
+    <div class="slide-content">
+      <div class="slide-text">
+        <span class="slide-num">09 / Review</span>
+        <h2>Mistake Garden<br><span class="highlight">Learn from Errors</span></h2>
+        <p>Wrong answers become learning opportunities. Review each saved mistake, understand the explanation, and clear it when you've mastered it.</p>
+        <ul class="feature-list">
+          <li>Auto-saves wrong answers</li>
+          <li>Full question + explanation review</li>
+          <li>Clear mistakes once mastered</li>
+          <li>Track improvement over time</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/09-mistake-garden.png" alt="Mistake Garden">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: Profile -->
+  <div class="slide" data-slide="10">
+    <div class="slide-content reverse">
+      <div class="slide-text">
+        <span class="slide-num">10 / Profile</span>
+        <h2>User Profile<br><span class="highlight">Track Your Growth</span></h2>
+        <p>See your total XP, streak, achievements, and learning stats at a glance. Your profile tells the story of your preparation journey.</p>
+        <ul class="feature-list">
+          <li>Total XP and level display</li>
+          <li>Day streak counter</li>
+          <li>Achievement badges</li>
+          <li>Learning statistics overview</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/10-profile.png" alt="User Profile">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: Exam Simulation -->
+  <div class="slide" data-slide="11">
+    <div class="slide-content">
+      <div class="slide-text">
+        <span class="slide-num">11 / Exam</span>
+        <h2>Exam Simulation<br><span class="highlight">Real Conditions</span></h2>
+        <p>60-question timed exam matching ITPEC FE format. Countdown timer, three hearts system, and realistic exam-day pressure to build confidence.</p>
+        <ul class="feature-list">
+          <li>60 questions per exam session</li>
+          <li>Countdown timer</li>
+          <li>Three hearts (lives) system</li>
+          <li>Score summary with breakdown</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/11-exam.png" alt="Exam Simulation">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 13: Weak Points -->
+  <div class="slide" data-slide="12">
+    <div class="slide-content reverse">
+      <div class="slide-text">
+        <span class="slide-num">12 / Analytics</span>
+        <h2>Weak Point Analysis<br><span class="highlight">Targeted Practice</span></h2>
+        <p>AI-powered analysis identifies your weak areas. Red/yellow/green mastery cards show where to focus your study time for maximum improvement.</p>
+        <ul class="feature-list">
+          <li>Topic-level accuracy tracking</li>
+          <li>Color-coded mastery indicators</li>
+          <li>Recommended practice areas</li>
+          <li>Data-driven study guidance</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/12-weak-points.png" alt="Weak Points">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: Admin Dashboard -->
+  <div class="slide" data-slide="13">
+    <div class="slide-content">
+      <div class="slide-text">
+        <span class="slide-num">13 / Admin</span>
+        <h2>Admin Dashboard<br><span class="highlight">Platform Health</span></h2>
+        <p>Founders get a role-gated view to monitor platform health. Stat cards, charts, user tables — answers "is this thing alive?" in 5 seconds.</p>
+        <ul class="feature-list">
+          <li>Total users, active today, total XP</li>
+          <li>Donut chart for user engagement</li>
+          <li>Recent activity feed</li>
+          <li>Role-gated access control</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/13-admin-dashboard.png" alt="Admin Dashboard">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 15: Admin Users -->
+  <div class="slide" data-slide="14">
+    <div class="slide-content reverse">
+      <div class="slide-text">
+        <span class="slide-num">14 / Admin</span>
+        <h2>User Management<br><span class="highlight">Admin Controls</span></h2>
+        <p>Search, view details, change roles, and deactivate user accounts. Full admin control over the user base.</p>
+        <ul class="feature-list">
+          <li>User search and filtering</li>
+          <li>User detail modal</li>
+          <li>Role change (admin/user toggle)</li>
+          <li>Account deactivation</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/14-admin-users.png" alt="Admin Users">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 16: AI Draft -->
+  <div class="slide" data-slide="15">
+    <div class="slide-content">
+      <div class="slide-text">
+        <span class="slide-num">15 / AI</span>
+        <h2>AI Content Engine<br><span class="highlight">Behind the Scenes</span></h2>
+        <p>Three AI agents power the content pipeline — Extractor pulls questions from PDFs, Reviewer validates accuracy, Weaver generates lesson content.</p>
+        <ul class="feature-list">
+          <li>PDF extraction to structured JSON</li>
+          <li>Automated question validation</li>
+          <li>Lesson content generation</li>
+          <li>Draft preview and edit interface</li>
+        </ul>
+      </div>
+      <div class="slide-image">
+        <img src="screenshots/15-ai-draft.png" alt="AI Draft">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="prevBtn" onclick="prevSlide()">←</button>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <span class="counter" id="counter">1 / 16</span>
+  <button id="nextBtn" onclick="nextSlide()">→</button>
+</div>
+
+<div class="keyboard-hint">← → or Space to navigate</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = `${current + 1} / ${total}`;
+    document.getElementById('progressFill').style.width = `${((current + 1) / total) * 100}%`;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+  }
+
+  function nextSlide() { showSlide(current + 1); }
+  function prevSlide() { showSlide(current - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+  });
+
+  showSlide(0);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 10 — Admin Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .observatory { width: 1400px; height: 550px; position: relative; z-index: 10; }
+    .glass-wall { position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; background: rgba(255,255,255,0.02); backdrop-filter: blur(4px); opacity: 0; animation: fade-in-scale 1s ease-out 0.2s forwards; }
+    .stat-row { display: flex; gap: 20px; position: absolute; top: 30px; left: 40px; right: 40px; }
+    .stat-card { flex: 1; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px 24px; opacity: 0; transition: transform 0.2s, box-shadow 0.2s; }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+    .stat-card:nth-child(1) { animation: fade-in-up 0.5s ease-out 0.4s forwards; }
+    .stat-card:nth-child(2) { animation: fade-in-up 0.5s ease-out 0.5s forwards; }
+    .stat-card:nth-child(3) { animation: fade-in-up 0.5s ease-out 0.6s forwards; }
+    .stat-card:nth-child(4) { animation: fade-in-up 0.5s ease-out 0.7s forwards; }
+    .stat-card-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .stat-card-value { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 800; }
+    .stat-card-change { font-size: 13px; margin-top: 4px; }
+    .change-up { color: var(--green); }
+    .charts-area { position: absolute; top: 140px; left: 40px; right: 40px; bottom: 30px; display: flex; gap: 20px; }
+    .chart-panel { flex: 1; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 20px; opacity: 0; }
+    .chart-panel:nth-child(1) { animation: fade-in-left 0.6s ease-out 0.8s forwards; }
+    .chart-panel:nth-child(2) { animation: fade-in-scale 0.6s ease-out 1.0s forwards; }
+    .chart-panel:nth-child(3) { animation: fade-in-right 0.6s ease-out 1.2s forwards; }
+    .chart-title { font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 16px; }
+    .mini-bars { display: flex; align-items: flex-end; gap: 6px; height: 160px; padding-top: 20px; }
+    .mini-bar { flex: 1; border-radius: 3px 3px 0 0; min-height: 8px; transform: scaleY(0); transform-origin: bottom; animation: expand-height 0.5s ease-out forwards; }
+    .bar-purple { background: linear-gradient(180deg, var(--purple-light), var(--purple)); }
+    .bar-blue { background: linear-gradient(180deg, #60A5FA, #3B82F6); }
+    .donut-container { display: flex; align-items: center; justify-content: center; height: 160px; }
+    .donut { width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(var(--green) 0deg 130deg, var(--gold) 130deg 220deg, var(--red) 220deg 290deg, var(--text-muted) 290deg 360deg); position: relative; }
+    .donut::after { content: ''; position: absolute; inset: 30px; border-radius: 50%; background: var(--bg-dark); }
+    .donut-center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; }
+    .donut-legend { display: flex; flex-direction: column; gap: 8px; margin-left: 24px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); opacity: 0; animation: fade-in-right 0.4s ease-out forwards; }
+    .legend-item:nth-child(1) { animation-delay: 1.2s; }
+    .legend-item:nth-child(2) { animation-delay: 1.35s; }
+    .legend-item:nth-child(3) { animation-delay: 1.5s; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .user-table { width: 100%; border-collapse: collapse; }
+    .user-table th { text-align: left; font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .user-table td { padding: 10px 12px; font-size: 14px; color: var(--text-secondary); border-bottom: 1px solid rgba(255,255,255,0.03); }
+    .user-table tr { opacity: 0; animation: fade-in-up 0.4s ease-out forwards; }
+    .user-table tbody tr:nth-child(1) { animation-delay: 1.3s; }
+    .user-table tbody tr:nth-child(2) { animation-delay: 1.4s; }
+    .user-table tbody tr:nth-child(3) { animation-delay: 1.5s; }
+    .user-table tbody tr:nth-child(4) { animation-delay: 1.6s; }
+    .user-table tbody tr:nth-child(5) { animation-delay: 1.7s; }
+    .user-name { color: var(--text-primary); font-weight: 500; }
+    .role-badge { padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .role-admin { background: rgba(124,58,237,0.2); color: var(--purple-light); }
+    .role-user { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="grid-overlay"></div>
+    <div class="slide-number anim-fade-in-down delay-1">SCENE 10 / 14</div>
+    <div style="position:absolute;top:40px;left:60px;z-index:10;">
+      <span class="badge badge-purple anim-fade-in-scale delay-2">ADMIN</span>
+      <h1 class="slide-title anim-fade-in-up delay-3" style="font-size:44px;margin-top:12px;text-align:left;">The <span class="gradient-text">Observatory</span></h1>
+      <p class="burmese burmese-small anim-fade-in-up delay-4" style="text-align:left;">ကျောင်းဘက်က ကြည့်ရင်</p>
+    </div>
+    <div class="observatory" style="margin-top:40px;">
+      <div class="glass-wall"></div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-card-label">Total Users</div><div class="stat-card-value" style="color:var(--purple-light);">1,247</div><div class="stat-card-change change-up">↑ 12% this week</div></div>
+        <div class="stat-card"><div class="stat-card-label">Active Today</div><div class="stat-card-value" style="color:var(--green);">89</div><div class="stat-card-change change-up">↑ 8% vs yesterday</div></div>
+        <div class="stat-card"><div class="stat-card-label">Quiz Attempts</div><div class="stat-card-value" style="color:var(--gold);">3,842</div><div class="stat-card-change change-up">↑ 23% this week</div></div>
+        <div class="stat-card"><div class="stat-card-label">Exam Pass Rate</div><div class="stat-card-value" style="color:var(--green);">72%</div><div class="stat-card-change change-up">↑ 5% improvement</div></div>
+      </div>
+      <div class="charts-area">
+        <div class="chart-panel" style="flex:1.2;">
+          <div class="chart-title">📈 Daily Active Users (Last 14 Days)</div>
+          <div class="mini-bars" id="dailyBars"></div>
+        </div>
+        <div class="chart-panel" style="flex:0.8;">
+          <div class="chart-title">📊 Exam Results Distribution</div>
+          <div class="donut-container">
+            <div style="position:relative;"><div class="donut"></div><div class="donut-center">72%</div></div>
+            <div class="donut-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div>Passed (72%)</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div>Borderline (25%)</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div>Failed (3%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="chart-panel" style="flex:1;">
+          <div class="chart-title">👥 Recent Users</div>
+          <table class="user-table">
+            <thead><tr><th>User</th><th>Role</th><th>XP</th><th>Streak</th></tr></thead>
+            <tbody>
+              <tr><td class="user-name">Aung Myat</td><td><span class="role-badge role-admin">Admin</span></td><td>2,450</td><td>🔥 12</td></tr>
+              <tr><td class="user-name">Thin Zar</td><td><span class="role-badge role-user">User</span></td><td>1,820</td><td>🔥 8</td></tr>
+              <tr><td class="user-name">Kyaw Swar</td><td><span class="role-badge role-user">User</span></td><td>960</td><td>🔥 3</td></tr>
+              <tr><td class="user-name">Su Su</td><td><span class="role-badge role-user">User</span></td><td>3,100</td><td>🔥 21</td></tr>
+              <tr><td class="user-name">Min Aung</td><td><span class="role-badge role-user">User</span></td><td>740</td><td>🔥 1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="glow-orb orb-purple animate-glow-pulse" style="width:300px;height:300px;top:-50px;left:-50px;"></div>
+    <div class="slide-footer"><span class="slide-footer-text">4:45 – 5:05</span><span class="slide-footer-logo">NerdQuiz</span></div>
+  </div>
+  <script>
+    const bars = document.getElementById('dailyBars');
+    [40,55,48,70,65,80,72,90,85,95,88,100,92,98].forEach((h,i) => {
+      const bar = document.createElement('div');
+      bar.className = 'mini-bar ' + (i%2===0?'bar-purple':'bar-blue');
+      bar.style.height = h+'%';
+      bar.style.animationDelay = (1.0 + i*0.05)+'s';
+      bars.appendChild(bar);
+    });
+  </script>
+</body>
+</html>
