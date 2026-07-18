@@ -36,6 +36,9 @@ public class UserProfile {
     @Column(name = "created_at")
     private Instant createdAt = Instant.now();
 
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
+
     @Column(name = "updated_at")
     private Instant updatedAt = Instant.now();
 
@@ -63,6 +66,9 @@ public class UserProfile {
 
     public Integer getStreakCount() { return streakCount; }
     public void setStreakCount(Integer streakCount) { this.streakCount = streakCount; }
+
+    public Boolean getIsActive() { return isActive; }
+    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 
     public Instant getLastLoginAt() { return lastLoginAt; }
     public void setLastLoginAt(Instant lastLoginAt) { this.lastLoginAt = lastLoginAt; }

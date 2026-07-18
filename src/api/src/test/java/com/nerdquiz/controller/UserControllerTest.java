@@ -2,6 +2,7 @@ package com.nerdquiz.controller;
 
 import com.nerdquiz.config.CorsConfig;
 import com.nerdquiz.config.JwtUtil;
+import com.nerdquiz.repository.UserProfileRepository;
 import com.nerdquiz.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ class UserControllerTest {
 
     @MockitoBean
     private CorsConfig corsConfig;
+
+    @MockitoBean
+    private UserProfileRepository userProfileRepository;
 
     @Test
     void updateStreak_UsesAuthenticatedUser() throws Exception {
