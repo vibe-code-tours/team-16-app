@@ -3,6 +3,7 @@ package com.nerdquiz.controller;
 import com.nerdquiz.config.CorsConfig;
 import com.nerdquiz.config.JwtUtil;
 import com.nerdquiz.dto.*;
+import com.nerdquiz.repository.UserProfileRepository;
 import com.nerdquiz.service.ExamService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,9 @@ class ExamControllerTest {
 
     @MockitoBean
     private CorsConfig corsConfig;
+
+    @MockitoBean
+    private UserProfileRepository userProfileRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
