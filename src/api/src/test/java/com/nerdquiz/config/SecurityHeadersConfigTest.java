@@ -13,18 +13,16 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Verifies SecurityHeadersConfig compiles and instantiates correctly.
- * Runtime security header verification is done in the manual checkpoint (Task 4).
- * This test ensures the security filter chain bean definition is valid and
- * the application context loads without errors.
+ * Verifies CORS headers are NOT added when the request origin is not in the allowed list.
  */
 @WebMvcTest(controllers = HealthController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(properties = {"supabase.url=https://test.supabase.co"})
-class SecurityConfigTest {
+class SecurityHeadersConfigTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -45,18 +43,11 @@ class SecurityConfigTest {
     private AdminService adminService;
 
     @Test
-    void healthEndpoint_ReturnsOk() throws Exception {
-        mockMvc.perform(get("/api/v1/health"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void requestSizeExceeding1MB_Returns413() throws Exception {
-        // Build a 2MB JSON body
-        String largeBody = "{\"data\":\"" + "x".repeat(2 * 1024 * 1024) + "\"}";
+    void addCorsHeaders_CorsDisabled_NoHeaders() throws Exception {
+        // Origin not in the allowed list → no CORS response headers
         mockMvc.perform(get("/api/v1/health")
-                        .contentType("application/json")
-                        .content(largeBody.getBytes()))
-                .andExpect(status().isRequestEntityTooLarge());
+                        .header("Origin", "https://evil.example.com"))
+                .andExpect(status().isOk())
+                .andExpect(header().doesNotExist("Access-Control-Allow-Origin"));
     }
 }

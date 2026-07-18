@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.core.Ordered;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -18,8 +18,12 @@ import java.util.concurrent.atomic.AtomicLong;
  * Per-IP sliding window rate limiter using ConcurrentHashMap.
  * Rejects requests exceeding the configured limit with RFC 7807 429 response.
  */
-@Component
-public class RateLimitFilter extends OncePerRequestFilter {
+public class RateLimitFilter extends OncePerRequestFilter implements Ordered {
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE + 10;
+    }
 
     private static final Logger log = LoggerFactory.getLogger(RateLimitFilter.class);
 

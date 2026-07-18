@@ -17,7 +17,9 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 @Configuration
 public class SecurityHeadersConfig {
 
-    @Bean
+    // Merged into SecurityConfig.securityFilterChain() to avoid
+    // UnreachableFilterChainException (two "any request" chains).
+    // Kept as reference — remove when confirmed unnecessary.
     public SecurityFilterChain securityHeadersFilterChain(HttpSecurity http) throws Exception {
         http
             .headers(headers -> headers
