@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 04 — Learning Map</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .topic-island { position: absolute; width: 200px; height: 200px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 2px solid; opacity: 0; }
+    .topic-island-icon { font-size: 48px; margin-bottom: 8px; }
+    .topic-island-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; }
+    .topic-island-progress { font-size: 14px; margin-top: 4px; opacity: 0.8; }
+    .island-tech { background: radial-gradient(circle, rgba(59,130,246,0.2), rgba(59,130,246,0.05) 70%); border-color: rgba(59,130,246,0.5); top: 180px; left: 100px; animation: scale-in-bounce 0.7s ease-out 0.3s forwards, float 5s ease-in-out 1.0s infinite; }
+    .island-sec { background: radial-gradient(circle, rgba(124,58,237,0.2), rgba(124,58,237,0.05) 70%); border-color: rgba(124,58,237,0.5); top: 60px; left: 420px; animation: scale-in-bounce 0.7s ease-out 0.5s forwards, float 5s ease-in-out 1.2s infinite; }
+    .island-mgmt { background: radial-gradient(circle, rgba(245,158,11,0.2), rgba(245,158,11,0.05) 70%); border-color: rgba(245,158,11,0.5); top: 180px; left: 600px; animation: scale-in-bounce 0.7s ease-out 0.7s forwards, float 5s ease-in-out 1.4s infinite; }
+    .island-strat { background: radial-gradient(circle, rgba(16,185,129,0.2), rgba(16,185,129,0.05) 70%); border-color: rgba(16,185,129,0.5); top: 60px; left: 900px; animation: scale-in-bounce 0.7s ease-out 0.9s forwards, float 5s ease-in-out 1.6s infinite; }
+    .island-biz { background: radial-gradient(circle, rgba(236,72,153,0.2), rgba(236,72,153,0.05) 70%); border-color: rgba(236,72,153,0.5); top: 180px; left: 1100px; animation: scale-in-bounce 0.7s ease-out 1.1s forwards, float 5s ease-in-out 1.8s infinite; }
+    .connection-line { position: absolute; height: 2px; background: linear-gradient(90deg, transparent, rgba(167,139,250,0.3), transparent); opacity: 0; animation: fade-in-up 0.6s ease-out forwards; }
+    .connection-line:nth-child(1) { width: 200px; top: 200px; left: 260px; transform: rotate(-25deg); animation-delay: 1.3s; }
+    .connection-line:nth-child(2) { width: 180px; top: 140px; left: 580px; transform: rotate(30deg); animation-delay: 1.5s; }
+    .connection-line:nth-child(3) { width: 200px; top: 200px; left: 760px; transform: rotate(-20deg); animation-delay: 1.7s; }
+    .connection-line:nth-child(4) { width: 180px; top: 140px; left: 1060px; transform: rotate(25deg); animation-delay: 1.9s; }
+    .progress-bar-container { width: 100%; max-width: 1200px; display: flex; gap: 24px; margin-top: 40px; z-index: 10; }
+    .progress-item { flex: 1; text-align: center; opacity: 0; animation: fade-in-up 0.5s ease-out forwards; }
+    .progress-item:nth-child(1) { animation-delay: 1.4s; }
+    .progress-item:nth-child(2) { animation-delay: 1.5s; }
+    .progress-item:nth-child(3) { animation-delay: 1.6s; }
+    .progress-item:nth-child(4) { animation-delay: 1.7s; }
+    .progress-item:nth-child(5) { animation-delay: 1.8s; }
+    .progress-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+    .progress-bar { height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 4px; width: 0; animation: expand-width 1s ease-out forwards; }
+    .progress-fill:nth-child(1) { animation-delay: 1.6s; }
+    .fill-green { background: var(--green); }
+    .fill-yellow { background: var(--gold); }
+    .fill-gray { background: var(--text-muted); }
+    .progress-item:nth-child(1) .progress-fill { animation-delay: 1.6s; }
+    .progress-item:nth-child(2) .progress-fill { animation-delay: 1.7s; }
+    .progress-item:nth-child(3) .progress-fill { animation-delay: 1.8s; }
+    .progress-item:nth-child(4) .progress-fill { animation-delay: 1.9s; }
+    .progress-item:nth-child(5) .progress-fill { animation-delay: 2.0s; }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="grid-overlay"></div>
+    <div class="slide-number anim-fade-in-down delay-1">SCENE 04 / 14</div>
+    <div style="position:absolute;top:50px;text-align:center;z-index:10;width:100%;">
+      <span class="badge badge-purple anim-fade-in-scale delay-2">LIVE DEMO</span>
+      <h1 class="slide-title anim-fade-in-up delay-3" style="font-size:48px;margin-top:16px;">Islands of <span class="gradient-text">Knowledge</span></h1>
+      <p class="slide-subtitle anim-fade-in-up delay-4" style="font-size:22px;">Five categories, each branching into subtopics — a constellation of learning</p>
+    </div>
+    <div style="position:relative;width:1400px;height:400px;margin-top:60px;z-index:10;">
+      <div class="connection-line"></div><div class="connection-line"></div><div class="connection-line"></div><div class="connection-line"></div>
+      <div class="topic-island island-tech"><div class="topic-island-icon">💻</div><div class="topic-island-name">Technology</div><div class="topic-island-progress" style="color:var(--green);">85%</div></div>
+      <div class="topic-island island-sec"><div class="topic-island-icon">🔒</div><div class="topic-island-name">Security</div><div class="topic-island-progress" style="color:var(--gold);">45%</div></div>
+      <div class="topic-island island-mgmt"><div class="topic-island-icon">📊</div><div class="topic-island-name">Management</div><div class="topic-island-progress" style="color:var(--gold);">60%</div></div>
+      <div class="topic-island island-strat"><div class="topic-island-icon">🎯</div><div class="topic-island-name">Strategy</div><div class="topic-island-progress" style="color:var(--green);">90%</div></div>
+      <div class="topic-island island-biz"><div class="topic-island-icon">💼</div><div class="topic-island-name">Business</div><div class="topic-island-progress" style="color:var(--text-muted);">20%</div></div>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-item"><div class="progress-label">Technology</div><div class="progress-bar"><div class="progress-fill fill-green" style="width:85%;"></div></div></div>
+      <div class="progress-item"><div class="progress-label">Security</div><div class="progress-bar"><div class="progress-fill fill-yellow" style="width:45%;"></div></div></div>
+      <div class="progress-item"><div class="progress-label">Management</div><div class="progress-bar"><div class="progress-fill fill-yellow" style="width:60%;"></div></div></div>
+      <div class="progress-item"><div class="progress-label">Strategy</div><div class="progress-bar"><div class="progress-fill fill-green" style="width:90%;"></div></div></div>
+      <div class="progress-item"><div class="progress-label">Business</div><div class="progress-bar"><div class="progress-fill fill-gray" style="width:20%;"></div></div></div>
+    </div>
+    <div class="glow-orb orb-purple animate-glow-pulse" style="width:300px;height:300px;top:-80px;right:100px;"></div>
+    <div class="slide-footer"><span class="slide-footer-text">1:15 – 1:55</span><span class="slide-footer-logo">NerdQuiz</span></div>
+  </div>
+</body>
+</html>

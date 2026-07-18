@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 07 — Mistake Garden</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .garden-ground { position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: linear-gradient(180deg, rgba(16,185,129,0.08), rgba(16,185,129,0.02)); border-radius: 50% 50% 0 0 / 100% 100% 0 0; opacity: 0; animation: fade-in-up 0.8s ease-out 0.2s forwards; }
+    .flower { position: absolute; bottom: 80px; display: flex; flex-direction: column; align-items: center; opacity: 0; }
+    .flower-head { font-size: 48px; margin-bottom: -8px; }
+    .flower-stem { width: 3px; height: 40px; background: linear-gradient(180deg, #10B981, #059669); border-radius: 2px; transform: scaleY(0); transform-origin: bottom; animation: expand-height 0.5s ease-out forwards; }
+    .flower-bloom .flower-head { animation: float 3s ease-in-out infinite; }
+    .flower-wilt { opacity: 0.4; filter: grayscale(0.6); }
+    .flower-1 { left: 80px; animation: fade-in-up 0.5s ease-out 0.4s forwards; } .flower-1 .flower-stem { animation-delay: 0.6s; }
+    .flower-2 { left: 200px; animation: fade-in-up 0.5s ease-out 0.5s forwards; } .flower-2 .flower-stem { animation-delay: 0.7s; }
+    .flower-3 { left: 320px; animation: fade-in-up 0.5s ease-out 0.6s forwards; } .flower-3 .flower-stem { animation-delay: 0.8s; }
+    .flower-4 { left: 440px; animation: fade-in-up 0.5s ease-out 0.7s forwards; } .flower-4 .flower-stem { animation-delay: 0.9s; }
+    .flower-5 { left: 560px; animation: fade-in-up 0.5s ease-out 0.8s forwards; } .flower-5 .flower-stem { animation-delay: 1.0s; }
+    .flower-6 { left: 680px; animation: fade-in-up 0.5s ease-out 0.9s forwards; } .flower-6 .flower-stem { animation-delay: 1.1s; }
+    .flower-7 { left: 800px; animation: fade-in-up 0.5s ease-out 1.0s forwards; } .flower-7 .flower-stem { animation-delay: 1.2s; }
+    .flower-8 { left: 920px; animation: fade-in-up 0.5s ease-out 1.1s forwards; } .flower-8 .flower-stem { animation-delay: 1.3s; }
+    .flower-9 { left: 1040px; animation: fade-in-up 0.5s ease-out 1.2s forwards; } .flower-9 .flower-stem { animation-delay: 1.4s; }
+    .flower-10 { left: 1160px; animation: fade-in-up 0.5s ease-out 1.3s forwards; } .flower-10 .flower-stem { animation-delay: 1.5s; }
+    .flower-11 { left: 1280px; animation: fade-in-up 0.5s ease-out 1.4s forwards; } .flower-11 .flower-stem { animation-delay: 1.6s; }
+    .mistake-card { position: absolute; top: 40px; right: 60px; width: 480px; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; backdrop-filter: blur(12px); opacity: 0; animation: fade-in-right 0.8s ease-out 0.5s forwards; }
+    .mistake-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .mistake-card-tag { font-size: 12px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 1.5px; }
+    .mistake-card-date { font-size: 13px; color: var(--text-muted); }
+    .mistake-card-question { font-size: 17px; font-weight: 500; margin-bottom: 16px; line-height: 1.5; }
+    .answer-compare { display: flex; gap: 16px; margin-bottom: 16px; }
+    .answer-box { flex: 1; padding: 12px 16px; border-radius: 10px; font-size: 15px; }
+    .answer-wrong { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--red); }
+    .answer-correct { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: var(--green); }
+    .answer-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: block; }
+    .mistake-explanation { font-size: 14px; color: var(--text-secondary); line-height: 1.5; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+    .review-btn { display: inline-block; margin-top: 16px; padding: 10px 24px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 8px; color: var(--green); font-size: 14px; font-weight: 600; opacity: 0; animation: scale-in-bounce 0.5s ease-out 1.5s forwards; }
+    .review-btn:hover { background: rgba(16,185,129,0.25); transform: scale(1.05); }
+    .growth-graph { position: absolute; bottom: 160px; left: 60px; width: 500px; opacity: 0; animation: fade-in-left 0.8s ease-out 0.8s forwards; }
+    .graph-title { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .graph-bars { display: flex; align-items: flex-end; gap: 8px; height: 80px; }
+    .graph-bar { flex: 1; border-radius: 4px 4px 0 0; transform: scaleY(0); transform-origin: bottom; animation: expand-height 0.6s ease-out forwards; }
+    .graph-bar:nth-child(1) { animation-delay: 1.0s; } .graph-bar:nth-child(2) { animation-delay: 1.1s; }
+    .graph-bar:nth-child(3) { animation-delay: 1.2s; } .graph-bar:nth-child(4) { animation-delay: 1.3s; }
+    .graph-bar:nth-child(5) { animation-delay: 1.4s; } .graph-bar:nth-child(6) { animation-delay: 1.5s; }
+    .graph-bar:nth-child(7) { animation-delay: 1.6s; } .graph-bar:nth-child(8) { animation-delay: 1.7s; }
+    .graph-bar:nth-child(9) { animation-delay: 1.8s; } .graph-bar:nth-child(10) { animation-delay: 1.9s; }
+    .bar-red { background: rgba(239,68,68,0.6); }
+    .bar-green { background: rgba(16,185,129,0.6); }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="dots-overlay"></div>
+    <div class="slide-number anim-fade-in-down delay-1">SCENE 07 / 14</div>
+    <div style="position:absolute;top:40px;left:60px;z-index:10;">
+      <span class="badge badge-green anim-fade-in-scale delay-2">MISTAKE GARDEN</span>
+      <h1 class="slide-title anim-fade-in-up delay-3" style="font-size:44px;margin-top:12px;text-align:left;">Where Errors <span class="gradient-text-green">Bloom</span></h1>
+      <p class="burmese burmese-small anim-fade-in-up delay-4" style="text-align:left;">အမှားတွေက ပန်းခြံထဲမှာ</p>
+    </div>
+    <div style="width:1400px;height:550px;position:relative;z-index:10;">
+      <div class="garden-ground"></div>
+      <div class="flower flower-1 flower-bloom"><div class="flower-head">🌸</div><div class="flower-stem"></div></div>
+      <div class="flower flower-2 flower-wilt"><div class="flower-head">🥀</div><div class="flower-stem"></div></div>
+      <div class="flower flower-3 flower-bloom"><div class="flower-head">🌻</div><div class="flower-stem"></div></div>
+      <div class="flower flower-4 flower-wilt"><div class="flower-head">🥀</div><div class="flower-stem"></div></div>
+      <div class="flower flower-5 flower-bloom"><div class="flower-head">🌷</div><div class="flower-stem"></div></div>
+      <div class="flower flower-6 flower-bloom"><div class="flower-head">🌺</div><div class="flower-stem"></div></div>
+      <div class="flower flower-7 flower-wilt"><div class="flower-head">🥀</div><div class="flower-stem"></div></div>
+      <div class="flower flower-8 flower-bloom"><div class="flower-head">🌼</div><div class="flower-stem"></div></div>
+      <div class="flower flower-9 flower-bloom"><div class="flower-head">🌸</div><div class="flower-stem"></div></div>
+      <div class="flower flower-10 flower-wilt"><div class="flower-head">🥀</div><div class="flower-stem"></div></div>
+      <div class="flower flower-11 flower-bloom"><div class="flower-head">🌻</div><div class="flower-stem"></div></div>
+      <div class="mistake-card">
+        <div class="mistake-card-header"><span class="mistake-card-tag">❌ Mistake from 5 days ago</span><span class="mistake-card-date">Jul 12</span></div>
+        <div class="mistake-card-question">Which protocol operates at the Transport layer of the OSI model?</div>
+        <div class="answer-compare">
+          <div class="answer-box answer-wrong"><span class="answer-label">Your Answer</span>IP — Internet Protocol</div>
+          <div class="answer-box answer-correct"><span class="answer-label">Correct Answer</span>TCP — Transmission Control Protocol</div>
+        </div>
+        <div class="mistake-explanation">IP operates at the Network layer (Layer 3). TCP and UDP are Transport layer protocols (Layer 4). Remember: "TCP = Transport, IP = Network."</div>
+        <div class="review-btn">✓ Mark as Reviewed</div>
+      </div>
+      <div class="growth-graph">
+        <div class="graph-title">Mistakes over time ↓ (fewer = stronger)</div>
+        <div class="graph-bars">
+          <div class="graph-bar bar-red" style="height:100%;"></div><div class="graph-bar bar-red" style="height:90%;"></div>
+          <div class="graph-bar bar-red" style="height:80%;"></div><div class="graph-bar bar-red" style="height:70%;"></div>
+          <div class="graph-bar bar-red" style="height:55%;"></div><div class="graph-bar bar-green" style="height:45%;"></div>
+          <div class="graph-bar bar-green" style="height:35%;"></div><div class="graph-bar bar-green" style="height:25%;"></div>
+          <div class="graph-bar bar-green" style="height:18%;"></div><div class="graph-bar bar-green" style="height:10%;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="glow-orb orb-green animate-glow-pulse" style="width:500px;height:300px;bottom:-50px;left:50%;transform:translateX(-50%);"></div>
+    <div class="slide-footer"><span class="slide-footer-text">3:25 – 4:00</span><span class="slide-footer-logo">NerdQuiz</span></div>
+  </div>
+</body>
+</html>

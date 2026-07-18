@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 03 — Awakening</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .door { width: 300px; height: 500px; background: linear-gradient(180deg, rgba(245,158,11,0.15), rgba(124,58,237,0.15)); border: 2px solid rgba(245,158,11,0.4); border-radius: 160px 160px 0 0; position: relative; overflow: hidden; box-shadow: 0 0 80px var(--gold-glow), inset 0 0 60px rgba(245,158,11,0.1); opacity: 0; animation: fade-in-scale 1.2s ease-out 0.3s forwards; }
+    .door::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(245,158,11,0.2); border-radius: 156px 156px 0 0; }
+    .door-light { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 200%; height: 100%; background: radial-gradient(ellipse at bottom, rgba(245,158,11,0.3), transparent 60%); animation: pulse-glow 3s ease-in-out infinite; }
+    .island { width: 140px; height: 100px; border-radius: 50%; position: absolute; display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); opacity: 0; }
+    .island-1 { background: linear-gradient(135deg, #3B82F6, #1D4ED8); top: 200px; left: 160px; animation: scale-in-bounce 0.6s ease-out 0.8s forwards, float 4s ease-in-out 1.4s infinite; }
+    .island-2 { background: linear-gradient(135deg, #7C3AED, #5B21B6); top: 120px; left: 340px; animation: scale-in-bounce 0.6s ease-out 1.0s forwards, float 4s ease-in-out 1.6s infinite; }
+    .island-3 { background: linear-gradient(135deg, #F59E0B, #D97706); top: 260px; left: 400px; animation: scale-in-bounce 0.6s ease-out 1.2s forwards, float 4s ease-in-out 1.8s infinite; }
+    .island-4 { background: linear-gradient(135deg, #10B981, #059669); top: 160px; left: 540px; animation: scale-in-bounce 0.6s ease-out 1.4s forwards, float 4s ease-in-out 2.0s infinite; }
+    .island-5 { background: linear-gradient(135deg, #EC4899, #DB2777); top: 300px; left: 580px; animation: scale-in-bounce 0.6s ease-out 1.6s forwards, float 4s ease-in-out 2.2s infinite; }
+    .bridge { position: absolute; height: 2px; background: linear-gradient(90deg, transparent, var(--purple-light), transparent); opacity: 0; animation: fade-in-up 0.8s ease-out forwards; }
+    .bridge-1 { width: 120px; top: 170px; left: 180px; transform: rotate(-15deg); animation-delay: 1.8s; }
+    .bridge-2 { width: 100px; top: 200px; left: 320px; transform: rotate(20deg); animation-delay: 2.0s; }
+    .bridge-3 { width: 140px; top: 230px; left: 400px; transform: rotate(-10deg); animation-delay: 2.2s; }
+    .auth-badge { display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; padding: 16px 24px; opacity: 0; }
+    .auth-badge-1 { animation: fade-in-up 0.6s ease-out 2.0s forwards; }
+    .auth-badge-2 { animation: fade-in-up 0.6s ease-out 2.2s forwards; }
+    .auth-badge-3 { animation: fade-in-up 0.6s ease-out 2.4s forwards; }
+    .auth-badge-text { font-size: 16px; color: var(--text-secondary); }
+    .auth-badge-text strong { color: var(--green); }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="grid-overlay"></div>
+    <div class="slide-number anim-fade-in-down delay-1">SCENE 03 / 14</div>
+    <div style="position:absolute;top:60px;text-align:center;z-index:10;width:100%;">
+      <h1 class="slide-title anim-fade-in-up delay-2" style="font-size:52px;"><span class="gradient-text">The Awakening</span></h1>
+      <p class="slide-subtitle anim-fade-in-up delay-3" style="font-size:24px;">Aung enters the NerdQuiz universe</p>
+    </div>
+    <div style="position:absolute;left:120px;top:50%;transform:translateY(-50%);z-index:5;">
+      <div class="door"><div class="door-light"></div></div>
+    </div>
+    <div style="position:absolute;right:100px;top:50%;transform:translateY(-50%);z-index:10;">
+      <div style="position:relative;width:600px;height:400px;">
+        <div class="island island-1">💻</div>
+        <div class="island island-2">🔒</div>
+        <div class="island island-3">📊</div>
+        <div class="island island-4">🎯</div>
+        <div class="island island-5">💼</div>
+        <div class="bridge bridge-1"></div>
+        <div class="bridge bridge-2"></div>
+        <div class="bridge bridge-3"></div>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:120px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:20px;">
+      <div class="auth-badge auth-badge-1"><span style="font-size:28px;">🔐</span><span class="auth-badge-text"><strong>JWT verified</strong> on every request</span></div>
+      <div class="auth-badge auth-badge-2"><span style="font-size:28px;">🚫</span><span class="auth-badge-text"><strong>Passwords never</strong> touch our servers</span></div>
+      <div class="auth-badge auth-badge-3"><span style="font-size:28px;">⚡</span><span class="auth-badge-text"><strong>One tap</strong> — email or Google</span></div>
+    </div>
+    <div class="glow-orb orb-gold animate-glow-pulse" style="width:400px;height:400px;top:50%;left:200px;transform:translateY(-50%);"></div>
+    <div class="glow-orb orb-purple animate-glow-pulse" style="width:250px;height:250px;bottom:-50px;right:150px;animation-delay:2s;"></div>
+    <div class="slide-footer"><span class="slide-footer-text">0:45 – 1:15</span><span class="slide-footer-logo">NerdQuiz</span></div>
+  </div>
+</body>
+</html>
