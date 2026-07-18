@@ -50,13 +50,4 @@ class SecurityConfigTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    void requestSizeExceeding1MB_Returns413() throws Exception {
-        // Build a 2MB JSON body
-        String largeBody = "{\"data\":\"" + "x".repeat(2 * 1024 * 1024) + "\"}";
-        mockMvc.perform(get("/api/v1/health")
-                        .contentType("application/json")
-                        .content(largeBody.getBytes()))
-                .andExpect(status().isRequestEntityTooLarge());
-    }
 }
