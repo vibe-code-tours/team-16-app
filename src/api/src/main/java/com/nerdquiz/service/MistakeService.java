@@ -46,10 +46,19 @@ public class MistakeService {
             throw new QuestionNotFoundException();
         }
 
-        UserMistake mistake = new UserMistake();
-        mistake.setUserId(userId);
-        mistake.setQuestionId(request.questionId());
+        // Upsert: if the user already got this question wrong, update the record
+        // instead of creating a duplicate.
+        UserMistake mistake = userMistakeRepository
+                .findByUserIdAndQuestionId(userId, request.questionId())
+                .orElseGet(() -> {
+                    UserMistake newMistake = new UserMistake();
+                    newMistake.setUserId(userId);
+                    newMistake.setQuestionId(request.questionId());
+                    newMistake.setReviewed(false);
+                    return newMistake;
+                });
         mistake.setSelectedLabel(request.selectedLabel());
+        mistake.setCreatedAt(Instant.now());
         UserMistake saved = userMistakeRepository.save(mistake);
 
         Question question = questionRepository.findById(saved.getQuestionId()).orElse(null);

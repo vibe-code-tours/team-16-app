@@ -17,4 +17,6 @@ public interface UserMistakeRepository extends JpaRepository<UserMistake, UUID> 
     List<UserMistake> findByUserIdOrderByCreatedAtDesc(UUID userId, Pageable pageable);
 
     Optional<UserMistake> findByIdAndUserId(UUID id, UUID userId);
+
+    Optional<UserMistake> findByUserIdAndQuestionId(UUID userId, UUID questionId);
 }
