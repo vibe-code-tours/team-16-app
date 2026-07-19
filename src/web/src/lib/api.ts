@@ -36,6 +36,10 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     throw new Error(`API error ${response.status}: ${body}`)
   }
 
+  // Handle 204 No Content or empty bodies — avoid "Unexpected end of JSON input"
+  if (response.status === 204 || response.headers.get('content-length') === '0') {
+    return undefined as T
+  }
   return response.json()
 }
 

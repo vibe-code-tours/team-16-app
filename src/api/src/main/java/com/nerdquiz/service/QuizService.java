@@ -32,6 +32,8 @@ public class QuizService {
     private final QuestionService questionService;
     private final WeakPointService weakPointService;
     private final UserDailyActivityService activityService;
+    private final UserService userService;
+    private final MistakeService mistakeService;
     private final ObjectMapper objectMapper;
 
     public QuizService(QuestionRepository questionRepository,
@@ -41,6 +43,8 @@ public class QuizService {
                        QuestionService questionService,
                        WeakPointService weakPointService,
                        UserDailyActivityService activityService,
+                       UserService userService,
+                       MistakeService mistakeService,
                        ObjectMapper objectMapper) {
         this.questionRepository = questionRepository;
         this.quizSessionRepository = quizSessionRepository;
@@ -49,6 +53,8 @@ public class QuizService {
         this.questionService = questionService;
         this.weakPointService = weakPointService;
         this.activityService = activityService;
+        this.userService = userService;
+        this.mistakeService = mistakeService;
         this.objectMapper = objectMapper;
     }
 
@@ -82,9 +88,9 @@ public class QuizService {
         }
         quizSessionQuestionRepository.saveAll(sessionQuestions);
 
-        // Convert to response (without correct answers)
+        // Convert to response (include correct answers for practice quiz highlighting)
         List<QuestionResponse> questionResponses = questions.stream()
-                .map(q -> toResponseWithoutAnswer(q))
+                .map(q -> toResponse(q))
                 .toList();
 
         return new QuizSessionResponse(
@@ -127,6 +133,12 @@ public class QuizService {
 
         boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(request.answer());
 
+        // Record mistake for wrong answers
+        if (!isCorrect) {
+            mistakeService.recordMistake(userId, new RecordMistakeRequest(
+                request.questionId(), request.answer()));
+        }
+
         QuizAnswer answer = new QuizAnswer();
         answer.setQuizSessionId(sessionId);
         answer.setQuestionId(request.questionId());
@@ -149,9 +161,9 @@ public class QuizService {
         quizSessionRepository.save(session);
         QuizAnswer savedAnswer = quizAnswerRepository.save(answer);
 
-        // Record daily activity when quiz is completed
+        // Persist XP and record daily activity when quiz is completed
         if ("completed".equals(session.getStatus())) {
-            activityService.recordActivity(userId, 1, session.getXpEarned());
+            userService.incrementUserXp(userId, session.getXpEarned());
         }
 
         weakPointService.updateMastery(userId, request.questionId(), isCorrect);
