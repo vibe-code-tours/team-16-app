@@ -29,7 +29,18 @@ export default function App() {
           <Route path="/" element={<Layout showSidebar={false} showHeader={false}><LandingPage /></Layout>} />
           <Route path="/login" element={<Layout showSidebar={false} showHeader={false}><LoginPage /></Layout>} />
           <Route path="/register" element={<Layout showSidebar={false} showHeader={false}><RegisterPage /></Layout>} />
-          <Route path="/ai-draft" element={<Layout showSidebar={false}><AiDraftPreview /></Layout>} />
+          <Route
+            path="/ai-draft"
+            element={
+              <ProtectedRoute>
+                <AdminRoute>
+                  <Layout showSidebar={false}>
+                    <AiDraftPreview />
+                  </Layout>
+                </AdminRoute>
+              </ProtectedRoute>
+            }
+          />
 
           {/* Protected routes - with layout */}
           <Route

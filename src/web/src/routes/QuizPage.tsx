@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../lib/api'
 import type { QuizQuestion } from '../types'
@@ -12,6 +12,8 @@ interface QuizQuestionFromApi {
   explanation: string | null
 }
 
+type Difficulty = 'all' | 'easy' | 'medium' | 'hard'
+
 const QUIZ_LENGTH = 5
 const XP_PER_CORRECT = 10
 
@@ -24,56 +26,51 @@ export function QuizPage() {
   const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
   const [isAnswered, setIsAnswered] = useState(false)
   const [score, setScore] = useState(0)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [finished, setFinished] = useState(false)
+  const [difficulty, setDifficulty] = useState<Difficulty>('all')
+  const [started, setStarted] = useState(false)
+
+  const loadQuiz = useCallback(async () => {
+    if (!subtopicId) return
+    setLoading(true)
+    setError(null)
+
+    try {
+      const difficultyParam = difficulty === 'all' ? '' : `&difficulty=${difficulty}`
+      const data = await api.get<QuizQuestionFromApi[]>(
+        `/api/v1/subtopics/${subtopicId}/quiz?count=${QUIZ_LENGTH}${difficultyParam}`
+      )
+      setQuestions(
+        data.map((q) => ({
+          id: q.id,
+          subtopic_id: q.subtopicId,
+          question_text: q.questionText,
+          choices: q.choices,
+          correct_answer: q.correctAnswer,
+          explanation: q.explanation,
+        }))
+      )
+
+      // Create quiz session for tracking
+      const session = await api.post<{ id: string }>(
+        '/api/v1/quizzes/start',
+        { subtopicId, questionCount: data.length }
+      )
+      setSessionId(session.id)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to load quiz')
+    } finally {
+      setLoading(false)
+    }
+  }, [subtopicId, difficulty])
 
   useEffect(() => {
-    let cancelled = false
-
-    async function load() {
-      if (!subtopicId) return
-      setLoading(true)
-      setError(null)
-
-      try {
-        const data = await api.get<QuizQuestionFromApi[]>(
-          `/api/v1/subtopics/${subtopicId}/quiz?count=${QUIZ_LENGTH}`
-        )
-        if (cancelled) return
-        setQuestions(
-          data.map((q) => ({
-            id: q.id,
-            subtopic_id: q.subtopicId,
-            question_text: q.questionText,
-            choices: q.choices,
-            correct_answer: q.correctAnswer,
-            explanation: q.explanation,
-          }))
-        )
-
-        // Create quiz session for tracking
-        if (!cancelled) {
-          const session = await api.post<{ id: string }>(
-            '/api/v1/quizzes/start',
-            { subtopicId, questionCount: data.length }
-          )
-          if (!cancelled) setSessionId(session.id)
-        }
-      } catch (e) {
-        if (cancelled) return
-        setError(e instanceof Error ? e.message : 'Failed to load quiz')
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
+    if (started) {
+      loadQuiz()
     }
-
-    load()
-
-    return () => {
-      cancelled = true
-    }
-  }, [subtopicId])
+  }, [started, loadQuiz])
 
   const currentQuestion = questions[index]
   const isLastQuestion = index === questions.length - 1
@@ -109,6 +106,56 @@ export function QuizPage() {
       return
     }
     setFinished(true)
+  }
+
+  if (!started) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+        <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
+          <div className="mb-4 text-5xl">📝</div>
+          <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Quiz Practice</h2>
+          <p className="mb-6 text-gray-500 dark:text-gray-400">
+            Test your knowledge with 5 questions
+          </p>
+
+          <div className="mb-6">
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300 text-left">
+              Select Difficulty
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {(['all', 'easy', 'medium', 'hard'] as Difficulty[]).map((d) => (
+                <button
+                  key={d}
+                  onClick={() => setDifficulty(d)}
+                  className={`rounded-lg border-2 px-4 py-2 transition-all ${
+                    difficulty === d
+                      ? 'border-purple-500 bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
+                      : 'border-gray-200 text-gray-600 hover:border-gray-300 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-600'
+                  }`}
+                >
+                  {d.charAt(0).toUpperCase() + d.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <button
+              onClick={() => setStarted(true)}
+              className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+            >
+              Start Quiz
+            </button>
+            <button
+              onClick={() => navigate('/map')}
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              Back to Map
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (loading) {
@@ -150,13 +197,16 @@ export function QuizPage() {
 
   if (finished) {
     const earnedXp = score * XP_PER_CORRECT
+    const perfectScore = score === questions.length
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
         <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
           <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-100 text-3xl text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
-            🎉
+            {perfectScore ? '🎉' : '📚'}
           </div>
-          <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Quiz complete!</h2>
+          <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
+            {perfectScore ? 'Perfect score!' : 'Quiz complete!'}
+          </h2>
           <p className="mb-6 text-gray-500 dark:text-gray-400">
             You scored{' '}
             <span className="font-bold text-purple-600 dark:text-purple-400">
@@ -167,12 +217,29 @@ export function QuizPage() {
             <p className="text-sm font-medium text-purple-600 dark:text-purple-400">XP earned</p>
             <p className="text-3xl font-bold text-purple-700 dark:text-purple-300">+{earnedXp} XP</p>
           </div>
-          <button
-            onClick={() => navigate('/map')}
-            className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
-          >
-            Back to Map
-          </button>
+          <div className="space-y-3">
+            {perfectScore ? (
+              <button
+                onClick={() => navigate('/map')}
+                className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+              >
+                Next Topic →
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate(0)} // Refresh to retake
+                className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+              >
+                Retake Quiz
+              </button>
+            )}
+            <button
+              onClick={() => navigate('/map')}
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              Back to Map
+            </button>
+          </div>
         </div>
       </div>
     )
