@@ -136,6 +136,26 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    @ExceptionHandler(DuplicateAnswerException.class)
+    public ResponseEntity<Map<String, Object>> handleDuplicateAnswer(DuplicateAnswerException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+            "type", "https://nerdquiz.com/errors/conflict",
+            "title", "Duplicate Answer",
+            "status", 409,
+            "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(QuestionNotInQuizSessionException.class)
+    public ResponseEntity<Map<String, Object>> handleQuestionNotInQuizSession(QuestionNotInQuizSessionException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+            "type", "https://nerdquiz.com/errors/bad-request",
+            "title", "Question Not In Quiz Session",
+            "status", 400,
+            "detail", ex.getMessage()
+        ));
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException ex) {
         log.error("Unhandled exception: {}", ex.getMessage(), ex);
@@ -143,7 +163,7 @@ public class GlobalExceptionHandler {
             "type", "https://nerdquiz.com/errors/internal",
             "title", "Internal Server Error",
             "status", 500,
-            "detail", ex.getMessage() != null ? ex.getMessage() : "An unexpected error occurred"
+            "detail", "An unexpected error occurred"
         ));
     }
 

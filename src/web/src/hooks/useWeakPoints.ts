@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { api } from '../lib/api'
 import { useAuth } from './useAuth.tsx'
 import type { WeakPointAnalysis } from '../types/WeakPoint'
@@ -7,6 +7,7 @@ interface UseWeakPointsResult {
   data: WeakPointAnalysis | null
   loading: boolean
   error: string | null
+  refetch: () => void
 }
 
 export function useWeakPoints(): UseWeakPointsResult {
@@ -14,6 +15,11 @@ export function useWeakPoints(): UseWeakPointsResult {
   const [data, setData] = useState<WeakPointAnalysis | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [fetchTrigger, setFetchTrigger] = useState(0)
+
+  const refetch = useCallback(() => {
+    setFetchTrigger((prev) => prev + 1)
+  }, [])
 
   useEffect(() => {
     let cancelled = false
@@ -38,7 +44,7 @@ export function useWeakPoints(): UseWeakPointsResult {
     return () => {
       cancelled = true
     }
-  }, [user?.id])
+  }, [user?.id, fetchTrigger])
 
-  return { data, loading, error }
+  return { data, loading, error, refetch }
 }

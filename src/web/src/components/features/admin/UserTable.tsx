@@ -68,7 +68,7 @@ export function UserTable({ users, filters, onSort, onSelectUser }: UserTablePro
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3">
                   {user.avatarUrl ? (
-                    <img src={user.avatarUrl} alt="" className="h-8 w-8 rounded-full" />
+                    <img src={user.avatarUrl} alt={`${user.displayName || 'User'} avatar`} className="h-8 w-8 rounded-full" />
                   ) : (
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 text-sm font-medium text-purple-700 dark:text-purple-400">
                       {(user.displayName || user.email).charAt(0).toUpperCase()}

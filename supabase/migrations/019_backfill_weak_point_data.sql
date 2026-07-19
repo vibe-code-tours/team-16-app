@@ -14,7 +14,7 @@ SELECT
   q.subtopic_id,
   COUNT(*) AS questions_seen,
   COUNT(*) FILTER (WHERE qa.is_correct) AS questions_correct,
-  ROUND(COUNT(*) FILTER (WHERE qa.is_correct)::numeric / COUNT(*)::numeric, 4) AS mastery_score,
+  ROUND(COUNT(*) FILTER (WHERE qa.is_correct)::numeric / NULLIF(COUNT(*), 0)::numeric, 4) AS mastery_score,
   MAX(qa.answered_at) AS last_practiced_at,
   NOW() AS updated_at
 FROM quiz_answers qa

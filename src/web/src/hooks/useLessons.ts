@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { api } from '../lib/api'
 import { useAuth } from './useAuth'
 
@@ -84,7 +84,7 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
     }
   }, [subtopicId, user?.id])
 
-  const completeLesson = async (lessonId: string) => {
+  const completeLesson = useCallback(async (lessonId: string) => {
     if (!user?.id) return
     try {
       await api.post<void>(`/api/v1/lessons/${lessonId}/complete`)
@@ -106,7 +106,7 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
     } catch (e) {
       console.error('Failed to complete lesson:', e)
     }
-  }
+  }, [user?.id])
 
   return { lessons, progress, loading, error, completeLesson }
 }

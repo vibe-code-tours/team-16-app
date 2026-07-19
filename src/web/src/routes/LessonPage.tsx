@@ -20,22 +20,34 @@ export function LessonPage() {
   const [completing, setCompleting] = useState(false)
 
   useEffect(() => {
+    let cancelled = false
+
     async function fetchLessonData() {
       if (!lessonId) return
 
       setLoading(true)
       try {
         const lessonData = await api.get<LessonDetail>(`/api/v1/lessons/${lessonId}`)
-        setLesson(lessonData)
+        if (!cancelled) {
+          setLesson(lessonData)
+        }
       } catch (e) {
         console.error('Error fetching lesson:', e)
-        setLesson(null)
+        if (!cancelled) {
+          setLesson(null)
+        }
       } finally {
-        setLoading(false)
+        if (!cancelled) {
+          setLoading(false)
+        }
       }
     }
 
     fetchLessonData()
+
+    return () => {
+      cancelled = true
+    }
   }, [lessonId])
 
   if (loading) {

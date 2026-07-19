@@ -1,5 +1,6 @@
 package com.nerdquiz.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nerdquiz.dto.*;
 import com.nerdquiz.exception.DuplicateAnswerException;
 import com.nerdquiz.exception.QuestionNotInQuizSessionException;
@@ -13,7 +14,6 @@ import com.nerdquiz.repository.QuizSessionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -49,7 +49,6 @@ class QuizServiceTest {
     @Mock
     private UserDailyActivityService activityService;
 
-    @InjectMocks
     private QuizService quizService;
 
     private UUID userId;
@@ -80,6 +79,12 @@ class QuizServiceTest {
         sampleSession.setScore(0);
         sampleSession.setXpEarned(0);
         sampleSession.setStatus("in_progress");
+
+        // Construct service manually with a real ObjectMapper (stateless, safe in tests)
+        quizService = new QuizService(
+                questionRepository, quizSessionRepository, quizAnswerRepository,
+                quizSessionQuestionRepository, questionService, weakPointService,
+                activityService, new ObjectMapper());
     }
 
     @Test

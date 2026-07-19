@@ -33,6 +33,7 @@ public class JwtUtil {
     private volatile JWKSet cachedJwks;
     private volatile long cacheExpiry = 0;
     private static final long CACHE_DURATION_MS = 3600_000; // 1 hour
+    private final Object jwksLock = new Object();
 
     private static final Map<String, JWSVerifier> verifierCache = new ConcurrentHashMap<>();
 
@@ -105,6 +106,7 @@ public class JwtUtil {
 
     /**
      * Fetch JWKS from Supabase, with caching.
+     * Uses synchronized block to prevent race condition on concurrent expiration.
      */
     private JWKSet getJwks() throws Exception {
         long now = System.currentTimeMillis();
@@ -112,14 +114,21 @@ public class JwtUtil {
             return cachedJwks;
         }
 
-        String jwksUrl = supabaseUrl + "/auth/v1/.well-known/jwks.json";
-        log.debug("Fetching JWKS from: {}", jwksUrl);
+        synchronized (jwksLock) {
+            // Double-check after acquiring lock
+            if (cachedJwks != null && now < cacheExpiry) {
+                return cachedJwks;
+            }
 
-        JWKSet jwkSet = JWKSet.load(new URI(jwksUrl).toURL());
+            String jwksUrl = supabaseUrl + "/auth/v1/.well-known/jwks.json";
+            log.debug("Fetching JWKS from: {}", jwksUrl);
 
-        cachedJwks = jwkSet;
-        cacheExpiry = now + CACHE_DURATION_MS;
+            JWKSet jwkSet = JWKSet.load(new URI(jwksUrl).toURL());
 
-        return jwkSet;
+            cachedJwks = jwkSet;
+            cacheExpiry = System.currentTimeMillis() + CACHE_DURATION_MS;
+
+            return jwkSet;
+        }
     }
 }

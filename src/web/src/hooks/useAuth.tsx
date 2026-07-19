@@ -111,14 +111,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const signUp = useCallback(async (email: string, password: string) => {
-    // Check if email already exists via RPC (bypasses RLS)
-    const { data: emailExists } = await supabase
-      .rpc('check_email_exists', { check_email: email })
-
-    if (emailExists) {
-      return { error: 'An account with this email already exists. If you signed up with Google, use the Google sign-in button.', session: null }
-    }
-
+    // Note: Removed email existence check to prevent email enumeration attacks.
+    // Supabase will return an error if the email is already registered.
     const { data, error } = await supabase.auth.signUp({ email, password })
     if (error?.message?.includes('already registered') || error?.message?.includes('already been registered')) {
       return { error: 'An account with this email already exists. Please sign in instead.', session: null }

@@ -1,5 +1,6 @@
 package com.nerdquiz.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nerdquiz.dto.*;
 import com.nerdquiz.exception.*;
 import com.nerdquiz.model.Question;
@@ -31,6 +32,7 @@ public class QuizService {
     private final QuestionService questionService;
     private final WeakPointService weakPointService;
     private final UserDailyActivityService activityService;
+    private final ObjectMapper objectMapper;
 
     public QuizService(QuestionRepository questionRepository,
                        QuizSessionRepository quizSessionRepository,
@@ -38,7 +40,8 @@ public class QuizService {
                        QuizSessionQuestionRepository quizSessionQuestionRepository,
                        QuestionService questionService,
                        WeakPointService weakPointService,
-                       UserDailyActivityService activityService) {
+                       UserDailyActivityService activityService,
+                       ObjectMapper objectMapper) {
         this.questionRepository = questionRepository;
         this.quizSessionRepository = quizSessionRepository;
         this.quizAnswerRepository = quizAnswerRepository;
@@ -46,6 +49,7 @@ public class QuizService {
         this.questionService = questionService;
         this.weakPointService = weakPointService;
         this.activityService = activityService;
+        this.objectMapper = objectMapper;
     }
 
     @Transactional
@@ -71,11 +75,12 @@ public class QuizService {
         session = quizSessionRepository.save(session);
 
         // Persist issued questions so submitAnswer can validate against them
+        List<QuizSessionQuestion> sessionQuestions = new java.util.ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
-            QuizSessionQuestion sq = new QuizSessionQuestion(
-                session.getId(), questions.get(i).getId(), i + 1);
-            quizSessionQuestionRepository.save(sq);
+            sessionQuestions.add(new QuizSessionQuestion(
+                session.getId(), questions.get(i).getId(), i + 1));
         }
+        quizSessionQuestionRepository.saveAll(sessionQuestions);
 
         // Convert to response (without correct answers)
         List<QuestionResponse> questionResponses = questions.stream()
@@ -210,10 +215,10 @@ public class QuizService {
     private QuestionResponse toResponse(Question question) {
         try {
             com.fasterxml.jackson.databind.JsonNode imagesNode =
-                new com.fasterxml.jackson.databind.ObjectMapper().readTree(
+                objectMapper.readTree(
                     question.getImages() != null ? question.getImages() : "[]");
             com.fasterxml.jackson.databind.JsonNode choicesNode =
-                new com.fasterxml.jackson.databind.ObjectMapper().readTree(question.getChoices());
+                objectMapper.readTree(question.getChoices());
 
             return new QuestionResponse(
                 question.getId(),
@@ -236,10 +241,10 @@ public class QuizService {
     private QuestionResponse toResponseWithoutAnswer(Question question) {
         try {
             com.fasterxml.jackson.databind.JsonNode imagesNode =
-                new com.fasterxml.jackson.databind.ObjectMapper().readTree(
+                objectMapper.readTree(
                     question.getImages() != null ? question.getImages() : "[]");
             com.fasterxml.jackson.databind.JsonNode choicesNode =
-                new com.fasterxml.jackson.databind.ObjectMapper().readTree(question.getChoices());
+                objectMapper.readTree(question.getChoices());
 
             return new QuestionResponse(
                 question.getId(),

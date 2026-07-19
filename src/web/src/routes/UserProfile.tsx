@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type SVGProps } from "react";
+import { useState, useEffect, type FormEvent, type SVGProps } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
@@ -41,6 +41,13 @@ export function UserProfile() {
   const [editingName, setEditingName] = useState(false);
   const [displayName, setDisplayName] = useState(user?.display_name ?? "");
   const [saving, setSaving] = useState(false);
+
+  // Sync displayName with user data when it changes
+  useEffect(() => {
+    if (user?.display_name !== undefined) {
+      setDisplayName(user.display_name ?? "");
+    }
+  }, [user?.display_name]);
   const [avatarFailed, setAvatarFailed] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

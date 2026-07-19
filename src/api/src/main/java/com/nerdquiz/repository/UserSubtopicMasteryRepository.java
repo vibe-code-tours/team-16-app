@@ -2,6 +2,7 @@ package com.nerdquiz.repository;
 
 import com.nerdquiz.model.UserSubtopicMastery;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,28 @@ public interface UserSubtopicMasteryRepository
     List<UserSubtopicMastery> findByUserId(UUID userId);
 
     Optional<UserSubtopicMastery> findByUserIdAndSubtopicId(UUID userId, UUID subtopicId);
+
+    /**
+     * Atomically increment mastery counters to prevent race conditions.
+     *
+     * @return number of rows updated (0 if no existing record)
+     */
+    @Modifying
+    @Query(value = """
+            UPDATE user_subtopic_mastery
+            SET questions_seen = questions_seen + 1,
+                questions_correct = questions_correct + :correctIncrement,
+                mastery_score = CASE
+                    WHEN questions_seen + 1 > 0
+                    THEN (questions_correct + :correctIncrement)::decimal / (questions_seen + 1)
+                    ELSE 0
+                END,
+                last_practiced_at = NOW()
+            WHERE user_id = :userId AND subtopic_id = :subtopicId
+            """, nativeQuery = true)
+    int incrementMastery(@Param("userId") UUID userId,
+                         @Param("subtopicId") UUID subtopicId,
+                         @Param("correctIncrement") int correctIncrement);
 
     @Query(value = """
             SELECT t.id AS topicId, t.name AS topicName, t.slug AS topicSlug,
