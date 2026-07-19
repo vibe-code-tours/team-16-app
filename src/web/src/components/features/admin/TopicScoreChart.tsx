@@ -21,7 +21,7 @@ export function TopicScoreChart({ data }: TopicScoreChartProps) {
 
   return (
     <ResponsiveContainer width="100%" height={280}>
-      <BarChart data={formatted} layout="vertical" margin={{ top: 5, right: 20, left: 80, bottom: 5 }}>
+      <BarChart data={formatted} layout="vertical" margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
         <XAxis
           type="number"
@@ -37,7 +37,7 @@ export function TopicScoreChart({ data }: TopicScoreChartProps) {
           tick={{ fontSize: 12 }}
           tickLine={false}
           axisLine={{ stroke: '#d1d5db' }}
-          width={75}
+          width={70}
         />
         <Tooltip
           contentStyle={{

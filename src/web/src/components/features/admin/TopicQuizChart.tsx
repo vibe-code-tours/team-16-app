@@ -20,7 +20,7 @@ export function TopicQuizChart({ data }: TopicQuizChartProps) {
 
   return (
     <ResponsiveContainer width="100%" height={280}>
-      <BarChart data={data} layout="vertical" margin={{ top: 5, right: 20, left: 80, bottom: 5 }}>
+      <BarChart data={data} layout="vertical" margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#374151' : '#e5e7eb'} horizontal={false} />
         <XAxis
           type="number"
@@ -35,7 +35,7 @@ export function TopicQuizChart({ data }: TopicQuizChartProps) {
           tick={{ fontSize: 12, fill: isDark ? '#9ca3af' : '#374151' }}
           tickLine={false}
           axisLine={{ stroke: isDark ? '#4b5563' : '#d1d5db' }}
-          width={75}
+          width={70}
         />
         <Tooltip
           contentStyle={{
