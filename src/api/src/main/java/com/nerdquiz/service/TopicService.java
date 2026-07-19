@@ -93,8 +93,10 @@ public class TopicService {
 
                 String status = deriveStatus(totalLessons, completedLessons, prereqCompleted);
 
+                // TODO: Track actual question answers at subtopic level
+                // For now, use lesson completion as a proxy for progress
                 TopicProgressResponse progress = completedLessons > 0
-                        ? new TopicProgressResponse(sub.getId(), status, completedLessons, completedLessons, null)
+                        ? new TopicProgressResponse(sub.getId(), status, completedLessons, 0, null)
                         : null;
 
                 String description = sub.getDescription() == null || sub.getDescription().isBlank()

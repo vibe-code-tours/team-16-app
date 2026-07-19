@@ -24,7 +24,10 @@ public class UserProfileService {
     @Transactional
     public UserProfileResponse getProfile(UUID userId) {
         UserProfile profile = userProfileRepository.findById(userId)
-                .orElseGet(() -> createDefaultProfile(userId));
+                .orElseGet(() -> {
+                    UserProfile newProfile = createNewProfile(userId, null, null, null);
+                    return userProfileRepository.save(newProfile);
+                });
         return toResponse(profile);
     }
 
@@ -46,16 +49,7 @@ public class UserProfileService {
             }
             profile.setUpdatedAt(Instant.now());
         } else {
-            profile = createDefaultProfile(userId);
-            if (email != null) {
-                profile.setEmail(email);
-            }
-            if (displayName != null) {
-                profile.setDisplayName(displayName);
-            }
-            if (avatarUrl != null) {
-                profile.setAvatarUrl(avatarUrl);
-            }
+            profile = createNewProfile(userId, email, displayName, avatarUrl);
         }
 
         return toResponse(userProfileRepository.save(profile));
@@ -77,13 +71,15 @@ public class UserProfileService {
         return toResponse(userProfileRepository.save(profile));
     }
 
-    private UserProfile createDefaultProfile(UUID userId) {
+    private UserProfile createNewProfile(UUID userId, String email, String displayName, String avatarUrl) {
         UserProfile profile = new UserProfile();
         profile.setId(userId);
-        profile.setEmail("");
+        profile.setEmail(email != null ? email : "");
+        profile.setDisplayName(displayName);
+        profile.setAvatarUrl(avatarUrl);
         profile.setTotalXp(0);
         profile.setStreakCount(0);
-        return userProfileRepository.save(profile);
+        return profile;
     }
 
     private UserProfileResponse toResponse(UserProfile profile) {

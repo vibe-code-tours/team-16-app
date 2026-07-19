@@ -86,9 +86,9 @@ export function QuizResult() {
         {/* Answer Review */}
         <h2 className="text-lg font-bold text-gray-900 mb-4">Review Answers</h2>
         <div className="space-y-4">
-          {result.answers.map((item, idx) => (
+          {result.answers.map((item) => (
             <Card
-              key={idx}
+              key={item.question.id}
               className={`border-l-4 ${
                 item.is_correct ? 'border-l-green-500' : 'border-l-red-500'
               }`}

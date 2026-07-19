@@ -1,6 +1,7 @@
 package com.nerdquiz.repository;
 
 import com.nerdquiz.model.UserMistake;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,8 @@ import java.util.UUID;
 public interface UserMistakeRepository extends JpaRepository<UserMistake, UUID> {
 
     List<UserMistake> findByUserIdOrderByCreatedAtDesc(UUID userId);
+
+    List<UserMistake> findByUserIdOrderByCreatedAtDesc(UUID userId, Pageable pageable);
 
     Optional<UserMistake> findByIdAndUserId(UUID id, UUID userId);
 }

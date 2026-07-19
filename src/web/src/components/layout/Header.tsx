@@ -74,7 +74,7 @@ export function Header({ onMenuToggle }: HeaderProps) {
                   {user.avatar_url ? (
                     <img
                       src={user.avatar_url}
-                      alt=""
+                      alt={`${user.display_name || 'User'} avatar`}
                       className="h-6 w-6 rounded-full"
                     />
                   ) : (

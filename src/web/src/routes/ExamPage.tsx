@@ -131,6 +131,7 @@ export function ExamPage() {
 
     const status = timeLeft === 0 ? 'expired' : 'completed'
 
+    let cancelled = false
     ;(async () => {
       if (sessionIdRef.current) {
         try {
@@ -138,14 +139,20 @@ export function ExamPage() {
             `/api/v1/exams/${sessionIdRef.current}/finish`,
             { status }
           )
-          setAwardedXp(result.xpEarned)
-          setHearts(result.heartsRemaining)
-          if (result.xpEarned > 0) await refreshUser()
+          if (!cancelled) {
+            setAwardedXp(result.xpEarned)
+            setHearts(result.heartsRemaining)
+            if (result.xpEarned > 0) await refreshUser()
+          }
         } catch (e) {
           console.error('Failed to finish exam:', e)
         }
       }
     })()
+
+    return () => {
+      cancelled = true
+    }
   }, [finished, questions, refreshUser, timeLeft])
 
   const formatTime = (seconds: number) => {
@@ -206,20 +213,6 @@ export function ExamPage() {
       setFinished(true)
     }
   }, [currentIndex, questions.length, recordingAnswer])
-
-  const restartExam = useCallback(() => {
-    finishedOnceRef.current = false
-    sessionIdRef.current = null
-    setQuestions([])
-    setCurrentIndex(0)
-    setHearts(INITIAL_HEARTS)
-    setTimeLeft(EXAM_DURATION_MINUTES * 60)
-    setFinished(false)
-    setSubmitted(false)
-    setRecordingAnswer(false)
-    setAwardedXp(null)
-    loadQuestions()
-  }, [loadQuestions])
 
   if (!started) {
     return (
@@ -350,10 +343,16 @@ export function ExamPage() {
 
           <div className="space-y-3">
             <button
-              onClick={restartExam}
+              onClick={() => navigate('/mistakes')}
               className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
             >
-              Try Again
+              Review Mistakes
+            </button>
+            <button
+              onClick={() => navigate('/weak-points')}
+              className="w-full rounded-lg border border-purple-300 dark:border-purple-600 px-4 py-3 font-medium text-purple-700 dark:text-purple-400 transition-colors hover:bg-purple-50 dark:hover:bg-purple-900/30"
+            >
+              Practice Weak Areas
             </button>
             <button
               onClick={() => navigate('/map')}
