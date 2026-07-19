@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
@@ -16,6 +16,27 @@ export function TopicDetail() {
     const p = progress.find((pr) => pr.lesson_id === lessonId)
     return p?.status ?? 'locked'
   }
+
+  const allLessonsCompleted = lessons.length > 0 && lessons.every((l) => getLessonStatus(l.id) === 'completed')
+
+  const handleCompleteLesson = useCallback(async (lessonId: string) => {
+    await completeLesson(lessonId)
+
+    // Find the next unlocked lesson
+    const currentIndex = lessons.findIndex((l) => l.id === lessonId)
+    const nextLesson = lessons.slice(currentIndex + 1).find((l) => {
+      const status = getLessonStatus(l.id)
+      return status === 'unlocked' || status === 'in_progress'
+    })
+
+    if (nextLesson) {
+      // Auto-advance to next lesson
+      setSelectedLessonId(nextLesson.id)
+    } else if (allLessonsCompleted || lessons.every((l) => getLessonStatus(l.id) === 'completed')) {
+      // All lessons completed, stay on lesson list to show quiz CTA
+      setSelectedLessonId(null)
+    }
+  }, [completeLesson, lessons, allLessonsCompleted])
 
   if (loading) {
     return (
@@ -54,7 +75,7 @@ export function TopicDetail() {
           <div>
             <LessonContent
               lesson={selectedLesson}
-              onComplete={() => completeLesson(selectedLesson.id)}
+              onComplete={() => handleCompleteLesson(selectedLesson.id)}
               isCompleted={selectedProgress?.status === 'completed'}
             />
           </div>
@@ -68,13 +89,21 @@ export function TopicDetail() {
             <div className="mb-6">
               <button
                 onClick={() => topicId && navigate(`/quiz/${topicId}`)}
-                className="w-full rounded-xl border-2 border-purple-600 bg-purple-600 p-4 text-left text-white transition hover:bg-purple-700"
+                className={`w-full rounded-xl border-2 p-4 text-left text-white transition ${
+                  allLessonsCompleted
+                    ? 'border-green-600 bg-green-600 hover:bg-green-700'
+                    : 'border-purple-600 bg-purple-600 hover:bg-purple-700'
+                }`}
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-bold">Take the 5-question quiz</h3>
-                    <p className="text-sm text-purple-100">
-                      Test yourself and earn XP for every correct answer.
+                    <h3 className="font-bold">
+                      {allLessonsCompleted ? 'Start Quiz →' : 'Take the 5-question quiz'}
+                    </h3>
+                    <p className="text-sm opacity-90">
+                      {allLessonsCompleted
+                        ? 'You\'ve completed all lessons! Test your knowledge.'
+                        : 'Test yourself and earn XP for every correct answer.'}
                     </p>
                   </div>
                   <span aria-hidden="true">→</span>
