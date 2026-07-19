@@ -20,7 +20,7 @@ export function Layout({ children, showSidebar = true, showHeader = true }: Layo
           onClose={() => setSidebarOpen(false)}
           showNavItems={showSidebar}
         />
-        <main className={`flex-1 transition-[margin] duration-200 ${showSidebar ? 'lg:ml-64' : ''}`}>
+        <main className={`flex-1 overflow-x-hidden transition-[margin] duration-200 ${showSidebar ? 'lg:ml-64' : ''}`}>
           <div className="p-4 md:p-6 lg:p-8">
             {children}
           </div>

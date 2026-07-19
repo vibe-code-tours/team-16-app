@@ -18,7 +18,7 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
 
     case 'text':
       return (
-        <div className="prose prose-sm max-w-none text-gray-700 dark:text-gray-300 mb-4">
+        <div className="prose prose-sm max-w-none text-gray-700 dark:text-gray-300 mb-4 break-words overflow-hidden">
           <ReactMarkdown>{block.content}</ReactMarkdown>
         </div>
       )
@@ -51,7 +51,7 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
         <div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-4 rounded-r-lg mb-4">
           <div className="flex items-start gap-2">
             <span className="text-blue-500 text-lg">💡</span>
-            <div className="prose prose-sm max-w-none text-blue-800 dark:text-blue-300">
+            <div className="prose prose-sm max-w-none text-blue-800 dark:text-blue-300 break-words overflow-hidden">
               <ReactMarkdown>{block.content}</ReactMarkdown>
             </div>
           </div>
@@ -63,7 +63,7 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
         <div className="bg-amber-50 dark:bg-amber-900/30 border-l-4 border-amber-500 p-4 rounded-r-lg mb-4">
           <div className="flex items-start gap-2">
             <span className="text-amber-500 text-lg">⚠️</span>
-            <div className="prose prose-sm max-w-none text-amber-800 dark:text-amber-300">
+            <div className="prose prose-sm max-w-none text-amber-800 dark:text-amber-300 break-words overflow-hidden">
               <ReactMarkdown>{block.content}</ReactMarkdown>
             </div>
           </div>
@@ -75,7 +75,7 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
         <div className="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 p-4 rounded-r-lg mb-4">
           <div className="flex items-start gap-2">
             <span className="text-green-500 text-lg">📝</span>
-            <div className="prose prose-sm max-w-none text-green-800 dark:text-green-300">
+            <div className="prose prose-sm max-w-none text-green-800 dark:text-green-300 break-words overflow-hidden">
               <ReactMarkdown>{block.content}</ReactMarkdown>
             </div>
           </div>

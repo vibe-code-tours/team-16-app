@@ -269,7 +269,7 @@ export function AiDraftPreview() {
                 </span>
               </div>
 
-              <article className="max-w-none text-gray-900 dark:text-gray-100">
+              <article className="max-w-none text-gray-900 dark:text-gray-100 break-words overflow-hidden">
                 <ReactMarkdown
                   components={{
                     h1: ({ children }) => (
