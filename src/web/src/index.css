@@ -16,6 +16,12 @@ body {
   overflow-y: auto;
 }
 
+/* Ensure pointer cursor on all interactive elements */
+button:not(:disabled),
+[role="button"] {
+  cursor: pointer;
+}
+
 .dark {
   color-scheme: dark;
 }

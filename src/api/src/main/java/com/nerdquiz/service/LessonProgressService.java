@@ -13,10 +13,15 @@ import java.util.UUID;
 @Service
 public class LessonProgressService {
 
-    private final UserLessonProgressRepository userLessonProgressRepository;
+    private static final int XP_PER_LESSON_COMPLETE = 20;
 
-    public LessonProgressService(UserLessonProgressRepository userLessonProgressRepository) {
+    private final UserLessonProgressRepository userLessonProgressRepository;
+    private final UserService userService;
+
+    public LessonProgressService(UserLessonProgressRepository userLessonProgressRepository,
+                                 UserService userService) {
         this.userLessonProgressRepository = userLessonProgressRepository;
+        this.userService = userService;
     }
 
     @Transactional(readOnly = true)
@@ -48,6 +53,7 @@ public class LessonProgressService {
             }
             progress.setCompletedAt(completedAt);
             userLessonProgressRepository.save(progress);
+            userService.incrementUserXp(userId, XP_PER_LESSON_COMPLETE);
         }
 
         return toResponse(progress);

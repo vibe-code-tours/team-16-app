@@ -49,6 +49,12 @@ class QuizServiceTest {
     @Mock
     private UserDailyActivityService activityService;
 
+    @Mock
+    private UserService userService;
+
+    @Mock
+    private MistakeService mistakeService;
+
     private QuizService quizService;
 
     private UUID userId;
@@ -84,7 +90,7 @@ class QuizServiceTest {
         quizService = new QuizService(
                 questionRepository, quizSessionRepository, quizAnswerRepository,
                 quizSessionQuestionRepository, questionService, weakPointService,
-                activityService, new ObjectMapper());
+                activityService, userService, mistakeService, new ObjectMapper());
     }
 
     @Test
@@ -161,6 +167,7 @@ class QuizServiceTest {
         assertEquals(0, sampleSession.getScore());
         assertEquals(0, sampleSession.getXpEarned());
         verify(weakPointService).updateMastery(userId, sampleQuestion.getId(), false);
+        verify(mistakeService).recordMistake(eq(userId), any(RecordMistakeRequest.class));
     }
 
     @Test

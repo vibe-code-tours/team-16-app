@@ -1,18 +1,21 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../lib/api'
+import { useAuth } from '../hooks/useAuth'
 import type { QuizQuestion } from '../types'
 
-interface QuizQuestionFromApi {
+interface QuizSessionFromApi {
   id: string
-  subtopicId: string
-  questionText: string
-  choices: { label: string; text: string }[]
-  correctAnswer: string
-  explanation: string | null
+  questions: {
+    id: string
+    subtopicId: string
+    questionText: string
+    choices: { label: string; text: string }[]
+    correctAnswer: string
+    explanation: string | null
+  }[]
+  status: string
 }
-
-type Difficulty = 'all' | 'easy' | 'medium' | 'hard'
 
 const QUIZ_LENGTH = 5
 const XP_PER_CORRECT = 10
@@ -20,6 +23,7 @@ const XP_PER_CORRECT = 10
 export function QuizPage() {
   const { subtopicId } = useParams<{ subtopicId: string }>()
   const navigate = useNavigate()
+  const { refreshUser } = useAuth()
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [index, setIndex] = useState(0)
@@ -29,7 +33,6 @@ export function QuizPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [finished, setFinished] = useState(false)
-  const [difficulty, setDifficulty] = useState<Difficulty>('all')
   const [started, setStarted] = useState(false)
 
   const loadQuiz = useCallback(async () => {
@@ -38,12 +41,14 @@ export function QuizPage() {
     setError(null)
 
     try {
-      const difficultyParam = difficulty === 'all' ? '' : `&difficulty=${difficulty}`
-      const data = await api.get<QuizQuestionFromApi[]>(
-        `/api/v1/subtopics/${subtopicId}/quiz?count=${QUIZ_LENGTH}${difficultyParam}`
+      // Start quiz session — response includes the questions to display
+      const session = await api.post<QuizSessionFromApi>(
+        '/api/v1/quizzes/start',
+        { subtopicId, questionCount: QUIZ_LENGTH }
       )
+      setSessionId(session.id)
       setQuestions(
-        data.map((q) => ({
+        session.questions.map((q) => ({
           id: q.id,
           subtopic_id: q.subtopicId,
           question_text: q.questionText,
@@ -52,19 +57,12 @@ export function QuizPage() {
           explanation: q.explanation,
         }))
       )
-
-      // Create quiz session for tracking
-      const session = await api.post<{ id: string }>(
-        '/api/v1/quizzes/start',
-        { subtopicId, questionCount: data.length }
-      )
-      setSessionId(session.id)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load quiz')
     } finally {
       setLoading(false)
     }
-  }, [subtopicId, difficulty])
+  }, [subtopicId])
 
   useEffect(() => {
     if (started) {
@@ -106,6 +104,7 @@ export function QuizPage() {
       return
     }
     setFinished(true)
+    refreshUser()
   }
 
   if (!started) {
@@ -117,27 +116,6 @@ export function QuizPage() {
           <p className="mb-6 text-gray-500 dark:text-gray-400">
             Test your knowledge with 5 questions
           </p>
-
-          <div className="mb-6">
-            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300 text-left">
-              Select Difficulty
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              {(['all', 'easy', 'medium', 'hard'] as Difficulty[]).map((d) => (
-                <button
-                  key={d}
-                  onClick={() => setDifficulty(d)}
-                  className={`rounded-lg border-2 px-4 py-2 transition-all ${
-                    difficulty === d
-                      ? 'border-purple-500 bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
-                      : 'border-gray-200 text-gray-600 hover:border-gray-300 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-600'
-                  }`}
-                >
-                  {d.charAt(0).toUpperCase() + d.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
 
           <div className="space-y-3">
             <button
