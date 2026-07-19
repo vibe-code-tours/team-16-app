@@ -12,7 +12,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "subtopic_id", nullable = false)
+    @Column(name = "subtopic_id", nullable = true)
     private UUID subtopicId;
 
     @Column(name = "exam_session", nullable = false)
