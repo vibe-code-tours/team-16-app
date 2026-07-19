@@ -214,20 +214,6 @@ export function ExamPage() {
     }
   }, [currentIndex, questions.length, recordingAnswer])
 
-  const restartExam = useCallback(() => {
-    finishedOnceRef.current = false
-    sessionIdRef.current = null
-    setQuestions([])
-    setCurrentIndex(0)
-    setHearts(INITIAL_HEARTS)
-    setTimeLeft(EXAM_DURATION_MINUTES * 60)
-    setFinished(false)
-    setSubmitted(false)
-    setRecordingAnswer(false)
-    setAwardedXp(null)
-    loadQuestions()
-  }, [loadQuestions])
-
   if (!started) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">

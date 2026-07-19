@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
 
 interface Choice {
@@ -21,7 +20,6 @@ interface Mistake {
 const CATEGORIES = ['All', 'Technology', 'Security', 'Management', 'Strategy', 'Business'] as const
 
 export function MistakeGarden() {
-  const navigate = useNavigate()
   const [mistakes, setMistakes] = useState<Mistake[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
