@@ -88,6 +88,11 @@ public class LessonService {
 
     @Transactional
     public void completeLesson(UUID lessonId, UUID userId) {
+        // Validate lesson exists
+        if (!lessonRepository.existsById(lessonId)) {
+            throw new LessonNotFoundException();
+        }
+
         Instant now = Instant.now();
         UserLessonProgress row = progressRepository
                 .findByUserIdAndLessonId(userId, lessonId)

@@ -131,6 +131,7 @@ export function ExamPage() {
 
     const status = timeLeft === 0 ? 'expired' : 'completed'
 
+    let cancelled = false
     ;(async () => {
       if (sessionIdRef.current) {
         try {
@@ -138,14 +139,20 @@ export function ExamPage() {
             `/api/v1/exams/${sessionIdRef.current}/finish`,
             { status }
           )
-          setAwardedXp(result.xpEarned)
-          setHearts(result.heartsRemaining)
-          if (result.xpEarned > 0) await refreshUser()
+          if (!cancelled) {
+            setAwardedXp(result.xpEarned)
+            setHearts(result.heartsRemaining)
+            if (result.xpEarned > 0) await refreshUser()
+          }
         } catch (e) {
           console.error('Failed to finish exam:', e)
         }
       }
     })()
+
+    return () => {
+      cancelled = true
+    }
   }, [finished, questions, refreshUser, timeLeft])
 
   const formatTime = (seconds: number) => {

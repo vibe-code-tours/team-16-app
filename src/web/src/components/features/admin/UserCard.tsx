@@ -16,7 +16,7 @@ export function UserCard({ user, onSelectUser }: UserCardProps) {
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           {user.avatarUrl ? (
-            <img src={user.avatarUrl} alt="" className="h-10 w-10 rounded-full" />
+            <img src={user.avatarUrl} alt={`${user.displayName || 'User'} avatar`} className="h-10 w-10 rounded-full" />
           ) : (
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 text-sm font-medium text-purple-700 dark:text-purple-400">
               {(user.displayName || user.email).charAt(0).toUpperCase()}

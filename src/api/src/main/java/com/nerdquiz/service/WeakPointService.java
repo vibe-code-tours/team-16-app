@@ -35,27 +35,24 @@ public class WeakPointService {
         }
 
         UUID subtopicId = question.getSubtopicId();
-        UserSubtopicMastery.PK pk = new UserSubtopicMastery.PK(userId, subtopicId);
 
-        UserSubtopicMastery mastery = masteryRepository.findById(pk)
-                .orElseGet(() -> {
-                    UserSubtopicMastery newMastery = new UserSubtopicMastery();
-                    newMastery.setUserId(userId);
-                    newMastery.setSubtopicId(subtopicId);
-                    return newMastery;
-                });
+        // Use atomic upsert to prevent race conditions
+        // This increments questions_seen and questions_correct atomically
+        int updated = masteryRepository.incrementMastery(
+                userId, subtopicId, isCorrect ? 1 : 0);
 
-        mastery.setQuestionsSeen(mastery.getQuestionsSeen() + 1);
-        if (isCorrect) {
-            mastery.setQuestionsCorrect(mastery.getQuestionsCorrect() + 1);
+        if (updated == 0) {
+            // First time seeing this subtopic, insert new record
+            UserSubtopicMastery newMastery = new UserSubtopicMastery();
+            newMastery.setUserId(userId);
+            newMastery.setSubtopicId(subtopicId);
+            newMastery.setQuestionsSeen(1);
+            newMastery.setQuestionsCorrect(isCorrect ? 1 : 0);
+            BigDecimal score = isCorrect ? BigDecimal.ONE : BigDecimal.ZERO;
+            newMastery.setMasteryScore(score);
+            newMastery.setLastPracticedAt(Instant.now());
+            masteryRepository.save(newMastery);
         }
-
-        BigDecimal score = BigDecimal.valueOf(mastery.getQuestionsCorrect())
-                .divide(BigDecimal.valueOf(mastery.getQuestionsSeen()), 4, RoundingMode.HALF_UP);
-        mastery.setMasteryScore(score);
-        mastery.setLastPracticedAt(Instant.now());
-
-        masteryRepository.save(mastery);
     }
 
     @Transactional

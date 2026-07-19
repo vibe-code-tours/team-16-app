@@ -12,11 +12,11 @@ const FILTERS: FocusFilterOption[] = [
 ]
 
 export function WeakPointAnalysis() {
-  const { data, loading, error } = useWeakPoints()
+  const { data, loading, error, refetch } = useWeakPoints()
   const [activeFilter, setActiveFilter] = useState<FocusFilter>('all')
 
   if (loading) return <LoadingState />
-  if (error) return <ErrorState message={error} />
+  if (error) return <ErrorState message={error} onRetry={refetch} />
   if (!data || data.topics.length === 0) return <EmptyState />
 
   const practicedSubtopics = data.subtopics
@@ -157,13 +157,13 @@ function LoadingState() {
   )
 }
 
-function ErrorState({ message }: { message: string }) {
+function ErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
   return (
     <div className="mx-auto max-w-2xl rounded-3xl border border-rose-200 dark:border-red-800 bg-white dark:bg-gray-800 p-8 text-center shadow-sm" role="alert">
       <span className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-2xl" aria-hidden="true">!</span>
       <h1 className="mt-4 text-2xl font-bold text-gray-950 dark:text-gray-50">We couldn&apos;t build your analysis</h1>
       <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{message}</p>
-      <button type="button" onClick={() => window.location.reload()} className="mt-6 min-h-11 rounded-xl bg-purple-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2">
+      <button type="button" onClick={onRetry} className="mt-6 min-h-11 rounded-xl bg-purple-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2">
         Try again
       </button>
     </div>
