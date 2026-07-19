@@ -82,7 +82,7 @@ export function MistakeGarden() {
   }
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Your Mistake Garden</h1>
         <p className="text-gray-500 dark:text-gray-400">
@@ -196,7 +196,7 @@ export function MistakeGarden() {
 
                     <div className="mb-4">
                       <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Question</p>
-                      <p className="text-lg text-gray-900 dark:text-gray-100">{mistake.questionText}</p>
+                      <p className="text-lg text-gray-900 dark:text-gray-100 break-words">{mistake.questionText}</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
