@@ -102,7 +102,7 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
 
       {/* Actions */}
       <div className="flex justify-center gap-4">
-        <Button size="lg" onClick={onTryAgain}>
+        <Button size="lg" onClick={onTryAgain} aria-label="Try Another Exam">
           Try Another Exam
         </Button>
       </div>
