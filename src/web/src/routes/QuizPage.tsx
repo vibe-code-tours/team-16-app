@@ -18,7 +18,6 @@ interface QuizSessionFromApi {
 }
 
 const QUIZ_LENGTH = 5
-const XP_PER_CORRECT = 10
 
 export function QuizPage() {
   const { subtopicId } = useParams<{ subtopicId: string }>()
@@ -32,7 +31,6 @@ export function QuizPage() {
   const [score, setScore] = useState(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [finished, setFinished] = useState(false)
   const [started, setStarted] = useState(false)
 
   const loadQuiz = useCallback(async () => {
@@ -103,8 +101,8 @@ export function QuizPage() {
       setIsAnswered(false)
       return
     }
-    setFinished(true)
     refreshUser()
+    navigate(`/quiz-result/${sessionId}`)
   }
 
   if (!started) {
@@ -168,56 +166,6 @@ export function QuizPage() {
           >
             Back to Map
           </button>
-        </div>
-      </div>
-    )
-  }
-
-  if (finished) {
-    const earnedXp = score * XP_PER_CORRECT
-    const perfectScore = score === questions.length
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-        <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
-          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-100 text-3xl text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
-            {perfectScore ? '🎉' : '📚'}
-          </div>
-          <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
-            {perfectScore ? 'Perfect score!' : 'Quiz complete!'}
-          </h2>
-          <p className="mb-6 text-gray-500 dark:text-gray-400">
-            You scored{' '}
-            <span className="font-bold text-purple-600 dark:text-purple-400">
-              {score} / {questions.length}
-            </span>
-          </p>
-          <div className="mb-8 rounded-xl bg-purple-50 p-4 dark:bg-purple-900/30">
-            <p className="text-sm font-medium text-purple-600 dark:text-purple-400">XP earned</p>
-            <p className="text-3xl font-bold text-purple-700 dark:text-purple-300">+{earnedXp} XP</p>
-          </div>
-          <div className="space-y-3">
-            {perfectScore ? (
-              <button
-                onClick={() => navigate('/map')}
-                className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
-              >
-                Next Topic →
-              </button>
-            ) : (
-              <button
-                onClick={() => navigate(0)} // Refresh to retake
-                className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
-              >
-                Retake Quiz
-              </button>
-            )}
-            <button
-              onClick={() => navigate('/map')}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
-            >
-              Back to Map
-            </button>
-          </div>
         </div>
       </div>
     )
