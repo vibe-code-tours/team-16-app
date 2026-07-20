@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ConfirmDialog } from '../components/ui/ConfirmDialog'
 import { useAuth } from '../hooks/useAuth.tsx'
 import { api } from '../lib/api'
 import type { QuizQuestion } from '../types'
@@ -70,6 +71,7 @@ export function ExamPage() {
   const [difficulty, setDifficulty] = useState<Difficulty>('all')
   const [started, setStarted] = useState(false)
   const [awardedXp, setAwardedXp] = useState<number | null>(null)
+  const [showQuitDialog, setShowQuitDialog] = useState(false)
 
   const finishedOnceRef = useRef(false)
   const sessionIdRef = useRef<string | null>(null)
@@ -154,6 +156,20 @@ export function ExamPage() {
       cancelled = true
     }
   }, [finished, questions, refreshUser, timeLeft])
+
+  const handleQuitExam = useCallback(async () => {
+    setShowQuitDialog(false)
+    if (sessionIdRef.current) {
+      try {
+        await api.post(`/api/v1/exams/${sessionIdRef.current}/finish`, {
+          status: 'abandoned',
+        })
+      } catch (e) {
+        console.error('Failed to abandon exam:', e)
+      }
+    }
+    navigate('/map')
+  }, [navigate])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -374,19 +390,7 @@ export function ExamPage() {
       <header className="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
           <button
-            onClick={async () => {
-              if (!confirm('Are you sure you want to quit the exam? Your progress will be lost.')) return
-              if (sessionIdRef.current) {
-                try {
-                  await api.post(`/api/v1/exams/${sessionIdRef.current}/finish`, {
-                    status: 'abandoned',
-                  })
-                } catch (e) {
-                  console.error('Failed to abandon exam:', e)
-                }
-              }
-              navigate('/map')
-            }}
+            onClick={() => setShowQuitDialog(true)}
             className="text-sm font-medium text-red-600 hover:text-red-700"
           >
             Quit Exam
@@ -499,6 +503,16 @@ export function ExamPage() {
           )}
         </div>
       </main>
+
+      <ConfirmDialog
+        open={showQuitDialog}
+        title="Quit Exam?"
+        message="Are you sure you want to quit? Your progress will be lost."
+        confirmLabel="Quit Exam"
+        cancelLabel="Continue Exam"
+        onConfirm={handleQuitExam}
+        onCancel={() => setShowQuitDialog(false)}
+      />
     </div>
   )
 }
