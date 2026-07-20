@@ -73,6 +73,7 @@ export function ExamPage() {
 
   const finishedOnceRef = useRef(false)
   const sessionIdRef = useRef<string | null>(null)
+  const questionsLoadedRef = useRef(false)
 
   const loadQuestions = useCallback(async () => {
     setLoading(true)
@@ -88,6 +89,7 @@ export function ExamPage() {
       setQuestions(data.questions.map((q) => ({ question: toQuizQuestion(q) })))
       setHearts(data.heartsRemaining)
       setTimeLeft(data.timeLimitMinutes * 60)
+      questionsLoadedRef.current = true
     } catch (e) {
       setLoadError(e instanceof Error ? e.message : 'Failed to load exam')
     } finally {
@@ -96,7 +98,7 @@ export function ExamPage() {
   }, [difficulty])
 
   useEffect(() => {
-    if (started) loadQuestions()
+    if (started && !questionsLoadedRef.current) loadQuestions()
   }, [started, loadQuestions])
 
   useEffect(() => {
