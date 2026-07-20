@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
@@ -28,7 +28,7 @@ export function QuizPage() {
   const [index, setIndex] = useState(0)
   const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
   const [isAnswered, setIsAnswered] = useState(false)
-  const [score, setScore] = useState(0)
+  const scoreRef = useRef(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [started, setStarted] = useState(false)
@@ -82,7 +82,7 @@ export function QuizPage() {
 
     const correct = selectedLabel === currentQuestion.correct_answer
     if (correct) {
-      setScore((s) => s + 1)
+      scoreRef.current += 1
     }
 
     // Submit answer to quiz session (backend tracks mastery + daily activity)
