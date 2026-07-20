@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --color-primary: #0ea5e9;
+  --color-primary: #9333ea;
   --color-xp-gold: #fbbf24;
   --color-xp-green: #22c55e;
 }
