@@ -1,5 +1,6 @@
 package com.nerdquiz.util;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public final class UuidUtil {
@@ -23,6 +24,24 @@ public final class UuidUtil {
             return UUID.fromString(uuidString);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid UUID format: " + uuidString, e);
+        }
+    }
+
+    /**
+     * Attempts to parse a UUID string, returning empty on failure instead of throwing.
+     * Use this in controllers to return 400 Bad Request for invalid UUIDs.
+     *
+     * @param uuidString the UUID string to parse
+     * @return Optional containing the parsed UUID, or empty if the string is not a valid UUID
+     */
+    public static Optional<UUID> tryParse(String uuidString) {
+        if (uuidString == null || uuidString.isBlank()) {
+            return Optional.empty();
+        }
+        try {
+            return Optional.of(UUID.fromString(uuidString));
+        } catch (IllegalArgumentException e) {
+            return Optional.empty();
         }
     }
 }

@@ -5,6 +5,7 @@ import com.nerdquiz.dto.AdminUserDetailResponse;
 import com.nerdquiz.dto.AdminUserListResponse;
 import com.nerdquiz.dto.UpdateUserRoleRequest;
 import com.nerdquiz.service.AdminService;
+import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -26,8 +28,11 @@ public class AdminController {
 
     @GetMapping("/stats")
     public ResponseEntity<AdminStatsResponse> getStats(Authentication authentication) {
-        UUID userId = UUID.fromString(authentication.getName());
-        AdminStatsResponse stats = adminService.getStats(userId);
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        AdminStatsResponse stats = adminService.getStats(userId.get());
         return ResponseEntity.ok(stats);
     }
 
@@ -42,8 +47,11 @@ public class AdminController {
             @RequestParam(defaultValue = "last_login_at") String sort,
             @RequestParam(defaultValue = "desc") String order
     ) {
-        UUID userId = UUID.fromString(authentication.getName());
-        AdminUserListResponse users = adminService.getUsers(userId, search, role, filter, sort, order, page, pageSize);
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        AdminUserListResponse users = adminService.getUsers(userId.get(), search, role, filter, sort, order, page, pageSize);
         return ResponseEntity.ok(users);
     }
 
@@ -52,8 +60,11 @@ public class AdminController {
             Authentication authentication,
             @PathVariable UUID id
     ) {
-        UUID userId = UUID.fromString(authentication.getName());
-        AdminUserDetailResponse user = adminService.getUserDetail(userId, id);
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        AdminUserDetailResponse user = adminService.getUserDetail(userId.get(), id);
         return ResponseEntity.ok(user);
     }
 
@@ -63,8 +74,11 @@ public class AdminController {
             @PathVariable UUID id,
             @Valid @RequestBody UpdateUserRoleRequest request
     ) {
-        UUID userId = UUID.fromString(authentication.getName());
-        adminService.updateUserRole(userId, id, request.role());
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        adminService.updateUserRole(userId.get(), id, request.role());
         return ResponseEntity.noContent().build();
     }
 
@@ -73,8 +87,11 @@ public class AdminController {
             Authentication authentication,
             @PathVariable UUID id
     ) {
-        UUID userId = UUID.fromString(authentication.getName());
-        adminService.deactivateUser(userId, id);
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        adminService.deactivateUser(userId.get(), id);
         return ResponseEntity.noContent().build();
     }
 
@@ -83,8 +100,11 @@ public class AdminController {
             Authentication authentication,
             @PathVariable UUID id
     ) {
-        UUID userId = UUID.fromString(authentication.getName());
-        adminService.resetUserStreak(userId, id);
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        adminService.resetUserStreak(userId.get(), id);
         return ResponseEntity.noContent().build();
     }
 
@@ -95,8 +115,11 @@ public class AdminController {
             @RequestParam(required = false) String role,
             @RequestParam(required = false) String filter
     ) {
-        UUID userId = UUID.fromString(authentication.getName());
-        String csv = adminService.exportUsers(userId, search, role, filter);
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        String csv = adminService.exportUsers(userId.get(), search, role, filter);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=users-export.csv")
             .contentType(MediaType.TEXT_PLAIN)

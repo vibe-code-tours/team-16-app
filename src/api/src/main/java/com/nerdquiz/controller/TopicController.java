@@ -2,6 +2,7 @@ package com.nerdquiz.controller;
 
 import com.nerdquiz.dto.TopicResponse;
 import com.nerdquiz.service.TopicService;
+import com.nerdquiz.util.UuidUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -23,7 +25,7 @@ public class TopicController {
 
     @GetMapping
     public ResponseEntity<List<TopicResponse>> getLearningMap(Authentication authentication) {
-        UUID userId = authentication == null ? null : UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(topicService.getLearningMap(userId));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication == null ? null : authentication.getName());
+        return ResponseEntity.ok(topicService.getLearningMap(userId.orElse(null)));
     }
 }

@@ -3,6 +3,7 @@ package com.nerdquiz.controller;
 import com.nerdquiz.dto.RecordPracticeAnswerRequest;
 import com.nerdquiz.dto.WeakPointResponse;
 import com.nerdquiz.service.WeakPointService;
+import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -27,21 +29,22 @@ public class WeakPointController {
 
     @GetMapping("/weak-points")
     public ResponseEntity<WeakPointResponse> getWeakPointAnalysis(Authentication authentication) {
-        UUID userId;
-        try {
-            userId = UUID.fromString(authentication.getName());
-        } catch (IllegalArgumentException e) {
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(weakPointService.getWeakPointAnalysis(userId));
+        return ResponseEntity.ok(weakPointService.getWeakPointAnalysis(userId.get()));
     }
 
     @PostMapping("/weak-points/answers")
     public ResponseEntity<Map<String, Boolean>> recordPracticeAnswer(
             Authentication authentication,
             @Valid @RequestBody RecordPracticeAnswerRequest request) {
-        UUID userId = UUID.fromString(authentication.getName());
-        weakPointService.recordPracticeAnswer(userId, request.questionId(), request.selectedLabel());
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        weakPointService.recordPracticeAnswer(userId.get(), request.questionId(), request.selectedLabel());
         return ResponseEntity.ok(Map.of("recorded", true));
     }
 }
