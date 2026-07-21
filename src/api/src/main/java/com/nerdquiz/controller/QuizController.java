@@ -2,11 +2,13 @@ package com.nerdquiz.controller;
 
 import com.nerdquiz.dto.*;
 import com.nerdquiz.service.QuizService;
+import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -23,8 +25,11 @@ public class QuizController {
     public ResponseEntity<QuizSessionResponse> startQuiz(
             Authentication authentication,
             @Valid @RequestBody StartQuizRequest request) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(quizService.startQuiz(userId, request));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(quizService.startQuiz(userId.get(), request));
     }
 
     @PostMapping("/{sessionId}/answers")
@@ -32,8 +37,11 @@ public class QuizController {
             Authentication authentication,
             @PathVariable UUID sessionId,
             @Valid @RequestBody SubmitAnswerRequest request) {
-        UUID userId = UUID.fromString(authentication.getName());
-        QuizAnswerResponse answer = quizService.submitAnswer(userId, sessionId, request);
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        QuizAnswerResponse answer = quizService.submitAnswer(userId.get(), sessionId, request);
         return ResponseEntity.ok(answer);
     }
 
@@ -41,7 +49,10 @@ public class QuizController {
     public ResponseEntity<QuizResultResponse> getResult(
             Authentication authentication,
             @PathVariable UUID sessionId) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(quizService.getResult(userId, sessionId));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(quizService.getResult(userId.get(), sessionId));
     }
 }
