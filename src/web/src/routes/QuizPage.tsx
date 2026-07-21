@@ -189,7 +189,7 @@ export function QuizPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-4 py-8">
+      <div className="mx-auto max-w-2xl px-4 py-8">
         <div className="mb-8 h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
             className="h-full bg-purple-600 transition-all duration-500"
@@ -256,7 +256,7 @@ export function QuizPage() {
             </button>
           )}
         </div>
-      </main>
+      </div>
     </div>
   )
 }
