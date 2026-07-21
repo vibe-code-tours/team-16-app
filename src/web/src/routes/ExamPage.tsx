@@ -65,6 +65,20 @@ function toQuizQuestion(question: QuestionFromApi): QuizQuestion {
   }
 }
 
+function isSavedExamSession(value: unknown): value is SavedExamSession {
+  if (!value || typeof value !== 'object') return false
+  const v = value as Record<string, unknown>
+
+  return (
+    typeof v.sessionId === 'string' &&
+    Array.isArray(v.questions) &&
+    typeof v.currentIndex === 'number' &&
+    typeof v.hearts === 'number' &&
+    typeof v.timeLeft === 'number' &&
+    typeof v.expiresAt === 'string'
+  )
+}
+
 export function ExamPage() {
   const navigate = useNavigate()
   const { refreshUser } = useAuth()
@@ -93,22 +107,23 @@ export function ExamPage() {
   useEffect(() => {
     try {
       const saved = localStorage.getItem(RESUME_STORAGE_KEY)
-      if (saved) {
-        const parsed = JSON.parse(saved) as Partial<SavedExamSession>
-        if (!parsed.expiresAt) {
-          localStorage.removeItem(RESUME_STORAGE_KEY)
-          return
-        }
-        const expiresAt = new Date(parsed.expiresAt).getTime()
-        if (expiresAt > Date.now()) {
-          setSavedSession(parsed)
-          setShowResumeDialog(true)
-        } else {
-          localStorage.removeItem(RESUME_STORAGE_KEY)
-        }
+      if (!saved) return
+
+      const parsed: unknown = JSON.parse(saved)
+      if (!isSavedExamSession(parsed)) {
+        localStorage.removeItem(RESUME_STORAGE_KEY)
+        return
+      }
+
+      const expiresAt = new Date(parsed.expiresAt).getTime()
+      if (expiresAt > Date.now()) {
+        setSavedSession(parsed)
+        setShowResumeDialog(true)
+      } else {
+        localStorage.removeItem(RESUME_STORAGE_KEY)
       }
     } catch {
-      // Ignore parse errors — invalid saved data
+      localStorage.removeItem(RESUME_STORAGE_KEY)
     }
   }, [])
 
