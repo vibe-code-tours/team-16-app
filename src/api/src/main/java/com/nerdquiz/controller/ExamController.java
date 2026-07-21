@@ -7,6 +7,7 @@ import com.nerdquiz.dto.StartExamResponse;
 import com.nerdquiz.dto.SubmitExamAnswerRequest;
 import com.nerdquiz.dto.SubmitExamAnswerResponse;
 import com.nerdquiz.service.ExamService;
+import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -32,8 +34,11 @@ public class ExamController {
     public ResponseEntity<StartExamResponse> startExam(
             Authentication authentication,
             @Valid @RequestBody StartExamRequest request) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(examService.startExam(userId, request));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(examService.startExam(userId.get(), request));
     }
 
     @PostMapping("/{sessionId}/answers")
@@ -41,8 +46,11 @@ public class ExamController {
             Authentication authentication,
             @PathVariable UUID sessionId,
             @Valid @RequestBody SubmitExamAnswerRequest request) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(examService.submitAnswer(userId, sessionId, request));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(examService.submitAnswer(userId.get(), sessionId, request));
     }
 
     @PostMapping("/{sessionId}/finish")
@@ -50,7 +58,10 @@ public class ExamController {
             Authentication authentication,
             @PathVariable UUID sessionId,
             @Valid @RequestBody FinishExamRequest request) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(examService.finishExam(userId, sessionId, request));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(examService.finishExam(userId.get(), sessionId, request));
     }
 }

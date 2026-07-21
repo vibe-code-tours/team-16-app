@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ConfirmDialog } from '../components/ui/ConfirmDialog'
 import { useAuth } from '../hooks/useAuth.tsx'
 import { api } from '../lib/api'
 import type { QuizQuestion } from '../types'
@@ -70,9 +71,11 @@ export function ExamPage() {
   const [difficulty, setDifficulty] = useState<Difficulty>('all')
   const [started, setStarted] = useState(false)
   const [awardedXp, setAwardedXp] = useState<number | null>(null)
+  const [showQuitDialog, setShowQuitDialog] = useState(false)
 
   const finishedOnceRef = useRef(false)
   const sessionIdRef = useRef<string | null>(null)
+  const questionsLoadedRef = useRef(false)
 
   const loadQuestions = useCallback(async () => {
     setLoading(true)
@@ -88,6 +91,7 @@ export function ExamPage() {
       setQuestions(data.questions.map((q) => ({ question: toQuizQuestion(q) })))
       setHearts(data.heartsRemaining)
       setTimeLeft(data.timeLimitMinutes * 60)
+      questionsLoadedRef.current = true
     } catch (e) {
       setLoadError(e instanceof Error ? e.message : 'Failed to load exam')
     } finally {
@@ -96,7 +100,7 @@ export function ExamPage() {
   }, [difficulty])
 
   useEffect(() => {
-    if (started) loadQuestions()
+    if (started && !questionsLoadedRef.current) loadQuestions()
   }, [started, loadQuestions])
 
   useEffect(() => {
@@ -213,6 +217,20 @@ export function ExamPage() {
       setFinished(true)
     }
   }, [currentIndex, questions.length, recordingAnswer])
+
+  const handleQuitConfirm = useCallback(async () => {
+    setShowQuitDialog(false)
+    if (sessionIdRef.current) {
+      try {
+        await api.post(`/api/v1/exams/${sessionIdRef.current}/finish`, {
+          status: 'abandoned',
+        })
+      } catch (e) {
+        console.error('Failed to abandon exam:', e)
+      }
+    }
+    navigate('/map')
+  }, [navigate])
 
   if (!started) {
     return (
@@ -374,19 +392,7 @@ export function ExamPage() {
       <header className="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
           <button
-            onClick={async () => {
-              if (!confirm('Are you sure you want to quit the exam? Your progress will be lost.')) return
-              if (sessionIdRef.current) {
-                try {
-                  await api.post(`/api/v1/exams/${sessionIdRef.current}/finish`, {
-                    status: 'abandoned',
-                  })
-                } catch (e) {
-                  console.error('Failed to abandon exam:', e)
-                }
-              }
-              navigate('/map')
-            }}
+            onClick={() => setShowQuitDialog(true)}
             className="text-sm font-medium text-red-600 hover:text-red-700"
           >
             Quit Exam
@@ -499,6 +505,16 @@ export function ExamPage() {
           )}
         </div>
       </main>
+
+      <ConfirmDialog
+        open={showQuitDialog}
+        title="Quit Exam?"
+        message="Are you sure you want to quit the exam? Your progress will be lost."
+        confirmLabel="Quit"
+        cancelLabel="Stay"
+        onConfirm={handleQuitConfirm}
+        onCancel={() => setShowQuitDialog(false)}
+      />
     </div>
   )
 }

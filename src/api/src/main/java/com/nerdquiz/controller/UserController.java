@@ -4,6 +4,7 @@ import com.nerdquiz.dto.IncrementXpRequest;
 import com.nerdquiz.dto.StreakResponse;
 import com.nerdquiz.dto.XpResponse;
 import com.nerdquiz.service.UserService;
+import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -40,8 +42,11 @@ public class UserController {
 
     @PostMapping("/me/streak")
     public ResponseEntity<StreakResponse> updateStreak(Authentication authentication) {
-        UUID userId = UUID.fromString(authentication.getName());
-        int streakCount = userService.updateUserStreak(userId);
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        int streakCount = userService.updateUserStreak(userId.get());
         return ResponseEntity.ok(new StreakResponse(streakCount));
     }
 
@@ -49,8 +54,11 @@ public class UserController {
     public ResponseEntity<XpResponse> incrementXp(
             Authentication authentication,
             @Valid @RequestBody IncrementXpRequest request) {
-        UUID userId = UUID.fromString(authentication.getName());
-        int totalXp = userService.incrementUserXp(userId, request.delta());
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        int totalXp = userService.incrementUserXp(userId.get(), request.delta());
         return ResponseEntity.ok(new XpResponse(totalXp));
     }
 }
