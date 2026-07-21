@@ -103,6 +103,32 @@ export interface AdminUserListResponse {
   pageSize: number
 }
 
+/** Matches the backend QuizResultResponse shape (camelCase). */
+export interface QuizResultApi {
+  sessionId: string
+  totalQuestions: number
+  correctAnswers: number
+  scorePercentage: number
+  xpEarned: number
+  answers: {
+    question: {
+      id: string
+      subtopicId: string
+      examSession: string
+      subject: string
+      questionNumber: number
+      questionText: string
+      images: unknown[]
+      choices: { label: string; text: string }[]
+      correctAnswer: string
+      explanation: string | null
+      difficulty: string
+    }
+    userAnswer: string
+    isCorrect: boolean
+  }[]
+}
+
 export interface UserFilters {
   search: string
   role: string
