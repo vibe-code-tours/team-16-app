@@ -51,6 +51,7 @@ interface SavedExamSession {
   currentIndex: number
   hearts: number
   timeLeft: number
+  expiresAt: string
 }
 
 function toQuizQuestion(question: QuestionFromApi): QuizQuestion {
@@ -93,7 +94,11 @@ export function ExamPage() {
     try {
       const saved = localStorage.getItem(RESUME_STORAGE_KEY)
       if (saved) {
-        const parsed = JSON.parse(saved) as SavedExamSession
+        const parsed = JSON.parse(saved) as Partial<SavedExamSession>
+        if (!parsed.expiresAt) {
+          localStorage.removeItem(RESUME_STORAGE_KEY)
+          return
+        }
         const expiresAt = new Date(parsed.expiresAt).getTime()
         if (expiresAt > Date.now()) {
           setSavedSession(parsed)
@@ -117,6 +122,7 @@ export function ExamPage() {
         currentIndex,
         hearts,
         timeLeft,
+        expiresAt: new Date(Date.now() + timeLeft * 1000).toISOString(),
       }
       localStorage.setItem(RESUME_STORAGE_KEY, JSON.stringify(data))
     } catch {
