@@ -159,20 +159,6 @@ export function ExamPage() {
     }
   }, [finished, questions, refreshUser, timeLeft])
 
-  const handleQuitExam = useCallback(async () => {
-    setShowQuitDialog(false)
-    if (sessionIdRef.current) {
-      try {
-        await api.post(`/api/v1/exams/${sessionIdRef.current}/finish`, {
-          status: 'abandoned',
-        })
-      } catch (e) {
-        console.error('Failed to abandon exam:', e)
-      }
-    }
-    navigate('/map')
-  }, [navigate])
-
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
