@@ -41,7 +41,7 @@ export function QuestionBlock({ question }: QuestionBlockProps) {
             <figure key={idx} className="flex flex-col items-center">
               <img
                 src={img.url}
-                alt={img.alt}
+                alt={img.alt || `Question ${question.question_number} image`}
                 className="max-w-full h-auto rounded-lg border border-gray-200 dark:border-gray-700"
                 loading="lazy"
               />
