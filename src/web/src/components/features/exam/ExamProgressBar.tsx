@@ -18,7 +18,14 @@ export function ExamProgressBar({
   return (
     <div className="space-y-2">
       {/* Progress bar */}
-      <div className="h-2 overflow-hidden rounded-full bg-gray-200">
+      <div
+        className="h-2 overflow-hidden rounded-full bg-gray-200"
+        role="progressbar"
+        aria-label="Exam progress"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(progress)}
+      >
         <div
           className="h-full rounded-full bg-purple-600 transition-all duration-300"
           style={{ width: `${progress}%` }}

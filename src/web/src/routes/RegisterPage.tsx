@@ -114,7 +114,8 @@ export function RegisterPage() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                    tabIndex={-1}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    aria-pressed={showPassword}
                   >
                     {showPassword ? (
                       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,7 +149,8 @@ export function RegisterPage() {
                     type="button"
                     onClick={() => setShowConfirm(!showConfirm)}
                     className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                    tabIndex={-1}
+                    aria-label={showConfirm ? 'Hide confirm password' : 'Show confirm password'}
+                    aria-pressed={showConfirm}
                   >
                     {showConfirm ? (
                       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

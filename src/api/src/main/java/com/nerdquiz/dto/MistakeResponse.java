@@ -7,6 +7,9 @@ import java.util.UUID;
 public record MistakeResponse(
     UUID id,
     UUID questionId,
+    UUID subtopicId,
+    String subtopicName,
+    String topicName,
     String questionText,
     String correctAnswer,
     List<ChoiceOption> choices,

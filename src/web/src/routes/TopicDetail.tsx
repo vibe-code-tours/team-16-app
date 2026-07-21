@@ -56,7 +56,7 @@ export function TopicDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <main className="mx-auto max-w-3xl px-4 py-8">
+      <div className="mx-auto max-w-3xl px-4 py-8">
         <button
           onClick={() => selectedLesson ? setSelectedLessonId(null) : navigate('/map')}
           className="mb-4 inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
@@ -166,7 +166,7 @@ export function TopicDetail() {
             </div>
           </div>
         )}
-      </main>
+      </div>
     </div>
   )
 }

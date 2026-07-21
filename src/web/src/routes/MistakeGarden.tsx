@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
 
 interface Choice {
@@ -9,6 +10,9 @@ interface Choice {
 interface Mistake {
   id: string
   questionId: string
+  subtopicId: string | null
+  subtopicName: string | null
+  topicName: string | null
   questionText: string | null
   correctAnswer: string | null
   choices: Choice[]
@@ -17,14 +21,14 @@ interface Mistake {
   lastMissedAt: string
 }
 
-const CATEGORIES = ['All', 'Technology', 'Security', 'Management', 'Strategy', 'Business'] as const
-
 export function MistakeGarden() {
   const [mistakes, setMistakes] = useState<Mistake[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('All')
+  const [expandedTopic, setExpandedTopic] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     let cancelled = false
@@ -59,12 +63,26 @@ export function MistakeGarden() {
         mistake.questionText?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         mistake.explanation?.toLowerCase().includes(searchQuery.toLowerCase())
 
-      // Category filter (placeholder - would need category data from API)
-      const matchesCategory = selectedCategory === 'All' || true // TODO: Add category to Mistake type
+      // Category filter
+      const matchesCategory = selectedCategory === 'All' ||
+        mistake.topicName === selectedCategory
 
       return matchesSearch && matchesCategory
     })
   }, [mistakes, searchQuery, selectedCategory])
+
+  // Group filtered mistakes by topic name
+  const topicGroups = useMemo(() => {
+    const groups = new Map<string, Mistake[]>()
+    for (const mistake of filteredMistakes) {
+      const topic = mistake.topicName || 'Other'
+      if (!groups.has(topic)) {
+        groups.set(topic, [])
+      }
+      groups.get(topic)!.push(mistake)
+    }
+    return groups
+  }, [filteredMistakes])
 
   const getChoiceText = (choices: Choice[], label: string) => {
     const choice = choices.find((c) => c.label === label)
@@ -129,7 +147,7 @@ export function MistakeGarden() {
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((category) => (
+              {['All', ...new Set(mistakes.map(m => m.topicName).filter(Boolean) as string[])].map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
@@ -147,7 +165,7 @@ export function MistakeGarden() {
             {(searchQuery || selectedCategory !== 'All') && (
               <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                 <span>
-                  Showing {filteredMistakes.length} of {mistakes.length} mistakes
+                  Showing {filteredMistakes.length} of {mistakes.length} mistakes in {topicGroups.size} {topicGroups.size === 1 ? 'topic' : 'topics'}
                 </span>
                 <button
                   onClick={() => {
@@ -178,51 +196,106 @@ export function MistakeGarden() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6">
-              {filteredMistakes.map((mistake) => {
+            <div className="grid grid-cols-1 gap-8">
+              {Array.from(topicGroups.entries()).map(([topicName, topicMistakes]) => {
+                const isExpanded = expandedTopic === topicName || expandedTopic === null
+                const subTopicId = topicMistakes.find(m => m.subtopicId)?.subtopicId
+                const distinctSubtopics = new Set(topicMistakes.map(m => m.subtopicName).filter(Boolean))
+
                 return (
-                  <div key={mistake.id} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm dark:bg-gray-800 dark:border-gray-700">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="text-sm text-gray-400 dark:text-gray-500">
-                        {new Date(mistake.lastMissedAt).toLocaleDateString()}
+                  <section key={topicName} className="rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800 overflow-hidden">
+                    {/* Topic header with count and practice button */}
+                    <div
+                      className="flex items-center justify-between px-6 py-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                      onClick={() => setExpandedTopic(isExpanded ? null : topicName)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{topicName}</h2>
+                        <span className="inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-semibold text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
+                          {topicMistakes.length} {topicMistakes.length === 1 ? 'mistake' : 'mistakes'}
+                        </span>
+                        {distinctSubtopics.size > 0 && (
+                          <span className="hidden sm:inline text-xs text-gray-400 dark:text-gray-500">
+                            {distinctSubtopics.size} {distinctSubtopics.size === 1 ? 'subtopic' : 'subtopics'}
+                          </span>
+                        )}
                       </div>
-                      <button
-                        onClick={() => handleMarkReviewed(mistake.id)}
-                        className="text-xs font-medium text-green-600 hover:text-green-700 bg-green-50 px-2 py-1 rounded dark:text-green-400 dark:hover:text-green-300 dark:bg-green-900/30"
-                      >
-                        Mark as Reviewed
-                      </button>
+                      <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
+                        {subTopicId && (
+                          <button
+                            onClick={() => navigate(`/quiz/${subTopicId}`)}
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-purple-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-purple-700 transition-colors"
+                          >
+                            Practice this topic
+                            <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M5 12h14M13 6l6 6-6 6" />
+                            </svg>
+                          </button>
+                        )}
+                        <svg
+                          className={`size-5 text-gray-400 transition-transform ${isExpanded ? '' : 'rotate-180'}`}
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m6 15 6-6 6 6" />
+                        </svg>
+                      </div>
                     </div>
 
-                    <div className="mb-4">
-                      <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Question</p>
-                      <p className="text-lg text-gray-900 dark:text-gray-100 break-words">{mistake.questionText}</p>
-                    </div>
+                    {/* Individual mistakes within topic */}
+                    {isExpanded && (
+                      <div className="border-t border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
+                        {topicMistakes.map((mistake) => (
+                          <div key={mistake.id} className="p-6">
+                            <div className="flex items-start justify-between mb-4">
+                              <div className="text-sm text-gray-400 dark:text-gray-500">
+                                {new Date(mistake.lastMissedAt).toLocaleDateString()}
+                              </div>
+                              <button
+                                onClick={() => handleMarkReviewed(mistake.id)}
+                                className="text-xs font-medium text-green-600 hover:text-green-700 bg-green-50 px-2 py-1 rounded dark:text-green-400 dark:hover:text-green-300 dark:bg-green-900/30"
+                              >
+                                Mark as Reviewed
+                              </button>
+                            </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-4 rounded-xl bg-red-50 border border-red-100 dark:bg-red-900/30 dark:border-red-800">
-                        <p className="text-xs font-bold text-red-600 uppercase mb-1 dark:text-red-400">Your Answer</p>
-                        <p className="text-gray-700 dark:text-gray-300">
-                          {mistake.lastUserAnswer}.{' '}
-                          {getChoiceText(mistake.choices, mistake.lastUserAnswer || '')}
-                        </p>
-                      </div>
-                      <div className="p-4 rounded-xl bg-green-50 border border-green-100 dark:bg-green-900/30 dark:border-green-800">
-                        <p className="text-xs font-bold text-green-600 uppercase mb-1 dark:text-green-400">Correct Answer</p>
-                        <p className="text-gray-700 dark:text-gray-300">
-                          {mistake.correctAnswer}.{' '}
-                          {getChoiceText(mistake.choices, mistake.correctAnswer || '')}
-                        </p>
-                      </div>
-                    </div>
+                            <div className="mb-4">
+                              <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Question</p>
+                              <p className="text-lg text-gray-900 dark:text-gray-100 break-words">{mistake.questionText}</p>
+                            </div>
 
-                    {mistake.explanation && (
-                      <div className="mt-4 p-3 rounded-lg bg-blue-50 border border-blue-100 dark:bg-blue-900/30 dark:border-blue-800">
-                        <p className="text-xs font-bold text-blue-600 uppercase mb-1 dark:text-blue-400">Explanation</p>
-                        <p className="text-sm text-blue-700 dark:text-blue-300">{mistake.explanation}</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="p-4 rounded-xl bg-red-50 border border-red-100 dark:bg-red-900/30 dark:border-red-800">
+                                <p className="text-xs font-bold text-red-600 uppercase mb-1 dark:text-red-400">Your Answer</p>
+                                <p className="text-gray-700 dark:text-gray-300">
+                                  {mistake.lastUserAnswer}.{' '}
+                                  {getChoiceText(mistake.choices, mistake.lastUserAnswer || '')}
+                                </p>
+                              </div>
+                              <div className="p-4 rounded-xl bg-green-50 border border-green-100 dark:bg-green-900/30 dark:border-green-800">
+                                <p className="text-xs font-bold text-green-600 uppercase mb-1 dark:text-green-400">Correct Answer</p>
+                                <p className="text-gray-700 dark:text-gray-300">
+                                  {mistake.correctAnswer}.{' '}
+                                  {getChoiceText(mistake.choices, mistake.correctAnswer || '')}
+                                </p>
+                              </div>
+                            </div>
+
+                            {mistake.explanation && (
+                              <div className="mt-4 p-3 rounded-lg bg-blue-50 border border-blue-100 dark:bg-blue-900/30 dark:border-blue-800">
+                                <p className="text-xs font-bold text-blue-600 uppercase mb-1 dark:text-blue-400">Explanation</p>
+                                <p className="text-sm text-blue-700 dark:text-blue-300">{mistake.explanation}</p>
+                              </div>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     )}
-                  </div>
+                  </section>
                 )
               })}
             </div>
