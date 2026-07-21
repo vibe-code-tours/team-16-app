@@ -423,7 +423,7 @@ export function ExamPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-4 py-6">
+      <div className="mx-auto max-w-2xl px-4 py-6">
         <div className="mb-6">
           <div className="mb-2 flex justify-between text-sm text-gray-500 dark:text-gray-400">
             <span>
@@ -504,7 +504,7 @@ export function ExamPage() {
             </button>
           )}
         </div>
-      </main>
+      </div>
 
       <ConfirmDialog
         open={showQuitDialog}
