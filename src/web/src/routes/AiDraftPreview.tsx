@@ -128,6 +128,8 @@ export function AiDraftPreview() {
       try {
         const loaded = await Promise.all(
           DRAFT_FILES.map(async (filename) => {
+            // Static markdown file — raw fetch is correct here; the API client
+            // would add unnecessary auth headers and JSON content-type.
             const response = await fetch(`${DRAFT_BASE}/${filename}`)
             if (!response.ok) {
               throw new Error(`Could not load ${filename}`)
