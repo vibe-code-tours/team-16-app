@@ -1,21 +1,90 @@
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams, Link } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
+import { api } from '../lib/api';
+import type { QuizResultApi } from '../types';
 import type { QuizResult as QuizResultType } from '../types/Quiz';
 
+/** Map backend camelCase response to the snake_case shape the component expects. */
+function mapApiResult(apiResult: QuizResultApi): QuizResultType {
+  return {
+    session_id: apiResult.sessionId,
+    total_questions: apiResult.totalQuestions,
+    correct_answers: apiResult.correctAnswers,
+    score_percentage: apiResult.scorePercentage,
+    xp_earned: apiResult.xpEarned,
+    answers: apiResult.answers.map((a) => ({
+      question: {
+        id: a.question.id,
+        exam_session: a.question.examSession,
+        subject: a.question.subject,
+        question_number: a.question.questionNumber,
+        topic_category: '',
+        difficulty: a.question.difficulty as 'easy' | 'medium' | 'hard',
+        question_text: a.question.questionText,
+        images: a.question.images as { url: string; alt: string }[],
+        choices: a.question.choices,
+        correct_answer: a.question.correctAnswer,
+        explanation: a.question.explanation ?? undefined,
+      },
+      user_answer: a.userAnswer,
+      is_correct: a.isCorrect,
+    })),
+  };
+}
+
 export function QuizResult() {
+  const { sessionId } = useParams<{ sessionId: string }>();
   const location = useLocation();
   const navigate = useNavigate();
-  const result = location.state?.result as QuizResultType;
 
-  if (!result) {
+  // location.state holds results passed immediately after quiz completion
+  const initialState = location.state?.result as QuizResultType | undefined;
+
+  const [result, setResult] = useState<QuizResultType | null>(initialState ?? null);
+  const [loading, setLoading] = useState(!initialState);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!sessionId || result) return;
+
+    let cancelled = false;
+    setLoading(true);
+
+    api
+      .get<QuizResultApi>(`/api/v1/quizzes/${sessionId}/result`)
+      .then((data) => {
+        if (!cancelled) setResult(mapApiResult(data));
+      })
+      .catch((err) => {
+        if (!cancelled) setError(err instanceof Error ? err.message : 'Failed to load results');
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionId, result]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-purple-600" />
+      </div>
+    );
+  }
+
+  if (error || !result) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <Card className="text-center p-8">
           <h2 className="text-xl font-bold mb-4">No results found</h2>
           <p className="text-gray-600 mb-4">
-            Please complete a quiz first.
+            {error || 'Please complete a quiz first.'}
           </p>
           <Link to="/quizzes">
             <Button>Start Quiz</Button>
@@ -32,11 +101,11 @@ export function QuizResult() {
   };
 
   const getScoreMessage = (percentage: number) => {
-    if (percentage >= 90) return 'Excellent! 🎉';
-    if (percentage >= 80) return 'Great job! 👏';
-    if (percentage >= 70) return 'Good work! 👍';
-    if (percentage >= 60) return 'Not bad! 📚';
-    return 'Keep practicing! 💪';
+    if (percentage >= 90) return 'Excellent!';
+    if (percentage >= 80) return 'Great job!';
+    if (percentage >= 70) return 'Good work!';
+    if (percentage >= 60) return 'Not bad!';
+    return 'Keep practicing!';
   };
 
   return (

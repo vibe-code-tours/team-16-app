@@ -19,6 +19,7 @@ import { AiDraftPreview } from "./routes/AiDraftPreview";
 import { AdminDashboard } from "./routes/AdminDashboard";
 import { AdminUsers } from "./routes/AdminUsers";
 import { WeakPointAnalysis } from "./routes/WeakPointAnalysis";
+import { QuizResult } from "./routes/QuizResult";
 
 export default function App() {
   return (
@@ -96,6 +97,18 @@ export default function App() {
                 <StudentRoute>
                   <Layout>
                     <QuizPage />
+                  </Layout>
+                </StudentRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quiz-result/:sessionId?"
+            element={
+              <ProtectedRoute>
+                <StudentRoute>
+                  <Layout>
+                    <QuizResult />
                   </Layout>
                 </StudentRoute>
               </ProtectedRoute>

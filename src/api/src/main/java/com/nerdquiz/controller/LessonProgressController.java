@@ -2,10 +2,12 @@ package com.nerdquiz.controller;
 
 import com.nerdquiz.dto.LessonProgressResponse;
 import com.nerdquiz.service.LessonProgressService;
+import com.nerdquiz.util.UuidUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -22,15 +24,21 @@ public class LessonProgressController {
     public ResponseEntity<LessonProgressResponse> getProgress(
             Authentication authentication,
             @PathVariable UUID lessonId) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(lessonProgressService.getProgress(userId, lessonId));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(lessonProgressService.getProgress(userId.get(), lessonId));
     }
 
     @PostMapping("/complete")
     public ResponseEntity<LessonProgressResponse> markComplete(
             Authentication authentication,
             @PathVariable UUID lessonId) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(lessonProgressService.markComplete(userId, lessonId));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(lessonProgressService.markComplete(userId.get(), lessonId));
     }
 }

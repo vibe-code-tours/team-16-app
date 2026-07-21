@@ -3,6 +3,7 @@ package com.nerdquiz.controller;
 import com.nerdquiz.dto.MistakeResponse;
 import com.nerdquiz.dto.RecordMistakeRequest;
 import com.nerdquiz.service.MistakeService;
+import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -27,7 +29,10 @@ public class MistakeController {
     public ResponseEntity<MistakeResponse> recordMistake(
             Authentication authentication,
             @Valid @RequestBody RecordMistakeRequest request) {
-        UUID userId = UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(mistakeService.recordMistake(userId, request));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(mistakeService.recordMistake(userId.get(), request));
     }
 }

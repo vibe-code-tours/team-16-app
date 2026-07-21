@@ -28,7 +28,7 @@ export function ConfirmDialog({
   useEffect(() => {
     if (!open) return
 
-    function handleKeyDown(e: KeyboardEvent) {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onCancel()
     }
 
@@ -46,7 +46,7 @@ export function ConfirmDialog({
         aria-labelledby="confirm-dialog-title"
         className="w-full max-w-sm rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-lg"
       >
-        <h2 id="confirm-dialog-title" className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+        <h2 id="confirm-dialog-title" className="mb-2 text-lg font-bold text-gray-900 dark:text-gray-100">
           {title}
         </h2>
         <p className="mb-6 text-sm text-gray-600 dark:text-gray-400">{message}</p>
@@ -54,13 +54,13 @@ export function ConfirmDialog({
           <button
             ref={cancelRef}
             onClick={onCancel}
-            className="rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
           >
             {cancelLabel}
           </button>
           <button
             onClick={onConfirm}
-            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-red-700"
           >
             {confirmLabel}
           </button>

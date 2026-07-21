@@ -5,6 +5,7 @@ import com.nerdquiz.dto.LessonResponse;
 import com.nerdquiz.dto.QuestionResponse;
 import com.nerdquiz.service.LessonService;
 import com.nerdquiz.service.QuestionService;
+import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -32,17 +34,22 @@ public class LessonController {
     public ResponseEntity<List<LessonResponse>> getLessons(
             @PathVariable UUID subtopicId,
             Authentication authentication) {
-        UUID userId = authentication == null ? null : UUID.fromString(authentication.getName());
-        return ResponseEntity.ok(lessonService.getLessonsForSubtopic(subtopicId, userId));
+        Optional<UUID> userId = UuidUtil.tryParse(authentication == null ? null : authentication.getName());
+        return ResponseEntity.ok(lessonService.getLessonsForSubtopic(subtopicId, userId.orElse(null)));
     }
 
     @PostMapping("/lessons/{lessonId}/complete")
     public ResponseEntity<Void> completeLesson(
             @PathVariable UUID lessonId,
             Authentication authentication) {
-        if (authentication == null) return ResponseEntity.status(401).build();
-        UUID userId = UUID.fromString(authentication.getName());
-        lessonService.completeLesson(lessonId, userId);
+        if (authentication == null) {
+            return ResponseEntity.status(401).build();
+        }
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        lessonService.completeLesson(lessonId, userId.get());
         return ResponseEntity.noContent().build();
     }
 
