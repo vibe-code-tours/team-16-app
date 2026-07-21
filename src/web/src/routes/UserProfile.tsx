@@ -2,15 +2,7 @@ import { useState, useEffect, type FormEvent, type SVGProps } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
-const WEEKLY_ACTIVITY = [
-  { day: "Mon", value: 42, minutes: 18 },
-  { day: "Tue", value: 68, minutes: 29 },
-  { day: "Wed", value: 51, minutes: 22 },
-  { day: "Thu", value: 84, minutes: 36 },
-  { day: "Fri", value: 61, minutes: 26 },
-  { day: "Sat", value: 100, minutes: 43 },
-  { day: "Sun", value: 74, minutes: 32 },
-] as const;
+const WEEKLY_ACTIVITY: Array<{ day: string; value: number; minutes: number }> = [];
 
 const ACHIEVEMENTS: Achievement[] = [
   {
@@ -397,30 +389,16 @@ function StatsGrid({
     {
       label: "Total XP",
       value: totalXp.toLocaleString(),
-      detail: "+120 this week",
+      detail: "",
       icon: "zap",
       color: "amber",
     },
     {
       label: "Day streak",
       value: `${streakCount} days`,
-      detail: "Personal best: 7",
+      detail: "",
       icon: "flame",
       color: "orange",
-    },
-    {
-      label: "Quizzes",
-      value: "24",
-      detail: "18 completed",
-      icon: "book-open",
-      color: "purple",
-    },
-    {
-      label: "Accuracy",
-      value: "86%",
-      detail: "+8% this month",
-      icon: "target",
-      color: "emerald",
     },
   ];
 
@@ -490,7 +468,9 @@ function WeeklyActivity() {
             Weekly activity
           </h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            You studied 3h 26m this week. Keep it going!
+            {WEEKLY_ACTIVITY.length > 0
+              ? `You studied ${Math.round(WEEKLY_ACTIVITY.reduce((sum, d) => sum + d.minutes, 0) / 60)}h ${WEEKLY_ACTIVITY.reduce((sum, d) => sum + d.minutes, 0) % 60}m this week. Keep it going!`
+              : 'Activity data will appear here once you start studying.'}
           </p>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full bg-purple-50 px-3 py-1.5 text-xs font-semibold text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
@@ -503,7 +483,11 @@ function WeeklyActivity() {
         className="mt-8 grid h-48 grid-cols-7 items-end gap-2 sm:gap-4"
         aria-label="Minutes studied each day"
       >
-        {WEEKLY_ACTIVITY.map((item, index) => (
+        {WEEKLY_ACTIVITY.length === 0 ? (
+          <div className="col-span-7 flex items-center justify-center text-sm text-gray-400 dark:text-gray-500">
+            No activity data yet
+          </div>
+        ) : WEEKLY_ACTIVITY.map((item, index) => (
           <div
             key={item.day}
             className="group flex h-full flex-col items-center justify-end gap-2"
