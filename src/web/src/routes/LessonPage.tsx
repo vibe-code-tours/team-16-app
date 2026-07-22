@@ -95,7 +95,7 @@ export function LessonPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl px-4 py-8">
+      <div className="mx-auto max-w-3xl px-4 py-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {lesson.subtopic_name}
@@ -154,7 +154,7 @@ export function LessonPage() {
             {completing ? 'Saving...' : "I've read it!"}
           </button>
         </div>
-      </main>
+      </div>
     </div>
   )
 }

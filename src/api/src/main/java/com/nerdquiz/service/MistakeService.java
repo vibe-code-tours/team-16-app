@@ -6,8 +6,12 @@ import com.nerdquiz.dto.RecordMistakeRequest;
 import com.nerdquiz.exception.MistakeNotFoundException;
 import com.nerdquiz.exception.QuestionNotFoundException;
 import com.nerdquiz.model.Question;
+import com.nerdquiz.model.Subtopic;
+import com.nerdquiz.model.Topic;
 import com.nerdquiz.model.UserMistake;
 import com.nerdquiz.repository.QuestionRepository;
+import com.nerdquiz.repository.SubtopicRepository;
+import com.nerdquiz.repository.TopicRepository;
 import com.nerdquiz.repository.UserMistakeRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,13 +34,19 @@ public class MistakeService {
 
     private final UserMistakeRepository userMistakeRepository;
     private final QuestionRepository questionRepository;
+    private final SubtopicRepository subtopicRepository;
+    private final TopicRepository topicRepository;
     private final ObjectMapper objectMapper;
 
     public MistakeService(UserMistakeRepository userMistakeRepository,
                           QuestionRepository questionRepository,
+                          SubtopicRepository subtopicRepository,
+                          TopicRepository topicRepository,
                           ObjectMapper objectMapper) {
         this.userMistakeRepository = userMistakeRepository;
         this.questionRepository = questionRepository;
+        this.subtopicRepository = subtopicRepository;
+        this.topicRepository = topicRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -62,7 +72,7 @@ public class MistakeService {
         UserMistake saved = userMistakeRepository.save(mistake);
 
         Question question = questionRepository.findById(saved.getQuestionId()).orElse(null);
-        return toResponse(saved, question);
+        return toResponse(saved, question, Collections.emptyMap(), Collections.emptyMap());
     }
 
     @Transactional(readOnly = true)
@@ -85,8 +95,21 @@ public class MistakeService {
         Map<UUID, Question> questions = questionRepository.findByIdIn(questionIds).stream()
                 .collect(Collectors.toMap(Question::getId, q -> q));
 
+        // Fetch subtopic and topic info for categorization
+        Set<UUID> subtopicIds = questions.values().stream()
+                .map(Question::getSubtopicId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        Map<UUID, Subtopic> subtopics = subtopicRepository.findAllById(subtopicIds).stream()
+                .collect(Collectors.toMap(Subtopic::getId, s -> s));
+        Set<UUID> topicIds = subtopics.values().stream()
+                .map(Subtopic::getTopicId)
+                .collect(Collectors.toSet());
+        Map<UUID, Topic> topics = topicRepository.findAllById(topicIds).stream()
+                .collect(Collectors.toMap(Topic::getId, t -> t));
+
         return mistakes.stream()
-                .map(m -> toResponse(m, questions.get(m.getQuestionId())))
+                .map(m -> toResponse(m, questions.get(m.getQuestionId()), subtopics, topics))
                 .collect(Collectors.toList());
     }
 
@@ -98,7 +121,9 @@ public class MistakeService {
         userMistakeRepository.save(mistake);
     }
 
-    private MistakeResponse toResponse(UserMistake mistake, Question question) {
+    private MistakeResponse toResponse(UserMistake mistake, Question question,
+                                        Map<UUID, Subtopic> subtopics, Map<UUID, Topic> topics) {
+        UUID questionId = mistake.getQuestionId();
         String questionText = question != null ? question.getQuestionText() : null;
         String correctAnswer = question != null ? question.getCorrectAnswer() : null;
         String explanation = question != null ? question.getExplanation() : null;
@@ -106,9 +131,26 @@ public class MistakeService {
         String lastUserAnswer = mistake.getSelectedLabel();
         Instant lastMissedAt = mistake.getCreatedAt();
 
+        UUID subtopicId = question != null ? question.getSubtopicId() : null;
+        String subtopicName = null;
+        String topicName = null;
+        if (subtopicId != null) {
+            Subtopic subtopic = subtopics.get(subtopicId);
+            if (subtopic != null) {
+                subtopicName = subtopic.getName();
+                Topic topic = topics.get(subtopic.getTopicId());
+                if (topic != null) {
+                    topicName = topic.getName();
+                }
+            }
+        }
+
         return new MistakeResponse(
                 mistake.getId(),
-                mistake.getQuestionId(),
+                questionId,
+                subtopicId,
+                subtopicName,
+                topicName,
                 questionText,
                 correctAnswer,
                 choices,

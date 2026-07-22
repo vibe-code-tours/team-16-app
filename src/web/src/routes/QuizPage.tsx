@@ -33,6 +33,13 @@ export function QuizPage() {
   const [error, setError] = useState<string | null>(null)
   const [started, setStarted] = useState(false)
 
+  const handleQuit = useCallback(() => {
+    if (started && index > 0 && !window.confirm('Are you sure? Your progress will be lost.')) {
+      return
+    }
+    navigate('/map')
+  }, [started, index, navigate])
+
   const loadQuiz = useCallback(async () => {
     if (!subtopicId) return
     setLoading(true)
@@ -178,7 +185,7 @@ export function QuizPage() {
       <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <button
-            onClick={() => navigate('/map')}
+            onClick={handleQuit}
             className="flex items-center gap-2 font-medium text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300"
           >
             ← Quit quiz
@@ -189,7 +196,7 @@ export function QuizPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-4 py-8">
+      <div className="mx-auto max-w-2xl px-4 py-8">
         <div className="mb-8 h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
             className="h-full bg-purple-600 transition-all duration-500"
@@ -256,7 +263,7 @@ export function QuizPage() {
             </button>
           )}
         </div>
-      </main>
+      </div>
     </div>
   )
 }

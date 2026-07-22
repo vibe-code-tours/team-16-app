@@ -9,6 +9,7 @@ const EXAM_DURATION_MINUTES = 60
 const TOTAL_QUESTIONS = 60
 const INITIAL_HEARTS = 3
 const XP_PER_CORRECT = 10
+const RESUME_STORAGE_KEY = 'nerdquiz_exam_session'
 
 type Difficulty = 'all' | 'easy' | 'medium' | 'hard'
 
@@ -44,6 +45,15 @@ interface FinishExamResponse {
   heartsRemaining: number
 }
 
+interface SavedExamSession {
+  sessionId: string
+  questions: ExamQuestion[]
+  currentIndex: number
+  hearts: number
+  timeLeft: number
+  expiresAt: string
+}
+
 function toQuizQuestion(question: QuestionFromApi): QuizQuestion {
   return {
     id: question.id,
@@ -53,6 +63,20 @@ function toQuizQuestion(question: QuestionFromApi): QuizQuestion {
     correct_answer: question.correctAnswer,
     explanation: question.explanation,
   }
+}
+
+function isSavedExamSession(value: unknown): value is SavedExamSession {
+  if (!value || typeof value !== 'object') return false
+  const v = value as Record<string, unknown>
+
+  return (
+    typeof v.sessionId === 'string' &&
+    Array.isArray(v.questions) &&
+    typeof v.currentIndex === 'number' &&
+    typeof v.hearts === 'number' &&
+    typeof v.timeLeft === 'number' &&
+    typeof v.expiresAt === 'string'
+  )
 }
 
 export function ExamPage() {
@@ -76,6 +100,50 @@ export function ExamPage() {
   const finishedOnceRef = useRef(false)
   const sessionIdRef = useRef<string | null>(null)
   const questionsLoadedRef = useRef(false)
+  const [showResumeDialog, setShowResumeDialog] = useState(false)
+  const [savedSession, setSavedSession] = useState<SavedExamSession | null>(null)
+
+  // Check for saved session on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(RESUME_STORAGE_KEY)
+      if (!saved) return
+
+      const parsed: unknown = JSON.parse(saved)
+      if (!isSavedExamSession(parsed)) {
+        localStorage.removeItem(RESUME_STORAGE_KEY)
+        return
+      }
+
+      const expiresAt = new Date(parsed.expiresAt).getTime()
+      if (expiresAt > Date.now()) {
+        setSavedSession(parsed)
+        setShowResumeDialog(true)
+      } else {
+        localStorage.removeItem(RESUME_STORAGE_KEY)
+      }
+    } catch {
+      localStorage.removeItem(RESUME_STORAGE_KEY)
+    }
+  }, [])
+
+  // Persist exam state to localStorage whenever it changes
+  useEffect(() => {
+    if (!started || finished || sessionIdRef.current === null) return
+    try {
+      const data: SavedExamSession = {
+        sessionId: sessionIdRef.current,
+        questions,
+        currentIndex,
+        hearts,
+        timeLeft,
+        expiresAt: new Date(Date.now() + timeLeft * 1000).toISOString(),
+      }
+      localStorage.setItem(RESUME_STORAGE_KEY, JSON.stringify(data))
+    } catch {
+      // localStorage might be full — ignore
+    }
+  }, [started, finished, questions, currentIndex, hearts, timeLeft])
 
   const loadQuestions = useCallback(async () => {
     setLoading(true)
@@ -231,6 +299,79 @@ export function ExamPage() {
     }
     navigate('/map')
   }, [navigate])
+
+  // Clear saved session when exam naturally finishes
+  useEffect(() => {
+    if (finished) {
+      localStorage.removeItem(RESUME_STORAGE_KEY)
+    }
+  }, [finished])
+
+  // Clear saved session when browser unloads and exam is done
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (started && !finished) {
+        e.preventDefault()
+      }
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [started, finished])
+
+  const handleResume = useCallback(() => {
+    if (!savedSession) return
+    sessionIdRef.current = savedSession.sessionId
+    setQuestions(savedSession.questions)
+    setCurrentIndex(savedSession.currentIndex)
+    setHearts(savedSession.hearts)
+    setTimeLeft(savedSession.timeLeft)
+    setStarted(true)
+    setShowResumeDialog(false)
+    // Remove saved session data — it will be re-persisted from live state
+    localStorage.removeItem(RESUME_STORAGE_KEY)
+  }, [savedSession])
+
+  const handleAbandonResume = useCallback(() => {
+    localStorage.removeItem(RESUME_STORAGE_KEY)
+    setSavedSession(null)
+    setShowResumeDialog(false)
+  }, [])
+
+  if (showResumeDialog && savedSession) {
+    const mins = Math.floor(savedSession.timeLeft / 60)
+    const secs = savedSession.timeLeft % 60
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+        <div className="w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 text-center shadow-sm">
+          <div className="mb-4 text-5xl">⏳</div>
+          <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Resume Exam?</h1>
+          <p className="mb-6 text-gray-500 dark:text-gray-400">
+            You have an exam in progress with <strong>{savedSession.questions.length - savedSession.currentIndex}</strong> questions remaining.
+          </p>
+          <div className="mb-6 rounded-xl bg-purple-50 dark:bg-purple-900/30 p-4">
+            <p className="text-sm text-purple-600 dark:text-purple-400">Time remaining</p>
+            <p className="text-3xl font-bold text-purple-700 dark:text-purple-400">
+              {mins.toString().padStart(2, '0')}:{secs.toString().padStart(2, '0')}
+            </p>
+          </div>
+          <div className="space-y-3">
+            <button
+              onClick={handleResume}
+              className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+            >
+              Resume Exam
+            </button>
+            <button
+              onClick={handleAbandonResume}
+              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              Start Fresh
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (!started) {
     return (
@@ -423,7 +564,7 @@ export function ExamPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-4 py-6">
+      <div className="mx-auto max-w-2xl px-4 py-6">
         <div className="mb-6">
           <div className="mb-2 flex justify-between text-sm text-gray-500 dark:text-gray-400">
             <span>
@@ -504,7 +645,7 @@ export function ExamPage() {
             </button>
           )}
         </div>
-      </main>
+      </div>
 
       <ConfirmDialog
         open={showQuitDialog}

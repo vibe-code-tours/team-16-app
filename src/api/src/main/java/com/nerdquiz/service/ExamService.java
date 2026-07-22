@@ -8,9 +8,11 @@ import com.nerdquiz.exception.UnauthorizedQuizAccessException;
 import com.nerdquiz.model.ExamAnswer;
 import com.nerdquiz.model.ExamHeartEvent;
 import com.nerdquiz.model.ExamSession;
+import com.nerdquiz.model.ExamSessionQuestion;
 import com.nerdquiz.model.Question;
 import com.nerdquiz.repository.ExamAnswerRepository;
 import com.nerdquiz.repository.ExamHeartEventRepository;
+import com.nerdquiz.repository.ExamSessionQuestionRepository;
 import com.nerdquiz.repository.ExamSessionRepository;
 import com.nerdquiz.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,7 @@ public class ExamService {
     private final ExamSessionRepository examSessionRepository;
     private final ExamAnswerRepository examAnswerRepository;
     private final ExamHeartEventRepository examHeartEventRepository;
+    private final ExamSessionQuestionRepository examSessionQuestionRepository;
     private final QuestionService questionService;
     private final UserService userService;
 
@@ -44,12 +47,14 @@ public class ExamService {
                        ExamSessionRepository examSessionRepository,
                        ExamAnswerRepository examAnswerRepository,
                        ExamHeartEventRepository examHeartEventRepository,
+                       ExamSessionQuestionRepository examSessionQuestionRepository,
                        QuestionService questionService,
                        UserService userService) {
         this.questionRepository = questionRepository;
         this.examSessionRepository = examSessionRepository;
         this.examAnswerRepository = examAnswerRepository;
         this.examHeartEventRepository = examHeartEventRepository;
+        this.examSessionQuestionRepository = examSessionQuestionRepository;
         this.questionService = questionService;
         this.userService = userService;
     }
@@ -76,6 +81,14 @@ public class ExamService {
         session.setStatus("in_progress");
         ExamSession savedSession = examSessionRepository.save(session);
 
+        // Persist issued questions so submitAnswer can validate against them
+        java.util.ArrayList<ExamSessionQuestion> sessionQuestions = new java.util.ArrayList<>();
+        for (int i = 0; i < questions.size(); i++) {
+            sessionQuestions.add(new ExamSessionQuestion(
+                savedSession.getId(), questions.get(i).getId(), i + 1));
+        }
+        examSessionQuestionRepository.saveAll(sessionQuestions);
+
         return new StartExamResponse(
                 savedSession.getId(),
                 questions.stream().map(questionService::toResponse).toList(),
@@ -90,6 +103,19 @@ public class ExamService {
         ExamSession session = getOwnedSession(userId, sessionId);
         if (!"in_progress".equals(session.getStatus())) {
             throw new IllegalArgumentException("Exam session is already finished");
+        }
+
+        // Enforce time limit — reject answers after expires_at
+        if (session.getExpiresAt().isBefore(Instant.now())) {
+            session.setStatus("expired");
+            session.setCompletedAt(Instant.now());
+            examSessionRepository.save(session);
+            throw new IllegalArgumentException("Exam session has expired");
+        }
+
+        // Validate that the question was issued for this session
+        if (!examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, request.questionId())) {
+            throw new IllegalArgumentException("Question does not belong to this exam session");
         }
 
         Question question = questionRepository.findById(request.questionId())

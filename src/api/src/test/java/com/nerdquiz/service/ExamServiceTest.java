@@ -6,6 +6,7 @@ import com.nerdquiz.exception.UnauthorizedQuizAccessException;
 import com.nerdquiz.model.ExamAnswer;
 import com.nerdquiz.model.ExamSession;
 import com.nerdquiz.model.Question;
+import com.nerdquiz.model.ExamSessionQuestion;
 import com.nerdquiz.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,9 @@ class ExamServiceTest {
 
     @Mock
     private ExamHeartEventRepository examHeartEventRepository;
+
+    @Mock
+    private ExamSessionQuestionRepository examSessionQuestionRepository;
 
     @Mock
     private QuestionService questionService;
@@ -95,6 +99,8 @@ class ExamServiceTest {
                     s.setId(sessionId);
                     return s;
                 });
+        when(examSessionQuestionRepository.saveAll(anyList()))
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
         StartExamRequest request = new StartExamRequest(60, null);
 
@@ -121,6 +127,8 @@ class ExamServiceTest {
                     s.setId(sessionId);
                     return s;
                 });
+        when(examSessionQuestionRepository.saveAll(anyList()))
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
         StartExamRequest request = new StartExamRequest(10, "easy");
 
@@ -142,6 +150,8 @@ class ExamServiceTest {
     void submitAnswer_CorrectAnswer_ReturnsCorrect() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
+        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(true);
         when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
                 .thenReturn(Optional.of(new ExamAnswer()));
         when(questionRepository.findById(sampleQuestion.getId()))
@@ -161,6 +171,8 @@ class ExamServiceTest {
     void submitAnswer_WrongAnswer_DecreasesHearts() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
+        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(true);
         when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
                 .thenReturn(Optional.of(new ExamAnswer()));
         when(questionRepository.findById(sampleQuestion.getId()))
@@ -218,6 +230,8 @@ class ExamServiceTest {
     void submitAnswer_QuestionNotFound_ThrowsException() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
+        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(true);
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.empty());
 
