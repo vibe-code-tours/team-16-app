@@ -5,7 +5,7 @@ import { Card } from '../components/ui/Card'
 export function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-white dark:from-purple-950/30 dark:via-gray-900 dark:to-gray-900">
-      <header className="border-b border-purple-100 dark:border-purple-900/50 bg-white/90 dark:bg-gray-800/90">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-purple-100 dark:border-purple-900/50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           <Link
             to="/"
@@ -32,7 +32,7 @@ export function LandingPage() {
         </div>
       </header>
 
-      <main>
+      <main className="pt-16">
         <section className="learning-hero-enter mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[minmax(0,1.1fr)_minmax(300px,0.9fr)] md:items-center md:py-16">
           <div>
             <Badge className="mb-4 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">IT Exam Prep — Gamified</Badge>
