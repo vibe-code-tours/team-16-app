@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import { useFocusTrap } from '../../hooks/useFocusTrap'
 
 interface NavItem {
   label: string
@@ -87,46 +88,24 @@ interface SidebarProps {
 export function Sidebar({ navItems = defaultNavItems, isOpen, onClose, showNavItems = true }: SidebarProps) {
   const location = useLocation()
   const { user } = useAuth()
-  const drawerRef = useRef<HTMLDivElement>(null)
+  const drawerRef = useFocusTrap(isOpen)
 
-  // Admin users see only admin nav items, students see default nav items
-  const allNavItems = user?.role === 'admin' ? adminNavItems : navItems
-
-  // Focus trap and Escape key handler for mobile drawer
+  // Close on Escape key
   useEffect(() => {
     if (!isOpen) return
 
-    const handleKeyDown = (e: KeyboardEvent) => {
+    function handleEscape(e: KeyboardEvent) {
       if (e.key === 'Escape') {
         onClose()
-        return
-      }
-
-      if (e.key === 'Tab' && drawerRef.current) {
-        const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-        if (focusable.length === 0) return
-
-        const first = focusable[0]
-        const last = focusable[focusable.length - 1]
-
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault()
-          last.focus()
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault()
-          first.focus()
-        }
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown)
-    // Auto-focus the close button when drawer opens
-    drawerRef.current?.querySelector<HTMLElement>('button')?.focus()
-
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
   }, [isOpen, onClose])
+
+  // Admin users see only admin nav items, students see default nav items
+  const allNavItems = user?.role === 'admin' ? adminNavItems : navItems
 
   function renderNavItems() {
     return allNavItems.map((item) => {
@@ -174,9 +153,16 @@ export function Sidebar({ navItems = defaultNavItems, isOpen, onClose, showNavIt
           <div
             className="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 transition-opacity"
             onClick={onClose}
+            aria-hidden="true"
           />
           {/* Drawer panel */}
-          <div ref={drawerRef} className="fixed inset-y-0 left-0 flex flex-col w-64 bg-white dark:bg-gray-800 shadow-xl" role="dialog" aria-modal="true" aria-label="Navigation menu">
+          <div
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+            className="fixed inset-y-0 left-0 flex flex-col w-64 bg-white dark:bg-gray-800 shadow-xl"
+          >
             <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
               <span className="text-xl font-bold text-purple-600 dark:text-purple-400">NerdQuiz</span>
               <button
