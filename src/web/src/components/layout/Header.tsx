@@ -5,9 +5,10 @@ import { ThemeToggle } from '../ui/ThemeToggle'
 
 interface HeaderProps {
   onMenuToggle: () => void
+  showSidebar?: boolean
 }
 
-export function Header({ onMenuToggle }: HeaderProps) {
+export function Header({ onMenuToggle, showSidebar = true }: HeaderProps) {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -71,7 +72,7 @@ export function Header({ onMenuToggle }: HeaderProps) {
   }, [dropdownOpen])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+    <header className={`fixed top-0 z-50 inset-x-0 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 ${showSidebar ? 'lg:left-64' : ''}`}>
       <div className="flex h-16 items-center justify-between px-4 lg:px-6">
         {/* Left: Hamburger (mobile) + Logo */}
         <div className="flex items-center gap-3">
