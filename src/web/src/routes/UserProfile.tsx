@@ -31,8 +31,13 @@ const ACHIEVEMENTS: Achievement[] = [
 export function UserProfile() {
   const { user, session, signOut, updateProfile } = useAuth();
 
+  // Shouldn't happen (route is protected), but satisfy the type guard
+  if (!user) {
+    return null;
+  }
+
   // Admin gets a different profile view — no XP, streaks, or learner content
-  if (user?.role === 'admin') {
+  if (user.role === 'admin') {
     return <AdminProfileView user={user} session={session} signOut={signOut} updateProfile={updateProfile} />;
   }
 
