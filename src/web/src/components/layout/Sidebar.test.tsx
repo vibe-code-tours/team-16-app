@@ -47,7 +47,7 @@ describe('Sidebar mobile drawer accessibility', () => {
     renderSidebar(true)
 
     const dialog = screen.getByRole('dialog')
-    const focusable = dialog.querySelectorAll('a[href], button:not([disabled])')
+    const focusable = dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
     const lastFocusable = focusable[focusable.length - 1]
 
     // Focus the last element, then Tab — focus should wrap to the first
@@ -62,7 +62,7 @@ describe('Sidebar mobile drawer accessibility', () => {
     renderSidebar(true)
 
     const dialog = screen.getByRole('dialog')
-    const focusable = dialog.querySelectorAll('a[href], button:not([disabled])')
+    const focusable = dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
     const firstFocusable = focusable[0]
     const lastFocusable = focusable[focusable.length - 1]
 
