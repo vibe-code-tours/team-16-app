@@ -24,7 +24,7 @@ public class CorsConfig {
         String originsEnv = System.getenv("CORS_ALLOWED_ORIGINS");
         List<String> origins = (originsEnv != null && !originsEnv.isBlank())
                 ? List.of(originsEnv.split(","))
-                : List.of("http://localhost:5173");
+                : List.of("http://localhost:5173", "http://localhost:5100");
         config.setAllowedOrigins(origins);
 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));

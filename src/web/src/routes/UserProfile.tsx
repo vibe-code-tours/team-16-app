@@ -30,6 +30,23 @@ const ACHIEVEMENTS: Achievement[] = [
 
 export function UserProfile() {
   const { user, session, signOut, updateProfile } = useAuth();
+
+  // Admin gets a different profile view — no XP, streaks, or learner content
+  if (user?.role === 'admin') {
+    return <AdminProfileView user={user} session={session} signOut={signOut} updateProfile={updateProfile} />;
+  }
+
+  return <StudentProfileView user={user} session={session} signOut={signOut} updateProfile={updateProfile} />;
+}
+
+/* ── Student Profile View ── */
+
+function StudentProfileView({
+  user,
+  session,
+  signOut,
+  updateProfile,
+}: ProfileViewProps) {
   const [editingName, setEditingName] = useState(false);
   const [displayName, setDisplayName] = useState(user?.display_name ?? "");
   const [saving, setSaving] = useState(false);
@@ -159,6 +176,299 @@ export function UserProfile() {
       </div>
     </div>
   );
+}
+
+/* ── Admin Profile View ── */
+
+function AdminProfileView({
+  user,
+  session,
+  signOut,
+  updateProfile,
+}: ProfileViewProps) {
+  const [editingName, setEditingName] = useState(false);
+  const [displayName, setDisplayName] = useState(user?.display_name ?? "");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (user?.display_name !== undefined) {
+      setDisplayName(user.display_name ?? "");
+    }
+  }, [user?.display_name]);
+  const [avatarFailed, setAvatarFailed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const email = session?.user?.email ?? user?.email ?? null;
+  const memberSince = formatMemberSince(user?.created_at);
+  const adminName =
+    user?.display_name?.trim() || email?.split("@")[0] || "Platform admin";
+  const initials = getInitials(adminName);
+  const avatarUrl = user?.avatar_url?.startsWith("http")
+    ? user.avatar_url
+    : null;
+
+  async function handleSaveName(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const trimmedDisplayName = displayName.trim();
+    if (!trimmedDisplayName) {
+      setError("Display name cannot be empty");
+      return;
+    }
+    setSaving(true);
+    setError(null);
+    const { error: updateError } = await updateProfile({
+      display_name: trimmedDisplayName,
+    });
+    if (updateError) {
+      setError(updateError);
+    } else {
+      setEditingName(false);
+    }
+    setSaving(false);
+  }
+
+  function handleCancelEdit() {
+    setDisplayName(user?.display_name ?? "");
+    setEditingName(false);
+    setError(null);
+  }
+
+  function handleStartEdit() {
+    setDisplayName(user?.display_name ?? "");
+    setEditingName(true);
+    setError(null);
+  }
+
+  return (
+    <div className="mx-auto flex max-w-4xl flex-col gap-6 pb-8">
+      {/* Page header */}
+      <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400">
+            <Icon name="shield-check" className="size-4" aria-hidden="true" />
+            Admin area
+          </div>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-gray-50 sm:text-4xl">
+            Admin profile
+          </h1>
+          <p className="mt-2 max-w-2xl text-gray-500 dark:text-gray-400">
+            Manage the platform and access admin tools from here.
+          </p>
+        </div>
+        <span className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 dark:border-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400">
+          <span
+            className="size-2 rounded-full bg-indigo-500"
+            aria-hidden="true"
+          />
+          Profile up to date
+        </span>
+      </header>
+
+      {/* Admin hero — avatar, name, admin badge */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-700 via-indigo-600 to-purple-600 p-6 text-white shadow-xl shadow-indigo-200/60 sm:p-8">
+        <div
+          className="absolute -right-16 -top-20 size-64 rounded-full bg-white/10 blur-sm"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute -bottom-28 right-1/4 size-56 rounded-full bg-purple-300/20 blur-2xl"
+          aria-hidden="true"
+        />
+
+        <div className="relative flex flex-col gap-7 lg:flex-row lg:items-center">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+            <div className="relative w-fit shrink-0">
+              <div className="rounded-full bg-white/20 p-1.5 shadow-lg ring-1 ring-white/30">
+                {avatarUrl && !avatarFailed ? (
+                  <img
+                    src={avatarUrl}
+                    alt={`${adminName}'s avatar`}
+                    className="size-24 rounded-full object-cover sm:size-28"
+                    onError={() => setAvatarFailed(true)}
+                  />
+                ) : (
+                  <div className="flex size-24 items-center justify-center rounded-full bg-white text-2xl font-bold text-indigo-700 sm:size-28">
+                    {initials}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold ring-1 ring-white/20 backdrop-blur-sm">
+                <Icon
+                  name="shield-check"
+                  className="size-3.5"
+                  aria-hidden="true"
+                />
+                Platform admin
+              </span>
+
+              {editingName ? (
+                <form className="mt-3" onSubmit={handleSaveName}>
+                  <label htmlFor="admin-display-name" className="sr-only">
+                    Display name
+                  </label>
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                    <input
+                      id="admin-display-name"
+                      type="text"
+                      value={displayName}
+                      onChange={(event) =>
+                        setDisplayName(event.target.value)
+                      }
+                      className="min-h-11 w-full rounded-xl border border-white/30 bg-white/15 px-4 py-2 text-lg font-bold text-white outline-none backdrop-blur-sm placeholder:text-indigo-100 focus:border-white focus:ring-2 focus:ring-white/40"
+                      placeholder="Enter display name"
+                      maxLength={50}
+                      aria-describedby={error ? "admin-name-error" : undefined}
+                      aria-invalid={Boolean(error)}
+                      autoComplete="nickname"
+                      autoFocus
+                    />
+                    <div className="flex gap-2">
+                      <button
+                        type="submit"
+                        disabled={saving}
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-bold text-indigo-700 transition-colors hover:bg-indigo-50 disabled:cursor-wait disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-600"
+                      >
+                        {saving ? (
+                          <span
+                            className="size-4 animate-spin rounded-full border-2 border-indigo-300 border-t-indigo-700"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <Icon
+                            name="save"
+                            className="size-4"
+                            aria-hidden="true"
+                          />
+                        )}
+                        {saving ? "Saving" : "Save"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCancelEdit}
+                        disabled={saving}
+                        className="inline-flex min-h-11 items-center justify-center rounded-xl bg-white/10 px-3 text-white ring-1 ring-white/30 transition-colors hover:bg-white/20 disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                        aria-label="Cancel editing display name"
+                      >
+                        <Icon name="x" className="size-4" aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+                  {error ? (
+                    <p
+                      id="admin-name-error"
+                      role="alert"
+                      className="mt-2 text-sm font-medium text-rose-100"
+                    >
+                      {error}
+                    </p>
+                  ) : null}
+                </form>
+              ) : (
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  <h2 className="truncate text-2xl font-bold sm:text-3xl">
+                    {adminName}
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={handleStartEdit}
+                    className="inline-flex size-9 items-center justify-center rounded-xl bg-white/10 text-white ring-1 ring-white/25 transition-all hover:scale-105 hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    aria-label="Edit display name"
+                  >
+                    <Icon name="pencil" className="size-4" aria-hidden="true" />
+                  </button>
+                </div>
+              )}
+
+              <p className="mt-3 max-w-xl text-sm leading-6 text-white/80">
+                Oversee platform health, manage users, and keep NerdQuiz running
+                smoothly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Admin quick links */}
+      <section aria-label="Admin tools" className="grid gap-4 sm:grid-cols-2">
+        <Link
+          to="/admin"
+          className="group rounded-2xl border border-gray-200/80 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-100/60 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-indigo-700 dark:hover:shadow-indigo-900/30"
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700 ring-1 ring-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:ring-indigo-700">
+                <Icon name="bar-chart" className="size-3.5" aria-hidden="true" />
+                Insights
+              </span>
+              <h3 className="mt-3 text-xl font-bold text-gray-950 dark:text-gray-50">
+                Dashboard
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                View platform stats, active users, quiz completion rates, and
+                exam pass rates at a glance.
+              </p>
+            </div>
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100 transition-transform duration-200 group-hover:scale-110 dark:bg-indigo-900/30 dark:text-indigo-400 dark:ring-indigo-700">
+              <Icon name="bar-chart" className="size-5" aria-hidden="true" />
+            </span>
+          </div>
+        </Link>
+
+        <Link
+          to="/admin/users"
+          className="group rounded-2xl border border-gray-200/80 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-100/60 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-indigo-700 dark:hover:shadow-indigo-900/30"
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-700 ring-1 ring-purple-100 dark:bg-purple-900/30 dark:text-purple-400 dark:ring-purple-700">
+                <Icon name="user" className="size-3.5" aria-hidden="true" />
+                Management
+              </span>
+              <h3 className="mt-3 text-xl font-bold text-gray-950 dark:text-gray-50">
+                Users
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                Search users, manage roles, view details, and handle account
+                deactivation.
+              </p>
+            </div>
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 ring-1 ring-purple-100 transition-transform duration-200 group-hover:scale-110 dark:bg-purple-900/30 dark:text-purple-400 dark:ring-purple-700">
+              <Icon name="user" className="size-5" aria-hidden="true" />
+            </span>
+          </div>
+        </Link>
+      </section>
+
+      {/* Account details + sign out */}
+      <aside className="flex flex-col gap-6" aria-label="Account details">
+        <AccountCard email={email} memberSince={memberSince} />
+        <button
+          type="button"
+          onClick={signOut}
+          className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-red-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
+        >
+          <Icon
+            name="log-out"
+            className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+          Sign out
+        </button>
+      </aside>
+    </div>
+  );
+}
+
+/* ── Shared types ── */
+
+interface ProfileViewProps {
+  user: NonNullable<ReturnType<typeof useAuth>['user']>;
+  session: ReturnType<typeof useAuth>['session'];
+  signOut: ReturnType<typeof useAuth>['signOut'];
+  updateProfile: ReturnType<typeof useAuth>['updateProfile'];
 }
 
 interface ProfileHeroProps {
