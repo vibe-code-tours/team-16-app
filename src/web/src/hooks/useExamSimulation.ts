@@ -206,7 +206,7 @@ export function useExamSimulation(): UseExamSimulationReturn {
       const status = Date.now() >= expiresAt ? 'expired' : 'completed'
 
       // Call finish endpoint
-      const finishData = await api.post<FinishExamApiResponse>(
+      await api.post<FinishExamApiResponse>(
         `/api/v1/exams/${currentSession.sessionId}/finish`,
         { status },
       )
