@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useExamSimulation } from '../hooks/useExamSimulation'
 import { useAuth } from '../hooks/useAuth'
 import { ExamStartScreen } from '../components/features/exam/ExamStartScreen'
@@ -54,23 +54,30 @@ export default function ExamSimulation() {
   const currentAnswer = currentQuestion ? answers[currentQuestion.id] : null
   const isAnswered = currentAnswer?.submitted === true
 
+  // Full page layout wrapper — used for all states
+  const PageWrapper = ({ children }: { children: React.ReactNode }) => (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {children}
+    </div>
+  )
+
   // Show result screen
   if (result) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <PageWrapper>
         <main className="mx-auto max-w-3xl px-4 py-6">
           <ExamResultScreen result={result} onTryAgain={handleTryAgain} />
         </main>
-      </div>
+      </PageWrapper>
     )
   }
 
   // Show exam in progress
   if (session) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <PageWrapper>
         {/* Exam status bar */}
-        <div className="sticky top-16 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-2">
             <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
               Exam Simulation
@@ -125,7 +132,7 @@ export default function ExamSimulation() {
 
           {/* Bottom navigation */}
           <div
-            className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-800/95 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur lg:left-64"
+            className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-800/95 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur"
             role="group"
             aria-label="Exam navigation"
           >
@@ -168,13 +175,32 @@ export default function ExamSimulation() {
             </div>
           )}
         </main>
-      </div>
+      </PageWrapper>
     )
   }
 
   // Show start screen (no session yet)
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <PageWrapper>
+      {/* Minimal nav bar for the start screen */}
+      <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
+          <Link
+            to="/map"
+            className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Map
+          </Link>
+          <div className="flex items-center gap-2">
+            <span className="text-lg">🦉</span>
+            <span className="text-base font-bold text-purple-600 dark:text-purple-400">NerdQuiz</span>
+          </div>
+        </div>
+      </header>
+
       <main className="mx-auto max-w-3xl px-4 py-6">
         {!authSession ? (
           <div className="flex flex-col items-center justify-center py-16">
@@ -208,8 +234,8 @@ export default function ExamSimulation() {
           <>
             {error && (
               <div className="mb-4 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 p-4 text-sm text-amber-700 dark:text-amber-400" role="alert">
-                <p className="font-medium">Could not load exam</p>
-                <p className="mt-1">The server might be temporarily unavailable. Please try again later.</p>
+                <p className="font-medium">Could not start exam</p>
+                <p className="mt-1 font-mono text-xs">{error}</p>
               </div>
             )}
             <ExamStartScreen
@@ -220,6 +246,6 @@ export default function ExamSimulation() {
           </>
         )}
       </main>
-    </div>
+    </PageWrapper>
   )
 }

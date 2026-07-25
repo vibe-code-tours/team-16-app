@@ -73,6 +73,8 @@ public class ExamService {
         session.setTimeLimitMinutes(TIME_LIMIT_MINUTES);
         session.setStartedAt(startedAt);
         session.setExpiresAt(startedAt.plusSeconds(TIME_LIMIT_MINUTES * 60L));
+        session.setInitialHearts(5);
+        session.setHeartsRemaining(5);
         session.setStatus("in_progress");
         ExamSession savedSession = examSessionRepository.save(session);
 
