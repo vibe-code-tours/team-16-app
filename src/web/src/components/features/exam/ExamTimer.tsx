@@ -23,10 +23,10 @@ export function ExamTimer({ timeRemaining }: ExamTimerProps) {
       aria-label={ariaLabel}
       className={`font-mono text-lg font-bold ${
         isCritical
-          ? 'text-red-600 animate-pulse'
+          ? 'text-red-600 dark:text-red-400 animate-pulse'
           : isLow
-            ? 'text-amber-600'
-            : 'text-gray-900'
+            ? 'text-amber-600 dark:text-amber-400'
+            : 'text-gray-900 dark:text-gray-100'
       }`}
     >
       {timeString}

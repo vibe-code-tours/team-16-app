@@ -14,15 +14,15 @@ export function ExamStartScreen({ isLoading, isStarting = false, onStart }: Exam
 
   return (
     <div className="flex items-center justify-center py-12">
-      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+      <div className="w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 shadow-sm">
         <div className="mb-6 text-center">
           <div className="mb-4 text-5xl">📝</div>
-          <h1 className="mb-2 text-2xl font-bold text-gray-900">Exam Simulation</h1>
-          <p className="text-gray-500">60 questions • 60 minutes</p>
+          <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Exam Simulation</h1>
+          <p className="text-gray-500 dark:text-gray-400">60 questions • 60 minutes</p>
         </div>
 
         <div className="mb-6">
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
             Select Difficulty
           </label>
           <div className="grid grid-cols-2 gap-2">
@@ -32,8 +32,8 @@ export function ExamStartScreen({ isLoading, isStarting = false, onStart }: Exam
                 onClick={() => setDifficulty(d)}
                 className={`rounded-lg border-2 px-4 py-2 transition-all ${
                   difficulty === d
-                    ? 'border-purple-500 bg-purple-50 text-purple-700'
-                    : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                    ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400'
+                    : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-500'
                 }`}
               >
                 {d.charAt(0).toUpperCase() + d.slice(1)}
@@ -53,7 +53,7 @@ export function ExamStartScreen({ isLoading, isStarting = false, onStart }: Exam
           </Button>
         </div>
 
-        <div className="mt-4 space-y-2 text-sm text-gray-500">
+        <div className="mt-4 space-y-2 text-sm text-gray-500 dark:text-gray-400">
           <p className="text-center">
             Answer questions during a countdown timer. View results and
             detailed feedback when the timer expires or you finish early.

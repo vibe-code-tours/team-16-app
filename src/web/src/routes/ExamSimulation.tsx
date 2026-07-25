@@ -57,7 +57,7 @@ export default function ExamSimulation() {
   // Show result screen
   if (result) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <main className="mx-auto max-w-3xl px-4 py-6">
           <ExamResultScreen result={result} onTryAgain={handleTryAgain} />
         </main>
@@ -68,11 +68,11 @@ export default function ExamSimulation() {
   // Show exam in progress
   if (session) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         {/* Exam status bar */}
-        <div className="sticky top-16 z-10 border-b border-gray-200 bg-white">
+        <div className="sticky top-16 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-2">
-            <span className="text-sm font-medium text-gray-600">
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
               Exam Simulation
             </span>
             <div className="flex items-center gap-4">
@@ -99,7 +99,7 @@ export default function ExamSimulation() {
               answers={answers}
               onGoTo={goToQuestion}
             />
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Question {currentIndex + 1} of {session.questions.length}
             </p>
           </div>
@@ -118,14 +118,14 @@ export default function ExamSimulation() {
 
           {/* Error message */}
           {error && (
-            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert">
+            <div className="mt-4 rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 p-4 text-sm text-red-700 dark:text-red-400" role="alert">
               {error}
             </div>
           )}
 
           {/* Bottom navigation */}
           <div
-            className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur lg:left-64"
+            className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-800/95 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur lg:left-64"
             role="group"
             aria-label="Exam navigation"
           >
@@ -174,14 +174,14 @@ export default function ExamSimulation() {
 
   // Show start screen (no session yet)
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <main className="mx-auto max-w-3xl px-4 py-6">
         {!authSession ? (
           <div className="flex flex-col items-center justify-center py-16">
-            <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+            <div className="w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 text-center shadow-sm">
               <div className="mb-4 text-5xl">📝</div>
-              <h2 className="text-2xl font-bold text-gray-900">Exam Simulation</h2>
-              <p className="mt-3 text-gray-500">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Exam Simulation</h2>
+              <p className="mt-3 text-gray-500 dark:text-gray-400">
                 Test your knowledge with a timed exam simulation.
                 Track your progress and earn XP!
               </p>
@@ -207,7 +207,7 @@ export default function ExamSimulation() {
         ) : (
           <>
             {error && (
-              <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-700" role="alert">
+              <div className="mb-4 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 p-4 text-sm text-amber-700 dark:text-amber-400" role="alert">
                 <p className="font-medium">Could not load exam</p>
                 <p className="mt-1">The server might be temporarily unavailable. Please try again later.</p>
               </div>
