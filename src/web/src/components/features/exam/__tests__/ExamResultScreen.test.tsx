@@ -6,12 +6,11 @@ import type { ExamResult } from '../../../../types/Exam'
 const mockResult: ExamResult = {
   sessionId: 'session-1',
   totalQuestions: 60,
-  answeredQuestions: 60,
   correctAnswers: 50,
   scorePercentage: 83.33,
   xpEarned: 500,
   passed: true,
-  heartsRemaining: 3,
+  status: 'completed',
   answers: [
     {
       questionId: 'q1',
@@ -95,7 +94,7 @@ describe('ExamResultScreen', () => {
     const handleTryAgain = vi.fn()
     render(<ExamResultScreen result={mockResult} onTryAgain={handleTryAgain} />)
 
-    fireEvent.click(screen.getByText('Try Another Exam'))
+    fireEvent.click(screen.getByText('Take Another Exam'))
     expect(handleTryAgain).toHaveBeenCalledTimes(1)
   })
 })

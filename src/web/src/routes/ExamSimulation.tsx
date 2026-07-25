@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useExamSimulation } from '../hooks/useExamSimulation'
 import { useAuth } from '../hooks/useAuth'
 import { ExamStartScreen } from '../components/features/exam/ExamStartScreen'
@@ -12,62 +12,47 @@ import { Button } from '../components/ui/Button'
 export default function ExamSimulation() {
   const { session: authSession } = useAuth()
   const navigate = useNavigate()
-  const { sessionId: routeSessionId } = useParams<{ sessionId?: string }>()
   const {
-    availableExams,
     session,
     currentQuestion,
     currentIndex,
     answers,
-    heartsRemaining,
     timeRemaining,
     isLoading,
     isSubmitting,
     error,
     result,
-    fetchAvailableExams,
     startExam,
     selectAnswer,
     submitAnswer,
     nextQuestion,
     goToQuestion,
-    completeExam,
+    finishExam,
     reset,
   } = useExamSimulation()
-
-  useEffect(() => {
-    fetchAvailableExams()
-  }, [fetchAvailableExams])
-
-  useEffect(() => {
-    if (!session || routeSessionId === session.sessionId) return
-    navigate(`/exam/${session.sessionId}`, { replace: true })
-  }, [navigate, routeSessionId, session])
 
   const handleSubmitAnswer = useCallback(async () => {
     if (!currentQuestion) return
     await submitAnswer(currentQuestion.id)
   }, [currentQuestion, submitAnswer])
 
-  const handleComplete = useCallback(async () => {
-    await completeExam()
-  }, [completeExam])
+  const handleFinish = useCallback(async () => {
+    await finishExam()
+  }, [finishExam])
 
   const handleTryAgain = useCallback(() => {
     reset()
-    fetchAvailableExams()
     navigate('/exam', { replace: true })
-  }, [reset, fetchAvailableExams, navigate])
+  }, [reset, navigate])
 
-  // Auto-advance after answer submitted
-  useEffect(() => {
-    if (!session || !currentQuestion) return
-    const answer = answers[currentQuestion.id]
-    if (answer?.submitted && answer.result?.examComplete) {
-      // Exam ended — don't auto-advance, result will show
-      return
-    }
-  }, [answers, currentQuestion, session])
+  // Check if all questions are answered
+  const allAnswered = session
+    ? session.questions.every((q) => answers[q.id]?.submitted === true)
+    : false
+
+  // Check if all remaining questions are answered (for navigating past current)
+  const currentAnswer = currentQuestion ? answers[currentQuestion.id] : null
+  const isAnswered = currentAnswer?.submitted === true
 
   // Show result screen
   if (result) {
@@ -82,29 +67,23 @@ export default function ExamSimulation() {
 
   // Show exam in progress
   if (session) {
-    const currentAnswer = currentQuestion ? answers[currentQuestion.id] : null
-    const isAnswered = currentAnswer?.submitted === true
-    // Check if all questions are answered
-    const allAnswered = session.questions.every(
-      (q) => answers[q.id]?.submitted === true
-    )
-
     return (
       <div className="min-h-screen bg-gray-50">
         {/* Exam status bar */}
         <div className="sticky top-16 z-10 border-b border-gray-200 bg-white">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-2">
             <span className="text-sm font-medium text-gray-600">
-              {session.title} — Subject {session.subject}
+              Exam Simulation
             </span>
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1">
-                {Array.from({ length: session.initialHearts }).map((_, i) => (
-                  <span key={i} className={`text-sm ${i < heartsRemaining ? 'text-red-500' : 'text-gray-300'}`}>
-                    ❤️
-                  </span>
-                ))}
-              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleFinish}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Finishing...' : 'Finish Exam'}
+              </Button>
               <ExamTimer timeRemaining={timeRemaining} />
             </div>
           </div>
@@ -144,7 +123,7 @@ export default function ExamSimulation() {
             </div>
           )}
 
-          {/* Actions */}
+          {/* Bottom navigation */}
           <div
             className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur lg:left-64"
             role="group"
@@ -161,27 +140,15 @@ export default function ExamSimulation() {
 
               <div className="flex flex-wrap justify-end gap-3">
                 {!isAnswered ? (
-                  <>
-                    {/* Skip button for optional questions */}
-                    {!currentQuestion?.isRequired && (
-                      <Button
-                        variant="ghost"
-                        onClick={handleSubmitAnswer}
-                        disabled={isSubmitting}
-                      >
-                        Skip
-                      </Button>
-                    )}
-                    <Button
-                      onClick={handleSubmitAnswer}
-                      disabled={isSubmitting || (!currentAnswer?.selected && currentQuestion?.isRequired)}
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Submit Answer'}
-                    </Button>
-                  </>
+                  <Button
+                    onClick={handleSubmitAnswer}
+                    disabled={isSubmitting || !currentAnswer?.selected}
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit Answer'}
+                  </Button>
                 ) : allAnswered ? (
-                  <Button onClick={handleComplete} disabled={isLoading}>
-                    {isLoading ? 'Finishing...' : 'Finish Exam'}
+                  <Button onClick={handleFinish} disabled={isLoading}>
+                    {isLoading ? 'Finishing...' : 'View Results'}
                   </Button>
                 ) : (
                   <Button onClick={nextQuestion}>
@@ -192,10 +159,10 @@ export default function ExamSimulation() {
             </div>
           </div>
 
-          {/* Complete exam button (always available) */}
+          {/* Submit early button */}
           {!allAnswered && (
             <div className="mt-8 text-center">
-              <Button variant="outline" onClick={handleComplete} disabled={isLoading}>
+              <Button variant="outline" onClick={handleFinish} disabled={isLoading}>
                 Submit Early
               </Button>
             </div>
@@ -239,24 +206,15 @@ export default function ExamSimulation() {
           </div>
         ) : (
           <>
-            {error && availableExams.length === 0 && (
+            {error && (
               <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-700" role="alert">
-                <p className="font-medium">Could not load exams</p>
+                <p className="font-medium">Could not load exam</p>
                 <p className="mt-1">The server might be temporarily unavailable. Please try again later.</p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-2"
-                  onClick={fetchAvailableExams}
-                >
-                  Retry
-                </Button>
               </div>
             )}
             <ExamStartScreen
-              exams={availableExams}
               isLoading={isLoading}
-              isStarting={isLoading && availableExams.length > 0}
+              isStarting={isLoading}
               onStart={startExam}
             />
           </>

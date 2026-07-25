@@ -81,8 +81,6 @@ describe('ExamQuestionCard', () => {
           isCorrect: true,
           correctAnswer: 'b',
           explanation: 'Basic arithmetic',
-          heartsRemaining: 5,
-          examComplete: false,
         }}
         onSelect={vi.fn()}
       />
@@ -103,8 +101,6 @@ describe('ExamQuestionCard', () => {
           isCorrect: false,
           correctAnswer: 'b',
           explanation: 'Basic arithmetic',
-          heartsRemaining: 4,
-          examComplete: false,
         }}
         onSelect={vi.fn()}
       />
@@ -140,8 +136,6 @@ describe('ExamQuestionCard', () => {
           isCorrect: true,
           correctAnswer: 'b',
           explanation: '2 + 2 = 4',
-          heartsRemaining: 5,
-          examComplete: false,
         }}
         onSelect={vi.fn()}
       />

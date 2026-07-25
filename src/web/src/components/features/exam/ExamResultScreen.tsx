@@ -28,10 +28,10 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
         <p className="mt-2 text-gray-600">
           {result.passed
             ? 'You passed the exam simulation!'
-            : 'You didn\'t pass this time, but every attempt helps you learn.'}
+            : "You didn't pass this time, but every attempt helps you learn."}
         </p>
 
-        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mt-6 grid grid-cols-3 gap-4 sm:grid-cols-3">
           <div className="rounded-xl bg-purple-50 p-4">
             <div className="text-3xl font-bold text-purple-600">{percentage}%</div>
             <div className="text-sm text-gray-600">Score</div>
@@ -45,10 +45,6 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
           <div className="rounded-xl bg-amber-50 p-4">
             <div className="text-3xl font-bold text-amber-600">{result.xpEarned}</div>
             <div className="text-sm text-gray-600">XP Earned</div>
-          </div>
-          <div className="rounded-xl bg-red-50 p-4">
-            <div className="text-3xl font-bold text-red-600">{result.heartsRemaining}</div>
-            <div className="text-sm text-gray-600">Hearts Left</div>
           </div>
         </div>
       </Card>
@@ -102,8 +98,8 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
 
       {/* Actions */}
       <div className="flex justify-center gap-4">
-        <Button size="lg" onClick={onTryAgain} aria-label="Try Another Exam">
-          Try Another Exam
+        <Button size="lg" onClick={onTryAgain} aria-label="Take Another Exam">
+          Take Another Exam
         </Button>
       </div>
     </div>
