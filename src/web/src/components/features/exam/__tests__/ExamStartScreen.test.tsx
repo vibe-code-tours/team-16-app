@@ -1,71 +1,42 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { ExamStartScreen } from '../ExamStartScreen'
-import type { ExamSummary } from '../../../../types/Exam'
-
-const mockExams: ExamSummary[] = [
-  {
-    id: '1',
-    examSession: '2021-april',
-    subject: 'A',
-    title: '2021 April FE Subject A',
-    questionCount: 60,
-    timeLimitMinutes: 150,
-    initialHearts: 5,
-  },
-  {
-    id: '2',
-    examSession: '2021-april',
-    subject: 'B',
-    title: '2021 April FE Subject B',
-    questionCount: 8,
-    timeLimitMinutes: 150,
-    initialHearts: 5,
-  },
-]
 
 describe('ExamStartScreen', () => {
-  it('renders exam cards', () => {
+  it('renders start screen with title', () => {
     render(
-      <ExamStartScreen exams={mockExams} isLoading={false} onStart={vi.fn()} />
+      <ExamStartScreen isLoading={false} onStart={vi.fn()} />
     )
 
-    expect(screen.getByText('2021 april')).toBeInTheDocument()
-    expect(screen.getByText('Subject A')).toBeInTheDocument()
-    expect(screen.getByText('Subject B')).toBeInTheDocument()
+    expect(screen.getByText('Exam Simulation')).toBeInTheDocument()
+    expect(screen.getByText('60 questions • 60 minutes')).toBeInTheDocument()
   })
 
-  it('shows question count and time limit', () => {
+  it('shows difficulty selection buttons', () => {
     render(
-      <ExamStartScreen exams={mockExams} isLoading={false} onStart={vi.fn()} />
+      <ExamStartScreen isLoading={false} onStart={vi.fn()} />
     )
 
-    expect(screen.getByText(/60 questions/)).toBeInTheDocument()
-    expect(screen.getAllByText(/150 min/).length).toBeGreaterThan(0)
+    expect(screen.getByText('All')).toBeInTheDocument()
+    expect(screen.getByText('Easy')).toBeInTheDocument()
+    expect(screen.getByText('Medium')).toBeInTheDocument()
+    expect(screen.getByText('Hard')).toBeInTheDocument()
   })
 
-  it('shows Subject B format note', () => {
+  it('shows start button', () => {
     render(
-      <ExamStartScreen exams={mockExams} isLoading={false} onStart={vi.fn()} />
+      <ExamStartScreen isLoading={false} onStart={vi.fn()} />
     )
 
-    expect(screen.getByText(/Subject B format/)).toBeInTheDocument()
+    expect(screen.getByText('Start Exam')).toBeInTheDocument()
   })
 
-  it('shows loading spinner when loading', () => {
-    const { container } = render(
-      <ExamStartScreen exams={[]} isLoading={true} onStart={vi.fn()} />
-    )
-
-    const spinner = container.querySelector('.animate-spin')
-    expect(spinner).toBeInTheDocument()
-  })
-
-  it('shows empty state when no exams', () => {
+  it('disables start button when loading', () => {
     render(
-      <ExamStartScreen exams={[]} isLoading={false} onStart={vi.fn()} />
+      <ExamStartScreen isLoading={true} isStarting={true} onStart={vi.fn()} />
     )
 
-    expect(screen.getByText('No exams available yet.')).toBeInTheDocument()
+    expect(screen.getByText('Starting...')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /starting/i })).toBeDisabled()
   })
 })

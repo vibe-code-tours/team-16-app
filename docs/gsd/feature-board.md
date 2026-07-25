@@ -10,7 +10,7 @@
 | 3 | Short lessons | YE MIN KO | Done | Backend: `LessonController` (3 endpoints). Frontend: `TopicDetail.tsx` + `LessonPage.tsx` + `LessonContent.tsx` + `useLessons` hook. 32+ lessons seeded. Lesson completion tracking via `/api/v1/lessons/{id}/complete` |
 | 4 | 5-question quizzes | YE MIN KO | Done | Backend: `QuizController` (start/submit/result). Frontend: `QuizPage.tsx`. Instant feedback, per-subtopic |
 | 5 | XP tracking | | Done | Backend: `QuizService` awards 10 XP/correct. DB: `increment_user_xp()` RPC. Frontend: Header shows total XP |
-| 6 | Hearts (exam sim) | | Done | Backend: `ExamController.startExam()` initializes 3 hearts; `ExamController.submitAnswer()` decrements on wrong answer. DB: `exams.initial_hearts`, `exam_sessions.hearts_remaining`, `exam_heart_events`. Frontend: `ExamPage.tsx` + `ExamSimulation.tsx` display hearts |
+| — | ~~Hearts (exam sim)~~ | | Removed 2026-07-24 | Heart/lives system removed from exam simulation. Replaced with countdown timer only — wrong answers have no penalty. See docs/plans/remove-heart-system.md |
 | 7 | Streak tracking | | Done | Backend: `UserService.updateUserStreak()` (atomic CTE). Frontend: Header shows streak, syncs on login via `/api/v1/me/streak` |
 | 8 | Mistake Garden | | Done | Backend: `MistakeController` (GET/POST/PUT `review`). Frontend: `MistakeGarden.tsx` reads from `/api/v1/me/mistakes`. Supports marking mistakes as reviewed. |
 | 9 | Exam simulation | | Done | Backend: `ExamController` (start/answers/complete). `ExamService` handles session lifecycle, heart enforcement, XP award. Frontend: `ExamSimulation.tsx` + `useExamSimulation` hook. 60 questions, 60 min timer, difficulty selector. |

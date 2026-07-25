@@ -1,5 +1,6 @@
 package com.nerdquiz.controller;
 
+import com.nerdquiz.dto.ExamResultResponse;
 import com.nerdquiz.dto.FinishExamRequest;
 import com.nerdquiz.dto.FinishExamResponse;
 import com.nerdquiz.dto.StartExamRequest;
@@ -11,6 +12,7 @@ import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,6 +53,17 @@ public class ExamController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(examService.submitAnswer(userId.get(), sessionId, request));
+    }
+
+    @GetMapping("/{sessionId}/result")
+    public ResponseEntity<ExamResultResponse> getResult(
+            Authentication authentication,
+            @PathVariable UUID sessionId) {
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(examService.getResult(userId.get(), sessionId));
     }
 
     @PostMapping("/{sessionId}/finish")

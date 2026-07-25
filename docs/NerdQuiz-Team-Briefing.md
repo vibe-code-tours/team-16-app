@@ -21,8 +21,8 @@ It's **not** just a question bank. It's a **learning experience** where students
 | **Learning Map** | Visual map with locked/unlocked topics — like Duolingo's skill tree |
 | **Short Lessons** | Brief reading notes (2-3 min) before each quiz |
 | **5-Question Quizzes** | Bite-sized practice after each lesson |
-| **Real Exam Simulation** | Timed exam with actual exam conditions |
-| **XP, Hearts, Streak** | Motivation system — earn XP, maintain daily streak |
+| **Real Exam Simulation** | Timed exam with actual exam conditions — countdown timer, instant feedback, per-question review |
+| **XP, Streak** | Motivation system — earn XP, maintain daily streak |
 | **Mistake Garden** | Wrong answers go here for review — this is core for exam prep |
 | **Flashcards** | Memorize key concepts with spaced repetition |
 | **AI Adaptive Difficulty** | Questions get harder as you improve (simplified version first) |
@@ -99,7 +99,7 @@ This was a key research question: **Can we actually apply Duolingo's style to IT
 | Duolingo Pattern | Problem for IT Exams |
 |------------------|---------------------|
 | Speed-based answering | FE questions require careful reading — not instant recall |
-| Hearts/lives system | Frustrating during practice — keep it only for exam simulation |
+| Hearts/lives system | Frustrating during practice — removed from exam simulation too; replaced with honest countdown + result |
 | "Type the answer" | FE questions are long scenarios — not word translation |
 | Repetitive drilling of same item | FE covers huge breadth — needs variety, not repetition |
 | Short, simple answers | FE questions have paragraphs of context |
@@ -110,7 +110,7 @@ This was a key research question: **Can we actually apply Duolingo's style to IT
 
 - No timer pressure during practice mode (let students think)
 - Show explanation after each answer (learning, not testing)
-- Hearts only in exam simulation (realistic pressure)
+- No hearts/pressure system (countdown timer provides enough structure)
 - Mistake Garden as the core review feature
 
 ---

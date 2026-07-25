@@ -8,7 +8,6 @@ public record FinishExamResponse(
     Integer totalQuestions,
     Integer correctAnswers,
     BigDecimal scorePercentage,
-    Integer heartsRemaining,
     String status,
     Integer xpEarned
 ) {}

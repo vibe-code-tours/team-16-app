@@ -1,22 +1,21 @@
 package com.nerdquiz.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 public record ExamResultResponse(
     UUID sessionId,
     Integer totalQuestions,
-    Integer answeredQuestions,
     Integer correctAnswers,
-    Double scorePercentage,
+    BigDecimal scorePercentage,
     Integer xpEarned,
+    String status,
     Boolean passed,
-    Integer heartsRemaining,
     List<ExamAnswerDetail> answers
 ) {
     public record ExamAnswerDetail(
         UUID questionId,
-        Integer questionNumber,
         String questionText,
         String userAnswer,
         String correctAnswer,

@@ -66,7 +66,7 @@ class ExamControllerTest {
                 objectMapper.readTree("[{\"label\":\"a\",\"text\":\"3\"},{\"label\":\"b\",\"text\":\"4\"}]"),
                 "b", null, "easy"
             )),
-            3, 60,
+            60,
             Instant.now().plus(60, ChronoUnit.MINUTES)
         );
         when(examService.startExam(any(UUID.class), any(StartExamRequest.class)))
@@ -78,7 +78,6 @@ class ExamControllerTest {
                         .content("{\"questionCount\":60,\"difficulty\":\"medium\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.questions").isArray())
-                .andExpect(jsonPath("$.heartsRemaining").value(3))
                 .andExpect(jsonPath("$.timeLimitMinutes").value(60));
     }
 
@@ -98,7 +97,7 @@ class ExamControllerTest {
     void submitAnswer_ReturnsAnswerResult() throws Exception {
         UUID questionId = UUID.randomUUID();
         SubmitExamAnswerResponse response = new SubmitExamAnswerResponse(
-            UUID.randomUUID(), questionId, "b", true, 5
+            UUID.randomUUID(), questionId, "b", true, "b", "2 + 2 = 4"
         );
         when(examService.submitAnswer(any(UUID.class), any(UUID.class), any(SubmitExamAnswerRequest.class)))
                 .thenReturn(response);
@@ -108,15 +107,14 @@ class ExamControllerTest {
                         .contentType("application/json")
                         .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"b\",\"responseTimeMs\":5000}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.isCorrect").value(true))
-                .andExpect(jsonPath("$.heartsRemaining").value(5));
+                .andExpect(jsonPath("$.isCorrect").value(true));
     }
 
     @Test
-    void submitAnswer_WrongAnswer_DecreasesHearts() throws Exception {
+    void submitAnswer_WrongAnswer_ReturnsIncorrect() throws Exception {
         UUID questionId = UUID.randomUUID();
         SubmitExamAnswerResponse response = new SubmitExamAnswerResponse(
-            UUID.randomUUID(), questionId, "a", false, 4
+            UUID.randomUUID(), questionId, "a", false, "b", "2 + 2 = 4"
         );
         when(examService.submitAnswer(any(UUID.class), any(UUID.class), any(SubmitExamAnswerRequest.class)))
                 .thenReturn(response);
@@ -127,7 +125,7 @@ class ExamControllerTest {
                         .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"a\",\"responseTimeMs\":3000}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.isCorrect").value(false))
-                .andExpect(jsonPath("$.heartsRemaining").value(4));
+                .andExpect(jsonPath("$.correctAnswer").value("b"));
     }
 
     @Test
@@ -143,7 +141,7 @@ class ExamControllerTest {
     void finishExam_ReturnsResults() throws Exception {
         FinishExamResponse response = new FinishExamResponse(
             UUID.randomUUID(), 60, 50,
-            BigDecimal.valueOf(83.33), 3, "completed", 500
+            BigDecimal.valueOf(83.33), "completed", 500
         );
         when(examService.finishExam(any(UUID.class), any(UUID.class), any(FinishExamRequest.class)))
                 .thenReturn(response);
@@ -162,7 +160,7 @@ class ExamControllerTest {
     void finishExam_Abandoned_NoXp() throws Exception {
         FinishExamResponse response = new FinishExamResponse(
             UUID.randomUUID(), 60, 30,
-            BigDecimal.valueOf(50.00), 2, "abandoned", 0
+            BigDecimal.valueOf(50.00), "abandoned", 0
         );
         when(examService.finishExam(any(UUID.class), any(UUID.class), any(FinishExamRequest.class)))
                 .thenReturn(response);

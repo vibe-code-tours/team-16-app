@@ -23,7 +23,7 @@ export function ExamQuestionCard({
       {/* Question header */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-purple-600">
+          <span className="text-sm font-bold text-purple-600 dark:text-purple-400">
             Q{question.questionNumber}
           </span>
           {!question.isRequired && (
@@ -44,7 +44,7 @@ export function ExamQuestionCard({
       </div>
 
       {/* Question text */}
-      <div className="mb-6 text-gray-900 leading-relaxed">{question.questionText}</div>
+      <div className="mb-6 text-gray-900 dark:text-gray-100 leading-relaxed">{question.questionText}</div>
 
       {/* Choices */}
       <div className="space-y-3">
@@ -54,20 +54,20 @@ export function ExamQuestionCard({
           const isWrong = result && !result.isCorrect && isSelected
           const showCorrectAnswer = result && !result.isCorrect && choice.label === result.correctAnswer
 
-          let borderColor = 'border-gray-200'
-          let bgColor = 'bg-white'
+          let borderColor = 'border-gray-200 dark:border-gray-700'
+          let bgColor = 'bg-white dark:bg-gray-800'
           if (isSelected && !isSubmitted) {
             borderColor = 'border-purple-500'
-            bgColor = 'bg-purple-50'
+            bgColor = 'bg-purple-50 dark:bg-purple-900/30'
           } else if (isCorrect) {
             borderColor = 'border-green-500'
-            bgColor = 'bg-green-50'
+            bgColor = 'bg-green-50 dark:bg-green-900/30'
           } else if (isWrong) {
             borderColor = 'border-red-500'
-            bgColor = 'bg-red-50'
+            bgColor = 'bg-red-50 dark:bg-red-900/30'
           } else if (showCorrectAnswer) {
             borderColor = 'border-green-500'
-            bgColor = 'bg-green-50'
+            bgColor = 'bg-green-50 dark:bg-green-900/30'
           }
 
           return (
@@ -76,14 +76,14 @@ export function ExamQuestionCard({
               onClick={() => !isSubmitted && onSelect(choice.label)}
               disabled={isSubmitted}
               className={`w-full text-left rounded-xl border-2 p-4 transition-all ${borderColor} ${bgColor} ${
-                !isSubmitted ? 'hover:border-gray-300 cursor-pointer' : 'cursor-default'
+                !isSubmitted ? 'hover:border-gray-300 dark:hover:border-gray-600 cursor-pointer' : 'cursor-default'
               }`}
             >
               <div className="flex items-start gap-3">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gray-300 text-xs font-medium">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 text-xs font-medium text-gray-700 dark:text-gray-300">
                   {choice.label}
                 </span>
-                <span className="text-gray-900">{choice.text}</span>
+                <span className="text-gray-900 dark:text-gray-100">{choice.text}</span>
               </div>
             </button>
           )
@@ -95,8 +95,8 @@ export function ExamQuestionCard({
         <div
           className={`mt-4 rounded-xl p-4 ${
             result.isCorrect
-              ? 'border border-green-200 bg-green-50 text-green-700'
-              : 'border border-red-200 bg-red-50 text-red-700'
+              ? 'border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+              : 'border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400'
           }`}
         >
           <div className="flex items-center gap-2 font-medium">

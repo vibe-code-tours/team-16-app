@@ -6,12 +6,10 @@ import com.nerdquiz.exception.NoQuestionsAvailableException;
 import com.nerdquiz.exception.QuestionNotFoundException;
 import com.nerdquiz.exception.UnauthorizedQuizAccessException;
 import com.nerdquiz.model.ExamAnswer;
-import com.nerdquiz.model.ExamHeartEvent;
 import com.nerdquiz.model.ExamSession;
 import com.nerdquiz.model.ExamSessionQuestion;
 import com.nerdquiz.model.Question;
 import com.nerdquiz.repository.ExamAnswerRepository;
-import com.nerdquiz.repository.ExamHeartEventRepository;
 import com.nerdquiz.repository.ExamSessionQuestionRepository;
 import com.nerdquiz.repository.ExamSessionRepository;
 import com.nerdquiz.repository.QuestionRepository;
@@ -21,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -30,7 +29,6 @@ public class ExamService {
 
     private static final int DEFAULT_QUESTION_COUNT = 60;
     private static final int TIME_LIMIT_MINUTES = 60;
-    private static final int INITIAL_HEARTS = 3;
     private static final int XP_PER_CORRECT_ANSWER = 10;
     private static final Set<String> ALLOWED_DIFFICULTIES = Set.of("easy", "medium", "hard");
     private static final Set<String> FINISH_STATUSES = Set.of("completed", "expired", "abandoned");
@@ -38,7 +36,6 @@ public class ExamService {
     private final QuestionRepository questionRepository;
     private final ExamSessionRepository examSessionRepository;
     private final ExamAnswerRepository examAnswerRepository;
-    private final ExamHeartEventRepository examHeartEventRepository;
     private final ExamSessionQuestionRepository examSessionQuestionRepository;
     private final QuestionService questionService;
     private final UserService userService;
@@ -46,14 +43,12 @@ public class ExamService {
     public ExamService(QuestionRepository questionRepository,
                        ExamSessionRepository examSessionRepository,
                        ExamAnswerRepository examAnswerRepository,
-                       ExamHeartEventRepository examHeartEventRepository,
                        ExamSessionQuestionRepository examSessionQuestionRepository,
                        QuestionService questionService,
                        UserService userService) {
         this.questionRepository = questionRepository;
         this.examSessionRepository = examSessionRepository;
         this.examAnswerRepository = examAnswerRepository;
-        this.examHeartEventRepository = examHeartEventRepository;
         this.examSessionQuestionRepository = examSessionQuestionRepository;
         this.questionService = questionService;
         this.userService = userService;
@@ -64,7 +59,9 @@ public class ExamService {
         int questionCount = request.questionCount() == null ? DEFAULT_QUESTION_COUNT : request.questionCount();
         String difficulty = normalizeDifficulty(request.difficulty());
 
-        List<Question> questions = questionRepository.findUsableExamQuestions(questionCount, difficulty);
+        List<Question> questions = difficulty == null
+                ? questionRepository.findUsableExamQuestionsAll(questionCount)
+                : questionRepository.findUsableExamQuestionsByDifficulty(questionCount, difficulty);
         if (questions.isEmpty()) {
             throw new NoQuestionsAvailableException();
         }
@@ -73,11 +70,11 @@ public class ExamService {
         ExamSession session = new ExamSession();
         session.setUserId(userId);
         session.setTotalQuestions(questions.size());
-        session.setInitialHearts(INITIAL_HEARTS);
-        session.setHeartsRemaining(INITIAL_HEARTS);
         session.setTimeLimitMinutes(TIME_LIMIT_MINUTES);
         session.setStartedAt(startedAt);
         session.setExpiresAt(startedAt.plusSeconds(TIME_LIMIT_MINUTES * 60L));
+        session.setInitialHearts(5);
+        session.setHeartsRemaining(5);
         session.setStatus("in_progress");
         ExamSession savedSession = examSessionRepository.save(session);
 
@@ -92,7 +89,6 @@ public class ExamService {
         return new StartExamResponse(
                 savedSession.getId(),
                 questions.stream().map(questionService::toResponse).toList(),
-                savedSession.getHeartsRemaining(),
                 savedSession.getTimeLimitMinutes(),
                 savedSession.getExpiresAt()
         );
@@ -125,7 +121,6 @@ public class ExamService {
         ExamAnswer answer = examAnswerRepository
                 .findByExamSessionIdAndQuestionId(sessionId, request.questionId())
                 .orElseGet(ExamAnswer::new);
-        boolean isNewAnswer = answer.getId() == null;
         answer.setExamSessionId(sessionId);
         answer.setQuestionId(request.questionId());
         answer.setSequenceNumber(request.sequenceNumber());
@@ -134,23 +129,13 @@ public class ExamService {
         answer.setResponseTimeMs(request.responseTimeMs());
         ExamAnswer savedAnswer = examAnswerRepository.save(answer);
 
-        if (!isCorrect && isNewAnswer) {
-            session.setHeartsRemaining(Math.max(0, session.getHeartsRemaining() - 1));
-            ExamHeartEvent event = new ExamHeartEvent();
-            event.setExamSessionId(sessionId);
-            event.setQuestionId(request.questionId());
-            event.setDelta(-1);
-            event.setReason("wrong_answer");
-            examHeartEventRepository.save(event);
-        }
-
-        examSessionRepository.save(session);
         return new SubmitExamAnswerResponse(
                 savedAnswer.getId(),
                 savedAnswer.getQuestionId(),
                 savedAnswer.getUserAnswer(),
                 savedAnswer.getIsCorrect(),
-                session.getHeartsRemaining()
+                question.getCorrectAnswer(),
+                question.getExplanation()
         );
     }
 
@@ -186,9 +171,44 @@ public class ExamService {
                 session.getTotalQuestions(),
                 correctAnswers,
                 scorePercentage,
-                session.getHeartsRemaining(),
                 session.getStatus(),
                 reportedXp
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public ExamResultResponse getResult(UUID userId, UUID sessionId) {
+        ExamSession session = getOwnedSession(userId, sessionId);
+
+        int correctAnswers = (int) examAnswerRepository.countByExamSessionIdAndIsCorrectTrue(sessionId);
+        BigDecimal scorePercentage = calculateScorePercentage(correctAnswers, session.getTotalQuestions());
+        int xpEarned = correctAnswers * XP_PER_CORRECT_ANSWER;
+        boolean passed = scorePercentage.compareTo(BigDecimal.valueOf(60)) >= 0;
+
+        List<ExamAnswer> answers = examAnswerRepository.findByExamSessionIdOrderBySequenceNumber(sessionId);
+        List<ExamResultResponse.ExamAnswerDetail> answerDetails = new ArrayList<>();
+        for (ExamAnswer answer : answers) {
+            Question question = questionRepository.findById(answer.getQuestionId()).orElse(null);
+            if (question == null) continue;
+            answerDetails.add(new ExamResultResponse.ExamAnswerDetail(
+                question.getId(),
+                question.getQuestionText(),
+                answer.getUserAnswer(),
+                question.getCorrectAnswer(),
+                answer.getIsCorrect(),
+                question.getExplanation()
+            ));
+        }
+
+        return new ExamResultResponse(
+            session.getId(),
+            session.getTotalQuestions(),
+            correctAnswers,
+            scorePercentage,
+            xpEarned,
+            session.getStatus(),
+            passed,
+            answerDetails
         );
     }
 
