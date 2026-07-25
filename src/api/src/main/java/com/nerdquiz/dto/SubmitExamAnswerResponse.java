@@ -7,5 +7,6 @@ public record SubmitExamAnswerResponse(
     UUID questionId,
     String userAnswer,
     Boolean isCorrect,
-    Integer heartsRemaining
+    String correctAnswer,
+    String explanation
 ) {}

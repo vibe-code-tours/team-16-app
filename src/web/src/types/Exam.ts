@@ -5,7 +5,6 @@ export interface ExamSummary {
   title: string
   questionCount: number
   timeLimitMinutes: number
-  initialHearts: number
 }
 
 export interface ExamQuestion {
@@ -20,13 +19,8 @@ export interface ExamQuestion {
 
 export interface ExamSession {
   sessionId: string
-  examSession: string
-  subject: string
-  title: string
   questions: ExamQuestion[]
   totalQuestions: number
-  heartsRemaining: number
-  initialHearts: number
   timeLimitMinutes: number
   expiresAt: string
   status: string
@@ -38,8 +32,6 @@ export interface ExamAnswerResult {
   isCorrect: boolean
   correctAnswer: string
   explanation: string | null
-  heartsRemaining: number
-  examComplete: boolean
 }
 
 export interface ExamAnswerDetail {
@@ -55,11 +47,10 @@ export interface ExamAnswerDetail {
 export interface ExamResult {
   sessionId: string
   totalQuestions: number
-  answeredQuestions: number
   correctAnswers: number
   scorePercentage: number
   xpEarned: number
   passed: boolean
-  heartsRemaining: number
+  status: string
   answers: ExamAnswerDetail[]
 }

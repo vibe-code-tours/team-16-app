@@ -50,6 +50,7 @@ supabase/.branches/
 # Add to .gitignore
 .claude/hooks/
 .githooks/
+.claude/worktrees/
 *Zone.Identifier
 
 *.webp

@@ -1,5 +1,5 @@
-import { useEffect, useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useCallback } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useExamSimulation } from '../hooks/useExamSimulation'
 import { useAuth } from '../hooks/useAuth'
 import { ExamStartScreen } from '../components/features/exam/ExamStartScreen'
@@ -12,99 +12,85 @@ import { Button } from '../components/ui/Button'
 export default function ExamSimulation() {
   const { session: authSession } = useAuth()
   const navigate = useNavigate()
-  const { sessionId: routeSessionId } = useParams<{ sessionId?: string }>()
   const {
-    availableExams,
     session,
     currentQuestion,
     currentIndex,
     answers,
-    heartsRemaining,
     timeRemaining,
     isLoading,
     isSubmitting,
     error,
     result,
-    fetchAvailableExams,
     startExam,
     selectAnswer,
     submitAnswer,
     nextQuestion,
     goToQuestion,
-    completeExam,
+    finishExam,
     reset,
   } = useExamSimulation()
-
-  useEffect(() => {
-    fetchAvailableExams()
-  }, [fetchAvailableExams])
-
-  useEffect(() => {
-    if (!session || routeSessionId === session.sessionId) return
-    navigate(`/exam/${session.sessionId}`, { replace: true })
-  }, [navigate, routeSessionId, session])
 
   const handleSubmitAnswer = useCallback(async () => {
     if (!currentQuestion) return
     await submitAnswer(currentQuestion.id)
   }, [currentQuestion, submitAnswer])
 
-  const handleComplete = useCallback(async () => {
-    await completeExam()
-  }, [completeExam])
+  const handleFinish = useCallback(async () => {
+    await finishExam()
+  }, [finishExam])
 
   const handleTryAgain = useCallback(() => {
     reset()
-    fetchAvailableExams()
     navigate('/exam', { replace: true })
-  }, [reset, fetchAvailableExams, navigate])
+  }, [reset, navigate])
 
-  // Auto-advance after answer submitted
-  useEffect(() => {
-    if (!session || !currentQuestion) return
-    const answer = answers[currentQuestion.id]
-    if (answer?.submitted && answer.result?.examComplete) {
-      // Exam ended — don't auto-advance, result will show
-      return
-    }
-  }, [answers, currentQuestion, session])
+  // Check if all questions are answered
+  const allAnswered = session
+    ? session.questions.every((q) => answers[q.id]?.submitted === true)
+    : false
+
+  // Check if all remaining questions are answered (for navigating past current)
+  const currentAnswer = currentQuestion ? answers[currentQuestion.id] : null
+  const isAnswered = currentAnswer?.submitted === true
+
+  // Full page layout wrapper — used for all states
+  const PageWrapper = ({ children }: { children: React.ReactNode }) => (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {children}
+    </div>
+  )
 
   // Show result screen
   if (result) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <PageWrapper>
         <main className="mx-auto max-w-3xl px-4 py-6">
           <ExamResultScreen result={result} onTryAgain={handleTryAgain} />
         </main>
-      </div>
+      </PageWrapper>
     )
   }
 
   // Show exam in progress
   if (session) {
-    const currentAnswer = currentQuestion ? answers[currentQuestion.id] : null
-    const isAnswered = currentAnswer?.submitted === true
-    // Check if all questions are answered
-    const allAnswered = session.questions.every(
-      (q) => answers[q.id]?.submitted === true
-    )
-
     return (
-      <div className="min-h-screen bg-gray-50">
+      <PageWrapper>
         {/* Exam status bar */}
-        <div className="sticky top-16 z-10 border-b border-gray-200 bg-white">
+        <div className="sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-2">
-            <span className="text-sm font-medium text-gray-600">
-              {session.title} — Subject {session.subject}
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+              Exam Simulation
             </span>
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1">
-                {Array.from({ length: session.initialHearts }).map((_, i) => (
-                  <span key={i} className={`text-sm ${i < heartsRemaining ? 'text-red-500' : 'text-gray-300'}`}>
-                    ❤️
-                  </span>
-                ))}
-              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleFinish}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Finishing...' : 'Finish Exam'}
+              </Button>
               <ExamTimer timeRemaining={timeRemaining} />
             </div>
           </div>
@@ -120,7 +106,7 @@ export default function ExamSimulation() {
               answers={answers}
               onGoTo={goToQuestion}
             />
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Question {currentIndex + 1} of {session.questions.length}
             </p>
           </div>
@@ -139,14 +125,14 @@ export default function ExamSimulation() {
 
           {/* Error message */}
           {error && (
-            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert">
+            <div className="mt-4 rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 p-4 text-sm text-red-700 dark:text-red-400" role="alert">
               {error}
             </div>
           )}
 
-          {/* Actions */}
+          {/* Bottom navigation */}
           <div
-            className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur lg:left-64"
+            className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-800/95 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur"
             role="group"
             aria-label="Exam navigation"
           >
@@ -161,27 +147,15 @@ export default function ExamSimulation() {
 
               <div className="flex flex-wrap justify-end gap-3">
                 {!isAnswered ? (
-                  <>
-                    {/* Skip button for optional questions */}
-                    {!currentQuestion?.isRequired && (
-                      <Button
-                        variant="ghost"
-                        onClick={handleSubmitAnswer}
-                        disabled={isSubmitting}
-                      >
-                        Skip
-                      </Button>
-                    )}
-                    <Button
-                      onClick={handleSubmitAnswer}
-                      disabled={isSubmitting || (!currentAnswer?.selected && currentQuestion?.isRequired)}
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Submit Answer'}
-                    </Button>
-                  </>
+                  <Button
+                    onClick={handleSubmitAnswer}
+                    disabled={isSubmitting || !currentAnswer?.selected}
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit Answer'}
+                  </Button>
                 ) : allAnswered ? (
-                  <Button onClick={handleComplete} disabled={isLoading}>
-                    {isLoading ? 'Finishing...' : 'Finish Exam'}
+                  <Button onClick={handleFinish} disabled={isLoading}>
+                    {isLoading ? 'Finishing...' : 'View Results'}
                   </Button>
                 ) : (
                   <Button onClick={nextQuestion}>
@@ -192,29 +166,48 @@ export default function ExamSimulation() {
             </div>
           </div>
 
-          {/* Complete exam button (always available) */}
+          {/* Submit early button */}
           {!allAnswered && (
             <div className="mt-8 text-center">
-              <Button variant="outline" onClick={handleComplete} disabled={isLoading}>
+              <Button variant="outline" onClick={handleFinish} disabled={isLoading}>
                 Submit Early
               </Button>
             </div>
           )}
         </main>
-      </div>
+      </PageWrapper>
     )
   }
 
   // Show start screen (no session yet)
   return (
-    <div className="min-h-screen bg-gray-50">
+    <PageWrapper>
+      {/* Minimal nav bar for the start screen */}
+      <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
+          <Link
+            to="/map"
+            className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Map
+          </Link>
+          <div className="flex items-center gap-2">
+            <span className="text-lg">🦉</span>
+            <span className="text-base font-bold text-purple-600 dark:text-purple-400">NerdQuiz</span>
+          </div>
+        </div>
+      </header>
+
       <main className="mx-auto max-w-3xl px-4 py-6">
         {!authSession ? (
           <div className="flex flex-col items-center justify-center py-16">
-            <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+            <div className="w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 text-center shadow-sm">
               <div className="mb-4 text-5xl">📝</div>
-              <h2 className="text-2xl font-bold text-gray-900">Exam Simulation</h2>
-              <p className="mt-3 text-gray-500">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Exam Simulation</h2>
+              <p className="mt-3 text-gray-500 dark:text-gray-400">
                 Test your knowledge with a timed exam simulation.
                 Track your progress and earn XP!
               </p>
@@ -239,29 +232,20 @@ export default function ExamSimulation() {
           </div>
         ) : (
           <>
-            {error && availableExams.length === 0 && (
-              <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-700" role="alert">
-                <p className="font-medium">Could not load exams</p>
-                <p className="mt-1">The server might be temporarily unavailable. Please try again later.</p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-2"
-                  onClick={fetchAvailableExams}
-                >
-                  Retry
-                </Button>
+            {error && (
+              <div className="mb-4 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 p-4 text-sm text-amber-700 dark:text-amber-400" role="alert">
+                <p className="font-medium">Could not start exam</p>
+                <p className="mt-1 font-mono text-xs">{error}</p>
               </div>
             )}
             <ExamStartScreen
-              exams={availableExams}
               isLoading={isLoading}
-              isStarting={isLoading && availableExams.length > 0}
+              isStarting={isLoading}
               onStart={startExam}
             />
           </>
         )}
       </main>
-    </div>
+    </PageWrapper>
   )
 }

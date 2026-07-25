@@ -86,7 +86,7 @@
 
 **[SCREEN: Exam simulation — 60 questions, countdown timer]**
 
-> "Exam simulation mode. Sixty questions, real timer, hearts system — lose a heart per wrong answer. This is the pressure cooker. It mirrors the real FE exam conditions."
+> "Exam simulation mode. Sixty questions with a 60-minute countdown timer. Answer at your own pace — instant feedback after each question, and a full answer review when time's up or you finish early."
 
 **[SCREEN: Submit exam → results summary]**
 

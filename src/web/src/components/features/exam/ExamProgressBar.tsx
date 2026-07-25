@@ -19,7 +19,7 @@ export function ExamProgressBar({
     <div className="space-y-2">
       {/* Progress bar */}
       <div
-        className="h-2 overflow-hidden rounded-full bg-gray-200"
+        className="h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
         role="progressbar"
         aria-label="Exam progress"
         aria-valuemin={0}
@@ -36,11 +36,11 @@ export function ExamProgressBar({
       <div className="flex flex-wrap gap-1">
         {questions.map((q, index) => {
           const answer = answers[q.id]
-          let color = 'bg-gray-200' // unanswered
+          let color = 'bg-gray-200 dark:bg-gray-600' // unanswered
           if (answer?.submitted) {
             color = answer.result?.isCorrect ? 'bg-green-500' : 'bg-red-500'
           } else if (answer?.selected) {
-            color = 'bg-purple-300'
+            color = 'bg-purple-300 dark:bg-purple-500'
           }
 
           return (

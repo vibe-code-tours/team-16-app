@@ -83,7 +83,7 @@ These are fixed for the demo — don't add new categories without team agreement
 **Direct Supabase (RLS only, no backend verification):**
 - LessonPage reads `lessons` + `subtopics` directly
 - QuizPage inserts into `user_mistakes` and calls `increment_user_xp` RPC
-- ExamPage calls `get_exam_questions` RPC, inserts into `exam_sessions`, `exam_answers`, `exam_heart_events`
+- ExamService calls questionRepository, inserts into `exam_sessions`, `exam_answers`, `exam_session_questions`
 - MistakeGarden reads/updates `user_mistakes` directly
 - useAuth/UserProfile reads/writes `user_profiles` directly
 

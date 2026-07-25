@@ -43,11 +43,21 @@ public interface QuestionRepository extends JpaRepository<Question, UUID> {
             "  AND published = true " +
             "  AND jsonb_array_length(choices) > 0 " +
             "  AND correct_answer ~ '^[a-z]$' " +
-            "  AND (:difficulty IS NULL OR difficulty = :difficulty) " +
             "ORDER BY random() " +
             "LIMIT :count",
             nativeQuery = true)
-    List<Question> findUsableExamQuestions(@Param("count") int count, @Param("difficulty") String difficulty);
+    List<Question> findUsableExamQuestionsAll(@Param("count") int count);
+
+    @Query(value = "SELECT * FROM questions " +
+            "WHERE subject = 'A' " +
+            "  AND published = true " +
+            "  AND jsonb_array_length(choices) > 0 " +
+            "  AND correct_answer ~ '^[a-z]$' " +
+            "  AND difficulty = :difficulty " +
+            "ORDER BY random() " +
+            "LIMIT :count",
+            nativeQuery = true)
+    List<Question> findUsableExamQuestionsByDifficulty(@Param("count") int count, @Param("difficulty") String difficulty);
 
     long countByExamSessionAndSubject(String examSession, String subject);
 

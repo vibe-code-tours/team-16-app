@@ -39,9 +39,6 @@ class ExamServiceTest {
     private ExamAnswerRepository examAnswerRepository;
 
     @Mock
-    private ExamHeartEventRepository examHeartEventRepository;
-
-    @Mock
     private ExamSessionQuestionRepository examSessionQuestionRepository;
 
     @Mock
@@ -67,8 +64,6 @@ class ExamServiceTest {
         sampleSession.setId(sessionId);
         sampleSession.setUserId(userId);
         sampleSession.setTotalQuestions(1);
-        sampleSession.setInitialHearts(5);
-        sampleSession.setHeartsRemaining(5);
         sampleSession.setTimeLimitMinutes(60);
         sampleSession.setExpiresAt(Instant.now().plus(60, ChronoUnit.MINUTES));
         sampleSession.setStatus("in_progress");
@@ -87,7 +82,7 @@ class ExamServiceTest {
 
     @Test
     void startExam_CreatesSessionAndReturnsQuestions() {
-        when(questionRepository.findUsableExamQuestions(60, null))
+        when(questionRepository.findUsableExamQuestionsAll(60))
                 .thenReturn(List.of(sampleQuestion));
         when(questionService.toResponse(sampleQuestion)).thenReturn(new QuestionResponse(
                 sampleQuestion.getId(), null, "2021-april", "A", 1,
@@ -108,14 +103,13 @@ class ExamServiceTest {
 
         assertNotNull(result);
         assertEquals(sessionId, result.sessionId());
-        assertEquals(3, result.heartsRemaining());
         assertEquals(60, result.timeLimitMinutes());
         assertEquals(1, result.questions().size());
     }
 
     @Test
-    void startExam_WithDifficulty过滤Questions() {
-        when(questionRepository.findUsableExamQuestions(10, "easy"))
+    void startExam_WithDifficultyFiltersQuestions() {
+        when(questionRepository.findUsableExamQuestionsByDifficulty(10, "easy"))
                 .thenReturn(List.of(sampleQuestion));
         when(questionService.toResponse(sampleQuestion)).thenReturn(new QuestionResponse(
                 sampleQuestion.getId(), null, "2021-april", "A", 1,
@@ -136,7 +130,7 @@ class ExamServiceTest {
 
         assertNotNull(result);
         assertEquals(1, result.questions().size());
-        verify(questionRepository).findUsableExamQuestions(10, "easy");
+        verify(questionRepository).findUsableExamQuestionsByDifficulty(10, "easy");
     }
 
     @Test
@@ -152,10 +146,10 @@ class ExamServiceTest {
                 .thenReturn(Optional.of(sampleSession));
         when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
                 .thenReturn(true);
-        when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(Optional.of(new ExamAnswer()));
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
+        when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamAnswer()));
         when(examAnswerRepository.save(any(ExamAnswer.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -164,22 +158,19 @@ class ExamServiceTest {
         SubmitExamAnswerResponse result = examService.submitAnswer(userId, sessionId, request);
 
         assertTrue(result.isCorrect());
-        assertEquals(5, result.heartsRemaining());
     }
 
     @Test
-    void submitAnswer_WrongAnswer_DecreasesHearts() {
+    void submitAnswer_WrongAnswer_ReturnsIncorrect() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
         when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
                 .thenReturn(true);
-        when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(Optional.of(new ExamAnswer()));
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
+        when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamAnswer()));
         when(examAnswerRepository.save(any(ExamAnswer.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
-        when(examSessionRepository.save(any(ExamSession.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 1, "a", 3000);
@@ -187,7 +178,6 @@ class ExamServiceTest {
         SubmitExamAnswerResponse result = examService.submitAnswer(userId, sessionId, request);
 
         assertFalse(result.isCorrect());
-        assertEquals(4, result.heartsRemaining());
     }
 
     @Test
