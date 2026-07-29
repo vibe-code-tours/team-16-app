@@ -44,6 +44,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
             await fetchUserProfile(newSession.user)
           }
+          // Prevent back button from returning to OAuth consent page
+          if (event === 'SIGNED_IN') {
+            window.history.replaceState(null, '', window.location.pathname)
+          }
         } else {
           setUser(null)
           setLoading(false)
