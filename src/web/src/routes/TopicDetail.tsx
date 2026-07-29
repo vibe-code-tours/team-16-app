@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
@@ -18,6 +18,16 @@ export function TopicDetail() {
   }
 
   const allLessonsCompleted = lessons.length > 0 && lessons.every((l) => getLessonStatus(l.id) === 'completed')
+
+  // Compute next unlocked lesson once for both navigation and title
+  const nextUnlockedLesson = useMemo(() => {
+    if (!selectedLesson) return null
+    const currentIndex = lessons.findIndex((l) => l.id === selectedLesson.id)
+    return lessons.slice(currentIndex + 1).find((l) => {
+      const status = getLessonStatus(l.id)
+      return status === 'unlocked' || status === 'in_progress'
+    }) ?? null
+  }, [selectedLesson, lessons, progress])
 
   const handleCompleteLesson = useCallback(async (lessonId: string) => {
     await completeLesson(lessonId)
@@ -77,6 +87,10 @@ export function TopicDetail() {
               lesson={selectedLesson}
               onComplete={() => handleCompleteLesson(selectedLesson.id)}
               isCompleted={selectedProgress?.status === 'completed'}
+              onNextLesson={() => {
+                if (nextUnlockedLesson) setSelectedLessonId(nextUnlockedLesson.id)
+              }}
+              nextLessonTitle={nextUnlockedLesson?.title}
             />
           </div>
         ) : (

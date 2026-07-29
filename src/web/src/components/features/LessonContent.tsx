@@ -5,6 +5,8 @@ interface LessonContentProps {
   lesson: Lesson
   onComplete: () => void
   isCompleted: boolean
+  onNextLesson?: () => void
+  nextLessonTitle?: string
 }
 
 function ContentBlockRenderer({ block }: { block: ContentBlock }) {
@@ -87,7 +89,7 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
   }
 }
 
-export function LessonContent({ lesson, onComplete, isCompleted }: LessonContentProps) {
+export function LessonContent({ lesson, onComplete, isCompleted, onNextLesson, nextLessonTitle }: LessonContentProps) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex items-center justify-between mb-4">
@@ -123,6 +125,18 @@ export function LessonContent({ lesson, onComplete, isCompleted }: LessonContent
             className="w-full bg-purple-600 text-white py-3 rounded-lg font-medium hover:bg-purple-700 transition"
           >
             Mark as Complete · Earn {lesson.xp_reward} XP
+          </button>
+        </div>
+      )}
+
+      {isCompleted && onNextLesson && (
+        <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+          <button
+            onClick={onNextLesson}
+            className="w-full bg-purple-600 text-white py-3 rounded-lg font-medium hover:bg-purple-700 transition flex items-center justify-center gap-2"
+          >
+            Next Lesson: {nextLessonTitle}
+            <span aria-hidden="true">→</span>
           </button>
         </div>
       )}
