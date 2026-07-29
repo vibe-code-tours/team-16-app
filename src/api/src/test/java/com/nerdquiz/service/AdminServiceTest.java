@@ -179,7 +179,7 @@ class AdminServiceTest {
 
         // avgQuizScore
         doReturn(72.5).when(jdbcTemplate).queryForObject(
-                argThat(sql -> sql.contains("AVG(score * 100.0 / question_count)") && !sql.contains("score_percentage")),
+                argThat(sql -> sql.contains("AVG(score * 100.0 / NULLIF(question_count, 0))") && !sql.contains("score_percentage")),
                 eq(Double.class));
 
         // avgExamScore
@@ -358,7 +358,7 @@ class AdminServiceTest {
 
         // avg quiz score
         doReturn(75.0).when(jdbcTemplate).queryForObject(
-                argThat(sql -> sql.contains("AVG(score * 100.0 / question_count)") && !sql.contains("score_percentage")),
+                argThat(sql -> sql.contains("AVG(score * 100.0 / NULLIF(question_count, 0))") && !sql.contains("score_percentage")),
                 eq(Double.class), any(UUID.class));
 
         // total exams
