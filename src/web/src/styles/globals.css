@@ -22,6 +22,17 @@ body {
   @apply bg-gray-50 text-gray-900 antialiased;
 }
 
+/* Smooth theme transitions — scoped to avoid interfering with modals/dropdowns */
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  header,
+  main,
+  footer,
+  nav {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
