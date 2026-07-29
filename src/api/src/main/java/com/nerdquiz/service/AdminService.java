@@ -394,7 +394,7 @@ public class AdminService {
         StringBuilder where = new StringBuilder(" WHERE 1=1");
 
         if (search != null && !search.isBlank()) {
-            where.append(" AND (up.display_name ILIKE '%' || ? || '%' OR up.email ILIKE '%' || ? || '%')");
+            where.append(" AND (up.display_name ILIKE '%' || ? || '%' ESCAPE '\\' OR up.email ILIKE '%' || ? || '%' ESCAPE '\\')");
         }
         if (role != null && !role.isBlank()) {
             where.append(" AND up.role = ?");
@@ -413,8 +413,9 @@ public class AdminService {
     private Object[] buildWhereParams(String search, String role, String filter) {
         java.util.List<Object> params = new java.util.ArrayList<>();
         if (search != null && !search.isBlank()) {
-            params.add(search);
-            params.add(search);
+            String escaped = escapeSqlWildcard(search);
+            params.add(escaped);
+            params.add(escaped);
         }
         if (role != null && !role.isBlank()) {
             params.add(role);
@@ -425,8 +426,9 @@ public class AdminService {
     private Object[] buildWhereParamsWithLimit(String search, String role, String filter, int limit, int offset) {
         java.util.List<Object> params = new java.util.ArrayList<>();
         if (search != null && !search.isBlank()) {
-            params.add(search);
-            params.add(search);
+            String escaped = escapeSqlWildcard(search);
+            params.add(escaped);
+            params.add(escaped);
         }
         if (role != null && !role.isBlank()) {
             params.add(role);
@@ -451,6 +453,11 @@ public class AdminService {
             escaped = "'" + escaped;
         }
         return escaped;
+    }
+
+    private String escapeSqlWildcard(String input) {
+        if (input == null) return null;
+        return input.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
     }
 
     private void verifyAdminRole(UUID userId) {
