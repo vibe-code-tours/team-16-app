@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public record SubmitAnswerRequest(
     @NotNull UUID questionId,
-    @NotBlank @Pattern(regexp = "^[a-d]$", message = "Answer must be a, b, c, or d") String answer
+    @NotBlank @Pattern(regexp = "^[a-i]$", message = "Answer must be a single letter from a to i") String answer
 ) {}
