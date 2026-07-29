@@ -10,6 +10,7 @@ interface QuizSessionFromApi {
     id: string
     subtopicId: string
     questionText: string
+    images?: unknown[]
     choices: { label: string; text: string }[]
     correctAnswer: string
     explanation: string | null
@@ -57,6 +58,7 @@ export function QuizPage() {
           id: q.id,
           subtopic_id: q.subtopicId,
           question_text: q.questionText,
+          images: q.images,
           choices: q.choices,
           correct_answer: q.correctAnswer,
           explanation: q.explanation,
@@ -208,6 +210,20 @@ export function QuizPage() {
           {currentQuestion.question_text}
         </h2>
 
+        {currentQuestion.images && currentQuestion.images.length > 0 && (
+          <div className="mb-6 flex flex-wrap gap-3">
+            {currentQuestion.images.map((img, i) => {
+              if (typeof img === 'string') {
+                return <img key={i} src={img} alt={`Question image ${i + 1}`} className="max-w-full rounded-lg" />
+              }
+              if (img && typeof img === 'object' && 'url' in img) {
+                return <img key={i} src={(img as { url: string }).url} alt={(img as { alt?: string }).alt || `Question image ${i + 1}`} className="max-w-full rounded-lg" />
+              }
+              return null
+            })}
+          </div>
+        )}
+
         <div className="mb-8 space-y-3">
           {currentQuestion.choices.map((choice) => {
             const isSelected = selectedLabel === choice.label
@@ -226,7 +242,7 @@ export function QuizPage() {
                 className={`w-full rounded-xl border-2 p-4 text-left transition ${styles}`}
               >
                 <span className="mr-2 font-bold uppercase">{choice.label}.</span>
-                {choice.text}
+                <span className="whitespace-pre-line">{choice.text}</span>
               </button>
             )
           })}
