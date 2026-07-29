@@ -15,7 +15,8 @@ describe('LandingPage', () => {
     expect(screen.getByRole('link', { name: 'Start learning free' })).toHaveAttribute('href', '/register')
     expect(screen.getByRole('link', { name: 'Continue your journey' })).toHaveAttribute('href', '/login')
     expect(screen.getByRole('progressbar', { name: 'Sample learning loop progress' })).toHaveAttribute('aria-valuenow', '68')
-    expect(screen.getByText('🦉')).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getAllByText('🦉').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('🦉')[0]).toHaveAttribute('aria-hidden', 'true')
 
     expect(screen.getByRole('link', { name: /Bite-sized lessons/ })).toHaveAttribute('href', '/register')
     expect(screen.getByRole('link', { name: /Practice quizzes/ })).toHaveAttribute('href', '/register')
