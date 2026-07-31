@@ -32,6 +32,7 @@ export interface QuizQuestion {
   id: string
   subtopic_id: string
   question_text: string
+  images?: unknown[]
   choices: QuestionChoice[]
   correct_answer: string
   explanation: string | null

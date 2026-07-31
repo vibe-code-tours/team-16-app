@@ -9,7 +9,23 @@
     <title>NerdQuiz - IT Exam Prep</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0f0a1e;color:#a78bfa;font-family:system-ui,sans-serif">
+        <div style="text-align:center">
+          <div style="width:48px;height:48px;border:4px solid #312e81;border-top-color:#7c3aed;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px"></div>
+          <p>Loading NerdQuiz...</p>
+        </div>
+      </div>
+      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+    </div>
+    <noscript>
+      <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0f0a1e;color:#e2e8f0;font-family:system-ui,sans-serif;padding:2rem;text-align:center">
+        <div>
+          <h1 style="font-size:1.5rem;margin-bottom:.5rem">JavaScript Required</h1>
+          <p style="color:#94a3b8">NerdQuiz requires JavaScript to run. Please enable JavaScript in your browser settings and reload the page.</p>
+        </div>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

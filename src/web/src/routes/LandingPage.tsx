@@ -136,6 +136,16 @@ export function LandingPage() {
           </div>
         </section>
       </main>
+
+      <footer className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="mx-auto flex max-w-6xl items-center gap-1 px-4 py-4">
+          <span className="text-lg" aria-hidden="true">🦉</span>
+          <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">NerdQuiz</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            &copy; {new Date().getFullYear()} All rights reserved.
+          </span>
+        </div>
+      </footer>
     </div>
   )
 }
