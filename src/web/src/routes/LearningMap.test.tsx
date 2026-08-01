@@ -56,7 +56,7 @@ describe('LearningMap', () => {
     expect(screen.getByText('7')).toBeInTheDocument()
     expect(screen.getByRole('progressbar', { name: 'Overall learning progress' })).toHaveAttribute('aria-valuenow', '33')
 
-    expect(screen.getByText('🦉')).toHaveAttribute('aria-hidden', 'true')
+    expect(document.querySelector('svg[aria-hidden="true"]')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'View full roadmap' })).toHaveAttribute('href', '#learning-path')
     expect(screen.queryByRole('heading', { name: 'Everything you need to pass' })).not.toBeInTheDocument()
   })
