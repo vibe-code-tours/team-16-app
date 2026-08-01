@@ -129,7 +129,7 @@ export function QuizPage() {
             <Button onClick={() => setStarted(true)} size="lg" className="w-full">
               Start Quiz
             </Button>
-            <Button onClick={() => navigate('/map')} variant="outline" className="w-full">
+            <Button variant="outline" onClick={() => navigate('/map')} className="w-full">
               Back to Map
             </Button>
           </div>
