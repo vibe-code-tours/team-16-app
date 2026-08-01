@@ -141,7 +141,9 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <StudentRoute>
-                  <ExamSimulation />
+                  <Layout>
+                    <ExamSimulation />
+                  </Layout>
                 </StudentRoute>
               </ProtectedRoute>
             }
