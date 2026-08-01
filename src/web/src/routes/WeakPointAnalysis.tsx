@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { WeakPointCard } from '../components/features/weak-points/WeakPointCard'
 import { WeakPointSummary } from '../components/features/weak-points/WeakPointSummary'
 import { useWeakPoints } from '../hooks/useWeakPoints'
+import { BarChart3, Sparkles, Zap } from 'lucide-react'
 
 const FILTERS: FocusFilterOption[] = [
   { value: 'all', label: 'All topics' },
@@ -126,7 +127,7 @@ function FocusHero({ topFocus, totalQuestions }: FocusHeroProps) {
               <h2 className="mt-2 text-xl font-bold">{topFocus?.subtopicName ?? 'Explore a new topic'}</h2>
               <p className="mt-1 text-sm text-white/70">{topFocus ? `${topFocus.questionsSeen} answers analyzed` : 'Build your first insight'}</p>
             </div>
-            <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-amber-300 text-2xl text-amber-950 shadow-lg" aria-hidden="true">⚡</span>
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-amber-300 text-amber-950 shadow-lg" aria-hidden="true"><Zap className="size-6" /></span>
           </div>
           <div className="mt-6 flex items-end justify-between gap-4">
             <div>
@@ -173,7 +174,7 @@ function ErrorState({ message, onRetry }: { message: string; onRetry: () => void
 function EmptyState() {
   return (
     <div className="learning-hero-enter mx-auto max-w-3xl overflow-hidden rounded-3xl border border-purple-200 bg-gradient-to-br from-purple-50 via-white to-amber-50 p-8 text-center shadow-sm sm:p-12">
-      <span className="mx-auto flex size-20 items-center justify-center rounded-3xl bg-white text-4xl shadow-md ring-1 ring-purple-100" aria-hidden="true">📊</span>
+      <span className="mx-auto flex size-20 items-center justify-center rounded-3xl bg-white shadow-md ring-1 ring-purple-100" aria-hidden="true"><BarChart3 className="size-10 text-purple-600 dark:text-purple-400" /></span>
       <h1 className="mt-6 text-3xl font-bold text-gray-950 dark:text-gray-50">Your learning radar is ready</h1>
       <p className="mx-auto mt-3 max-w-lg text-gray-500 dark:text-gray-400">Complete a quiz and we&apos;ll turn your answers into a personalized focus plan.</p>
       <Link to="/quizzes" className="mt-7 inline-flex min-h-11 items-center justify-center rounded-xl bg-purple-600 px-6 py-3 text-sm font-bold text-white shadow-md hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2">
@@ -186,7 +187,7 @@ function EmptyState() {
 function FilterEmptyState({ filter, onClear }: { filter: FocusFilter; onClear: () => void }) {
   return (
     <div className="rounded-3xl border border-dashed border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 p-10 text-center">
-      <span className="text-3xl" aria-hidden="true">✨</span>
+      <span className="text-3xl" aria-hidden="true"><Sparkles className="size-8 text-purple-600 dark:text-purple-400" /></span>
       <h3 className="mt-3 text-lg font-bold text-gray-900 dark:text-gray-100">No {getFilterLabel(filter).toLowerCase()} topics right now</h3>
       <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Try another filter to explore your complete analysis.</p>
       <button type="button" onClick={onClear} className="mt-5 min-h-10 rounded-xl bg-gray-950 dark:bg-white px-4 py-2 text-sm font-bold text-white dark:text-gray-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2">

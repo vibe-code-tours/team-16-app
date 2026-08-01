@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
+import { Sprout, Search } from 'lucide-react'
 
 interface Choice {
   label: string
@@ -120,7 +121,7 @@ export function MistakeGarden() {
         </div>
       ) : mistakes.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-          <div className="text-5xl mb-4">🌱</div>
+          <div className="mb-4"><Sprout className="size-12 text-green-600 dark:text-green-400" aria-hidden="true" /></div>
           <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Your garden is empty!</h3>
           <p className="text-gray-500 dark:text-gray-400">You haven't made any mistakes yet. Keep studying!</p>
         </div>
@@ -182,7 +183,7 @@ export function MistakeGarden() {
 
           {filteredMistakes.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-2xl border border-dashed border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-              <div className="text-4xl mb-4">🔍</div>
+              <div className="mb-4"><Search className="size-10 text-gray-400 dark:text-gray-500" aria-hidden="true" /></div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No mistakes match your filters</h3>
               <p className="text-gray-500 dark:text-gray-400 mb-4">Try adjusting your search or category filter.</p>
               <button
