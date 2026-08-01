@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { TopicNode } from '../components/features/TopicNode'
 import { Badge } from '../components/ui/Badge'
+import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { useAuth } from '../hooks/useAuth'
 import { useTopics } from '../hooks/useTopics'
@@ -47,7 +48,7 @@ const PROGRESS_WIDTH_CLASSES = [
 
 export function LearningMap() {
   const { user } = useAuth()
-  const { topics, loading, error } = useTopics()
+  const { topics, loading, error, refetch } = useTopics()
   const learningSummary = useMemo(() => summarizeLearning(topics), [topics])
   const topicsByCategory = useMemo(() => groupTopicsByCategory(topics), [topics])
   const learnerName = getLearnerName(user?.display_name, user?.email)
@@ -82,7 +83,7 @@ export function LearningMap() {
         </div>
 
         {loading ? <LoadingState /> : null}
-        {error ? <ErrorState message={error} /> : null}
+        {error ? <ErrorState message={error} onRetry={refetch} /> : null}
         {!loading && !error && topics.length === 0 ? <EmptyState /> : null}
 
         {!loading && !error && topics.length > 0 ? (
@@ -346,11 +347,14 @@ function LoadingState() {
   )
 }
 
-function ErrorState({ message }: { message: string }) {
+function ErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
   return (
     <div role="alert" className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 p-5 text-sm text-red-700 dark:text-red-400">
       <p className="font-bold">Your roadmap took a little detour.</p>
       <p className="mt-1">Couldn&apos;t load topics: {message}. Check your connection and try again.</p>
+      <Button onClick={onRetry} variant="outline" size="sm" className="mt-3">
+        Retry
+      </Button>
     </div>
   )
 }

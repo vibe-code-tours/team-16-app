@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { api } from '../lib/api'
 import { useAuth } from './useAuth.tsx'
 import type { TopicCategory, TopicWithStatus } from '../types/topic'
@@ -19,6 +19,7 @@ interface UseTopicsResult {
   topics: TopicWithStatus[]
   loading: boolean
   error: string | null
+  refetch: () => void
 }
 
 export function useTopics(): UseTopicsResult {
@@ -26,6 +27,11 @@ export function useTopics(): UseTopicsResult {
   const [topics, setTopics] = useState<TopicWithStatus[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [fetchTrigger, setFetchTrigger] = useState(0)
+
+  const refetch = useCallback(() => {
+    setFetchTrigger((prev) => prev + 1)
+  }, [])
 
   useEffect(() => {
     let cancelled = false
@@ -50,7 +56,7 @@ export function useTopics(): UseTopicsResult {
     return () => {
       cancelled = true
     }
-  }, [user?.id])
+  }, [user?.id, fetchTrigger])
 
-  return { topics, loading, error }
+  return { topics, loading, error, refetch }
 }

@@ -1,6 +1,7 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
+import { Button } from '../components/ui/Button'
 
 interface Choice {
   label: string
@@ -30,31 +31,23 @@ export function MistakeGarden() {
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    let cancelled = false
+  const fetchMistakes = useCallback(async () => {
+    setLoading(true)
+    setError(null)
 
-    async function fetchMistakes() {
-      setLoading(true)
-      setError(null)
-
-      try {
-        const data = await api.get<Mistake[]>('/api/v1/me/mistakes')
-        if (!cancelled) setMistakes(data)
-      } catch (requestError) {
-        if (!cancelled) {
-          setError(requestError instanceof Error ? requestError.message : 'Failed to load mistakes')
-        }
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    }
-
-    fetchMistakes()
-
-    return () => {
-      cancelled = true
+    try {
+      const data = await api.get<Mistake[]>('/api/v1/me/mistakes')
+      setMistakes(data)
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : 'Failed to load mistakes')
+    } finally {
+      setLoading(false)
     }
   }, [])
+
+  useEffect(() => {
+    fetchMistakes()
+  }, [fetchMistakes])
 
   const filteredMistakes = useMemo(() => {
     return mistakes.filter((mistake) => {
@@ -111,6 +104,9 @@ export function MistakeGarden() {
       {error && (
         <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
           Couldn't load your mistakes: {error}
+          <Button onClick={fetchMistakes} variant="outline" size="sm" className="mt-3">
+            Retry
+          </Button>
         </div>
       )}
 
