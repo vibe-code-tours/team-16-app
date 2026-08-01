@@ -1,30 +1,33 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./hooks/useAuth.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AdminRoute } from "./components/AdminRoute";
 import { StudentRoute } from "./components/StudentRoute";
 import { Layout } from "./components/layout";
-import { LandingPage } from "./routes/LandingPage";
-import { LoginPage } from "./routes/LoginPage";
-import { RegisterPage } from "./routes/RegisterPage";
-import { LearningMap } from "./routes/LearningMap";
-import { TopicDetail } from "./routes/TopicDetail";
-import { LessonPage } from "./routes/LessonPage";
-import { QuizPage } from "./routes/QuizPage";
-import { MistakeGarden } from "./routes/MistakeGarden";
-import { UserProfile } from "./routes/UserProfile";
-import ExamSimulation from "./routes/ExamSimulation";
-import { QuizListingPage } from "./routes/QuizListingPage";
-import { AiDraftPreview } from "./routes/AiDraftPreview";
-import { AdminDashboard } from "./routes/AdminDashboard";
-import { AdminUsers } from "./routes/AdminUsers";
-import { WeakPointAnalysis } from "./routes/WeakPointAnalysis";
-import { QuizResult } from "./routes/QuizResult";
+
+const LandingPage = lazy(() => import("./routes/LandingPage").then(m => ({ default: m.LandingPage })));
+const LoginPage = lazy(() => import("./routes/LoginPage").then(m => ({ default: m.LoginPage })));
+const RegisterPage = lazy(() => import("./routes/RegisterPage").then(m => ({ default: m.RegisterPage })));
+const LearningMap = lazy(() => import("./routes/LearningMap").then(m => ({ default: m.LearningMap })));
+const TopicDetail = lazy(() => import("./routes/TopicDetail").then(m => ({ default: m.TopicDetail })));
+const LessonPage = lazy(() => import("./routes/LessonPage").then(m => ({ default: m.LessonPage })));
+const QuizPage = lazy(() => import("./routes/QuizPage").then(m => ({ default: m.QuizPage })));
+const MistakeGarden = lazy(() => import("./routes/MistakeGarden").then(m => ({ default: m.MistakeGarden })));
+const UserProfile = lazy(() => import("./routes/UserProfile").then(m => ({ default: m.UserProfile })));
+const ExamSimulation = lazy(() => import("./routes/ExamSimulation"));
+const QuizListingPage = lazy(() => import("./routes/QuizListingPage").then(m => ({ default: m.QuizListingPage })));
+const AiDraftPreview = lazy(() => import("./routes/AiDraftPreview").then(m => ({ default: m.AiDraftPreview })));
+const AdminDashboard = lazy(() => import("./routes/AdminDashboard").then(m => ({ default: m.AdminDashboard })));
+const AdminUsers = lazy(() => import("./routes/AdminUsers").then(m => ({ default: m.AdminUsers })));
+const WeakPointAnalysis = lazy(() => import("./routes/WeakPointAnalysis").then(m => ({ default: m.WeakPointAnalysis })));
+const QuizResult = lazy(() => import("./routes/QuizResult").then(m => ({ default: m.QuizResult })));
 
 export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <Suspense fallback={<div className="flex min-h-[50vh] items-center justify-center"><div className="h-8 w-8 animate-spin rounded-full border-b-2 border-purple-600" /></div>}>
         <Routes>
           {/* Public routes - no header, no sidebar */}
           <Route path="/" element={<Layout showSidebar={false} showHeader={false}><LandingPage /></Layout>} />
@@ -141,9 +144,7 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <StudentRoute>
-                  <Layout>
-                    <ExamSimulation />
-                  </Layout>
+                  <ExamSimulation />
                 </StudentRoute>
               </ProtectedRoute>
             }
@@ -183,6 +184,7 @@ export default function App() {
             }
           />
         </Routes>
+        </Suspense>
       </AuthProvider>
     </BrowserRouter>
   );
