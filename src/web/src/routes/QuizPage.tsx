@@ -2,8 +2,8 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
+import { Button } from '../components/ui/Button'
 import type { QuizQuestion } from '../types'
-import { FileText } from 'lucide-react'
 
 interface QuizSessionFromApi {
   id: string
@@ -119,25 +119,19 @@ export function QuizPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
         <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
-          <div className="mb-4"><FileText className="size-12 text-purple-600 dark:text-purple-400 mx-auto" aria-hidden="true" /></div>
+          <div className="mb-4 text-5xl">📝</div>
           <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Quiz Practice</h2>
           <p className="mb-6 text-gray-500 dark:text-gray-400">
             Test your knowledge with 5 questions
           </p>
 
           <div className="space-y-3">
-            <button
-              onClick={() => setStarted(true)}
-              className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
-            >
+            <Button onClick={() => setStarted(true)} size="lg" className="w-full">
               Start Quiz
-            </button>
-            <button
-              onClick={() => navigate('/map')}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
-            >
+            </Button>
+            <Button onClick={() => navigate('/map')} variant="outline" className="w-full">
               Back to Map
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -170,12 +164,9 @@ export function QuizPage() {
           <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
             We don't have any practice questions for this subtopic yet. Try another topic on the map.
           </p>
-          <button
-            onClick={() => navigate('/map')}
-            className="rounded-lg bg-purple-600 px-4 py-2 font-medium text-white hover:bg-purple-700"
-          >
+          <Button onClick={() => navigate('/map')}>
             Back to Map
-          </button>
+          </Button>
         </div>
       </div>
     )
@@ -264,20 +255,13 @@ export function QuizPage() {
 
         <div className="flex justify-end">
           {!isAnswered ? (
-            <button
-              onClick={handleCheck}
-              disabled={!selectedLabel}
-              className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
+            <Button onClick={handleCheck} disabled={!selectedLabel}>
               Check answer
-            </button>
+            </Button>
           ) : (
-            <button
-              onClick={handleNext}
-              className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700"
-            >
+            <Button onClick={handleNext}>
               {isLastQuestion ? 'See results' : 'Next question'}
-            </button>
+            </Button>
           )}
         </div>
       </div>

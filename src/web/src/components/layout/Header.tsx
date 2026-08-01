@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { ThemeToggle } from '../ui/ThemeToggle'
-import { Bird, Zap, Flame } from 'lucide-react'
 
 interface HeaderProps {
   onMenuToggle: () => void
@@ -89,7 +88,7 @@ export function Header({ onMenuToggle, showSidebar = true }: HeaderProps) {
             </svg>
           </button>
           <Link to="/map" className="flex items-center gap-2">
-            <Bird className="size-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+            <span className="text-2xl">🦉</span>
             <span className="text-xl font-bold text-purple-600 dark:text-purple-400">NerdQuiz</span>
           </Link>
         </div>
@@ -103,8 +102,8 @@ export function Header({ onMenuToggle, showSidebar = true }: HeaderProps) {
               {/* Hide XP and Streak for admin users */}
               {user.role !== 'admin' && (
                 <div className="hidden sm:flex items-center gap-2 text-sm">
-                  <span className="text-purple-600 dark:text-purple-400 font-semibold inline-flex items-center gap-1"><Zap className="size-4" aria-hidden="true" /> {user.total_xp ?? 0}</span>
-                  <span className="text-orange-500 dark:text-orange-400 font-semibold inline-flex items-center gap-1"><Flame className="size-4" aria-hidden="true" /> {user.streak_count ?? 0}</span>
+                  <span className="text-purple-600 dark:text-purple-400 font-semibold">⚡ {user.total_xp ?? 0}</span>
+                  <span className="text-orange-500 dark:text-orange-400 font-semibold">🔥 {user.streak_count ?? 0}</span>
                 </div>
               )}
 

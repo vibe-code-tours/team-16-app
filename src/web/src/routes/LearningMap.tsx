@@ -6,7 +6,6 @@ import { Card } from '../components/ui/Card'
 import { useAuth } from '../hooks/useAuth'
 import { useTopics } from '../hooks/useTopics'
 import type { TopicCategory, TopicWithStatus } from '../types/topic'
-import { Bird, Trophy, Zap, Flame, Sprout } from 'lucide-react'
 
 const CATEGORY_ORDER: readonly TopicCategory[] = [
   'Technology',
@@ -146,7 +145,7 @@ function WelcomeHero({
               className="learning-owl-enter flex size-20 shrink-0 items-center justify-center rounded-3xl bg-white dark:bg-gray-700 text-5xl shadow-md ring-1 ring-purple-100 dark:ring-purple-800"
               aria-hidden="true"
             >
-              <Bird className="size-10 text-purple-600 dark:text-purple-400" />
+              🦉
             </span>
             <div>
               <Badge className="mb-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">Today&apos;s quest</Badge>
@@ -179,14 +178,14 @@ function WelcomeHero({
                   {isLoading ? '—' : `${summary.progressPercent}%`}
                 </p>
               </div>
-              <span className="text-4xl" aria-hidden="true"><Trophy className="size-10 text-amber-500 dark:text-amber-400" /></span>
+              <span className="text-4xl" aria-hidden="true">🏆</span>
             </div>
 
             <JourneyProgress percent={summary.progressPercent} isLoading={isLoading} />
 
             <dl className="grid grid-cols-2 gap-3">
-              <StatCard label="Total XP" value={`${totalXp}`} icon={<Zap className="size-4 text-purple-600 dark:text-purple-400" />} />
-              <StatCard label="Day streak" value={`${streakCount}`} icon={<Flame className="size-4 text-orange-500 dark:text-orange-400" />} />
+              <StatCard label="Total XP" value={`${totalXp}`} icon="⚡" />
+              <StatCard label="Day streak" value={`${streakCount}`} icon="🔥" />
             </dl>
           </div>
         </Card>
@@ -269,11 +268,11 @@ function JourneyProgress({ percent, isLoading }: { percent: number; isLoading: b
   )
 }
 
-function StatCard({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
+function StatCard({ label, value, icon }: { label: string; value: string; icon: string }) {
   return (
     <div className="rounded-2xl border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 p-3">
       <dt className="text-xs font-medium text-gray-500 dark:text-gray-400">
-        <span className="mr-1 inline-flex items-center" aria-hidden="true">{icon}</span>
+        <span className="mr-1" aria-hidden="true">{icon}</span>
         {label}
       </dt>
       <dd className="mt-1 text-xl font-bold text-gray-900 dark:text-gray-100">{value}</dd>
@@ -359,7 +358,7 @@ function ErrorState({ message }: { message: string }) {
 function EmptyState() {
   return (
     <Card className="text-center" padding="lg">
-      <span className="text-4xl" aria-hidden="true"><Sprout className="size-10 text-green-600 dark:text-green-400" /></span>
+      <span className="text-4xl" aria-hidden="true">🌱</span>
       <h3 className="mt-3 text-lg font-bold text-gray-900 dark:text-gray-100">Your learning path is sprouting</h3>
       <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
         No topics are available yet. Try an exam challenge while new stops are being prepared.

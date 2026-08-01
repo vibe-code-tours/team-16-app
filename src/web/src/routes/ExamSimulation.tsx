@@ -8,7 +8,6 @@ import { ExamTimer } from '../components/features/exam/ExamTimer'
 import { ExamProgressBar } from '../components/features/exam/ExamProgressBar'
 import { ExamResultScreen } from '../components/features/exam/ExamResultScreen'
 import { Button } from '../components/ui/Button'
-import { FileText, Bird } from 'lucide-react'
 
 export default function ExamSimulation() {
   const { session: authSession } = useAuth()
@@ -196,7 +195,7 @@ export default function ExamSimulation() {
             Back to Map
           </Link>
           <div className="flex items-center gap-2">
-            <Bird className="size-5 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+            <span className="text-lg">🦉</span>
             <span className="text-base font-bold text-purple-600 dark:text-purple-400">NerdQuiz</span>
           </div>
         </div>
@@ -206,7 +205,7 @@ export default function ExamSimulation() {
         {!authSession ? (
           <div className="flex flex-col items-center justify-center py-16">
             <div className="w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 text-center shadow-sm">
-              <div className="mb-4"><FileText className="size-12 text-purple-600 dark:text-purple-400 mx-auto" aria-hidden="true" /></div>
+              <div className="mb-4 text-5xl">📝</div>
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Exam Simulation</h2>
               <p className="mt-3 text-gray-500 dark:text-gray-400">
                 Test your knowledge with a timed exam simulation.

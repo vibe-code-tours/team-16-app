@@ -1,6 +1,7 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.tsx'
+import { Button } from '../components/ui/Button'
 
 export function LoginPage() {
   const [email, setEmail] = useState('')
@@ -113,13 +114,9 @@ export function LoginPage() {
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-purple-600 px-4 py-2.5 text-white font-medium hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <Button type="submit" disabled={loading} className="w-full">
             {loading ? 'Signing in...' : 'Sign in'}
-          </button>
+          </Button>
         </form>
 
         <div className="my-6 flex items-center gap-3">
@@ -128,9 +125,10 @@ export function LoginPage() {
           <div className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
         </div>
 
-        <button
+        <Button
           onClick={handleGoogleSignIn}
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-700 font-medium hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          variant="outline"
+          className="w-full gap-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path
@@ -151,7 +149,7 @@ export function LoginPage() {
             />
           </svg>
           Continue with Google
-        </button>
+        </Button>
 
         <p className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
           Don't have an account?{' '}
