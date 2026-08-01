@@ -40,13 +40,13 @@ export function AdminDashboard() {
 
   const statCards = [
     { label: 'Total Users', value: stats.totalUsers, color: 'text-purple-700 dark:text-purple-400' },
-    { label: 'Active Today', value: stats.activeToday, color: 'text-green-700' },
-    { label: 'Active This Week', value: stats.activeThisWeek, color: 'text-blue-700' },
-    { label: 'Quiz Attempts', value: stats.totalQuizAttempts, color: 'text-amber-700' },
-    { label: 'Exam Attempts', value: stats.totalExamAttempts, color: 'text-rose-700' },
-    { label: 'Avg Quiz Score', value: `${stats.avgQuizScore.toFixed(1)}%`, color: 'text-emerald-700' },
-    { label: 'Avg Exam Score', value: `${stats.avgExamScore.toFixed(1)}%`, color: 'text-cyan-700' },
-    { label: 'Exam Pass Rate', value: `${stats.examPassRate}%`, color: 'text-indigo-700' },
+    { label: 'Active Today', value: stats.activeToday, color: 'text-green-700 dark:text-green-400' },
+    { label: 'Active This Week', value: stats.activeThisWeek, color: 'text-blue-700 dark:text-blue-400' },
+    { label: 'Quiz Attempts', value: stats.totalQuizAttempts, color: 'text-amber-700 dark:text-amber-400' },
+    { label: 'Exam Attempts', value: stats.totalExamAttempts, color: 'text-rose-700 dark:text-rose-400' },
+    { label: 'Avg Quiz Score', value: `${stats.avgQuizScore.toFixed(1)}%`, color: 'text-emerald-700 dark:text-emerald-400' },
+    { label: 'Avg Exam Score', value: `${stats.avgExamScore.toFixed(1)}%`, color: 'text-cyan-700 dark:text-cyan-400' },
+    { label: 'Exam Pass Rate', value: `${stats.examPassRate}%`, color: 'text-indigo-700 dark:text-indigo-400' },
   ]
 
   return (
