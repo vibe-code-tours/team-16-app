@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Sprout, Search } from 'lucide-react'
 import { api } from '../lib/api'
+import { EmptyState } from '../components/ui/EmptyState'
 
 interface Choice {
   label: string
@@ -119,11 +121,11 @@ export function MistakeGarden() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
         </div>
       ) : mistakes.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-          <div className="text-5xl mb-4">🌱</div>
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Your garden is empty!</h3>
-          <p className="text-gray-500 dark:text-gray-400">You haven't made any mistakes yet. Keep studying!</p>
-        </div>
+        <EmptyState
+          icon={<Sprout className="size-8 text-gray-400" />}
+          title="Your garden is empty!"
+          description="You haven't made any mistakes yet. Keep studying!"
+        />
       ) : (
         <>
           {/* Search and Filter */}
@@ -181,20 +183,12 @@ export function MistakeGarden() {
           </div>
 
           {filteredMistakes.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-2xl border border-dashed border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-              <div className="text-4xl mb-4">🔍</div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No mistakes match your filters</h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-4">Try adjusting your search or category filter.</p>
-              <button
-                onClick={() => {
-                  setSearchQuery('')
-                  setSelectedCategory('All')
-                }}
-                className="rounded-lg bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
-              >
-                Clear filters
-              </button>
-            </div>
+            <EmptyState
+              icon={<Search className="size-8 text-gray-400" />}
+              title="No mistakes match your filters"
+              description="Try adjusting your search or category filter."
+              action={{ label: 'Clear filters', onClick: () => { setSearchQuery(''); setSelectedCategory('All') } }}
+            />
           ) : (
             <div className="grid grid-cols-1 gap-8">
               {Array.from(topicGroups.entries()).map(([topicName, topicMistakes]) => {
