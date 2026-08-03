@@ -88,7 +88,7 @@ public class ExamService {
 
         return new StartExamResponse(
                 savedSession.getId(),
-                questions.stream().map(questionService::toResponse).toList(),
+                questions.stream().map(questionService::toExamResponse).toList(),
                 savedSession.getTimeLimitMinutes(),
                 savedSession.getExpiresAt()
         );
@@ -132,10 +132,7 @@ public class ExamService {
         return new SubmitExamAnswerResponse(
                 savedAnswer.getId(),
                 savedAnswer.getQuestionId(),
-                savedAnswer.getUserAnswer(),
-                savedAnswer.getIsCorrect(),
-                question.getCorrectAnswer(),
-                question.getExplanation()
+                savedAnswer.getUserAnswer()
         );
     }
 
@@ -179,6 +176,9 @@ public class ExamService {
     @Transactional(readOnly = true)
     public ExamResultResponse getResult(UUID userId, UUID sessionId) {
         ExamSession session = getOwnedSession(userId, sessionId);
+        if ("in_progress".equals(session.getStatus())) {
+            throw new IllegalArgumentException("Exam results are unavailable until the exam is finished");
+        }
 
         int correctAnswers = (int) examAnswerRepository.countByExamSessionIdAndIsCorrectTrue(sessionId);
         BigDecimal scorePercentage = calculateScorePercentage(correctAnswers, session.getTotalQuestions());

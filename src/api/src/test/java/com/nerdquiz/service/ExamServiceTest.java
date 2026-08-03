@@ -84,10 +84,8 @@ class ExamServiceTest {
     void startExam_CreatesSessionAndReturnsQuestions() {
         when(questionRepository.findUsableExamQuestionsAll(60))
                 .thenReturn(List.of(sampleQuestion));
-        when(questionService.toResponse(sampleQuestion)).thenReturn(new QuestionResponse(
-                sampleQuestion.getId(), null, "2021-april", "A", 1,
-                "What is 2 + 2?", null, null, "b", null, "easy"
-        ));
+        when(questionService.toExamResponse(sampleQuestion)).thenReturn(new ExamQuestionResponse(
+                sampleQuestion.getId(), 1, "What is 2 + 2?", null, null, "easy", true));
         when(examSessionRepository.save(any(ExamSession.class)))
                 .thenAnswer(invocation -> {
                     ExamSession s = invocation.getArgument(0);
@@ -111,10 +109,8 @@ class ExamServiceTest {
     void startExam_WithDifficultyFiltersQuestions() {
         when(questionRepository.findUsableExamQuestionsByDifficulty(10, "easy"))
                 .thenReturn(List.of(sampleQuestion));
-        when(questionService.toResponse(sampleQuestion)).thenReturn(new QuestionResponse(
-                sampleQuestion.getId(), null, "2021-april", "A", 1,
-                "What is 2 + 2?", null, null, "b", null, "easy"
-        ));
+        when(questionService.toExamResponse(sampleQuestion)).thenReturn(new ExamQuestionResponse(
+                sampleQuestion.getId(), 1, "What is 2 + 2?", null, null, "easy", true));
         when(examSessionRepository.save(any(ExamSession.class)))
                 .thenAnswer(invocation -> {
                     ExamSession s = invocation.getArgument(0);
@@ -157,7 +153,7 @@ class ExamServiceTest {
 
         SubmitExamAnswerResponse result = examService.submitAnswer(userId, sessionId, request);
 
-        assertTrue(result.isCorrect());
+        assertNull(result.isCorrect());
     }
 
     @Test
@@ -177,7 +173,7 @@ class ExamServiceTest {
 
         SubmitExamAnswerResponse result = examService.submitAnswer(userId, sessionId, request);
 
-        assertFalse(result.isCorrect());
+        assertNull(result.isCorrect());
     }
 
     @Test

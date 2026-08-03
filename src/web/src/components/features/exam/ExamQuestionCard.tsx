@@ -50,24 +50,11 @@ export function ExamQuestionCard({
       <div className="space-y-3">
         {question.choices.map((choice) => {
           const isSelected = selectedAnswer === choice.label
-          const isCorrect = result?.isCorrect && isSelected
-          const isWrong = result && !result.isCorrect && isSelected
-          const showCorrectAnswer = result && !result.isCorrect && choice.label === result.correctAnswer
-
           let borderColor = 'border-gray-200 dark:border-gray-700'
           let bgColor = 'bg-white dark:bg-gray-800'
-          if (isSelected && !isSubmitted) {
+          if (isSelected) {
             borderColor = 'border-purple-500'
             bgColor = 'bg-purple-50 dark:bg-purple-900/30'
-          } else if (isCorrect) {
-            borderColor = 'border-green-500'
-            bgColor = 'bg-green-50 dark:bg-green-900/30'
-          } else if (isWrong) {
-            borderColor = 'border-red-500'
-            bgColor = 'bg-red-50 dark:bg-red-900/30'
-          } else if (showCorrectAnswer) {
-            borderColor = 'border-green-500'
-            bgColor = 'bg-green-50 dark:bg-green-900/30'
           }
 
           return (
@@ -90,24 +77,11 @@ export function ExamQuestionCard({
         })}
       </div>
 
-      {/* Feedback after submission */}
+      {/* During an exam, acknowledge persistence without disclosing correctness. */}
       {result && (
-        <div
-          className={`mt-4 rounded-xl p-4 ${
-            result.isCorrect
-              ? 'border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-              : 'border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400'
-          }`}
-        >
-          <div className="flex items-center gap-2 font-medium">
-            {result.isCorrect ? '✅ Correct!' : '❌ Incorrect'}
-            {!result.isCorrect && (
-              <span className="text-sm">(Answer: {result.correctAnswer})</span>
-            )}
-          </div>
-          {result.explanation && (
-            <p className="mt-2 text-sm opacity-90">{result.explanation}</p>
-          )}
+        <div className="mt-4 rounded-xl border border-purple-200 bg-purple-50 p-4 text-purple-700 dark:border-purple-800 dark:bg-purple-900/30 dark:text-purple-300">
+          <div className="font-medium">Answer recorded</div>
+          <p className="mt-1 text-sm">Correct answers are shown after you finish the exam.</p>
         </div>
       )}
     </Card>

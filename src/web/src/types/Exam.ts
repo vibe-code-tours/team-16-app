@@ -27,11 +27,9 @@ export interface ExamSession {
 }
 
 export interface ExamAnswerResult {
+  answerId: string
   questionId: string
-  userAnswer: string | null
-  isCorrect: boolean
-  correctAnswer: string
-  explanation: string | null
+  userAnswer: string
 }
 
 export interface ExamAnswerDetail {
