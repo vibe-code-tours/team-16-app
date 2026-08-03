@@ -1,4 +1,5 @@
 import { useAdminStats } from '../hooks/useAdminStats'
+import { Button } from '../components/ui/Button'
 import { ActiveUsersChart } from '../components/features/admin/ActiveUsersChart'
 import { TopicQuizChart } from '../components/features/admin/TopicQuizChart'
 import { TopicScoreChart } from '../components/features/admin/TopicScoreChart'
@@ -20,12 +21,9 @@ export function AdminDashboard() {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
         <p className="text-red-600">{error}</p>
-        <button
-          onClick={refetch}
-          className="rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700"
-        >
+        <Button onClick={refetch} size="sm">
           Retry
-        </button>
+        </Button>
       </div>
     )
   }

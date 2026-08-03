@@ -2,7 +2,6 @@ import { useState, useCallback, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
-import { Lock } from 'lucide-react'
 
 export function TopicDetail() {
   const { topicId } = useParams<{ topicId: string }>()
@@ -167,7 +166,7 @@ export function TopicDetail() {
                         </div>
                       </div>
                       {isLocked && (
-                        <Lock className="size-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
+                        <span className="text-gray-400 dark:text-gray-500 text-sm">🔒</span>
                       )}
                     </div>
                     {lesson.summary && (

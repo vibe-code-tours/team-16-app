@@ -1,7 +1,6 @@
 import { useState, useEffect, type FormEvent, type SVGProps } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { Trophy } from "lucide-react";
 
 const WEEKLY_ACTIVITY: Array<{ day: string; value: number; minutes: number }> = [];
 
@@ -975,8 +974,8 @@ function NextGoal() {
             Complete 2 more quizzes to unlock your next badge.
           </p>
         </div>
-        <span className="flex size-11 items-center justify-center rounded-2xl bg-amber-300 text-amber-900 shadow-lg shadow-purple-950/10" aria-hidden="true">
-          <Trophy className="size-6" />
+        <span className="text-4xl" aria-hidden="true">
+          🏆
         </span>
       </div>
       <div
