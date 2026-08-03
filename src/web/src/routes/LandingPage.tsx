@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Badge } from '../components/ui/Badge'
 import { Card } from '../components/ui/Card'
+import { Bird, Zap, BookOpen, Target, Map, Sprout, FileText } from 'lucide-react'
 
 export function LandingPage() {
   return (
@@ -12,7 +13,7 @@ export function LandingPage() {
             className="flex items-center gap-2 rounded-lg text-xl font-bold text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2"
             aria-label="NerdQuiz home"
           >
-            <span aria-hidden="true">⚡</span>
+            <Zap className="size-5 text-purple-600 dark:text-purple-400" aria-hidden="true" />
             NerdQuiz
           </Link>
           <nav aria-label="Public navigation" className="flex items-center gap-2">
@@ -66,7 +67,7 @@ export function LandingPage() {
                   className="learning-owl-enter flex size-20 shrink-0 items-center justify-center rounded-3xl bg-purple-50 dark:bg-purple-900/30 text-5xl shadow-sm ring-1 ring-purple-100 dark:ring-purple-800"
                   aria-hidden="true"
                 >
-                  🦉
+                  <Bird className="size-10 text-purple-600 dark:text-purple-400" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="text-xs font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400">
@@ -139,7 +140,7 @@ export function LandingPage() {
 
       <footer className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="mx-auto flex max-w-6xl items-center gap-1 px-4 py-4">
-          <span className="text-lg" aria-hidden="true">🦉</span>
+          <span className="text-lg" aria-hidden="true"><Bird className="size-5 text-purple-600 dark:text-purple-400" /></span>
           <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">NerdQuiz</span>
           <span className="text-sm text-gray-500 dark:text-gray-400">
             &copy; {new Date().getFullYear()} All rights reserved.
@@ -164,7 +165,7 @@ interface LandingFeature {
   description: string
   action: string
   href: string
-  icon: string
+  icon: React.ReactNode
   iconClass: string
   accentClass: string
 }
@@ -175,7 +176,7 @@ const LANDING_FEATURES: LandingFeature[] = [
     description: 'Build strong foundations with friendly reads designed for focused study sessions.',
     action: 'Start with lesson mode',
     href: '/register',
-    icon: '📚',
+    icon: <BookOpen className="size-6 text-purple-600 dark:text-purple-400" />,
     iconClass: 'bg-purple-100 dark:bg-purple-900/30',
     accentClass: 'border-t-purple-400 dark:border-t-purple-500',
   },
@@ -184,7 +185,7 @@ const LANDING_FEATURES: LandingFeature[] = [
     description: 'Check your understanding, get instant feedback, and earn XP as you improve.',
     action: 'Practice after each topic',
     href: '/register',
-    icon: '🎯',
+    icon: <Target className="size-6 text-blue-600 dark:text-blue-400" />,
     iconClass: 'bg-blue-100 dark:bg-blue-900/30',
     accentClass: 'border-t-blue-400 dark:border-t-blue-500',
   },
@@ -193,7 +194,7 @@ const LANDING_FEATURES: LandingFeature[] = [
     description: 'See completed milestones, unlocked topics, and the next stop on your roadmap.',
     action: 'Build your roadmap',
     href: '/register',
-    icon: '🗺️',
+    icon: <Map className="size-6 text-emerald-600 dark:text-emerald-400" />,
     iconClass: 'bg-emerald-100 dark:bg-emerald-900/30',
     accentClass: 'border-t-emerald-400 dark:border-t-emerald-500',
   },
@@ -202,7 +203,7 @@ const LANDING_FEATURES: LandingFeature[] = [
     description: 'Turn wrong answers into growth by reviewing and clearing each saved mistake.',
     action: 'Grow from mistakes',
     href: '/register',
-    icon: '🌱',
+    icon: <Sprout className="size-6 text-green-600 dark:text-green-400" />,
     iconClass: 'bg-green-100 dark:bg-green-900/30',
     accentClass: 'border-t-green-400 dark:border-t-green-500',
   },
@@ -211,7 +212,7 @@ const LANDING_FEATURES: LandingFeature[] = [
     description: 'Build confidence under realistic timing, questions, and exam-day conditions.',
     action: 'Prepare for exam day',
     href: '/register',
-    icon: '📝',
+    icon: <FileText className="size-6 text-amber-600 dark:text-amber-400" />,
     iconClass: 'bg-amber-100 dark:bg-amber-900/30',
     accentClass: 'border-t-amber-400 dark:border-t-amber-500',
   },
@@ -220,7 +221,7 @@ const LANDING_FEATURES: LandingFeature[] = [
     description: 'Celebrate steady effort, watch your XP grow, and protect your study streak.',
     action: 'Track your effort',
     href: '/register',
-    icon: '⚡',
+    icon: <Zap className="size-6 text-orange-600 dark:text-orange-400" />,
     iconClass: 'bg-orange-100 dark:bg-orange-900/30',
     accentClass: 'border-t-orange-400 dark:border-t-orange-500',
   },
