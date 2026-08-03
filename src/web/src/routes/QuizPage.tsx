@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
+import { ProgressBar } from '../components/features/ProgressBar'
 import type { QuizQuestion } from '../types'
 
 interface QuizSessionFromApi {
@@ -199,10 +200,12 @@ export function QuizPage() {
       </header>
 
       <div className="mx-auto max-w-2xl px-4 py-8">
-        <div className="mb-8 h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
-          <div
-            className="h-full bg-purple-600 transition-all duration-500"
-            style={{ width: `${((index + 1) / questions.length) * 100}%` }}
+        <div className="mb-8">
+          <ProgressBar
+            current={index + 1}
+            total={questions.length}
+            showLabel={false}
+            variant="solid"
           />
         </div>
 
