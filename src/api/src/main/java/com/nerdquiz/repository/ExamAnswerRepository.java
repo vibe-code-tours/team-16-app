@@ -16,4 +16,6 @@ public interface ExamAnswerRepository extends JpaRepository<ExamAnswer, UUID> {
     Optional<ExamAnswer> findByExamSessionIdAndQuestionId(UUID examSessionId, UUID questionId);
 
     List<ExamAnswer> findByExamSessionIdOrderBySequenceNumber(UUID examSessionId);
+
+    Optional<ExamAnswer> findFirstByExamSessionIdOrderByAnsweredAtDesc(UUID examSessionId);
 }
