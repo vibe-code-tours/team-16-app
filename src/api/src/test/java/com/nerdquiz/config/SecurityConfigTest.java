@@ -16,10 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Verifies SecurityHeadersConfig compiles and instantiates correctly.
- * Runtime security header verification is done in the manual checkpoint (Task 4).
- * This test ensures the security filter chain bean definition is valid and
- * the application context loads without errors.
+ * Verifies the active security configuration loads with the application context.
  */
 @WebMvcTest(controllers = HealthController.class)
 @AutoConfigureMockMvc(addFilters = false)

@@ -19,9 +19,22 @@ function getSystemTheme(): 'light' | 'dark' {
 
 function getStoredTheme(): Theme {
   if (typeof window === 'undefined') return 'system'
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (stored === 'light' || stored === 'dark' || stored === 'system') return stored
+  try {
+    const stored = window.localStorage?.getItem(STORAGE_KEY)
+    if (stored === 'light' || stored === 'dark' || stored === 'system') return stored
+  } catch {
+    // Storage can be unavailable in privacy-restricted browser contexts.
+  }
   return 'system'
+}
+
+function storeTheme(theme: Theme): void {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage?.setItem(STORAGE_KEY, theme)
+  } catch {
+    // Theme switching should still work for the current page without storage.
+  }
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -51,7 +64,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme)
-    localStorage.setItem(STORAGE_KEY, newTheme)
+    storeTheme(newTheme)
   }, [])
 
   return (

@@ -5,8 +5,5 @@ import java.util.UUID;
 public record SubmitExamAnswerResponse(
     UUID answerId,
     UUID questionId,
-    String userAnswer,
-    Boolean isCorrect,
-    String correctAnswer,
-    String explanation
+    String userAnswer
 ) {}

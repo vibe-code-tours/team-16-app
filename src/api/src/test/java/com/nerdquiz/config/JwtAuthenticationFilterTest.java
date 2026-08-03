@@ -80,6 +80,7 @@ class JwtAuthenticationFilterTest {
         UUID regularUserId = UUID.randomUUID();
         when(jwtUtil.verify("valid-user-token")).thenReturn(mockJwt);
         when(jwtUtil.extractUserId(mockJwt)).thenReturn(regularUserId.toString());
+        when(jwtUtil.extractEmail(mockJwt)).thenReturn("verified@example.com");
 
         UserProfile userProfile = new UserProfile();
         userProfile.setId(regularUserId);
@@ -95,6 +96,8 @@ class JwtAuthenticationFilterTest {
                 .map(a -> a.getAuthority()).toList();
         assertFalse(authorities.contains("ROLE_ADMIN"), "Regular user should not have ROLE_ADMIN");
         assertTrue(authorities.contains("ROLE_USER"), "Regular user should have ROLE_USER");
+        assertEquals("verified@example.com",
+                ((VerifiedJwtDetails) auth.getDetails()).email());
         verify(filterChain).doFilter(request, response);
     }
 
@@ -124,6 +127,27 @@ class JwtAuthenticationFilterTest {
                 "Response should contain deactivation detail: " + body);
         assertNull(SecurityContextHolder.getContext().getAuthentication(),
                 "SecurityContext should be empty for deactivated user");
+        verify(filterChain, never()).doFilter(any(), any());
+    }
+
+    @Test
+    void doFilterInternal_LegacyDeactivatedRole_RejectedWith401() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("Authorization", "Bearer valid-token");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        var jwt = mock(com.nimbusds.jwt.SignedJWT.class);
+        UUID userId = UUID.randomUUID();
+        when(jwtUtil.verify("valid-token")).thenReturn(jwt);
+        when(jwtUtil.extractUserId(jwt)).thenReturn(userId.toString());
+        UserProfile profile = new UserProfile();
+        profile.setRole("deactivated");
+        profile.setIsActive(true);
+        when(userProfileRepository.findById(userId)).thenReturn(Optional.of(profile));
+
+        filter.doFilterInternal(request, response, filterChain);
+
+        assertEquals(401, response.getStatus());
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
         verify(filterChain, never()).doFilter(any(), any());
     }
 

@@ -5,6 +5,7 @@ import com.nerdquiz.config.JwtUtil;
 import com.nerdquiz.dto.*;
 import com.nerdquiz.repository.UserProfileRepository;
 import com.nerdquiz.service.ExamService;
+import com.nerdquiz.exception.DuplicateExamAnswerException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,12 +60,11 @@ class ExamControllerTest {
         UUID questionId = UUID.randomUUID();
         StartExamResponse response = new StartExamResponse(
             UUID.randomUUID(),
-            List.of(new QuestionResponse(
-                questionId, null, "2021-april", "A", 1,
-                "What is 2+2?",
+            List.of(new ExamQuestionResponse(
+                questionId, 1, "What is 2+2?",
                 objectMapper.readTree("[]"),
                 objectMapper.readTree("[{\"label\":\"a\",\"text\":\"3\"},{\"label\":\"b\",\"text\":\"4\"}]"),
-                "b", null, "easy"
+                "easy", true
             )),
             60,
             Instant.now().plus(60, ChronoUnit.MINUTES)
@@ -97,7 +97,7 @@ class ExamControllerTest {
     void submitAnswer_ReturnsAnswerResult() throws Exception {
         UUID questionId = UUID.randomUUID();
         SubmitExamAnswerResponse response = new SubmitExamAnswerResponse(
-            UUID.randomUUID(), questionId, "b", true, "b", "2 + 2 = 4"
+            UUID.randomUUID(), questionId, "b"
         );
         when(examService.submitAnswer(any(UUID.class), any(UUID.class), any(SubmitExamAnswerRequest.class)))
                 .thenReturn(response);
@@ -107,14 +107,16 @@ class ExamControllerTest {
                         .contentType("application/json")
                         .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"b\",\"responseTimeMs\":5000}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.isCorrect").value(true));
+                .andExpect(jsonPath("$.userAnswer").value("b"))
+                .andExpect(jsonPath("$.isCorrect").doesNotExist())
+                .andExpect(jsonPath("$.correctAnswer").doesNotExist());
     }
 
     @Test
     void submitAnswer_WrongAnswer_ReturnsIncorrect() throws Exception {
         UUID questionId = UUID.randomUUID();
         SubmitExamAnswerResponse response = new SubmitExamAnswerResponse(
-            UUID.randomUUID(), questionId, "a", false, "b", "2 + 2 = 4"
+            UUID.randomUUID(), questionId, "a"
         );
         when(examService.submitAnswer(any(UUID.class), any(UUID.class), any(SubmitExamAnswerRequest.class)))
                 .thenReturn(response);
@@ -124,8 +126,7 @@ class ExamControllerTest {
                         .contentType("application/json")
                         .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"a\",\"responseTimeMs\":3000}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.isCorrect").value(false))
-                .andExpect(jsonPath("$.correctAnswer").value("b"));
+                .andExpect(jsonPath("$.correctAnswer").doesNotExist());
     }
 
     @Test
@@ -135,6 +136,20 @@ class ExamControllerTest {
                         .contentType("application/json")
                         .content("{}"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void submitAnswer_Duplicate_ReturnsConflict() throws Exception {
+        UUID questionId = UUID.randomUUID();
+        when(examService.submitAnswer(any(UUID.class), any(UUID.class), any(SubmitExamAnswerRequest.class)))
+                .thenThrow(new DuplicateExamAnswerException());
+
+        mockMvc.perform(post("/api/v1/exams/" + UUID.randomUUID() + "/answers")
+                        .principal(authenticatedUser())
+                        .contentType("application/json")
+                        .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"b\",\"responseTimeMs\":1}"))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.title").value("Duplicate Exam Answer"));
     }
 
     @Test

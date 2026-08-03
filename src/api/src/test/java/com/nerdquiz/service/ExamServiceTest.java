@@ -2,6 +2,9 @@ package com.nerdquiz.service;
 
 import com.nerdquiz.dto.*;
 import com.nerdquiz.exception.ExamSessionNotFoundException;
+import com.nerdquiz.exception.DuplicateExamAnswerException;
+import com.nerdquiz.exception.ExamQuestionSequenceMismatchException;
+import com.nerdquiz.exception.ExamSessionStateException;
 import com.nerdquiz.exception.UnauthorizedQuizAccessException;
 import com.nerdquiz.model.ExamAnswer;
 import com.nerdquiz.model.ExamSession;
@@ -65,6 +68,7 @@ class ExamServiceTest {
         sampleSession.setUserId(userId);
         sampleSession.setTotalQuestions(1);
         sampleSession.setTimeLimitMinutes(60);
+        sampleSession.setStartedAt(Instant.now());
         sampleSession.setExpiresAt(Instant.now().plus(60, ChronoUnit.MINUTES));
         sampleSession.setStatus("in_progress");
 
@@ -84,10 +88,8 @@ class ExamServiceTest {
     void startExam_CreatesSessionAndReturnsQuestions() {
         when(questionRepository.findUsableExamQuestionsAll(60))
                 .thenReturn(List.of(sampleQuestion));
-        when(questionService.toResponse(sampleQuestion)).thenReturn(new QuestionResponse(
-                sampleQuestion.getId(), null, "2021-april", "A", 1,
-                "What is 2 + 2?", null, null, "b", null, "easy"
-        ));
+        when(questionService.toExamResponse(sampleQuestion)).thenReturn(new ExamQuestionResponse(
+                sampleQuestion.getId(), 1, "What is 2 + 2?", null, null, "easy", true));
         when(examSessionRepository.save(any(ExamSession.class)))
                 .thenAnswer(invocation -> {
                     ExamSession s = invocation.getArgument(0);
@@ -111,10 +113,8 @@ class ExamServiceTest {
     void startExam_WithDifficultyFiltersQuestions() {
         when(questionRepository.findUsableExamQuestionsByDifficulty(10, "easy"))
                 .thenReturn(List.of(sampleQuestion));
-        when(questionService.toResponse(sampleQuestion)).thenReturn(new QuestionResponse(
-                sampleQuestion.getId(), null, "2021-april", "A", 1,
-                "What is 2 + 2?", null, null, "b", null, "easy"
-        ));
+        when(questionService.toExamResponse(sampleQuestion)).thenReturn(new ExamQuestionResponse(
+                sampleQuestion.getId(), 1, "What is 2 + 2?", null, null, "easy", true));
         when(examSessionRepository.save(any(ExamSession.class)))
                 .thenAnswer(invocation -> {
                     ExamSession s = invocation.getArgument(0);
@@ -141,43 +141,45 @@ class ExamServiceTest {
     }
 
     @Test
-    void submitAnswer_CorrectAnswer_ReturnsCorrect() {
+    void submitAnswer_CorrectAnswer_DoesNotRevealCorrectness() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
-        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(true);
+        when(examSessionQuestionRepository.findIssuedQuestion(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamSessionQuestion(sessionId, sampleQuestion.getId(), 1)));
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
         when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(Optional.of(new ExamAnswer()));
-        when(examAnswerRepository.save(any(ExamAnswer.class)))
+                .thenReturn(Optional.empty());
+        when(examAnswerRepository.findFirstByExamSessionIdOrderByAnsweredAtDesc(sessionId)).thenReturn(Optional.empty());
+        when(examAnswerRepository.saveAndFlush(any(ExamAnswer.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 1, "b", 5000);
 
         SubmitExamAnswerResponse result = examService.submitAnswer(userId, sessionId, request);
 
-        assertTrue(result.isCorrect());
+        assertEquals("b", result.userAnswer());
     }
 
     @Test
-    void submitAnswer_WrongAnswer_ReturnsIncorrect() {
+    void submitAnswer_WrongAnswer_DoesNotRevealCorrectAnswer() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
-        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(true);
+        when(examSessionQuestionRepository.findIssuedQuestion(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamSessionQuestion(sessionId, sampleQuestion.getId(), 1)));
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
         when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(Optional.of(new ExamAnswer()));
-        when(examAnswerRepository.save(any(ExamAnswer.class)))
+                .thenReturn(Optional.empty());
+        when(examAnswerRepository.findFirstByExamSessionIdOrderByAnsweredAtDesc(sessionId)).thenReturn(Optional.empty());
+        when(examAnswerRepository.saveAndFlush(any(ExamAnswer.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 1, "a", 3000);
 
         SubmitExamAnswerResponse result = examService.submitAnswer(userId, sessionId, request);
 
-        assertFalse(result.isCorrect());
+        assertEquals("a", result.userAnswer());
     }
 
     @Test
@@ -213,15 +215,50 @@ class ExamServiceTest {
 
         SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 1, "a", 3000);
 
-        assertThrows(IllegalArgumentException.class, () -> examService.submitAnswer(userId, sessionId, request));
+        assertThrows(ExamSessionStateException.class, () -> examService.submitAnswer(userId, sessionId, request));
+    }
+
+    @Test
+    void submitAnswer_DuplicateAnswer_IsRejected() {
+        when(examSessionRepository.findById(sessionId)).thenReturn(Optional.of(sampleSession));
+        when(examSessionQuestionRepository.findIssuedQuestion(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamSessionQuestion(sessionId, sampleQuestion.getId(), 1)));
+        when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamAnswer()));
+
+        SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 1, "a", 1);
+
+        assertThrows(DuplicateExamAnswerException.class,
+                () -> examService.submitAnswer(userId, sessionId, request));
+        verify(examAnswerRepository, never()).saveAndFlush(any());
+    }
+
+    @Test
+    void submitAnswer_ForgedSequence_IsRejected() {
+        when(examSessionRepository.findById(sessionId)).thenReturn(Optional.of(sampleSession));
+        when(examSessionQuestionRepository.findIssuedQuestion(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamSessionQuestion(sessionId, sampleQuestion.getId(), 1)));
+
+        SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 2, "a", 1);
+
+        assertThrows(ExamQuestionSequenceMismatchException.class,
+                () -> examService.submitAnswer(userId, sessionId, request));
+    }
+
+    @Test
+    void getResult_InProgress_DoesNotRevealAnswerKey() {
+        when(examSessionRepository.findById(sessionId)).thenReturn(Optional.of(sampleSession));
+
+        assertThrows(ExamSessionStateException.class, () -> examService.getResult(userId, sessionId));
+        verify(questionRepository, never()).findById(any());
     }
 
     @Test
     void submitAnswer_QuestionNotFound_ThrowsException() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
-        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(true);
+        when(examSessionQuestionRepository.findIssuedQuestion(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamSessionQuestion(sessionId, sampleQuestion.getId(), 1)));
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.empty());
 

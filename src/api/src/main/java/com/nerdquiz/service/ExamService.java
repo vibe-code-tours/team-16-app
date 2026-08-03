@@ -1,10 +1,7 @@
 package com.nerdquiz.service;
 
 import com.nerdquiz.dto.*;
-import com.nerdquiz.exception.ExamSessionNotFoundException;
-import com.nerdquiz.exception.NoQuestionsAvailableException;
-import com.nerdquiz.exception.QuestionNotFoundException;
-import com.nerdquiz.exception.UnauthorizedQuizAccessException;
+import com.nerdquiz.exception.*;
 import com.nerdquiz.model.ExamAnswer;
 import com.nerdquiz.model.ExamSession;
 import com.nerdquiz.model.ExamSessionQuestion;
@@ -15,10 +12,12 @@ import com.nerdquiz.repository.ExamSessionRepository;
 import com.nerdquiz.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -88,7 +87,7 @@ public class ExamService {
 
         return new StartExamResponse(
                 savedSession.getId(),
-                questions.stream().map(questionService::toResponse).toList(),
+                questions.stream().map(questionService::toExamResponse).toList(),
                 savedSession.getTimeLimitMinutes(),
                 savedSession.getExpiresAt()
         );
@@ -98,7 +97,7 @@ public class ExamService {
     public SubmitExamAnswerResponse submitAnswer(UUID userId, UUID sessionId, SubmitExamAnswerRequest request) {
         ExamSession session = getOwnedSession(userId, sessionId);
         if (!"in_progress".equals(session.getStatus())) {
-            throw new IllegalArgumentException("Exam session is already finished");
+            throw new ExamSessionStateException("Exam session is already finished");
         }
 
         // Enforce time limit — reject answers after expires_at
@@ -106,36 +105,49 @@ public class ExamService {
             session.setStatus("expired");
             session.setCompletedAt(Instant.now());
             examSessionRepository.save(session);
-            throw new IllegalArgumentException("Exam session has expired");
+            throw new ExamSessionExpiredException();
         }
 
-        // Validate that the question was issued for this session
-        if (!examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, request.questionId())) {
-            throw new IllegalArgumentException("Question does not belong to this exam session");
+        ExamSessionQuestion issuedQuestion = examSessionQuestionRepository
+                .findIssuedQuestion(sessionId, request.questionId())
+                .orElseThrow(QuestionNotInExamSessionException::new);
+        if (!issuedQuestion.getSequenceNumber().equals(request.sequenceNumber())) {
+            throw new ExamQuestionSequenceMismatchException();
+        }
+        if (examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, request.questionId()).isPresent()) {
+            throw new DuplicateExamAnswerException();
         }
 
         Question question = questionRepository.findById(request.questionId())
                 .orElseThrow(QuestionNotFoundException::new);
         boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(request.answer());
 
-        ExamAnswer answer = examAnswerRepository
-                .findByExamSessionIdAndQuestionId(sessionId, request.questionId())
-                .orElseGet(ExamAnswer::new);
+        Instant answeredAt = Instant.now();
+        Instant previousEventAt = examAnswerRepository
+                .findFirstByExamSessionIdOrderByAnsweredAtDesc(sessionId)
+                .map(ExamAnswer::getAnsweredAt)
+                .orElse(session.getStartedAt());
+        long responseTimeMs = Math.max(0, Duration.between(previousEventAt, answeredAt).toMillis());
+
+        ExamAnswer answer = new ExamAnswer();
         answer.setExamSessionId(sessionId);
         answer.setQuestionId(request.questionId());
-        answer.setSequenceNumber(request.sequenceNumber());
+        answer.setSequenceNumber(issuedQuestion.getSequenceNumber());
         answer.setUserAnswer(request.answer());
         answer.setIsCorrect(isCorrect);
-        answer.setResponseTimeMs(request.responseTimeMs());
-        ExamAnswer savedAnswer = examAnswerRepository.save(answer);
+        answer.setResponseTimeMs((int) Math.min(responseTimeMs, Integer.MAX_VALUE));
+        answer.setAnsweredAt(answeredAt);
+        ExamAnswer savedAnswer;
+        try {
+            savedAnswer = examAnswerRepository.saveAndFlush(answer);
+        } catch (DataIntegrityViolationException ex) {
+            throw new DuplicateExamAnswerException();
+        }
 
         return new SubmitExamAnswerResponse(
                 savedAnswer.getId(),
                 savedAnswer.getQuestionId(),
-                savedAnswer.getUserAnswer(),
-                savedAnswer.getIsCorrect(),
-                question.getCorrectAnswer(),
-                question.getExplanation()
+                savedAnswer.getUserAnswer()
         );
     }
 
@@ -179,6 +191,9 @@ public class ExamService {
     @Transactional(readOnly = true)
     public ExamResultResponse getResult(UUID userId, UUID sessionId) {
         ExamSession session = getOwnedSession(userId, sessionId);
+        if ("in_progress".equals(session.getStatus())) {
+            throw new ExamSessionStateException("Exam results are unavailable until the exam is finished");
+        }
 
         int correctAnswers = (int) examAnswerRepository.countByExamSessionIdAndIsCorrectTrue(sessionId);
         BigDecimal scorePercentage = calculateScorePercentage(correctAnswers, session.getTotalQuestions());
