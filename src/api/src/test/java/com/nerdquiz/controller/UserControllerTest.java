@@ -52,4 +52,12 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.streakCount").value(3));
     }
+
+    @Test
+    void incrementXp_ClientControlledEndpointDoesNotExist() throws Exception {
+        mockMvc.perform(post("/api/v1/me/xp")
+                        .contentType("application/json")
+                        .content("{\"delta\":1000000}"))
+                .andExpect(status().isNotFound());
+    }
 }
