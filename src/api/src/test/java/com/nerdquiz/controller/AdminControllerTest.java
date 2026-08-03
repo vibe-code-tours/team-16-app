@@ -120,6 +120,15 @@ class AdminControllerTest {
     }
 
     @Test
+    void getUsers_InvalidPagination_ReturnsBadRequest() throws Exception {
+        mockMvc.perform(get("/api/v1/admin/users")
+                        .principal(authenticatedUser())
+                        .param("page", "0")
+                        .param("pageSize", "101"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void getUserDetail_ReturnsOk() throws Exception {
         UUID targetId = UUID.randomUUID();
         AdminUserDetailResponse response = new AdminUserDetailResponse(
