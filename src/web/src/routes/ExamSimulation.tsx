@@ -56,7 +56,7 @@ export default function ExamSimulation() {
 
   // Full page layout wrapper — used for all states
   const PageWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen">
       {children}
     </div>
   )

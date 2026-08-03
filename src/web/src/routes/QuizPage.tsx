@@ -116,7 +116,7 @@ export function QuizPage() {
 
   if (!started) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+      <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
         <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
           <div className="mb-4 text-5xl">📝</div>
           <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Quiz Practice</h2>
@@ -145,7 +145,7 @@ export function QuizPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-purple-600" />
       </div>
     )
@@ -153,7 +153,7 @@ export function QuizPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+      <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
         <div className="max-w-md rounded-xl border border-red-200 bg-red-50 p-6 text-center text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
           Couldn't load quiz: {error}
         </div>
@@ -163,7 +163,7 @@ export function QuizPage() {
 
   if (questions.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+      <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
         <div className="max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center dark:border-gray-700 dark:bg-gray-800">
           <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">No quiz available yet</h2>
           <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
@@ -183,7 +183,7 @@ export function QuizPage() {
   const isCorrect = isAnswered && selectedLabel === currentQuestion.correct_answer
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen">
       <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <button
