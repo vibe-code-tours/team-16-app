@@ -532,6 +532,24 @@ class AdminServiceTest {
                 () -> adminService.deactivateUser(adminId, targetUserId));
     }
 
+    @Test
+    void exportUsers_NeutralizesAndQuotesEveryCsvCell() {
+        mockAdminRole();
+        AdminUserSummaryResponse spreadsheetPayload = new AdminUserSummaryResponse(
+                targetUserId, " =HYPERLINK(\"https://invalid.test\")", "=1+1@example.com", null,
+                "user", "active", 10, 2, null, null);
+        doReturn(List.of(spreadsheetPayload)).when(jdbcTemplate).query(
+                argThat(sql -> sql.contains("ORDER BY up.created_at DESC")),
+                any(RowMapper.class),
+                any(Object[].class));
+
+        String csv = adminService.exportUsers(adminId, null, null, null);
+
+        assertTrue(csv.contains("\"' =HYPERLINK(\"\"https://invalid.test\"\")\""));
+        assertTrue(csv.contains("\"'=1+1@example.com\""));
+        assertTrue(csv.contains("\"user\",\"active\",\"10\",\"2\""));
+    }
+
     // ========== Reset streak ==========
 
     @Test
