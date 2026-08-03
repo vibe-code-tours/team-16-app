@@ -504,7 +504,7 @@ class AdminServiceTest {
     void deactivateUser_RegularUser_SetsDeactivated() {
         mockAdminRole();
         doReturn(1).when(jdbcTemplate).update(
-                argThat(sql -> sql.contains("role = 'deactivated'")),
+                argThat(sql -> sql.contains("role = 'deactivated'") && sql.contains("is_active = false")),
                 eq(targetUserId));
 
         assertDoesNotThrow(() -> adminService.deactivateUser(adminId, targetUserId));
@@ -514,7 +514,7 @@ class AdminServiceTest {
     void deactivateUser_Admin_ThrowsNotFound() {
         mockAdminRole();
         doReturn(0).when(jdbcTemplate).update(
-                argThat(sql -> sql.contains("role = 'deactivated'")),
+                argThat(sql -> sql.contains("role = 'deactivated'") && sql.contains("is_active = false")),
                 eq(targetUserId));
 
         assertThrows(UserProfileNotFoundException.class,
@@ -525,7 +525,7 @@ class AdminServiceTest {
     void deactivateUser_NonexistentUser_ThrowsNotFound() {
         mockAdminRole();
         doReturn(0).when(jdbcTemplate).update(
-                argThat(sql -> sql.contains("role = 'deactivated'")),
+                argThat(sql -> sql.contains("role = 'deactivated'") && sql.contains("is_active = false")),
                 eq(targetUserId));
 
         assertThrows(UserProfileNotFoundException.class,
