@@ -2,11 +2,12 @@ import { useState, useCallback, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
+import { Button } from '../components/ui/Button'
 
 export function TopicDetail() {
   const { topicId } = useParams<{ topicId: string }>()
   const navigate = useNavigate()
-  const { lessons, progress, loading, error, completeLesson } = useLessons(topicId)
+  const { lessons, progress, loading, error, completeLesson, refetch } = useLessons(topicId)
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null)
 
   const selectedLesson = lessons.find((l) => l.id === selectedLessonId)
@@ -59,7 +60,12 @@ export function TopicDetail() {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-red-500">Error: {error}</div>
+        <div className="text-center">
+          <div className="text-red-500 mb-4">Error: {error}</div>
+          <Button onClick={refetch} variant="outline" size="sm">
+            Retry
+          </Button>
+        </div>
       </div>
     )
   }

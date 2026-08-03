@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
-import { Button } from '../components/ui/Button'
 import type { QuizQuestion } from '../types'
 
 interface QuizSessionFromApi {
@@ -126,12 +125,18 @@ export function QuizPage() {
           </p>
 
           <div className="space-y-3">
-            <Button onClick={() => setStarted(true)} size="lg" className="w-full">
+            <button
+              onClick={() => setStarted(true)}
+              className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+            >
               Start Quiz
-            </Button>
-            <Button variant="outline" onClick={() => navigate('/map')} className="w-full">
+            </button>
+            <button
+              onClick={() => navigate('/map')}
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
               Back to Map
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -164,9 +169,12 @@ export function QuizPage() {
           <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
             We don't have any practice questions for this subtopic yet. Try another topic on the map.
           </p>
-          <Button onClick={() => navigate('/map')}>
+          <button
+            onClick={() => navigate('/map')}
+            className="rounded-lg bg-purple-600 px-4 py-2 font-medium text-white hover:bg-purple-700"
+          >
             Back to Map
-          </Button>
+          </button>
         </div>
       </div>
     )
@@ -255,13 +263,20 @@ export function QuizPage() {
 
         <div className="flex justify-end">
           {!isAnswered ? (
-            <Button onClick={handleCheck} disabled={!selectedLabel}>
+            <button
+              onClick={handleCheck}
+              disabled={!selectedLabel}
+              className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
               Check answer
-            </Button>
+            </button>
           ) : (
-            <Button onClick={handleNext}>
+            <button
+              onClick={handleNext}
+              className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+            >
               {isLastQuestion ? 'See results' : 'Next question'}
-            </Button>
+            </button>
           )}
         </div>
       </div>
