@@ -6,9 +6,10 @@ import { ThemeToggle } from '../ui/ThemeToggle'
 interface HeaderProps {
   onMenuToggle: () => void
   showSidebar?: boolean
+  sidebarOpen?: boolean
 }
 
-export function Header({ onMenuToggle, showSidebar = true }: HeaderProps) {
+export function Header({ onMenuToggle, showSidebar = true, sidebarOpen = false }: HeaderProps) {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -79,7 +80,7 @@ export function Header({ onMenuToggle, showSidebar = true }: HeaderProps) {
           <button
             onClick={onMenuToggle}
             aria-label="Toggle navigation menu"
-            aria-expanded="false"
+            aria-expanded={sidebarOpen}
             aria-haspopup="true"
             className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 lg:hidden"
           >
