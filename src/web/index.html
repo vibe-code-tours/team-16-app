@@ -7,12 +7,32 @@
     <meta name="theme-color" content="#7c3aed" />
     <meta name="description" content="NerdQuiz - Gamified IT exam prep for ITPEC FE certification" />
     <title>NerdQuiz - IT Exam Prep</title>
+    <script>
+      (function () {
+        var theme = 'system';
+        try {
+          theme = localStorage.getItem('nerdquiz-theme') || 'system';
+        } catch (_) {
+          // Storage can be unavailable in privacy-restricted browsing contexts.
+        }
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (theme === 'system' && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <style>
+      .app-loading { background: #f9fafb; color: #7c3aed; }
+      .app-loading-spinner { border-color: #ddd6fe; border-top-color: #7c3aed; }
+      .dark .app-loading { background: #0f0a1e; color: #a78bfa; }
+      .dark .app-loading-spinner { border-color: #312e81; border-top-color: #7c3aed; }
+    </style>
   </head>
   <body>
     <div id="root">
-      <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0f0a1e;color:#a78bfa;font-family:system-ui,sans-serif">
+      <div class="app-loading" style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:system-ui,sans-serif">
         <div style="text-align:center">
-          <div style="width:48px;height:48px;border:4px solid #312e81;border-top-color:#7c3aed;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px"></div>
+          <div class="app-loading-spinner" style="width:48px;height:48px;border-width:4px;border-style:solid;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px"></div>
           <p>Loading NerdQuiz...</p>
         </div>
       </div>
