@@ -1,7 +1,9 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { BookOpen } from 'lucide-react'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
+import { EmptyState } from '../components/ui/EmptyState'
 import { Button } from '../components/ui/Button'
 
 export function TopicDetail() {
@@ -81,12 +83,11 @@ export function TopicDetail() {
         </button>
 
         {lessons.length === 0 ? (
-          <div className="text-center py-12">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">No Lessons Yet</h2>
-            <p className="text-gray-500 dark:text-gray-400">
-              Lessons for this topic are coming soon. Check back later!
-            </p>
-          </div>
+          <EmptyState
+            icon={<BookOpen className="size-8 text-gray-400" />}
+            title="No Lessons Yet"
+            description="Lessons for this topic are coming soon. Check back later!"
+          />
         ) : selectedLesson ? (
           <div>
             <LessonContent
