@@ -20,6 +20,8 @@ import java.util.UUID;
 @Service
 public class AdminService {
 
+    private static final int MAX_PAGE_SIZE = 100;
+
     private static final Logger log = LoggerFactory.getLogger(AdminService.class);
 
     private final JdbcTemplate jdbcTemplate;
@@ -156,10 +158,17 @@ public class AdminService {
     ) {
         verifyAdminRole(adminId);
 
+        if (page < 1) {
+            throw new IllegalArgumentException("Page must be at least 1");
+        }
+        if (pageSize < 1 || pageSize > MAX_PAGE_SIZE) {
+            throw new IllegalArgumentException("Page size must be between 1 and " + MAX_PAGE_SIZE);
+        }
+
         String whereClause = buildUserWhereClause(search, role, filter);
         String sortColumn = sanitizeSortColumn(sort);
         String sortOrder = "desc".equalsIgnoreCase(order) ? "DESC" : "ASC";
-        int offset = (page - 1) * pageSize;
+        int offset = Math.multiplyExact(page - 1, pageSize);
 
         long total = jdbcTemplate.queryForObject(
             "SELECT COUNT(*) FROM user_profiles up " + whereClause,

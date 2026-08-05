@@ -262,6 +262,26 @@ class AdminServiceTest {
     }
 
     @Test
+    void getUsers_InvalidPage_RejectsBeforeQueryingUsers() {
+        mockAdminRole();
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> adminService.getUsers(adminId, null, null, null, null, null, 0, 25));
+
+        assertEquals("Page must be at least 1", exception.getMessage());
+    }
+
+    @Test
+    void getUsers_OversizedPage_RejectsBeforeQueryingUsers() {
+        mockAdminRole();
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> adminService.getUsers(adminId, null, null, null, null, null, 1, 101));
+
+        assertEquals("Page size must be between 1 and 100", exception.getMessage());
+    }
+
+    @Test
     void getUsers_WithSearch_AddsILIKE() {
         mockAdminRole();
 
