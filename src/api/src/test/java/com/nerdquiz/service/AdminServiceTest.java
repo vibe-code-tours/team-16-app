@@ -262,6 +262,26 @@ class AdminServiceTest {
     }
 
     @Test
+    void getUsers_InvalidPage_RejectsBeforeQueryingUsers() {
+        mockAdminRole();
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> adminService.getUsers(adminId, null, null, null, null, null, 0, 25));
+
+        assertEquals("Page must be at least 1", exception.getMessage());
+    }
+
+    @Test
+    void getUsers_OversizedPage_RejectsBeforeQueryingUsers() {
+        mockAdminRole();
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> adminService.getUsers(adminId, null, null, null, null, null, 1, 101));
+
+        assertEquals("Page size must be between 1 and 100", exception.getMessage());
+    }
+
+    @Test
     void getUsers_WithSearch_AddsILIKE() {
         mockAdminRole();
 
@@ -504,7 +524,7 @@ class AdminServiceTest {
     void deactivateUser_RegularUser_SetsDeactivated() {
         mockAdminRole();
         doReturn(1).when(jdbcTemplate).update(
-                argThat(sql -> sql.contains("role = 'deactivated'")),
+                argThat(sql -> sql.contains("role = 'deactivated'") && sql.contains("is_active = false")),
                 eq(targetUserId));
 
         assertDoesNotThrow(() -> adminService.deactivateUser(adminId, targetUserId));
@@ -514,7 +534,7 @@ class AdminServiceTest {
     void deactivateUser_Admin_ThrowsNotFound() {
         mockAdminRole();
         doReturn(0).when(jdbcTemplate).update(
-                argThat(sql -> sql.contains("role = 'deactivated'")),
+                argThat(sql -> sql.contains("role = 'deactivated'") && sql.contains("is_active = false")),
                 eq(targetUserId));
 
         assertThrows(UserProfileNotFoundException.class,
@@ -525,11 +545,29 @@ class AdminServiceTest {
     void deactivateUser_NonexistentUser_ThrowsNotFound() {
         mockAdminRole();
         doReturn(0).when(jdbcTemplate).update(
-                argThat(sql -> sql.contains("role = 'deactivated'")),
+                argThat(sql -> sql.contains("role = 'deactivated'") && sql.contains("is_active = false")),
                 eq(targetUserId));
 
         assertThrows(UserProfileNotFoundException.class,
                 () -> adminService.deactivateUser(adminId, targetUserId));
+    }
+
+    @Test
+    void exportUsers_NeutralizesAndQuotesEveryCsvCell() {
+        mockAdminRole();
+        AdminUserSummaryResponse spreadsheetPayload = new AdminUserSummaryResponse(
+                targetUserId, " =HYPERLINK(\"https://invalid.test\")", "=1+1@example.com", null,
+                "user", "active", 10, 2, null, null);
+        doReturn(List.of(spreadsheetPayload)).when(jdbcTemplate).query(
+                argThat(sql -> sql.contains("ORDER BY up.created_at DESC")),
+                any(RowMapper.class),
+                any(Object[].class));
+
+        String csv = adminService.exportUsers(adminId, null, null, null);
+
+        assertTrue(csv.contains("\"' =HYPERLINK(\"\"https://invalid.test\"\")\""));
+        assertTrue(csv.contains("\"'=1+1@example.com\""));
+        assertTrue(csv.contains("\"user\",\"active\",\"10\",\"2\""));
     }
 
     // ========== Reset streak ==========

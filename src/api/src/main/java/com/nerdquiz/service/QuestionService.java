@@ -1,10 +1,12 @@
 package com.nerdquiz.service;
 
 import com.nerdquiz.dto.QuestionResponse;
+import com.nerdquiz.dto.ExamQuestionResponse;
 import com.nerdquiz.model.Question;
 import com.nerdquiz.repository.QuestionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,8 +69,24 @@ public class QuestionService {
                 question.getExplanation(),
                 question.getDifficulty()
             );
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to parse question JSON", e);
+        }
+    }
+
+    public ExamQuestionResponse toExamResponse(Question question) {
+        try {
+            return new ExamQuestionResponse(
+                question.getId(),
+                question.getQuestionNumber(),
+                question.getQuestionText(),
+                objectMapper.readTree(question.getImages() != null ? question.getImages() : "[]"),
+                objectMapper.readTree(question.getChoices()),
+                question.getDifficulty(),
+                true
+            );
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to parse exam question JSON", e);
         }
     }
 }

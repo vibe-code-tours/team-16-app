@@ -36,6 +36,7 @@ interface UseLessonsResult {
   loading: boolean
   error: string | null
   completeLesson: (lessonId: string) => Promise<void>
+  refetch: () => void
 }
 
 export function useLessons(subtopicId: string | undefined): UseLessonsResult {
@@ -44,6 +45,11 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
   const [progress, setProgress] = useState<LessonProgress[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [fetchTrigger, setFetchTrigger] = useState(0)
+
+  const refetch = useCallback(() => {
+    setFetchTrigger((prev) => prev + 1)
+  }, [])
 
   useEffect(() => {
     if (!subtopicId) {
@@ -82,7 +88,7 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
     return () => {
       cancelled = true
     }
-  }, [subtopicId, user?.id])
+  }, [subtopicId, user?.id, fetchTrigger])
 
   const completeLesson = useCallback(async (lessonId: string) => {
     if (!user?.id) return
@@ -108,5 +114,5 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
     }
   }, [user?.id])
 
-  return { lessons, progress, loading, error, completeLesson }
+  return { lessons, progress, loading, error, completeLesson, refetch }
 }

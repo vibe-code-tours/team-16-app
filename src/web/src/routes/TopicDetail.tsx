@@ -1,12 +1,15 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { BookOpen } from 'lucide-react'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
+import { EmptyState } from '../components/ui/EmptyState'
+import { Button } from '../components/ui/Button'
 
 export function TopicDetail() {
   const { topicId } = useParams<{ topicId: string }>()
   const navigate = useNavigate()
-  const { lessons, progress, loading, error, completeLesson } = useLessons(topicId)
+  const { lessons, progress, loading, error, completeLesson, refetch } = useLessons(topicId)
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null)
 
   const selectedLesson = lessons.find((l) => l.id === selectedLessonId)
@@ -18,6 +21,16 @@ export function TopicDetail() {
   }
 
   const allLessonsCompleted = lessons.length > 0 && lessons.every((l) => getLessonStatus(l.id) === 'completed')
+
+  // Compute next unlocked lesson once for both navigation and title
+  const nextUnlockedLesson = useMemo(() => {
+    if (!selectedLesson) return null
+    const currentIndex = lessons.findIndex((l) => l.id === selectedLesson.id)
+    return lessons.slice(currentIndex + 1).find((l) => {
+      const status = getLessonStatus(l.id)
+      return status === 'unlocked' || status === 'in_progress'
+    }) ?? null
+  }, [selectedLesson, lessons, progress])
 
   const handleCompleteLesson = useCallback(async (lessonId: string) => {
     await completeLesson(lessonId)
@@ -49,7 +62,12 @@ export function TopicDetail() {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-red-500">Error: {error}</div>
+        <div className="text-center">
+          <div className="text-red-500 mb-4">Error: {error}</div>
+          <Button onClick={refetch} variant="outline" size="sm">
+            Retry
+          </Button>
+        </div>
       </div>
     )
   }
@@ -65,18 +83,21 @@ export function TopicDetail() {
         </button>
 
         {lessons.length === 0 ? (
-          <div className="text-center py-12">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">No Lessons Yet</h2>
-            <p className="text-gray-500 dark:text-gray-400">
-              Lessons for this topic are coming soon. Check back later!
-            </p>
-          </div>
+          <EmptyState
+            icon={<BookOpen className="size-8 text-gray-400" />}
+            title="No Lessons Yet"
+            description="Lessons for this topic are coming soon. Check back later!"
+          />
         ) : selectedLesson ? (
           <div>
             <LessonContent
               lesson={selectedLesson}
               onComplete={() => handleCompleteLesson(selectedLesson.id)}
               isCompleted={selectedProgress?.status === 'completed'}
+              onNextLesson={() => {
+                if (nextUnlockedLesson) setSelectedLessonId(nextUnlockedLesson.id)
+              }}
+              nextLessonTitle={nextUnlockedLesson?.title}
             />
           </div>
         ) : (

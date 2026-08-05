@@ -1,63 +1,74 @@
 import { useState, useEffect, useCallback, createContext, useContext, type ReactNode } from 'react'
 
-type Theme = 'light' | 'dark'
+export type Theme = 'light' | 'dark' | 'system'
 
 interface ThemeContextType {
   theme: Theme
-  toggleTheme: () => void
+  resolvedTheme: 'light' | 'dark'
+  setTheme: (theme: Theme) => void
 }
 
 const ThemeContext = createContext<ThemeContextType | null>(null)
 
 const STORAGE_KEY = 'nerdquiz-theme'
 
-function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'light'
+function getSystemTheme(): 'light' | 'dark' {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return 'light'
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
 
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (stored === 'light' || stored === 'dark') return stored
-
-  if (typeof window.matchMedia === 'function') {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+function getStoredTheme(): Theme {
+  if (typeof window === 'undefined') return 'system'
+  try {
+    const stored = window.localStorage?.getItem(STORAGE_KEY)
+    if (stored === 'light' || stored === 'dark' || stored === 'system') return stored
+  } catch {
+    // Storage can be unavailable in privacy-restricted browser contexts.
   }
+  return 'system'
+}
 
-  return 'light'
+function storeTheme(theme: Theme): void {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage?.setItem(STORAGE_KEY, theme)
+  } catch {
+    // Theme switching should still work for the current page without storage.
+  }
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme)
+  const [theme, setThemeState] = useState<Theme>(getStoredTheme)
+  const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>(getSystemTheme)
 
+  const resolvedTheme = theme === 'system' ? systemTheme : theme
+
+  // Apply theme class to <html>
   useEffect(() => {
     const root = document.documentElement
-    if (theme === 'dark') {
+    if (resolvedTheme === 'dark') {
       root.classList.add('dark')
     } else {
       root.classList.remove('dark')
     }
-    localStorage.setItem(STORAGE_KEY, theme)
-  }, [theme])
+  }, [resolvedTheme])
 
-  // Listen for system preference changes when no explicit choice has been made
+  // Listen for OS theme changes
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) return // User has an explicit preference — don't override
-
     if (typeof window.matchMedia !== 'function') return
-
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
-    function handleChange(e: MediaQueryListEvent) {
-      setTheme(e.matches ? 'dark' : 'light')
-    }
-    mq.addEventListener('change', handleChange)
-    return () => mq.removeEventListener('change', handleChange)
+    const handler = (e: MediaQueryListEvent) => setSystemTheme(e.matches ? 'dark' : 'light')
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
   }, [])
 
-  const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
+  const setTheme = useCallback((newTheme: Theme) => {
+    setThemeState(newTheme)
+    storeTheme(newTheme)
   }, [])
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   )

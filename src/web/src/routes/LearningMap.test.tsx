@@ -47,6 +47,7 @@ describe('LearningMap', () => {
       ],
       loading: false,
       error: null,
+      refetch: vi.fn(),
     })
 
     renderLearningMap()
@@ -69,6 +70,7 @@ describe('LearningMap', () => {
       ],
       loading: false,
       error: null,
+      refetch: vi.fn(),
     })
 
     renderLearningMap()
@@ -85,6 +87,7 @@ describe('LearningMap', () => {
       ],
       loading: false,
       error: null,
+      refetch: vi.fn(),
     })
 
     renderLearningMap()
@@ -101,6 +104,7 @@ describe('LearningMap', () => {
       ],
       loading: false,
       error: null,
+      refetch: vi.fn(),
     })
 
     renderLearningMap()
@@ -111,7 +115,7 @@ describe('LearningMap', () => {
   })
 
   it('shows an accessible loading state', () => {
-    mockUseTopics.mockReturnValue({ topics: [], loading: true, error: null })
+    mockUseTopics.mockReturnValue({ topics: [], loading: true, error: null, refetch: vi.fn() })
 
     renderLearningMap()
 
@@ -121,7 +125,7 @@ describe('LearningMap', () => {
   })
 
   it('keeps the protected roadmap action visible when topic loading fails', () => {
-    mockUseTopics.mockReturnValue({ topics: [], loading: false, error: 'Network unavailable' })
+    mockUseTopics.mockReturnValue({ topics: [], loading: false, error: 'Network unavailable', refetch: vi.fn() })
 
     renderLearningMap()
 
@@ -130,7 +134,7 @@ describe('LearningMap', () => {
   })
 
   it('offers exam practice when no topics are available', () => {
-    mockUseTopics.mockReturnValue({ topics: [], loading: false, error: null })
+    mockUseTopics.mockReturnValue({ topics: [], loading: false, error: null, refetch: vi.fn() })
 
     renderLearningMap()
 

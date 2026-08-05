@@ -14,7 +14,7 @@ export function Layout({ children, showSidebar = true, showHeader = true }: Layo
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-gray-50 dark:bg-gray-900">
-      {showHeader && <Header showSidebar={showSidebar} onMenuToggle={() => setSidebarOpen((prev) => !prev)} />}
+      {showHeader && <Header showSidebar={showSidebar} sidebarOpen={sidebarOpen} onMenuToggle={() => setSidebarOpen((prev) => !prev)} />}
       <div className={`flex w-full flex-1${showHeader ? ' pt-16' : ''}`}>
         <Sidebar
           isOpen={sidebarOpen}

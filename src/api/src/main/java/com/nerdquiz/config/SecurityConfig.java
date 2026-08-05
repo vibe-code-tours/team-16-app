@@ -37,8 +37,9 @@ public class SecurityConfig {
     @Bean
     public RateLimitFilter rateLimitFilter(
             @Value("${security.rate-limit.max-requests:60}") int maxRequests,
-            @Value("${security.rate-limit.window-seconds:60}") long windowSeconds) {
-        return new RateLimitFilter(maxRequests, windowSeconds);
+            @Value("${security.rate-limit.window-seconds:60}") long windowSeconds,
+            @Value("${security.rate-limit.max-tracked-clients:10000}") int maxTrackedClients) {
+        return new RateLimitFilter(maxRequests, windowSeconds, maxTrackedClients);
     }
 
     @Bean

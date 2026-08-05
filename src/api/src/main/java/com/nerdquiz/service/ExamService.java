@@ -5,6 +5,9 @@ import com.nerdquiz.exception.ExamSessionNotFoundException;
 import com.nerdquiz.exception.NoQuestionsAvailableException;
 import com.nerdquiz.exception.QuestionNotFoundException;
 import com.nerdquiz.exception.UnauthorizedQuizAccessException;
+import com.nerdquiz.exception.ExamSessionExpiredException;
+import com.nerdquiz.exception.ExamSessionStateException;
+import com.nerdquiz.exception.QuestionNotInExamSessionException;
 import com.nerdquiz.model.ExamAnswer;
 import com.nerdquiz.model.ExamSession;
 import com.nerdquiz.model.ExamSessionQuestion;
@@ -88,7 +91,7 @@ public class ExamService {
 
         return new StartExamResponse(
                 savedSession.getId(),
-                questions.stream().map(questionService::toResponse).toList(),
+                questions.stream().map(questionService::toExamResponse).toList(),
                 savedSession.getTimeLimitMinutes(),
                 savedSession.getExpiresAt()
         );
@@ -98,7 +101,7 @@ public class ExamService {
     public SubmitExamAnswerResponse submitAnswer(UUID userId, UUID sessionId, SubmitExamAnswerRequest request) {
         ExamSession session = getOwnedSession(userId, sessionId);
         if (!"in_progress".equals(session.getStatus())) {
-            throw new IllegalArgumentException("Exam session is already finished");
+            throw new ExamSessionStateException("Exam session is already finished");
         }
 
         // Enforce time limit — reject answers after expires_at
@@ -106,12 +109,12 @@ public class ExamService {
             session.setStatus("expired");
             session.setCompletedAt(Instant.now());
             examSessionRepository.save(session);
-            throw new IllegalArgumentException("Exam session has expired");
+            throw new ExamSessionExpiredException();
         }
 
         // Validate that the question was issued for this session
         if (!examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, request.questionId())) {
-            throw new IllegalArgumentException("Question does not belong to this exam session");
+            throw new QuestionNotInExamSessionException();
         }
 
         Question question = questionRepository.findById(request.questionId())
@@ -132,10 +135,7 @@ public class ExamService {
         return new SubmitExamAnswerResponse(
                 savedAnswer.getId(),
                 savedAnswer.getQuestionId(),
-                savedAnswer.getUserAnswer(),
-                savedAnswer.getIsCorrect(),
-                question.getCorrectAnswer(),
-                question.getExplanation()
+                savedAnswer.getUserAnswer()
         );
     }
 
@@ -144,7 +144,7 @@ public class ExamService {
         ExamSession session = getOwnedSession(userId, sessionId);
         String requestedStatus = request.status() == null ? "completed" : request.status();
         if (!FINISH_STATUSES.contains(requestedStatus)) {
-            throw new IllegalArgumentException("Invalid exam status");
+            throw new ExamSessionStateException("Invalid exam status");
         }
 
         int correctAnswers = (int) examAnswerRepository.countByExamSessionIdAndIsCorrectTrue(sessionId);
@@ -179,6 +179,9 @@ public class ExamService {
     @Transactional(readOnly = true)
     public ExamResultResponse getResult(UUID userId, UUID sessionId) {
         ExamSession session = getOwnedSession(userId, sessionId);
+        if ("in_progress".equals(session.getStatus())) {
+            throw new IllegalArgumentException("Exam results are unavailable until the exam is finished");
+        }
 
         int correctAnswers = (int) examAnswerRepository.countByExamSessionIdAndIsCorrectTrue(sessionId);
         BigDecimal scorePercentage = calculateScorePercentage(correctAnswers, session.getTotalQuestions());

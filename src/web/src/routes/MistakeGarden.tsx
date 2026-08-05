@@ -1,6 +1,9 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Sprout, Search } from 'lucide-react'
 import { api } from '../lib/api'
+import { EmptyState } from '../components/ui/EmptyState'
+import { Button } from '../components/ui/Button'
 
 interface Choice {
   label: string
@@ -30,31 +33,23 @@ export function MistakeGarden() {
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    let cancelled = false
+  const fetchMistakes = useCallback(async () => {
+    setLoading(true)
+    setError(null)
 
-    async function fetchMistakes() {
-      setLoading(true)
-      setError(null)
-
-      try {
-        const data = await api.get<Mistake[]>('/api/v1/me/mistakes')
-        if (!cancelled) setMistakes(data)
-      } catch (requestError) {
-        if (!cancelled) {
-          setError(requestError instanceof Error ? requestError.message : 'Failed to load mistakes')
-        }
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    }
-
-    fetchMistakes()
-
-    return () => {
-      cancelled = true
+    try {
+      const data = await api.get<Mistake[]>('/api/v1/me/mistakes')
+      setMistakes(data)
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : 'Failed to load mistakes')
+    } finally {
+      setLoading(false)
     }
   }, [])
+
+  useEffect(() => {
+    fetchMistakes()
+  }, [fetchMistakes])
 
   const filteredMistakes = useMemo(() => {
     return mistakes.filter((mistake) => {
@@ -111,6 +106,9 @@ export function MistakeGarden() {
       {error && (
         <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
           Couldn't load your mistakes: {error}
+          <Button onClick={fetchMistakes} variant="outline" size="sm" className="mt-3">
+            Retry
+          </Button>
         </div>
       )}
 
@@ -119,11 +117,11 @@ export function MistakeGarden() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
         </div>
       ) : mistakes.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-          <div className="text-5xl mb-4">🌱</div>
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Your garden is empty!</h3>
-          <p className="text-gray-500 dark:text-gray-400">You haven't made any mistakes yet. Keep studying!</p>
-        </div>
+        <EmptyState
+          icon={<Sprout className="size-8 text-gray-400" />}
+          title="Your garden is empty!"
+          description="You haven't made any mistakes yet. Keep studying!"
+        />
       ) : (
         <>
           {/* Search and Filter */}
@@ -181,20 +179,12 @@ export function MistakeGarden() {
           </div>
 
           {filteredMistakes.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-2xl border border-dashed border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-              <div className="text-4xl mb-4">🔍</div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No mistakes match your filters</h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-4">Try adjusting your search or category filter.</p>
-              <button
-                onClick={() => {
-                  setSearchQuery('')
-                  setSelectedCategory('All')
-                }}
-                className="rounded-lg bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
-              >
-                Clear filters
-              </button>
-            </div>
+            <EmptyState
+              icon={<Search className="size-8 text-gray-400" />}
+              title="No mistakes match your filters"
+              description="Try adjusting your search or category filter."
+              action={{ label: 'Clear filters', onClick: () => { setSearchQuery(''); setSelectedCategory('All') } }}
+            />
           ) : (
             <div className="grid grid-cols-1 gap-8">
               {Array.from(topicGroups.entries()).map(([topicName, topicMistakes]) => {

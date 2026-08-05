@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public record StartExamResponse(
     UUID sessionId,
-    List<QuestionResponse> questions,
+    List<ExamQuestionResponse> questions,
     Integer timeLimitMinutes,
     Instant expiresAt
 ) {}
