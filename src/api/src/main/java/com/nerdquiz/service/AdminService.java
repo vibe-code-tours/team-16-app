@@ -318,7 +318,8 @@ public class AdminService {
         verifyAdminRole(adminId);
 
         int updated = jdbcTemplate.update(
-            "UPDATE user_profiles SET role = 'deactivated', updated_at = now() WHERE id = ? AND role != 'admin'",
+            "UPDATE user_profiles SET role = 'deactivated', is_active = false, updated_at = now() "
+                + "WHERE id = ? AND role != 'admin'",
             targetUserId
         );
 

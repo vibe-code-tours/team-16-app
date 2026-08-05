@@ -82,8 +82,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter implements Ord
             UUID userUuid = UUID.fromString(userId);
             Optional<UserProfile> profileOpt = userProfileRepository.findById(userUuid);
 
-            // Check is_active: reject deactivated users (null treated as active for backward compat)
-            if (profileOpt.isPresent() && Boolean.FALSE.equals(profileOpt.get().getIsActive())) {
+            // Reject both the canonical inactive flag and the legacy deactivated role.
+            if (profileOpt.isPresent() && (Boolean.FALSE.equals(profileOpt.get().getIsActive())
+                    || "deactivated".equals(profileOpt.get().getRole()))) {
                 log.debug("Deactivated user attempted access: {}", userId);
                 contextHolderStrategy.clearContext();
 
@@ -115,7 +116,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter implements Ord
                             null,
                             authorities
                     );
-
             context.setAuthentication(authentication);
             contextHolderStrategy.setContext(context);
             contextRepository.saveContext(context, request, response);
