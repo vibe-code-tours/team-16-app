@@ -47,11 +47,6 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Map<String, Object>> handleConstraintViolation(ConstraintViolationException ex) {
-        return error(HttpStatus.BAD_REQUEST, "Validation Error", ex.getMessage());
-    }
-
     @ExceptionHandler(QuizSessionNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleQuizSessionNotFound(QuizSessionNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
