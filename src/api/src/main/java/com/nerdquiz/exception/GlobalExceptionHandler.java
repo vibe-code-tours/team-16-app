@@ -1,5 +1,6 @@
 package com.nerdquiz.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,11 @@ public class GlobalExceptionHandler {
             "instance", "/api/v1",
             "errors", errors
         ));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Map<String, Object>> handleConstraintViolation(ConstraintViolationException ex) {
+        return error(HttpStatus.BAD_REQUEST, "Validation Error", ex.getMessage());
     }
 
     @ExceptionHandler(QuizSessionNotFoundException.class)
@@ -96,6 +102,26 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    @ExceptionHandler(DuplicateExamAnswerException.class)
+    public ResponseEntity<Map<String, Object>> handleDuplicateExamAnswer(DuplicateExamAnswerException ex) {
+        return error(HttpStatus.CONFLICT, "Duplicate Exam Answer", ex.getMessage());
+    }
+
+    @ExceptionHandler(ExamSessionExpiredException.class)
+    public ResponseEntity<Map<String, Object>> handleExamSessionExpired(ExamSessionExpiredException ex) {
+        return error(HttpStatus.CONFLICT, "Exam Session Expired", ex.getMessage());
+    }
+
+    @ExceptionHandler(ExamSessionStateException.class)
+    public ResponseEntity<Map<String, Object>> handleExamSessionState(ExamSessionStateException ex) {
+        return error(HttpStatus.CONFLICT, "Invalid Exam Session State", ex.getMessage());
+    }
+
+    @ExceptionHandler({QuestionNotInExamSessionException.class, ExamQuestionSequenceMismatchException.class})
+    public ResponseEntity<Map<String, Object>> handleInvalidExamQuestion(RuntimeException ex) {
+        return error(HttpStatus.BAD_REQUEST, "Invalid Exam Question", ex.getMessage());
+    }
+
     @ExceptionHandler(LessonNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleLessonNotFound(LessonNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
@@ -156,17 +182,6 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException ex) {
-        log.error("Unhandled exception: {}", ex.getMessage(), ex);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-            "type", "https://nerdquiz.com/errors/internal",
-            "title", "Internal Server Error",
-            "status", 500,
-            "detail", "An unexpected error occurred"
-        ));
-    }
-
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(IllegalArgumentException ex) {
         return ResponseEntity.badRequest().body(Map.of(
@@ -174,6 +189,21 @@ public class GlobalExceptionHandler {
             "title", "Bad Request",
             "status", 400,
             "detail", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException ex) {
+        log.error("Unhandled exception: {}", ex.getMessage(), ex);
+        return error(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", "An unexpected error occurred");
+    }
+
+    private ResponseEntity<Map<String, Object>> error(HttpStatus status, String title, String detail) {
+        return ResponseEntity.status(status).body(Map.of(
+            "type", "https://nerdquiz.com/errors/" + status.value(),
+            "title", title,
+            "status", status.value(),
+            "detail", detail
         ));
     }
 }

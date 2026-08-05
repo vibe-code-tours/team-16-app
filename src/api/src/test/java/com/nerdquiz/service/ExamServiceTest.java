@@ -2,6 +2,7 @@ package com.nerdquiz.service;
 
 import com.nerdquiz.dto.*;
 import com.nerdquiz.exception.ExamSessionNotFoundException;
+import com.nerdquiz.exception.ExamSessionStateException;
 import com.nerdquiz.exception.UnauthorizedQuizAccessException;
 import com.nerdquiz.model.ExamAnswer;
 import com.nerdquiz.model.ExamSession;
@@ -209,7 +210,7 @@ class ExamServiceTest {
 
         SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 1, "a", 3000);
 
-        assertThrows(IllegalArgumentException.class, () -> examService.submitAnswer(userId, sessionId, request));
+        assertThrows(ExamSessionStateException.class, () -> examService.submitAnswer(userId, sessionId, request));
     }
 
     @Test
