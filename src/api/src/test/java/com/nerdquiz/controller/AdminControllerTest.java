@@ -199,6 +199,7 @@ class AdminControllerTest {
                         .principal(authenticatedUser()))
                 .andExpect(status().isOk())
                 .andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString("attachment")))
+                .andExpect(content().contentTypeCompatibleWith("text/csv"))
                 .andExpect(content().string(containsString("ID,Name,Email")));
     }
 

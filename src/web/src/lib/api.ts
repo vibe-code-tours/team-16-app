@@ -43,7 +43,23 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
   return response.json()
 }
 
+async function download(path: string): Promise<Blob> {
+  const { data } = await supabase.auth.getSession()
+  const token = data.session?.access_token
+  if (!token) throw new Error('Authentication is required to download this file')
+
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!response.ok) {
+    const body = await response.text()
+    throw new Error(`API error ${response.status}: ${body}`)
+  }
+  return response.blob()
+}
+
 export const api = {
+  download,
   get: <T>(path: string, opts?: RequestOptions) =>
     request<T>(path, { method: 'GET', ...opts }),
 

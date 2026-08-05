@@ -122,7 +122,7 @@ public class AdminController {
         String csv = adminService.exportUsers(userId.get(), search, role, filter);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=users-export.csv")
-            .contentType(MediaType.TEXT_PLAIN)
+            .contentType(MediaType.parseMediaType("text/csv"))
             .body(csv);
     }
 }
