@@ -3,7 +3,7 @@ import type { ExamQuestion } from '../../../types/Exam'
 interface ExamProgressBarProps {
   questions: ExamQuestion[]
   currentIndex: number
-  answers: Record<string, { selected: string | null; submitted: boolean; result: { isCorrect: boolean } | null }>
+  answers: Record<string, { selected: string | null; submitted: boolean; result: unknown | null }>
   onGoTo: (index: number) => void
 }
 
@@ -38,7 +38,7 @@ export function ExamProgressBar({
           const answer = answers[q.id]
           let color = 'bg-gray-200 dark:bg-gray-600' // unanswered
           if (answer?.submitted) {
-            color = answer.result?.isCorrect ? 'bg-green-500' : 'bg-red-500'
+            color = 'bg-purple-600'
           } else if (answer?.selected) {
             color = 'bg-purple-300 dark:bg-purple-500'
           }

@@ -7,17 +7,21 @@ import com.nerdquiz.dto.UpdateUserRoleRequest;
 import com.nerdquiz.service.AdminService;
 import com.nerdquiz.util.UuidUtil;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/admin")
+@Validated
 public class AdminController {
 
     private final AdminService adminService;
@@ -39,8 +43,8 @@ public class AdminController {
     @GetMapping("/users")
     public ResponseEntity<AdminUserListResponse> getUsers(
             Authentication authentication,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "25") int pageSize,
+            @RequestParam(defaultValue = "1") @Min(1) int page,
+            @RequestParam(defaultValue = "25") @Min(1) @Max(100) int pageSize,
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String role,
             @RequestParam(required = false) String filter,
@@ -122,7 +126,7 @@ public class AdminController {
         String csv = adminService.exportUsers(userId.get(), search, role, filter);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=users-export.csv")
-            .contentType(MediaType.TEXT_PLAIN)
+            .contentType(MediaType.parseMediaType("text/csv"))
             .body(csv);
     }
 }

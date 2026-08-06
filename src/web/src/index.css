@@ -80,6 +80,21 @@ button:not(:disabled),
   color-scheme: dark;
 }
 
+/* Keep themed surfaces in sync without animating layout or transforms. */
+@media (prefers-reduced-motion: no-preference) {
+  :where(body, body *) {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(body, body *) {
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @keyframes learning-rise {
   from {
     opacity: 0;

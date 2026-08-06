@@ -69,45 +69,25 @@ describe('ExamQuestionCard', () => {
     expect(handleSelect).not.toHaveBeenCalled()
   })
 
-  it('shows correct feedback when answer is correct', () => {
+  it('acknowledges submission without disclosing correctness', () => {
     render(
       <ExamQuestionCard
         question={mockQuestion}
         selectedAnswer="b"
         isSubmitted={true}
         result={{
+          answerId: 'answer-1',
           questionId: 'q1',
           userAnswer: 'b',
-          isCorrect: true,
-          correctAnswer: 'b',
-          explanation: 'Basic arithmetic',
         }}
         onSelect={vi.fn()}
       />
     )
 
-    expect(screen.getByText('✅ Correct!')).toBeInTheDocument()
-  })
-
-  it('shows incorrect feedback when answer is wrong', () => {
-    render(
-      <ExamQuestionCard
-        question={mockQuestion}
-        selectedAnswer="a"
-        isSubmitted={true}
-        result={{
-          questionId: 'q1',
-          userAnswer: 'a',
-          isCorrect: false,
-          correctAnswer: 'b',
-          explanation: 'Basic arithmetic',
-        }}
-        onSelect={vi.fn()}
-      />
-    )
-
-    expect(screen.getByText('❌ Incorrect')).toBeInTheDocument()
-    expect(screen.getByText('(Answer: b)')).toBeInTheDocument()
+    expect(screen.getByText('Answer recorded')).toBeInTheDocument()
+    expect(screen.getByText(/shown after you finish/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Correct!/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/Incorrect/i)).not.toBeInTheDocument()
   })
 
   it('shows Optional badge for optional questions', () => {
@@ -124,23 +104,4 @@ describe('ExamQuestionCard', () => {
     expect(screen.getByText('Optional')).toBeInTheDocument()
   })
 
-  it('shows explanation when provided', () => {
-    render(
-      <ExamQuestionCard
-        question={mockQuestion}
-        selectedAnswer="b"
-        isSubmitted={true}
-        result={{
-          questionId: 'q1',
-          userAnswer: 'b',
-          isCorrect: true,
-          correctAnswer: 'b',
-          explanation: '2 + 2 = 4',
-        }}
-        onSelect={vi.fn()}
-      />
-    )
-
-    expect(screen.getByText('2 + 2 = 4')).toBeInTheDocument()
-  })
 })

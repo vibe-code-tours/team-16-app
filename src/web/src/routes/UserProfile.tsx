@@ -29,7 +29,7 @@ const ACHIEVEMENTS: Achievement[] = [
 ] as const;
 
 export function UserProfile() {
-  const { user, session, signOut, updateProfile } = useAuth();
+  const { user, session, updateProfile } = useAuth();
 
   // Shouldn't happen (route is protected), but satisfy the type guard
   if (!user) {
@@ -38,10 +38,10 @@ export function UserProfile() {
 
   // Admin gets a different profile view — no XP, streaks, or learner content
   if (user.role === 'admin') {
-    return <AdminProfileView user={user} session={session} signOut={signOut} updateProfile={updateProfile} />;
+    return <AdminProfileView user={user} session={session} updateProfile={updateProfile} />;
   }
 
-  return <StudentProfileView user={user} session={session} signOut={signOut} updateProfile={updateProfile} />;
+  return <StudentProfileView user={user} session={session} updateProfile={updateProfile} />;
 }
 
 /* ── Student Profile View ── */
@@ -49,7 +49,6 @@ export function UserProfile() {
 function StudentProfileView({
   user,
   session,
-  signOut,
   updateProfile,
 }: ProfileViewProps) {
   const [editingName, setEditingName] = useState(false);
@@ -165,18 +164,6 @@ function StudentProfileView({
         <aside className="flex flex-col gap-6" aria-label="Account details">
           <AccountCard email={email} memberSince={memberSince} />
           <NextGoal />
-          <button
-            type="button"
-            onClick={signOut}
-            className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-red-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
-          >
-            <Icon
-              name="log-out"
-              className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-              aria-hidden="true"
-            />
-            Sign out
-          </button>
         </aside>
       </div>
     </div>
@@ -188,7 +175,6 @@ function StudentProfileView({
 function AdminProfileView({
   user,
   session,
-  signOut,
   updateProfile,
 }: ProfileViewProps) {
   const [editingName, setEditingName] = useState(false);
@@ -447,21 +433,9 @@ function AdminProfileView({
         </Link>
       </section>
 
-      {/* Account details + sign out */}
+      {/* Account details */}
       <aside className="flex flex-col gap-6" aria-label="Account details">
         <AccountCard email={email} memberSince={memberSince} />
-        <button
-          type="button"
-          onClick={signOut}
-          className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-red-700 dark:hover:bg-red-900/30 dark:hover:text-red-400"
-        >
-          <Icon
-            name="log-out"
-            className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-            aria-hidden="true"
-          />
-          Sign out
-        </button>
       </aside>
     </div>
   );
@@ -472,7 +446,6 @@ function AdminProfileView({
 interface ProfileViewProps {
   user: NonNullable<ReturnType<typeof useAuth>['user']>;
   session: ReturnType<typeof useAuth>['session'];
-  signOut: ReturnType<typeof useAuth>['signOut'];
   updateProfile: ReturnType<typeof useAuth>['updateProfile'];
 }
 

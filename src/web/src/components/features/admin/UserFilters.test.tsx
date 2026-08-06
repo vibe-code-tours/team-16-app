@@ -1,7 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { UserFilters } from './UserFilters'
 import type { UserFilters as UserFiltersType } from '../../../types'
+import { api } from '../../../lib/api'
+
+vi.mock('../../../lib/api', () => ({
+  api: { download: vi.fn() },
+}))
+
+const mockDownload = vi.mocked(api.download)
 
 const defaultFilters: UserFiltersType = {
   search: '',
@@ -77,8 +84,12 @@ describe('UserFilters', () => {
     expect(onFilterChange).toHaveBeenCalledWith({ role: 'admin', page: 1 })
   })
 
-  it('export button opens correct URL', () => {
-    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
+  it('downloads the export through the authenticated API client', async () => {
+    const csvBlob = new Blob(['name,email\nTest,test@example.com'], { type: 'text/csv' })
+    mockDownload.mockResolvedValue(csvBlob)
+    const objectUrlSpy = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:export')
+    const revokeSpy = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
+    const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
 
     render(
       <UserFilters
@@ -88,11 +99,18 @@ describe('UserFilters', () => {
     )
 
     fireEvent.click(screen.getByText('Export CSV'))
-    expect(openSpy).toHaveBeenCalledWith(
-      '/api/v1/admin/users/export?role=user&filter=active_today',
-      '_blank'
-    )
+    await waitFor(() => expect(mockDownload).toHaveBeenCalledWith(
+      '/api/v1/admin/users/export?role=user&filter=active_today'
+    ))
+    expect(objectUrlSpy).toHaveBeenCalledWith(csvBlob)
+    expect(clickSpy).toHaveBeenCalled()
+    expect(revokeSpy).toHaveBeenCalledWith('blob:export')
+  })
 
-    openSpy.mockRestore()
+  it('shows an accessible error when the export fails', async () => {
+    mockDownload.mockRejectedValue(new Error('Unauthorized'))
+    render(<UserFilters filters={defaultFilters} onFilterChange={onFilterChange} />)
+    fireEvent.click(screen.getByText('Export CSV'))
+    expect(await screen.findByRole('alert')).toHaveTextContent('Unable to export users')
   })
 })

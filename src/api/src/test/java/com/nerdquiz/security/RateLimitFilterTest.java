@@ -108,7 +108,7 @@ class RateLimitFilterTest {
     }
 
     @Test
-    void doFilterInternal_XForwardedFor_UsesFirstIp() throws Exception {
+    void doFilterInternal_XForwardedFor_DoesNotOverrideRemoteAddress() throws Exception {
         MockHttpServletRequest request = buildRequest("127.0.0.1");
         request.addHeader("X-Forwarded-For", "203.0.113.50, 70.41.3.18, 150.172.238.178");
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -127,6 +127,30 @@ class RateLimitFilterTest {
         filter.doFilter(otherRequest, otherResponse, filterChain);
         // Should pass through (different IP, fresh window)
         assertEquals(200, otherResponse.getStatus());
+    }
+
+    @Test
+    void spoofedForwardedForCannotBypassLimit() throws Exception {
+        RateLimitFilter strictFilter = new RateLimitFilter(1, 60, 10);
+        MockHttpServletRequest first = buildRequest("192.0.2.10");
+        first.addHeader("X-Forwarded-For", "198.51.100.1");
+        strictFilter.doFilter(first, new MockHttpServletResponse(), filterChain);
+
+        MockHttpServletRequest second = buildRequest("192.0.2.10");
+        second.addHeader("X-Forwarded-For", "198.51.100.2");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        strictFilter.doFilter(second, response, filterChain);
+
+        assertEquals(429, response.getStatus());
+    }
+
+    @Test
+    void trackedClientsAreBounded() {
+        RateLimitFilter boundedFilter = new RateLimitFilter(60, 60, 2);
+        assertTrue(boundedFilter.tryAcquire("192.0.2.1"));
+        assertTrue(boundedFilter.tryAcquire("192.0.2.2"));
+        assertFalse(boundedFilter.tryAcquire("192.0.2.3"));
+        assertEquals(2, boundedFilter.trackedClientCount());
     }
 
     @Test
