@@ -116,6 +116,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter implements Ord
                             null,
                             authorities
                     );
+            authentication.setDetails(new VerifiedJwtDetails(jwtUtil.extractEmail(jwt)));
+
             context.setAuthentication(authentication);
             contextHolderStrategy.setContext(context);
             contextRepository.saveContext(context, request, response);

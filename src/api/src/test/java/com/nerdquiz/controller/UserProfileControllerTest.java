@@ -2,6 +2,7 @@ package com.nerdquiz.controller;
 
 import com.nerdquiz.config.CorsConfig;
 import com.nerdquiz.config.JwtUtil;
+import com.nerdquiz.config.VerifiedJwtDetails;
 import com.nerdquiz.dto.UserProfileResponse;
 import com.nerdquiz.repository.UserProfileRepository;
 import com.nerdquiz.service.UserProfileService;
@@ -49,11 +50,12 @@ class UserProfileControllerTest {
         Instant now = Instant.now();
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userId.toString(), null);
+        authentication.setDetails(new VerifiedJwtDetails("verified@example.com"));
         UserProfileResponse response = new UserProfileResponse(
                 userId,
                 "Nerd Learner",
                 "https://example.com/avatar.png",
-                "learner@example.com",
+                "verified@example.com",
                 "user",
                 0,
                 1,
@@ -65,7 +67,7 @@ class UserProfileControllerTest {
 
         when(userProfileService.upsertProfile(
                 userId,
-                "learner@example.com",
+                "verified@example.com",
                 "Nerd Learner",
                 "https://example.com/avatar.png"
         )).thenReturn(response);
@@ -75,7 +77,6 @@ class UserProfileControllerTest {
                         .contentType("application/json")
                         .content("""
                                 {
-                                  "email": "learner@example.com",
                                   "displayName": "Nerd Learner",
                                   "avatarUrl": "https://example.com/avatar.png"
                                 }
@@ -86,9 +87,21 @@ class UserProfileControllerTest {
 
         verify(userProfileService).upsertProfile(
                 userId,
-                "learner@example.com",
+                "verified@example.com",
                 "Nerd Learner",
                 "https://example.com/avatar.png"
         );
+    }
+
+    @Test
+    void upsertProfile_MissingVerifiedEmail_ReturnsUnauthorized() throws Exception {
+        UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(UUID.randomUUID().toString(), null);
+
+        mockMvc.perform(post("/api/v1/me/profile")
+                        .principal(authentication)
+                        .contentType("application/json")
+                        .content("{\"displayName\":\"Nerd Learner\"}"))
+                .andExpect(status().isUnauthorized());
     }
 }

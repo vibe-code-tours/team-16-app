@@ -104,6 +104,10 @@ public class JwtUtil {
         return jwt.getJWTClaimsSet().getSubject();
     }
 
+    public String extractEmail(SignedJWT jwt) throws ParseException {
+        return jwt.getJWTClaimsSet().getStringClaim("email");
+    }
+
     /**
      * Fetch JWKS from Supabase, with caching.
      * Uses synchronized block to prevent race condition on concurrent expiration.
