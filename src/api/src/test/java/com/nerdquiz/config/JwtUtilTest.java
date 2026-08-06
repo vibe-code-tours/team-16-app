@@ -1,6 +1,10 @@
 package com.nerdquiz.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,6 +12,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Field;
+import java.time.Instant;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +34,7 @@ class JwtUtilTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        jwtUtil = new JwtUtil("https://test.supabase.co");
+        jwtUtil = new JwtUtil("https://test.supabase.co", "authenticated");
         // Inject mock JWKS via reflection to avoid network calls
         Field cachedJwksField = JwtUtil.class.getDeclaredField("cachedJwks");
         cachedJwksField.setAccessible(true);
@@ -80,5 +88,62 @@ class JwtUtilTest {
         SecurityException ex = assertThrows(SecurityException.class,
                 () -> jwtUtil.verify(justOverToken));
         assertEquals("Invalid token", ex.getMessage());
+    }
+
+    @Test
+    void validateClaims_ValidSupabaseClaims_Accepts() {
+        SignedJWT jwt = token(new JWTClaimsSet.Builder()
+                .subject(UUID.randomUUID().toString())
+                .issuer("https://test.supabase.co/auth/v1")
+                .audience("authenticated")
+                .expirationTime(Date.from(Instant.now().plusSeconds(300)))
+                .build());
+
+        assertDoesNotThrow(() -> jwtUtil.validateClaims(jwt, new Date()));
+    }
+
+    @Test
+    void validateClaims_MissingExpiry_Rejects() {
+        SignedJWT jwt = token(new JWTClaimsSet.Builder()
+                .subject(UUID.randomUUID().toString())
+                .issuer("https://test.supabase.co/auth/v1")
+                .audience("authenticated")
+                .build());
+        assertThrows(SecurityException.class, () -> jwtUtil.validateClaims(jwt, new Date()));
+    }
+
+    @Test
+    void validateClaims_WrongIssuerOrAudience_Rejects() {
+        JWTClaimsSet wrongIssuer = baseClaims().issuer("https://other.example/auth/v1").build();
+        JWTClaimsSet wrongAudience = baseClaims().audience(List.of("other")).build();
+
+        assertThrows(SecurityException.class,
+                () -> jwtUtil.validateClaims(token(wrongIssuer), new Date()));
+        assertThrows(SecurityException.class,
+                () -> jwtUtil.validateClaims(token(wrongAudience), new Date()));
+    }
+
+    @Test
+    void validateClaims_FutureNotBeforeOrInvalidSubject_Rejects() {
+        JWTClaimsSet future = baseClaims()
+                .notBeforeTime(Date.from(Instant.now().plusSeconds(300))).build();
+        JWTClaimsSet invalidSubject = baseClaims().subject("not-a-uuid").build();
+
+        assertThrows(SecurityException.class,
+                () -> jwtUtil.validateClaims(token(future), new Date()));
+        assertThrows(SecurityException.class,
+                () -> jwtUtil.validateClaims(token(invalidSubject), new Date()));
+    }
+
+    private JWTClaimsSet.Builder baseClaims() {
+        return new JWTClaimsSet.Builder()
+                .subject(UUID.randomUUID().toString())
+                .issuer("https://test.supabase.co/auth/v1")
+                .audience("authenticated")
+                .expirationTime(Date.from(Instant.now().plusSeconds(300)));
+    }
+
+    private SignedJWT token(JWTClaimsSet claims) {
+        return new SignedJWT(new JWSHeader(JWSAlgorithm.RS256), claims);
     }
 }
