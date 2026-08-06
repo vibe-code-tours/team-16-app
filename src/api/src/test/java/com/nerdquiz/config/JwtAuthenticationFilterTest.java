@@ -128,6 +128,27 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
+    void doFilterInternal_LegacyDeactivatedRole_RejectedWith401() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("Authorization", "Bearer valid-token");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        var jwt = mock(com.nimbusds.jwt.SignedJWT.class);
+        UUID userId = UUID.randomUUID();
+        when(jwtUtil.verify("valid-token")).thenReturn(jwt);
+        when(jwtUtil.extractUserId(jwt)).thenReturn(userId.toString());
+        UserProfile profile = new UserProfile();
+        profile.setRole("deactivated");
+        profile.setIsActive(true);
+        when(userProfileRepository.findById(userId)).thenReturn(Optional.of(profile));
+
+        filter.doFilterInternal(request, response, filterChain);
+
+        assertEquals(401, response.getStatus());
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
+        verify(filterChain, never()).doFilter(any(), any());
+    }
+
+    @Test
     void doFilterInternal_DeactivatedUser_NoProfileRecord_GetsRoleUser() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("Authorization", "Bearer valid-token");

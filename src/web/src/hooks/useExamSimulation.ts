@@ -18,9 +18,6 @@ interface SubmitAnswerApiResponse {
   answerId: string
   questionId: string
   userAnswer: string
-  isCorrect: boolean
-  correctAnswer: string
-  explanation: string | null
 }
 
 interface FinishExamApiResponse {
@@ -155,11 +152,9 @@ export function useExamSimulation(): UseExamSimulationReturn {
         )
 
         const answerResult: ExamAnswerResult = {
+          answerId: response.answerId,
           questionId: response.questionId,
           userAnswer: response.userAnswer,
-          isCorrect: response.isCorrect,
-          correctAnswer: response.correctAnswer,
-          explanation: response.explanation,
         }
 
         setAnswers((prev) => ({
