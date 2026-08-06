@@ -1,14 +1,10 @@
 package com.nerdquiz.controller;
 
-import com.nerdquiz.dto.IncrementXpRequest;
 import com.nerdquiz.dto.StreakResponse;
-import com.nerdquiz.dto.XpResponse;
 import com.nerdquiz.service.UserService;
 import com.nerdquiz.util.UuidUtil;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,15 +46,4 @@ public class UserController {
         return ResponseEntity.ok(new StreakResponse(streakCount));
     }
 
-    @PostMapping("/me/xp")
-    public ResponseEntity<XpResponse> incrementXp(
-            Authentication authentication,
-            @Valid @RequestBody IncrementXpRequest request) {
-        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
-        if (userId.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-        int totalXp = userService.incrementUserXp(userId.get(), request.delta());
-        return ResponseEntity.ok(new XpResponse(totalXp));
-    }
 }

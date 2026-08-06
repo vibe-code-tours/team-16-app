@@ -30,13 +30,23 @@ public class RateLimitFilter extends OncePerRequestFilter implements Ordered {
     private final ConcurrentHashMap<String, RequestCounter> counters = new ConcurrentHashMap<>();
     private final int maxRequests;
     private final long windowMillis;
+    private final int maxTrackedClients;
+    private final AtomicLong requestSequence = new AtomicLong();
 
     public RateLimitFilter(
             @Value("${security.rate-limit.max-requests:60}") int maxRequests,
             @Value("${security.rate-limit.window-seconds:60}") long windowSeconds
     ) {
+        this(maxRequests, windowSeconds, 10_000);
+    }
+
+    public RateLimitFilter(int maxRequests, long windowSeconds, int maxTrackedClients) {
+        if (maxRequests < 1 || windowSeconds < 1 || maxTrackedClients < 1) {
+            throw new IllegalArgumentException("Rate-limit settings must be positive");
+        }
         this.maxRequests = maxRequests;
         this.windowMillis = windowSeconds * 1000;
+        this.maxTrackedClients = maxTrackedClients;
     }
 
     @Override
@@ -50,7 +60,7 @@ public class RateLimitFilter extends OncePerRequestFilter implements Ordered {
         long retryAfterSeconds = windowMillis / 1000;
 
         if (!tryAcquire(clientIp)) {
-            log.debug("Rate limit exceeded for IP: {}", clientIp);
+            log.debug("Rate limit exceeded for client");
 
             response.setStatus(429);
             response.setContentType("application/problem+json");
@@ -74,8 +84,24 @@ public class RateLimitFilter extends OncePerRequestFilter implements Ordered {
      */
     public boolean tryAcquire(String clientIp) {
         long now = System.currentTimeMillis();
+        if ((requestSequence.incrementAndGet() & 255) == 0 || counters.size() >= maxTrackedClients) {
+            counters.entrySet().removeIf(entry -> now - entry.getValue().windowStart > windowMillis);
+        }
+        if (!counters.containsKey(clientIp)) {
+            synchronized (counters) {
+                if (!counters.containsKey(clientIp)) {
+                    counters.entrySet().removeIf(
+                            entry -> now - entry.getValue().windowStart > windowMillis);
+                    if (counters.size() >= maxTrackedClients) {
+                        log.warn("Rate-limit client capacity reached; rejecting untracked client");
+                        return false;
+                    }
+                    counters.put(clientIp, new RequestCounter(now));
+                }
+            }
+        }
         RequestCounter counter = counters.compute(clientIp, (key, existing) -> {
-            if (existing == null || now - existing.windowStart.get() > windowMillis) {
+            if (existing == null || now - existing.windowStart > windowMillis) {
                 return new RequestCounter(now);
             }
             return existing;
@@ -84,14 +110,10 @@ public class RateLimitFilter extends OncePerRequestFilter implements Ordered {
     }
 
     /**
-     * Extract client IP from X-Forwarded-For header (first comma-separated value)
-     * or fall back to remote address.
+     * Uses the servlet container's remote address. Forwarded headers are intentionally
+     * ignored unless a trusted edge/container is configured to normalize remoteAddr.
      */
     private String getClientIp(HttpServletRequest request) {
-        String forwarded = request.getHeader("X-Forwarded-For");
-        if (forwarded != null && !forwarded.isEmpty()) {
-            return forwarded.split(",")[0].trim();
-        }
         return request.getRemoteAddr();
     }
 
@@ -105,10 +127,14 @@ public class RateLimitFilter extends OncePerRequestFilter implements Ordered {
      */
     private static class RequestCounter {
         final AtomicLong count = new AtomicLong(0);
-        final AtomicLong windowStart;
+        final long windowStart;
 
         RequestCounter(long windowStart) {
-            this.windowStart = new AtomicLong(windowStart);
+            this.windowStart = windowStart;
         }
+    }
+
+    int trackedClientCount() {
+        return counters.size();
     }
 }

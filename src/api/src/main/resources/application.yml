@@ -45,3 +45,8 @@ supabase:
   url: ${SUPABASE_URL:http://localhost:54321}
   anon-key: ${SUPABASE_ANON_KEY:}
   jwt-audience: ${SUPABASE_JWT_AUDIENCE:authenticated}
+security:
+  rate-limit:
+    max-requests: ${RATE_LIMIT_MAX_REQUESTS:60}
+    window-seconds: ${RATE_LIMIT_WINDOW_SECONDS:60}
+    max-tracked-clients: ${RATE_LIMIT_MAX_TRACKED_CLIENTS:10000}
