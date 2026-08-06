@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Search, Download } from 'lucide-react'
 import { Button } from '../../ui/Button'
 import type { UserFilters as UserFiltersType } from '../../../types'
+import { api } from '../../../lib/api'
 
 interface UserFiltersProps {
   filters: UserFiltersType
@@ -24,6 +25,8 @@ const ROLE_OPTIONS = [
 
 export function UserFilters({ filters, onFilterChange }: UserFiltersProps) {
   const [searchInput, setSearchInput] = useState(filters.search)
+  const [isExporting, setIsExporting] = useState(false)
+  const [exportError, setExportError] = useState<string | null>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,12 +35,26 @@ export function UserFilters({ filters, onFilterChange }: UserFiltersProps) {
     return () => clearTimeout(timer)
   }, [searchInput, onFilterChange])
 
-  const handleExport = () => {
+  const handleExport = async () => {
     const params = new URLSearchParams()
     if (filters.search) params.set('search', filters.search)
     if (filters.role) params.set('role', filters.role)
     if (filters.filter) params.set('filter', filters.filter)
-    window.open(`/api/v1/admin/users/export?${params.toString()}`, '_blank')
+    setExportError(null)
+    setIsExporting(true)
+    try {
+      const blob = await api.download(`/api/v1/admin/users/export?${params.toString()}`)
+      const objectUrl = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = objectUrl
+      link.download = 'nerdquiz-users.csv'
+      link.click()
+      URL.revokeObjectURL(objectUrl)
+    } catch {
+      setExportError('Unable to export users. Please try again.')
+    } finally {
+      setIsExporting(false)
+    }
   }
 
   return (
@@ -82,11 +99,12 @@ export function UserFilters({ filters, onFilterChange }: UserFiltersProps) {
           ))}
         </select>
 
-        <Button variant="outline" size="sm" onClick={handleExport}>
+        <Button variant="outline" size="sm" onClick={handleExport} disabled={isExporting}>
           <Download className="mr-1.5 h-4 w-4" />
-          Export CSV
+          {isExporting ? 'Exporting…' : 'Export CSV'}
         </Button>
       </div>
+      {exportError && <p role="alert" className="text-sm text-red-600 dark:text-red-400">{exportError}</p>}
     </div>
   )
 }

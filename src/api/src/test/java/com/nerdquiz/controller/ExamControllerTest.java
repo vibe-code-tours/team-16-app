@@ -59,12 +59,11 @@ class ExamControllerTest {
         UUID questionId = UUID.randomUUID();
         StartExamResponse response = new StartExamResponse(
             UUID.randomUUID(),
-            List.of(new QuestionResponse(
-                questionId, null, "2021-april", "A", 1,
-                "What is 2+2?",
+            List.of(new ExamQuestionResponse(
+                questionId, 1, "What is 2+2?",
                 objectMapper.readTree("[]"),
                 objectMapper.readTree("[{\"label\":\"a\",\"text\":\"3\"},{\"label\":\"b\",\"text\":\"4\"}]"),
-                "b", null, "easy"
+                "easy", true
             )),
             60,
             Instant.now().plus(60, ChronoUnit.MINUTES)
@@ -107,7 +106,7 @@ class ExamControllerTest {
                         .contentType("application/json")
                         .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"b\",\"responseTimeMs\":5000}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.isCorrect").value(true));
+                .andExpect(jsonPath("$.isCorrect").doesNotExist());
     }
 
     @Test
@@ -124,8 +123,8 @@ class ExamControllerTest {
                         .contentType("application/json")
                         .content("{\"questionId\":\"" + questionId + "\",\"sequenceNumber\":1,\"answer\":\"a\",\"responseTimeMs\":3000}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.isCorrect").value(false))
-                .andExpect(jsonPath("$.correctAnswer").value("b"));
+                .andExpect(jsonPath("$.isCorrect").doesNotExist())
+                .andExpect(jsonPath("$.correctAnswer").doesNotExist());
     }
 
     @Test

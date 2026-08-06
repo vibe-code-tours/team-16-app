@@ -12,12 +12,20 @@ interface LessonDetail {
   summary: string | null
 }
 
+interface LessonSummary {
+  id: string
+  title: string
+  display_order: number
+}
+
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>()
   const navigate = useNavigate()
   const [lesson, setLesson] = useState<LessonDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [completing, setCompleting] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false)
+  const [nextLesson, setNextLesson] = useState<LessonSummary | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -28,8 +36,14 @@ export function LessonPage() {
       setLoading(true)
       try {
         const lessonData = await api.get<LessonDetail>(`/api/v1/lessons/${lessonId}`)
+        const lessonList = await api.get<LessonSummary[]>(
+          `/api/v1/subtopics/${lessonData.subtopic_id}/lessons`,
+        )
         if (!cancelled) {
           setLesson(lessonData)
+          const currentIndex = lessonList.findIndex(({ id }) => id === lessonData.id)
+          setNextLesson(currentIndex >= 0 ? lessonList[currentIndex + 1] ?? null : null)
+          setIsCompleted(false)
         }
       } catch (e) {
         console.error('Error fetching lesson:', e)
@@ -71,10 +85,11 @@ export function LessonPage() {
     setCompleting(true)
     try {
       await api.post(`/api/v1/lessons/${lessonId}/complete`)
+      setIsCompleted(true)
     } catch (e) {
       console.error('Failed to mark lesson complete:', e)
     } finally {
-      navigate(`/map/${lesson.topic_id}`)
+      setCompleting(false)
     }
   }
 
@@ -145,14 +160,33 @@ export function LessonPage() {
           })}
         </div>
 
-        <div className="mt-8 flex justify-center">
-          <button
-            onClick={handleComplete}
-            disabled={completing}
-            className="rounded-lg bg-purple-600 px-8 py-3 font-bold text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
-          >
-            {completing ? 'Saving...' : "I've read it!"}
-          </button>
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          {isCompleted ? (
+            <>
+              {nextLesson && (
+                <button
+                  onClick={() => navigate(`/lesson/${nextLesson.id}`)}
+                  className="rounded-lg bg-purple-600 px-8 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+                >
+                  Next Lesson: {nextLesson.title} →
+                </button>
+              )}
+              <button
+                onClick={() => navigate(`/map/${lesson.topic_id}`)}
+                className="rounded-lg border border-gray-300 bg-white px-8 py-3 font-bold text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+              >
+                {nextLesson ? 'Back to Topic' : 'Finish Module'}
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={handleComplete}
+              disabled={completing}
+              className="rounded-lg bg-purple-600 px-8 py-3 font-bold text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
+            >
+              {completing ? 'Saving...' : "I've read it!"}
+            </button>
+          )}
         </div>
       </div>
     </div>

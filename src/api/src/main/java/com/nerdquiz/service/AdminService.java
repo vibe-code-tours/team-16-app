@@ -20,6 +20,8 @@ import java.util.UUID;
 @Service
 public class AdminService {
 
+    private static final int MAX_PAGE_SIZE = 100;
+
     private static final Logger log = LoggerFactory.getLogger(AdminService.class);
 
     private final JdbcTemplate jdbcTemplate;
@@ -156,10 +158,17 @@ public class AdminService {
     ) {
         verifyAdminRole(adminId);
 
+        if (page < 1) {
+            throw new IllegalArgumentException("Page must be at least 1");
+        }
+        if (pageSize < 1 || pageSize > MAX_PAGE_SIZE) {
+            throw new IllegalArgumentException("Page size must be between 1 and " + MAX_PAGE_SIZE);
+        }
+
         String whereClause = buildUserWhereClause(search, role, filter);
         String sortColumn = sanitizeSortColumn(sort);
         String sortOrder = "desc".equalsIgnoreCase(order) ? "DESC" : "ASC";
-        int offset = (page - 1) * pageSize;
+        int offset = Math.multiplyExact(page - 1, pageSize);
 
         long total = jdbcTemplate.queryForObject(
             "SELECT COUNT(*) FROM user_profiles up " + whereClause,
@@ -318,7 +327,8 @@ public class AdminService {
         verifyAdminRole(adminId);
 
         int updated = jdbcTemplate.update(
-            "UPDATE user_profiles SET role = 'deactivated', updated_at = now() WHERE id = ? AND role != 'admin'",
+            "UPDATE user_profiles SET role = 'deactivated', is_active = false, updated_at = now() "
+                + "WHERE id = ? AND role != 'admin'",
             targetUserId
         );
 
@@ -374,17 +384,17 @@ public class AdminService {
         StringBuilder csv = new StringBuilder();
         csv.append("ID,Name,Email,Role,Status,XP,Streak,Last Active,Joined\n");
         for (AdminUserSummaryResponse u : users) {
-            csv.append(String.format("%s,\"%s\",%s,%s,%s,%d,%d,%s,%s\n",
-                u.id(),
-                escapeCsv(u.displayName()),
-                u.email(),
-                u.role(),
-                u.status(),
-                u.totalXp() != null ? u.totalXp() : 0,
-                u.streakCount() != null ? u.streakCount() : 0,
-                u.lastLoginAt() != null ? u.lastLoginAt().toString() : "",
-                u.createdAt() != null ? u.createdAt().toString() : ""
-            ));
+            csv.append(String.join(",",
+                escapeCsvCell(u.id()),
+                escapeCsvCell(u.displayName()),
+                escapeCsvCell(u.email()),
+                escapeCsvCell(u.role()),
+                escapeCsvCell(u.status()),
+                escapeCsvCell(u.totalXp() != null ? u.totalXp() : 0),
+                escapeCsvCell(u.streakCount() != null ? u.streakCount() : 0),
+                escapeCsvCell(u.lastLoginAt() != null ? u.lastLoginAt() : ""),
+                escapeCsvCell(u.createdAt() != null ? u.createdAt() : "")
+            )).append('\n');
         }
 
         return csv.toString();
@@ -445,14 +455,14 @@ public class AdminService {
         };
     }
 
-    private String escapeCsv(String value) {
-        if (value == null) return "";
-        String escaped = value.replace("\"", "\"\"");
-        if (escaped.startsWith("=") || escaped.startsWith("+") || escaped.startsWith("-")
-                || escaped.startsWith("@") || escaped.startsWith("\t")) {
+    private String escapeCsvCell(Object value) {
+        String escaped = value == null ? "" : value.toString();
+        String trimmed = escaped.stripLeading();
+        if (trimmed.startsWith("=") || trimmed.startsWith("+") || trimmed.startsWith("-")
+                || trimmed.startsWith("@") || trimmed.startsWith("\t") || trimmed.startsWith("\r")) {
             escaped = "'" + escaped;
         }
-        return escaped;
+        return "\"" + escaped.replace("\"", "\"\"") + "\"";
     }
 
     private String escapeSqlWildcard(String input) {
