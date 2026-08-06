@@ -66,6 +66,7 @@ class ExamServiceTest {
         sampleSession.setUserId(userId);
         sampleSession.setTotalQuestions(1);
         sampleSession.setTimeLimitMinutes(60);
+        sampleSession.setStartedAt(Instant.now());
         sampleSession.setExpiresAt(Instant.now().plus(60, ChronoUnit.MINUTES));
         sampleSession.setStatus("in_progress");
 
@@ -141,13 +142,14 @@ class ExamServiceTest {
     void submitAnswer_CorrectAnswer_ReturnsCorrect() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
-        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(true);
+        when(examSessionQuestionRepository.findIssuedQuestion(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamSessionQuestion(sessionId, sampleQuestion.getId(), 1)));
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
         when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(Optional.of(new ExamAnswer()));
-        when(examAnswerRepository.save(any(ExamAnswer.class)))
+                .thenReturn(Optional.empty());
+        when(examAnswerRepository.findFirstByExamSessionIdOrderByAnsweredAtDesc(sessionId)).thenReturn(Optional.empty());
+        when(examAnswerRepository.saveAndFlush(any(ExamAnswer.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 1, "b", 5000);
@@ -161,13 +163,14 @@ class ExamServiceTest {
     void submitAnswer_WrongAnswer_ReturnsIncorrect() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
-        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(true);
+        when(examSessionQuestionRepository.findIssuedQuestion(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamSessionQuestion(sessionId, sampleQuestion.getId(), 1)));
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.of(sampleQuestion));
         when(examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(Optional.of(new ExamAnswer()));
-        when(examAnswerRepository.save(any(ExamAnswer.class)))
+                .thenReturn(Optional.empty());
+        when(examAnswerRepository.findFirstByExamSessionIdOrderByAnsweredAtDesc(sessionId)).thenReturn(Optional.empty());
+        when(examAnswerRepository.saveAndFlush(any(ExamAnswer.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         SubmitExamAnswerRequest request = new SubmitExamAnswerRequest(sampleQuestion.getId(), 1, "a", 3000);
@@ -217,8 +220,8 @@ class ExamServiceTest {
     void submitAnswer_QuestionNotFound_ThrowsException() {
         when(examSessionRepository.findById(sessionId))
                 .thenReturn(Optional.of(sampleSession));
-        when(examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, sampleQuestion.getId()))
-                .thenReturn(true);
+        when(examSessionQuestionRepository.findIssuedQuestion(sessionId, sampleQuestion.getId()))
+                .thenReturn(Optional.of(new ExamSessionQuestion(sessionId, sampleQuestion.getId(), 1)));
         when(questionRepository.findById(sampleQuestion.getId()))
                 .thenReturn(Optional.empty());
 

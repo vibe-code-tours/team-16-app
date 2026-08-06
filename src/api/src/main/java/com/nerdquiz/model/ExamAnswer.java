@@ -6,7 +6,10 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "exam_answers")
+@Table(name = "exam_answers", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"exam_session_id", "question_id"}),
+    @UniqueConstraint(columnNames = {"exam_session_id", "sequence_number"})
+})
 public class ExamAnswer {
 
     @Id

@@ -18,10 +18,12 @@ import com.nerdquiz.repository.ExamSessionRepository;
 import com.nerdquiz.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -113,24 +115,41 @@ public class ExamService {
         }
 
         // Validate that the question was issued for this session
-        if (!examSessionQuestionRepository.existsByExamSessionIdAndQuestionId(sessionId, request.questionId())) {
-            throw new QuestionNotInExamSessionException();
+        ExamSessionQuestion issuedQuestion = examSessionQuestionRepository
+                .findIssuedQuestion(sessionId, request.questionId())
+                .orElseThrow(QuestionNotInExamSessionException::new);
+        if (!issuedQuestion.getSequenceNumber().equals(request.sequenceNumber())) {
+            throw new IllegalArgumentException("Sequence number does not match the issued exam question");
+        }
+        if (examAnswerRepository.findByExamSessionIdAndQuestionId(sessionId, request.questionId()).isPresent()) {
+            throw new IllegalArgumentException("This exam question has already been answered");
         }
 
         Question question = questionRepository.findById(request.questionId())
                 .orElseThrow(QuestionNotFoundException::new);
         boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(request.answer());
 
-        ExamAnswer answer = examAnswerRepository
-                .findByExamSessionIdAndQuestionId(sessionId, request.questionId())
-                .orElseGet(ExamAnswer::new);
+        Instant answeredAt = Instant.now();
+        Instant previousEventAt = examAnswerRepository
+                .findFirstByExamSessionIdOrderByAnsweredAtDesc(sessionId)
+                .map(ExamAnswer::getAnsweredAt)
+                .orElse(session.getStartedAt());
+        long responseTimeMs = Math.max(0, Duration.between(previousEventAt, answeredAt).toMillis());
+
+        ExamAnswer answer = new ExamAnswer();
         answer.setExamSessionId(sessionId);
         answer.setQuestionId(request.questionId());
-        answer.setSequenceNumber(request.sequenceNumber());
+        answer.setSequenceNumber(issuedQuestion.getSequenceNumber());
         answer.setUserAnswer(request.answer());
         answer.setIsCorrect(isCorrect);
-        answer.setResponseTimeMs(request.responseTimeMs());
-        ExamAnswer savedAnswer = examAnswerRepository.save(answer);
+        answer.setResponseTimeMs((int) Math.min(responseTimeMs, Integer.MAX_VALUE));
+        answer.setAnsweredAt(answeredAt);
+        ExamAnswer savedAnswer;
+        try {
+            savedAnswer = examAnswerRepository.saveAndFlush(answer);
+        } catch (DataIntegrityViolationException ex) {
+            throw new IllegalArgumentException("This exam question has already been answered");
+        }
 
         return new SubmitExamAnswerResponse(
                 savedAnswer.getId(),
