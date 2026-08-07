@@ -71,7 +71,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       // Use backend API to get or create profile
       const profile = await api.post<ApiUserProfile>('/api/v1/me/profile', {
-        email: authUser.email,
         displayName: oauthName,
         avatarUrl: oauthAvatar,
       })

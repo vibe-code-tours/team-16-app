@@ -1,6 +1,7 @@
 package com.nerdquiz.config;
 
 import com.nimbusds.jose.JWSVerifier;
+import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.crypto.ECDSAVerifier;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.JWK;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Component;
 import java.net.URI;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -30,15 +33,25 @@ public class JwtUtil {
     private static final int MAX_TOKEN_LENGTH = 2048;
 
     private final String supabaseUrl;
+    private final String issuer;
+    private final String audience;
     private volatile JWKSet cachedJwks;
     private volatile long cacheExpiry = 0;
     private static final long CACHE_DURATION_MS = 3600_000; // 1 hour
     private final Object jwksLock = new Object();
 
-    private static final Map<String, JWSVerifier> verifierCache = new ConcurrentHashMap<>();
+    private final Map<String, JWSVerifier> verifierCache = new ConcurrentHashMap<>();
 
-    public JwtUtil(@Value("${supabase.url}") String supabaseUrl) {
-        this.supabaseUrl = supabaseUrl;
+    public JwtUtil(
+            @Value("${supabase.url}") String supabaseUrl,
+            @Value("${supabase.jwt-audience:authenticated}") String audience) {
+        this.supabaseUrl = supabaseUrl.replaceAll("/+$", "");
+        this.issuer = this.supabaseUrl + "/auth/v1";
+        this.audience = audience;
+    }
+
+    JwtUtil(String supabaseUrl) {
+        this(supabaseUrl, "authenticated");
     }
 
     /**
@@ -58,10 +71,9 @@ public class JwtUtil {
 
         SignedJWT signedJWT = SignedJWT.parse(token);
 
-        // Check expiration
-        Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
-        if (expirationTime != null && expirationTime.before(new Date())) {
-            throw new SecurityException("JWT has expired");
+        JWSAlgorithm algorithm = signedJWT.getHeader().getAlgorithm();
+        if (!JWSAlgorithm.RS256.equals(algorithm) && !JWSAlgorithm.ES256.equals(algorithm)) {
+            throw new SecurityException("JWT uses an unsupported algorithm");
         }
 
         // Get the key ID from the JWT header
@@ -77,6 +89,9 @@ public class JwtUtil {
                 JWK jwk = jwks.getKeyByKeyId(kid);
                 if (jwk == null) {
                     throw new SecurityException("No matching key found for kid: " + kid);
+                }
+                if (jwk.getAlgorithm() != null && !algorithm.equals(jwk.getAlgorithm())) {
+                    throw new SecurityException("JWT algorithm does not match signing key");
                 }
                 return switch (jwk.getKeyType().getValue()) {
                     case "RSA" -> new RSASSAVerifier(jwk.toRSAKey());
@@ -94,7 +109,37 @@ public class JwtUtil {
             throw new SecurityException("JWT signature verification failed");
         }
 
+        validateClaims(signedJWT, new Date());
+
         return signedJWT;
+    }
+
+    void validateClaims(SignedJWT jwt, Date now) throws ParseException {
+        var claims = jwt.getJWTClaimsSet();
+        Date expiration = claims.getExpirationTime();
+        if (expiration == null || !expiration.after(now)) {
+            throw new SecurityException("JWT is missing an expiry or has expired");
+        }
+        if (!issuer.equals(claims.getIssuer())) {
+            throw new SecurityException("JWT issuer is invalid");
+        }
+        List<String> audiences = claims.getAudience();
+        if (audiences == null || !audiences.contains(audience)) {
+            throw new SecurityException("JWT audience is invalid");
+        }
+        Date notBefore = claims.getNotBeforeTime();
+        if (notBefore != null && notBefore.after(now)) {
+            throw new SecurityException("JWT is not yet valid");
+        }
+        Date issuedAt = claims.getIssueTime();
+        if (issuedAt != null && issuedAt.after(new Date(now.getTime() + 60_000))) {
+            throw new SecurityException("JWT issued-at time is in the future");
+        }
+        try {
+            UUID.fromString(claims.getSubject());
+        } catch (RuntimeException e) {
+            throw new SecurityException("JWT subject must be a UUID");
+        }
     }
 
     /**
@@ -102,6 +147,10 @@ public class JwtUtil {
      */
     public String extractUserId(SignedJWT jwt) throws ParseException {
         return jwt.getJWTClaimsSet().getSubject();
+    }
+
+    public String extractEmail(SignedJWT jwt) throws ParseException {
+        return jwt.getJWTClaimsSet().getStringClaim("email");
     }
 
     /**

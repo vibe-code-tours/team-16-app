@@ -23,26 +23,25 @@
     </script>
     <style>
       .app-loading { background: #f9fafb; color: #7c3aed; }
-      .app-loading-spinner { border-color: #ddd6fe; border-top-color: #7c3aed; }
+      .app-loading__spinner { border-color: #ddd6fe; border-top-color: #7c3aed; }
       .dark .app-loading { background: #0f0a1e; color: #a78bfa; }
-      .dark .app-loading-spinner { border-color: #312e81; border-top-color: #7c3aed; }
+      .dark .app-loading__spinner { border-color: #312e81; border-top-color: #7c3aed; }
     </style>
   </head>
   <body>
     <div id="root">
-      <div class="app-loading" style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:system-ui,sans-serif">
-        <div style="text-align:center">
-          <div class="app-loading-spinner" style="width:48px;height:48px;border-width:4px;border-style:solid;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px"></div>
+      <div class="app-loading">
+        <div class="app-loading__content">
+          <div class="app-loading__spinner"></div>
           <p>Loading NerdQuiz...</p>
         </div>
       </div>
-      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
     </div>
     <noscript>
-      <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0f0a1e;color:#e2e8f0;font-family:system-ui,sans-serif;padding:2rem;text-align:center">
+      <div class="no-script">
         <div>
-          <h1 style="font-size:1.5rem;margin-bottom:.5rem">JavaScript Required</h1>
-          <p style="color:#94a3b8">NerdQuiz requires JavaScript to run. Please enable JavaScript in your browser settings and reload the page.</p>
+          <h1 class="no-script__title">JavaScript Required</h1>
+          <p class="no-script__message">NerdQuiz requires JavaScript to run. Please enable JavaScript in your browser settings and reload the page.</p>
         </div>
       </div>
     </noscript>

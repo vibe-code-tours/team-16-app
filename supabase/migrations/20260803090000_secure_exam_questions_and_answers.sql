@@ -1,3 +1,9 @@
+-- Existing deployments should enforce the same immutable-answer invariants as JPA.
+CREATE UNIQUE INDEX IF NOT EXISTS uq_exam_answers_session_question
+  ON public.exam_answers (exam_session_id, question_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_exam_answers_session_sequence
+  ON public.exam_answers (exam_session_id, sequence_number);
+
 -- Exam answer keys must only be revealed by the API after a session is finished.
 -- Keep the RPC's public question shape deliberately narrower than `questions`.
 DROP FUNCTION IF EXISTS public.get_exam_questions(INTEGER, TEXT);

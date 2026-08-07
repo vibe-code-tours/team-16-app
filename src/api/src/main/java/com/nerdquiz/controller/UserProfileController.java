@@ -1,5 +1,6 @@
 package com.nerdquiz.controller;
 
+import com.nerdquiz.config.VerifiedJwtDetails;
 import com.nerdquiz.dto.UpdateUserProfileRequest;
 import com.nerdquiz.dto.UpsertUserProfileRequest;
 import com.nerdquiz.dto.UserProfileResponse;
@@ -40,9 +41,13 @@ public class UserProfileController {
         if (userId.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
+        if (!(authentication.getDetails() instanceof VerifiedJwtDetails details)
+                || details.email() == null || details.email().isBlank()) {
+            return ResponseEntity.status(401).build();
+        }
         return ResponseEntity.ok(userProfileService.upsertProfile(
                 userId.get(),
-                request.email(),
+                details.email(),
                 request.displayName(),
                 request.avatarUrl()
         ));
