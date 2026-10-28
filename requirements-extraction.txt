@@ -1,2 +1,2 @@
-pymupdf>=1.28.2,<2
+pymupdf>=2.0,<3
 Pillow>=12.3.0,<13
