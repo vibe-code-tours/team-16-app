@@ -11,8 +11,8 @@ export interface ExamQuestion {
   id: string
   questionNumber: number
   questionText: string
-  images: { url: string; alt: string }[]
-  choices: { label: string; text: string }[]
+  images: unknown[]
+  choices: { label: string; text: string; image?: string }[]
   difficulty: 'easy' | 'medium' | 'hard'
   isRequired: boolean
 }
