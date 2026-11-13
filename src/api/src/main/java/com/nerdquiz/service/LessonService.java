@@ -27,15 +27,18 @@ public class LessonService {
     private final SubtopicRepository subtopicRepository;
     private final UserLessonProgressRepository progressRepository;
     private final ObjectMapper objectMapper;
+    private final UserService userService;
 
     public LessonService(LessonRepository lessonRepository,
                          SubtopicRepository subtopicRepository,
                          UserLessonProgressRepository progressRepository,
-                         ObjectMapper objectMapper) {
+                         ObjectMapper objectMapper,
+                         UserService userService) {
         this.lessonRepository = lessonRepository;
         this.subtopicRepository = subtopicRepository;
         this.progressRepository = progressRepository;
         this.objectMapper = objectMapper;
+        this.userService = userService;
     }
 
     @Transactional(readOnly = true)
@@ -103,9 +106,15 @@ public class LessonService {
                     fresh.setStartedAt(now);
                     return fresh;
                 });
+        boolean firstCompletion = !"completed".equals(row.getStatus());
         row.setStatus("completed");
         row.setCompletedAt(now);
         progressRepository.save(row);
+
+        // Streak: only the first completion of a lesson counts as study activity
+        if (firstCompletion) {
+            userService.recordStudyActivity(userId);
+        }
     }
 
     private LessonResponse toResponse(Lesson lesson, String status) {
