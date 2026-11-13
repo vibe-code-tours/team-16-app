@@ -55,4 +55,15 @@ describe('QuestionBlock', () => {
     render(<QuestionBlock question={mockQuestion} />);
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
+
+  it('renders question text as markdown', () => {
+    render(<QuestionBlock question={{ question_text: 'Which is **fastest**?' }} />);
+    expect(screen.getByText('fastest').tagName).toBe('STRONG');
+  });
+
+  it('omits exam metadata when not provided', () => {
+    render(<QuestionBlock question={{ question_text: 'What is 2 + 2?' }} />);
+    expect(screen.getByText('What is 2 + 2?')).toBeInTheDocument();
+    expect(screen.queryByText(/^Question \d+$/)).not.toBeInTheDocument();
+  });
 });

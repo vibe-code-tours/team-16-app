@@ -17,8 +17,50 @@ describe('ExplanationBox', () => {
       <ExplanationBox explanation="This is wrong." is_correct={false} />
     );
 
-    expect(screen.getByText('Incorrect')).toBeInTheDocument();
+    expect(screen.getByText('Not quite.')).toBeInTheDocument();
     expect(screen.getByText('This is wrong.')).toBeInTheDocument();
+  });
+
+  it('shows the correct answer when there is no explanation and the answer was wrong', () => {
+    render(
+      <ExplanationBox
+        explanation={null}
+        is_correct={false}
+        correctChoice={{ label: 'b', text: 'Binary search' }}
+      />
+    );
+
+    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(screen.getByText('Not quite.')).toBeInTheDocument();
+    expect(screen.getByText(/Correct answer:/)).toBeInTheDocument();
+    expect(screen.getByText('b.')).toBeInTheDocument();
+    expect(screen.getByText('Binary search')).toBeInTheDocument();
+  });
+
+  it('shows the correct answer when there is no explanation and the answer was right', () => {
+    render(
+      <ExplanationBox
+        explanation={null}
+        is_correct={true}
+        correctChoice={{ label: 'b', text: 'Binary search' }}
+      />
+    );
+
+    expect(screen.getByText('Correct!')).toBeInTheDocument();
+    expect(screen.getByText('Binary search')).toBeInTheDocument();
+  });
+
+  it('prefers the explanation over the correct answer fallback', () => {
+    render(
+      <ExplanationBox
+        explanation="Because it halves the search space."
+        is_correct={false}
+        correctChoice={{ label: 'b', text: 'Binary search' }}
+      />
+    );
+
+    expect(screen.getByText('Because it halves the search space.')).toBeInTheDocument();
+    expect(screen.queryByText(/Correct answer:/)).not.toBeInTheDocument();
   });
 
   it('returns null when no explanation', () => {
