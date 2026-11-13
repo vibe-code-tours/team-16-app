@@ -3,9 +3,15 @@ import { useLocation, useNavigate, useParams, Link } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
+import { OwlMascot } from '../components/features/OwlMascot';
 import { api } from '../lib/api';
 import type { QuizResultApi } from '../types';
 import type { QuizResult as QuizResultType } from '../types/Quiz';
+
+/** Score at or above which the owl celebrates instead of encouraging. */
+const HAPPY_OWL_THRESHOLD = 80;
+const HAPPY_OWL_MESSAGE = 'Hoo-ray! You really know this topic.';
+const ENCOURAGING_OWL_MESSAGE = 'Every mistake is a lesson. Review them and try again!';
 
 /** Map backend camelCase response to the snake_case shape the component expects. */
 function mapApiResult(apiResult: QuizResultApi): QuizResultType {
@@ -108,12 +114,19 @@ export function QuizResult() {
     return 'Keep practicing!';
   };
 
+  const isHappyOwl = result.score_percentage >= HAPPY_OWL_THRESHOLD;
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
         {/* Score Header */}
         <Card className="mb-6 text-center">
           <div className="py-6">
+            <OwlMascot
+              mood={isHappyOwl ? 'happy' : 'encouraging'}
+              message={isHappyOwl ? HAPPY_OWL_MESSAGE : ENCOURAGING_OWL_MESSAGE}
+              className="mb-4"
+            />
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Quiz Complete!
             </h1>
