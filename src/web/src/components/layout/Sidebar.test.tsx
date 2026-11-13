@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { Sidebar } from './Sidebar'
 
@@ -14,6 +14,16 @@ function renderSidebar(isOpen: boolean, onClose = vi.fn()) {
     </MemoryRouter>
   )
 }
+
+describe('Sidebar navigation', () => {
+  it('shows a Quizzes link to the quiz listing', () => {
+    renderSidebar(true)
+
+    const dialog = screen.getByRole('dialog', { name: 'Navigation menu' })
+    const quizzesLink = within(dialog).getByRole('link', { name: 'Quizzes' })
+    expect(quizzesLink).toHaveAttribute('href', '/quizzes')
+  })
+})
 
 describe('Sidebar mobile drawer accessibility', () => {
   it('renders dialog with aria-modal and aria-label when open', () => {
