@@ -78,6 +78,7 @@ These are fixed for the demo — don't add new categories without team agreement
 - Lessons: `GET /api/v1/subtopics/{id}/lessons`, `POST /api/v1/lessons/{id}/complete`
 - Quiz: `GET /api/v1/subtopics/{id}/quiz`, `POST /api/v1/quizzes/start`, `POST /api/v1/quizzes/{id}/answers`, `GET /api/v1/quizzes/{id}/result`
 - Streak: `POST /api/v1/me/streak`
+- Daily activity: `GET /api/v1/me/activity?days=7` (1–30 days, oldest first, idle days as zeros)
 - Admin stats: `GET /api/v1/admin/stats` (admin role required)
 
 **Direct Supabase (RLS only, no backend verification):**

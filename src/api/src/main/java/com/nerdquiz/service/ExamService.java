@@ -44,19 +44,22 @@ public class ExamService {
     private final ExamSessionQuestionRepository examSessionQuestionRepository;
     private final QuestionService questionService;
     private final UserService userService;
+    private final UserDailyActivityService activityService;
 
     public ExamService(QuestionRepository questionRepository,
                        ExamSessionRepository examSessionRepository,
                        ExamAnswerRepository examAnswerRepository,
                        ExamSessionQuestionRepository examSessionQuestionRepository,
                        QuestionService questionService,
-                       UserService userService) {
+                       UserService userService,
+                       UserDailyActivityService activityService) {
         this.questionRepository = questionRepository;
         this.examSessionRepository = examSessionRepository;
         this.examAnswerRepository = examAnswerRepository;
         this.examSessionQuestionRepository = examSessionQuestionRepository;
         this.questionService = questionService;
         this.userService = userService;
+        this.activityService = activityService;
     }
 
     @Transactional
@@ -150,6 +153,7 @@ public class ExamService {
         } catch (DataIntegrityViolationException ex) {
             throw new IllegalArgumentException("This exam question has already been answered");
         }
+        activityService.recordAnsweredQuestion(userId);
 
         return new SubmitExamAnswerResponse(
                 savedAnswer.getId(),
