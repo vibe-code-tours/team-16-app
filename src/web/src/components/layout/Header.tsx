@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { ThemeToggle } from '../ui/ThemeToggle'
+import { getLevelProgress } from '../../lib/levelProgress'
 
 interface HeaderProps {
   onMenuToggle: () => void
@@ -103,6 +104,9 @@ export function Header({ onMenuToggle, showSidebar = true, sidebarOpen = false }
               {/* Hide XP and Streak for admin users */}
               {user.role !== 'admin' && (
                 <div className="hidden sm:flex items-center gap-2 text-sm">
+                  <span className="rounded-full bg-purple-100 dark:bg-purple-900/40 px-2 py-0.5 text-xs font-semibold text-purple-700 dark:text-purple-300">
+                    Lv {getLevelProgress(user.total_xp ?? 0).level}
+                  </span>
                   <span className="text-purple-600 dark:text-purple-400 font-semibold">⚡ {user.total_xp ?? 0}</span>
                   <span className="text-orange-500 dark:text-orange-400 font-semibold">🔥 {user.streak_count ?? 0}</span>
                 </div>
