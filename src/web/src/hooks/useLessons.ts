@@ -35,7 +35,8 @@ interface UseLessonsResult {
   progress: LessonProgress[]
   loading: boolean
   error: string | null
-  completeLesson: (lessonId: string) => Promise<void>
+  /** Resolves `true` when the backend recorded the completion. */
+  completeLesson: (lessonId: string) => Promise<boolean>
   refetch: () => void
 }
 
@@ -90,8 +91,8 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
     }
   }, [subtopicId, user?.id, fetchTrigger])
 
-  const completeLesson = useCallback(async (lessonId: string) => {
-    if (!user?.id) return
+  const completeLesson = useCallback(async (lessonId: string): Promise<boolean> => {
+    if (!user?.id) return false
     try {
       await api.post<void>(`/api/v1/lessons/${lessonId}/complete`)
       const completedAt = new Date().toISOString()
@@ -109,8 +110,10 @@ export function useLessons(subtopicId: string | undefined): UseLessonsResult {
           { lesson_id: lessonId, status: 'completed', started_at: completedAt, completed_at: completedAt },
         ]
       })
+      return true
     } catch (e) {
       console.error('Failed to complete lesson:', e)
+      return false
     }
   }, [user?.id])
 
