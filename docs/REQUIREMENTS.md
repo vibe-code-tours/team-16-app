@@ -33,12 +33,14 @@
 | Subject-B questions | Add if extraction progress allows |
 | Performance tuning | API response times, frontend load speed |
 | Admin dashboard (stats) | Role-gated dashboard with: stat cards (total users, active today/this week, quiz/exam attempts, avg scores, exam pass rate), charts (daily active users line chart, topic engagement bar charts, quiz completion pie chart, exam pass/fail pie chart). User management page with searchable/sortable table, quick filters (Active Today, Inactive 30d+, New 7d), detail drawer with tabs (Overview, Activity, Performance), and actions (change role, reset streak, deactivate, CSV export). Requires `role` column on `user_profiles`. Uses Recharts for visualization. |
+| Achievements (backend) | `GET /api/v1/me/achievements` returns a fixed catalogue of 12 achievements (quizzes, perfect quiz, streak 3/7/30, XP 100/500/1000, lessons, exam pass, mistakes reviewed) with unlock state and progress derived on read from existing tables — no new tables |
 
 ## Explicitly out of scope (this project)
 
 - Full AI adaptive difficulty (AI Coach) — future feature
 - All 3,120 questions extracted — expand gradually after demo
-- Advanced gamification (leaderboards, achievements, social features)
+- Advanced gamification (leaderboards, social features). Basic achievements moved to Week 2 — see decision D5 in `docs/gsd/decision-log.md`
+- Persisted achievement history (unlock timestamps, notifications) — achievements are computed on read only
 - Native mobile app
 - Payment / subscription model
 - Full admin panel for content management (CRUD on questions, lessons, etc.)
