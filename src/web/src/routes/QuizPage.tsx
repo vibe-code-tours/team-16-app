@@ -3,6 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
 import { ProgressBar } from '../components/features/ProgressBar'
+import { QuestionBlock } from '../components/features/QuestionBlock'
+import { ChoiceList } from '../components/features/ChoiceList'
+import { ExplanationBox } from '../components/features/ExplanationBox'
+import { toQuestionImages } from '../lib/toQuestionImages'
 import type { QuizQuestion } from '../types'
 
 interface QuizSessionFromApi {
@@ -182,6 +186,9 @@ export function QuizPage() {
   }
 
   const isCorrect = isAnswered && selectedLabel === currentQuestion.correct_answer
+  const correctChoice = currentQuestion.choices.find(
+    (choice) => choice.label === currentQuestion.correct_answer
+  ) ?? { label: currentQuestion.correct_answer, text: '' }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -209,60 +216,35 @@ export function QuizPage() {
           />
         </div>
 
-        <h2 className="mb-6 whitespace-pre-line text-lg font-semibold leading-relaxed text-gray-900 dark:text-gray-100">
-          {currentQuestion.question_text}
-        </h2>
-
-        {currentQuestion.images && currentQuestion.images.length > 0 && (
-          <div className="mb-6 flex flex-wrap gap-3">
-            {currentQuestion.images.map((img, i) => {
-              if (typeof img === 'string') {
-                return <img key={i} src={img} alt={`Question image ${i + 1}`} className="max-w-full rounded-lg" />
-              }
-              if (img && typeof img === 'object' && 'url' in img) {
-                return <img key={i} src={(img as { url: string }).url} alt={(img as { alt?: string }).alt || `Question image ${i + 1}`} className="max-w-full rounded-lg" />
-              }
-              return null
-            })}
-          </div>
-        )}
-
-        <div className="mb-8 space-y-3">
-          {currentQuestion.choices.map((choice) => {
-            const isSelected = selectedLabel === choice.label
-            const isCorrectChoice = choice.label === currentQuestion.correct_answer
-
-            let styles = 'border-gray-200 bg-white text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
-            if (isAnswered && isCorrectChoice) styles = 'border-green-500 bg-green-50 text-green-800 dark:border-green-500 dark:bg-green-900/30 dark:text-green-400'
-            else if (isAnswered && isSelected) styles = 'border-red-500 bg-red-50 text-red-800 dark:border-red-500 dark:bg-red-900/30 dark:text-red-400'
-            else if (isSelected) styles = 'border-purple-600 bg-purple-50 text-purple-800 dark:border-purple-500 dark:bg-purple-900/30 dark:text-purple-300'
-
-            return (
-              <button
-                key={choice.label}
-                onClick={() => handleSelect(choice.label)}
-                disabled={isAnswered}
-                className={`w-full rounded-xl border-2 p-4 text-left transition ${styles}`}
-              >
-                <span className="mr-2 font-bold uppercase">{choice.label}.</span>
-                <span className="whitespace-pre-line">{choice.text}</span>
-              </button>
-            )
-          })}
+        <div className="mb-6">
+          <QuestionBlock
+            question={{
+              question_text: currentQuestion.question_text,
+              images: toQuestionImages(currentQuestion.images),
+            }}
+          />
         </div>
 
-        {isAnswered && currentQuestion.explanation ? (
-          <div
-            className={`mb-6 rounded-xl border p-4 text-sm ${
-              isCorrect
-                ? 'border-green-200 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400'
-                : 'border-orange-200 bg-orange-50 text-orange-800 dark:border-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
-            }`}
-          >
-            <p className="mb-1 font-bold">{isCorrect ? 'Correct!' : 'Not quite.'}</p>
-            <p>{currentQuestion.explanation}</p>
+        <div className="mb-8">
+          <ChoiceList
+            choices={currentQuestion.choices}
+            selectedAnswer={selectedLabel}
+            onSelect={handleSelect}
+            disabled={isAnswered}
+            showCorrect={isAnswered}
+            correctAnswer={currentQuestion.correct_answer}
+          />
+        </div>
+
+        {isAnswered && (
+          <div className="mb-6">
+            <ExplanationBox
+              explanation={currentQuestion.explanation}
+              is_correct={isCorrect}
+              correctChoice={correctChoice}
+            />
           </div>
-        ) : null}
+        )}
 
         <div className="flex justify-end">
           {!isAnswered ? (
