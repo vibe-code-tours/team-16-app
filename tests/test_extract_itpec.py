@@ -1,40 +1,48 @@
-import json
-from pathlib import Path
+"""Unit tests for the PDF text helpers. They need no downloaded exam papers."""
+from extract_itpec import ANSWER_NUMBER_RE, INSTRUCTION_PAGE_RE, clean, split_choices
 
 
-def test_generated_dataset_is_complete_and_answerable():
-    path = Path("scripts/output/2025A_FE/questions.json")
-    if not path.exists():
-        return
-    rows = json.loads(path.read_text())
-    assert len(rows) == 80
-    assert len({(q["subject"], q["question_number"]) for q in rows}) == 80
-    assert {q["subject"] for q in rows} == {"A", "B"}
-    for question in rows:
-        assert question["question_text"]
-        assert question["correct_answer"] in {c["label"] for c in question["choices"]}
-        assert question["source_pages"]
-        assert question["content_blocks"]
-        assert question["ref_doc"]["question_pdf"]["filename"].endswith("_Questions.pdf")
-        assert question["ref_doc"]["answer_pdf"]["filename"].endswith("_Answers.pdf")
-        assert all(block["type"] in {"text", "code", "table", "prompt", "context", "answer_table"} for block in question["content_blocks"])
+def test_clean_removes_page_number_footer():
+    assert clean("Using public key cryptography\n\n - 6 -") == "Using public key cryptography"
+    assert clean("7\n\n – 3 –") == "7"
 
-    q4 = next(q for q in rows if q["subject"] == "A" and q["question_number"] == 4)
-    assert len(q4["images"]) == 1
-    q6 = next(q for q in rows if q["subject"] == "A" and q["question_number"] == 6)
-    assert len(q6["images"]) == 1
-    q8 = next(q for q in rows if q["subject"] == "A" and q["question_number"] == 8)
-    assert len(q8["images"]) == 1
-    q13 = next(q for q in rows if q["subject"] == "A" and q["question_number"] == 13)
-    assert q13["images"] == []
 
-    b2 = next(q for q in rows if q["subject"] == "B" and q["question_number"] == 2)
-    assert [block["type"] for block in b2["content_blocks"]] == ["prompt", "context", "code", "answer_table"]
-    assert "***A***" in b2["content_blocks"][2]["text"]
-    assert b2["choices"][2]["values"] == {"A": "arr[i] = arr[j]", "B": "m_c < c"}
-    b1 = next(q for q in rows if q["subject"] == "B" and q["question_number"] == 1)
-    assert b1["images"] == []
-    b6 = next(q for q in rows if q["subject"] == "B" and q["question_number"] == 6)
-    assert b6["images"] == []
-    b9 = next(q for q in rows if q["subject"] == "B" and q["question_number"] == 9)
-    assert len(b9["images"]) >= 1
+def test_clean_keeps_dashes_inside_a_sentence():
+    assert clean("x - 3 - y") == "x - 3 - y"
+
+
+def test_split_choices_finds_four_choices():
+    question, choices = split_choices("Q19. Which API is used?\n\n a) HTML b) Java VM c) JDBC d) SQL")
+    assert question == "Q19. Which API is used?"
+    assert [choice["label"] for choice in choices] == ["a", "b", "c", "d"]
+    assert choices[2]["text"] == "JDBC"
+
+
+def test_split_choices_ignores_a_stray_letter_inside_a_choice():
+    chunk = (
+        "Q24. Which explains augmented reality?\n\n"
+        " a) A person experiences worlds that do not exist.\n"
+        " b) By constructing a 3D virtual space, the user can walk around.\n"
+        " c) Computer-generated information is overlaid on the physical world.\n"
+        " d) The viewer watches a video recorded in the past."
+    )
+    _question, choices = split_choices(chunk)
+    assert [choice["label"] for choice in choices] == ["a", "b", "c", "d"]
+    assert "3D virtual space" in choices[1]["text"]
+
+
+def test_split_choices_returns_no_choices_when_labels_are_incomplete():
+    _question, choices = split_choices("Q50. Pick one.\n a) One b) Two c) Three c) Four")
+    assert choices == []
+
+
+def test_answer_key_accepts_question_numbers_up_to_eighty():
+    assert ANSWER_NUMBER_RE.fullmatch("60")
+    assert ANSWER_NUMBER_RE.fullmatch("80")
+    assert not ANSWER_NUMBER_RE.fullmatch("81")
+    assert not ANSWER_NUMBER_RE.fullmatch("0")
+
+
+def test_instruction_pages_are_recognised():
+    assert INSTRUCTION_PAGE_RE.search("[Sample Question]\n Q1. Which of the following should be used")
+    assert not INSTRUCTION_PAGE_RE.search("Q1. Which of the following is equivalent")
