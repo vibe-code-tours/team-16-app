@@ -12,7 +12,7 @@
 | 5-question quizzes | Per-topic quiz, instant feedback after each answer |
 | XP tracking | Earn XP per correct answer, display total XP on profile |
 | Countdown timer (exam sim) | Answer questions during a 60-minute countdown timer; no wrong-answer penalty |
-| Streak tracking | Daily login streak, displayed on dashboard |
+| Streak tracking | Daily study streak (answering a quiz question, completing a lesson, or finishing an exam counts; logging in alone does not), displayed on dashboard |
 | Mistake Garden | Wrong answers collected per user, reviewable with correct answer + explanation |
 | Exam simulation | Timed exam (Subject-A: 60 questions), countdown timer, submit-and-score |
 | Rule-based difficulty | Assign easy/medium/hard based on question metadata — no AI |

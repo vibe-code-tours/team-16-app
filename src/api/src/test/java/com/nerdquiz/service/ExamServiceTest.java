@@ -251,6 +251,7 @@ class ExamServiceTest {
         assertEquals(50, result.correctAnswers());
         assertEquals("completed", result.status());
         assertEquals(500, result.xpEarned());
+        verify(userService).recordStudyActivity(userId);
     }
 
     @Test
@@ -287,6 +288,7 @@ class ExamServiceTest {
 
         assertNotNull(result);
         verify(examSessionRepository, never()).save(any());
+        verify(userService, never()).recordStudyActivity(any());
     }
 
     @Test
