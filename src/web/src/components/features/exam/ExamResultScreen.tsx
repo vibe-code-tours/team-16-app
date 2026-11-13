@@ -1,7 +1,11 @@
 import { Card } from '../../ui/Card'
 import { Button } from '../../ui/Button'
 import { Badge } from '../../ui/Badge'
+import { OwlMascot } from '../OwlMascot'
 import type { ExamResult } from '../../../types/Exam'
+
+const PASSED_OWL_MESSAGE = "Hoo-ray! You're ready for the real exam."
+const FAILED_OWL_MESSAGE = "Don't give up! Review your mistakes and you'll get there."
 
 interface ExamResultScreenProps {
   result: ExamResult
@@ -15,13 +19,11 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
     <div className="space-y-6">
       {/* Score card */}
       <Card padding="lg" className="text-center">
-        <div className="mb-4">
-          {result.passed ? (
-            <span className="text-5xl">🏆</span>
-          ) : (
-            <span className="text-5xl">📚</span>
-          )}
-        </div>
+        <OwlMascot
+          mood={result.passed ? 'happy' : 'encouraging'}
+          message={result.passed ? PASSED_OWL_MESSAGE : FAILED_OWL_MESSAGE}
+          className="mb-4"
+        />
         <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
           {result.passed ? 'Congratulations!' : 'Keep Studying!'}
         </h2>

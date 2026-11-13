@@ -15,6 +15,45 @@
   --color-primary-900: #4c1d95;
   --color-xp-gold: #fbbf24;
   --color-xp-green: #22c55e;
+
+  /* OwlMascot moods — applied via motion-safe: so reduced-motion users see a still owl. */
+  --animate-owl-idle: owl-idle 3s ease-in-out infinite;
+  --animate-owl-happy: owl-happy 1.2s ease-in-out infinite;
+  --animate-owl-encouraging: owl-encouraging 2.4s ease-in-out infinite;
+
+  @keyframes owl-idle {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  @keyframes owl-happy {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+    30% {
+      transform: translateY(-8px) scale(1.05);
+    }
+  }
+
+  @keyframes owl-encouraging {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-6deg);
+    }
+    75% {
+      transform: rotate(6deg);
+    }
+  }
 }
 
 @keyframes app-loading-spin {
