@@ -1,6 +1,7 @@
 import { useState, useEffect, type FormEvent, type SVGProps } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { getLevelProgress, type LevelProgress } from "../lib/levelProgress";
 
 const WEEKLY_ACTIVITY: Array<{ day: string; value: number; minutes: number }> = [];
 
@@ -1158,30 +1159,6 @@ function getInitials(name: string) {
     .toUpperCase();
 
   return initials || "NQ";
-}
-
-function getLevelProgress(totalXp: number): LevelProgress {
-  const xpPerLevel = 250;
-  const safeXp = Math.max(totalXp, 0);
-  const level = Math.floor(safeXp / xpPerLevel) + 1;
-  const currentXp = safeXp % xpPerLevel;
-  const remainingXp = xpPerLevel - currentXp;
-
-  return {
-    level,
-    currentXp,
-    remainingXp,
-    xpPerLevel,
-    percent: Math.round((currentXp / xpPerLevel) * 100),
-  };
-}
-
-interface LevelProgress {
-  level: number;
-  currentXp: number;
-  remainingXp: number;
-  xpPerLevel: number;
-  percent: number;
 }
 
 type IconName =
