@@ -160,8 +160,9 @@ public class QuizService {
 
         quizSessionRepository.save(session);
         QuizAnswer savedAnswer = quizAnswerRepository.save(answer);
+        activityService.recordAnsweredQuestion(userId);
 
-        // Persist XP and record daily activity when quiz is completed
+        // Persist XP (also recorded as daily XP) when quiz is completed
         if ("completed".equals(session.getStatus())) {
             userService.incrementUserXp(userId, session.getXpEarned());
         }
