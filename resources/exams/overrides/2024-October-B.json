@@ -1,0 +1,34 @@
+{
+  "questions": {
+    "5": {
+      "note": "Geometric-mean formula was set in a font with a broken Unicode map; replaced it with the printed nth-root expression in linear text (root index written as √[n]), restored the subscripts in a1, a2, ..., an, and removed the page footer from choice d.",
+      "replacements": [
+        {
+          "find": "೙ඥሺ𝑎ଵ× 𝑎ଶ× ⋯× 𝑎௡ሻ",
+          "replace": "√[n](a₁ × a₂ × ⋯ × aₙ)"
+        },
+        {
+          "find": "a1, a2, …, an",
+          "replace": "a₁, a₂, …, aₙ"
+        }
+      ]
+    },
+    "6": {
+      "note": "Quadratic-formula figure table was extracted with broken math-font characters and lost layout; replaced the whole damaged span with the table as linear text rows, restored the superscript 2 in ax2 and b2, and removed the page footer from choice h.",
+      "replacements": [
+        {
+          "find": "−𝑏+ √𝑏ଶ−4𝑎𝑐\n 𝑟𝑜𝑜𝑡1 =\n 2𝑎\n If the discriminant > 0\n −𝑏−√𝑏ଶ−4𝑎𝑐\n 𝑟𝑜𝑜𝑡2 =\n 2𝑎\n\n−𝑏\n If the discriminant = 0 𝑟𝑜𝑜𝑡1 = 𝑟𝑜𝑜𝑡2 =\n 2𝑎",
+          "replace": "If the discriminant > 0 | root1 = (−b + √(b² − 4ac))/(2a)\n  | root2 = (−b − √(b² − 4ac))/(2a)\nIf the discriminant = 0 | root1 = root2 = (−b)/(2a)"
+        },
+        {
+          "find": "ax2 + bx + c = 0",
+          "replace": "ax² + bx + c = 0"
+        },
+        {
+          "find": "term b2 - 4ac",
+          "replace": "term b² - 4ac"
+        }
+      ]
+    }
+  }
+}

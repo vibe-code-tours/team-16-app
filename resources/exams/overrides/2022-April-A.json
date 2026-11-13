@@ -1,0 +1,388 @@
+{
+  "questions": {
+    "1": {
+      "note": "Logic formulas were garbled by a broken font map; retyped question and choices with U+0305 overbars and ∙ for the AND dot.",
+      "question_text": "Q1. For logical variables A and B, which of the following is equivalent to the NOR operation on A and B? Here, A + B, A ∙ B, and A̅ are OR, AND, and NOT operations on the corresponding variables, respectively.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "A̅ ∙ (A + B̅)"
+        },
+        {
+          "label": "b",
+          "text": "A̅ ∙ (A̅ + B̅)"
+        },
+        {
+          "label": "c",
+          "text": "B ∙ (A + B̅)"
+        },
+        {
+          "label": "d",
+          "text": "B̅ ∙ (A̅ + B̅)"
+        }
+      ]
+    },
+    "5": {
+      "note": "State-transition table (6 columns) was flattened into unreadable text; removed it from the text and added a crop of the table.",
+      "question_text": "Q5. The table below shows state transition for character string inspection. During the inspection, if the state changes to E, the string under inspection is rejected. Which of the following is rejected in this inspection? Here, state A is the initial state, strings are inspected from left to right, and symbol △ indicates a blank character.",
+      "figures": [
+        {
+          "page": 4,
+          "rect": [
+            100,
+            146,
+            493,
+            299
+          ]
+        }
+      ]
+    },
+    "8": {
+      "note": "Figure also contained the question text and part of the choice table, stray column headings were in the text, and the table-row choices lost their column labels; re-cropped the flowchart only, cleaned the text, and labelled the choices.",
+      "question_text": "Q8. For two non-negative integers x and y, which of the following is the result of the procedure shown in the flowchart below?",
+      "figures": [
+        {
+          "page": 5,
+          "rect": [
+            198,
+            112,
+            400,
+            280
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "a",
+          "text": "Value of q: Quotient of x ÷ y, Value of r: Remainder of x ÷ y"
+        },
+        {
+          "label": "b",
+          "text": "Value of q: Quotient of y ÷ x, Value of r: Remainder of y ÷ x"
+        },
+        {
+          "label": "c",
+          "text": "Value of q: Remainder of x ÷ y, Value of r: Quotient of x ÷ y"
+        },
+        {
+          "label": "d",
+          "text": "Value of q: Remainder of y ÷ x, Value of r: Quotient of y ÷ x"
+        }
+      ]
+    },
+    "9": {
+      "note": "Subscript flattened: 'log2N' restored as 'log₂N'.",
+      "replacements": [
+        {
+          "find": "log2N",
+          "replace": "log₂N"
+        }
+      ]
+    },
+    "13": {
+      "note": "Cache/main memory table (5 columns, multi-line headers) was flattened into unreadable text; removed it from the text and added a crop of the table.",
+      "question_text": "Q13. Which of the following is the list that contains A through D sorted starting with the shortest effective access time of the main memory?",
+      "figures": [
+        {
+          "page": 6,
+          "rect": [
+            106,
+            440,
+            488,
+            614
+          ]
+        }
+      ]
+    },
+    "17": {
+      "note": "Table-row choices were flattened to bare numbers ('0 1 4 10') without the P1-P4 headings, which were left dangling in the text; labelled each choice and wrote the process table with | separators.",
+      "question_text": "Q17. An OS chooses a process for CPU execution based on the First-Come-First-Serve (FCFS) scheduling algorithm. There are four processes, P1, P2, P3, and P4, and their arrival times and burst times are shown in the table below. Which of the following is the appropriate combination of waiting times for the processes to be executed? Here, the arrival time is the time at which a process enters the ready queue and is ready for execution, the burst time is the time a process requires for CPU execution, and the waiting time is the period of time a process spends in the ready queue waiting for the CPU to start execution.\n\nUnit: milliseconds\nProcess | Arrival time | Burst time\nP1 | 0 | 3\nP2 | 2 | 5\nP3 | 4 | 7\nP4 | 5 | 2",
+      "choices": [
+        {
+          "label": "a",
+          "text": "P1: 0, P2: 1, P3: 4, P4: 10"
+        },
+        {
+          "label": "b",
+          "text": "P1: 0, P2: 2, P3: 4, P4: 5"
+        },
+        {
+          "label": "c",
+          "text": "P1: 0, P2: 3, P3: 5, P4: 7"
+        },
+        {
+          "label": "d",
+          "text": "P1: 0, P2: 3, P3: 8, P4: 15"
+        }
+      ]
+    },
+    "21": {
+      "note": "Choices a-d are NOR-gate circuit drawings extracted as empty text (d held the page number); supplied each as a choice figure and dropped the old figure that only showed the choices.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              96,
+              280,
+              288,
+              366
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              356,
+              282,
+              506,
+              356
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              102,
+              384,
+              256,
+              442
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              350,
+              384,
+              530,
+              458
+            ]
+          }
+        }
+      ],
+      "figures": []
+    },
+    "22": {
+      "note": "Choice d (a long overbar over the whole expression, inside which the second group already carries bars) was typed with two stacked U+0305 per letter, which does not display legibly; replaced all four choices with crops of the printed expressions so the bars are shown exactly.",
+      "question_text": "Q22. A paper tape reader used as a computer input device reads a tape with five rows of holes as shown below. A hole punched in the tape indicates logic 1, and no hole indicates logic 0. As each hole pattern passes under the photocells, the pattern is translated into logic signals as a variable: A, B, C, D, or E. A valid pattern on the tape has at least one hole, and an invalid pattern has no hole or all five holes punched. Which of the following is a logical expression that has logic 1 when a valid pattern is being read and logic 0 when an invalid pattern is being read? Here, + represents logical OR, ∙ represents logical AND, and A̅ represents the negation of A in the logic expression. In the figure, • represents a punched hole on the tape.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 10,
+            "rect": [
+              99,
+              388,
+              330,
+              407.5
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 10,
+            "rect": [
+              99,
+              407.5,
+              330,
+              425
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 10,
+            "rect": [
+              99,
+              425,
+              330,
+              443
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 10,
+            "rect": [
+              99,
+              443,
+              330,
+              462
+            ]
+          }
+        }
+      ],
+      "figures": [
+        {
+          "page": 10,
+          "rect": [
+            160,
+            242,
+            434,
+            359
+          ]
+        }
+      ]
+    },
+    "23": {
+      "note": "Five-column 'Ordering data' table was flattened into the text; removed it and added a crop of the table.",
+      "question_text": "Q23. When ordering data is entered in the format shown below, which of the following is appropriate to check whether the order date is on a business day that is the same as or prior to the entering date?",
+      "figures": [
+        {
+          "page": 10,
+          "rect": [
+            94,
+            563,
+            507,
+            637
+          ]
+        }
+      ]
+    },
+    "28": {
+      "note": "Table-row choices were flattened to 'row row' etc. with the A/B headings left dangling in the text; labelled the choices and removed the stray headings.",
+      "question_text": "Q28. For the description of the lock granularity of an RDBMS below, which of the following is an appropriate combination of A and B?\n\nEach pair of transactions that are processed in parallel updates multiple rows in a single table. When a row-level lock and a table-level lock are compared, lock contention is more likely to occur when an [ A ] -level lock is used. More RDBMS memory area is required when a [ B ] -level lock is used in order to manage the lock while transactions are being processed.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "A: row, B: row"
+        },
+        {
+          "label": "b",
+          "text": "A: row, B: table"
+        },
+        {
+          "label": "c",
+          "text": "A: table, B: row"
+        },
+        {
+          "label": "d",
+          "text": "A: table, B: table"
+        }
+      ]
+    },
+    "30": {
+      "note": "Figure also contained the answer choices and the text had stray diagram labels; re-cropped the network diagram only and removed the stray labels.",
+      "question_text": "Q30. Multiple PCs are connected to the Internet with FTTH. The WAN interface of device A has a single global IP address allocated to it. Which of the following is the function of device A that enables these PCs to connect to the Internet by sharing the global IP address?",
+      "figures": [
+        {
+          "page": 13,
+          "rect": [
+            110,
+            258,
+            464,
+            350
+          ]
+        }
+      ]
+    },
+    "42": {
+      "note": "Table-row choices were flattened to 'I III' etc. with the column headings left dangling in the text; labelled the choices and removed the stray headings.",
+      "question_text": "Q42. Which of the following is an appropriate combination of definitions I through IV for authenticity and reliability in ISO/IEC 27000:2018 (Information security management systems – Overview and vocabulary)?\n\n[Definitions]\nI Property of consistent intended behavior and results\nII Property that an entity is what it claims to be\nIII Property of being accessible and usable on demand by an authorized entity\nIV Property that information is not made available or disclosed to unauthorized individuals, entities, or processes",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Authenticity: I, Reliability: III"
+        },
+        {
+          "label": "b",
+          "text": "Authenticity: II, Reliability: I"
+        },
+        {
+          "label": "c",
+          "text": "Authenticity: II, Reliability: IV"
+        },
+        {
+          "label": "d",
+          "text": "Authenticity: IV, Reliability: I"
+        }
+      ]
+    },
+    "50": {
+      "note": "Choices were left inside the question text and the PDF misprints the last label as a second \"c)\"; moved choices out and relabelled the last one d).",
+      "question_text": "Q50. Which of the following is a software development model that repeats the development processes from requirements analysis to implementation?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Prototyping model"
+        },
+        {
+          "label": "b",
+          "text": "Relational model"
+        },
+        {
+          "label": "c",
+          "text": "Spiral model"
+        },
+        {
+          "label": "d",
+          "text": "Waterfall model"
+        }
+      ]
+    },
+    "55": {
+      "note": "Labels and numbers from the arrow diagram and legend were dumped into the question text; removed them (the figure already shows the whole diagram).",
+      "question_text": "Q55. The arrow diagram below shows a project’s activities and milestones. Which of the following is the minimum project completion time in days?"
+    },
+    "69": {
+      "note": "The PDF prints the fourth choice with a second 'b)' label, so no choices were detected. Relabelled the fourth choice d); wording unchanged.",
+      "question_text": "Q69. Which of the following is the appropriate description of process innovation?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Development of an innovative new product on the basis of an original and high technology"
+        },
+        {
+          "label": "b",
+          "text": "Development of innovative manufacturing procedures that improve the quality of a product"
+        },
+        {
+          "label": "c",
+          "text": "Outsourcing manufacturing to another company that has a semiconductor manufacturing process"
+        },
+        {
+          "label": "d",
+          "text": "Wide adoption after passing the competition, resulting in the establishment of a de facto standard"
+        }
+      ]
+    },
+    "71": {
+      "note": "Box labels from the MRP figure were dumped into the question text; removed them (the figure already shows the diagram).",
+      "question_text": "Q71. The figure below shows the work procedure for MRP (Material Requirements Planning), a technique pertaining to a production management system. Which of the following is a necessary piece of information for calculating the net requirements to be inserted into A in the figure below?"
+    },
+    "77": {
+      "note": "Seven-column profit/probability table was flattened into the text; removed it and added a crop of the table.",
+      "question_text": "Q77. Products A, B, C, and D are to be introduced to the market. The table below shows the expected profit for each product with three (3) sales forecasts (High, Medium, and Low) that are estimated to occur in accordance with the probability in the table. Which of the following is the product that is expected to make the highest profit according to the expected value principle?",
+      "figures": [
+        {
+          "page": 28,
+          "rect": [
+            71,
+            521,
+            520,
+            668
+          ]
+        }
+      ]
+    }
+  }
+}

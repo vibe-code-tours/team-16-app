@@ -26,6 +26,8 @@ export interface AuthContextType {
 export interface QuestionChoice {
   label: string
   text: string
+  /** Figure filename for choices that are drawings rather than text. */
+  image?: string
 }
 
 export interface QuizQuestion {

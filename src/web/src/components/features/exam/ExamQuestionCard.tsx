@@ -2,6 +2,7 @@ import { Card } from '../../ui/Card'
 import { Badge } from '../../ui/Badge'
 import type { ExamQuestion } from '../../../types/Exam'
 import type { ExamAnswerResult } from '../../../types/Exam'
+import { toQuestionImage } from '../../../lib/questionImage'
 
 interface ExamQuestionCardProps {
   question: ExamQuestion
@@ -44,12 +45,24 @@ export function ExamQuestionCard({
       </div>
 
       {/* Question text */}
-      <div className="mb-6 text-gray-900 dark:text-gray-100 leading-relaxed">{question.questionText}</div>
+      <div className="mb-6 whitespace-pre-line text-gray-900 dark:text-gray-100 leading-relaxed">{question.questionText}</div>
+
+      {/* Question figures */}
+      {question.images.length > 0 && (
+        <div className="mb-6 flex flex-wrap gap-3">
+          {question.images.map((image, index) => {
+            const figure = toQuestionImage(image, `Question figure ${index + 1}`)
+            if (!figure) return null
+            return <img key={figure.src} src={figure.src} alt={figure.alt} className="max-w-full rounded-lg bg-white" />
+          })}
+        </div>
+      )}
 
       {/* Choices */}
       <div className="space-y-3">
         {question.choices.map((choice) => {
           const isSelected = selectedAnswer === choice.label
+          const choiceFigure = toQuestionImage(choice.image, `Choice ${choice.label}`)
           let borderColor = 'border-gray-200 dark:border-gray-700'
           let bgColor = 'bg-white dark:bg-gray-800'
           if (isSelected) {
@@ -70,7 +83,12 @@ export function ExamQuestionCard({
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 text-xs font-medium text-gray-700 dark:text-gray-300">
                   {choice.label}
                 </span>
-                <span className="text-gray-900 dark:text-gray-100">{choice.text}</span>
+                <div className="min-w-0 flex-1">
+                  <span className="whitespace-pre-line text-gray-900 dark:text-gray-100">{choice.text}</span>
+                  {choiceFigure && (
+                    <img src={choiceFigure.src} alt={choiceFigure.alt} className="mt-2 max-w-full rounded-lg bg-white" />
+                  )}
+                </div>
               </div>
             </button>
           )

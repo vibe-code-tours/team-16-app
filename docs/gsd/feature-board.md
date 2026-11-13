@@ -1,7 +1,7 @@
 # Feature Board
 
 > Owner column is blank — fill in during team kickoff.
-> Last synced with codebase: 2026-07-15
+> Last synced with codebase: 2026-11-13
 
 | # | Feature | Owner | Status | Notes |
 |---|---------|-------|--------|-------|
@@ -17,14 +17,14 @@
 | 10 | Rule-based difficulty | | Done | DB trigger `assign_question_difficulty()` (migration 007) auto-calculates `difficulty_score` + `difficulty` label from question metadata |
 | 11 | Landing page | | Done | `LandingPage.tsx` has hero section, feature cards, Sign In / Get Started CTAs |
 | 12 | User profile | | Done | Backend: `UserProfileController` (GET/POST/PUT `/api/v1/me/profile`). Frontend: `UserProfile.tsx` — display name editing, XP, member-since date |
-| 13 | Data extraction | Myat | Done | 3 exam sessions seeded (2021-April, 2021-October, 2022-April) + business questions (migration 017). Pipeline documented in `.claude/skills/` |
+| 13 | Data extraction | Myat | Done | 10 exam sessions seeded (2021 April – 2025 October): 720 Subject-A + 128 Subject-B questions, plus business questions (migration 017). Pipeline: build → validation gate → page-image overrides → AI-written subtopic + explanation → one generated seed (`009_seed_exam_questions.sql`). Documented in `.claude/skills/extract-data/` |
 | 14 | Database schema + seed | Myat | Done | 18 migrations (001–018). RLS on all tables. 5 functions, 12 triggers, 18 indexes. |
 | 15 | CI/CD setup | Myo Min Lin | Finished | GitHub Actions deployment |
 | 16 | Backend Dockerization | Myo Min Lin | Finished | Multi-stage Dockerfile (Gradle + Java 25), docker-compose.yml orchestrating backend + Supabase local. [Issue #12](https://github.com/vibe-code-tours/team-16-app/issues/12) |
 | 17 | Mobile responsiveness | | In progress | Tailwind mobile-first classes. Header has hamburger menu. Sidebar mobile overlay not yet wired (hardcoded `hidden`) |
 | 18 | Flashcards | | Week 2 stretch | DB schema ready (`flashcards`, `user_flashcard_state`, `flashcard_reviews`). No backend/frontend code |
 | 19 | Weak point analysis | | Week 2 stretch | DB index `idx_mastery_weak_points` exists. No backend/frontend code |
-| 20 | Additional exams | | Week 2 stretch | Extraction pipeline ready for remaining exam sessions |
+| 20 | Additional exams | Myat | Done | 7 more sessions added (2022 October – 2025 October) and the 3 earlier ones re-extracted: 2021–2023 papers now have all 80 Subject-A questions. Question figures are static files in `src/web/public/question-images/` (ADR-0009). Subject-B is seeded but not served by the app |
 | 21 | Admin dashboard (stats) | | Week 2 | Role-gated dashboard with stat cards + charts (Recharts). User management page: searchable/sortable table, quick filters (Active Today, Inactive 30d+, New 7d), detail drawer (Overview/Activity/Performance tabs), actions (change role, reset streak, deactivate, CSV export). Backend: `AdminController` + `AdminService` (JdbcTemplate). Frontend: `AdminDashboard.tsx`, `AdminUsers.tsx` + 5 chart components + 5 user components. |
 
 ## Week 1 target: #1–16 functional (local demo) ✅ Complete
@@ -38,3 +38,9 @@
 4. **No JPA entity for `user_profiles`**: `UserProfileService` uses raw `JdbcTemplate` instead of a repository.
 5. **No JPA entity for `user_mistakes`**: `MistakeService` also uses raw `JdbcTemplate`.
 6. **LessonProgressController duplicates LessonController**: Both handle lesson completion at different paths (`/api/v1/me/lessons/{id}/progress` vs `/api/v1/lessons/{id}/complete`).
+
+## Known gaps (from question seeding 2026-11-13)
+
+7. **Image answer choices are blank in Mistake Garden**: `MistakeService.parseChoices` returns label and text only, so the 64 choices that are drawings show nothing there. Quiz and exam screens render them.
+8. **Subject-B questions are not served**: quiz and exam queries filter to Subject A with a single-letter answer. The 2021–2023 Subject-B questions are multi-part and their extracted text is incomplete.
+9. **Seed is applied by hand**: there is no `supabase/config.toml`, so `supabase db reset` does not load `supabase/seed_data/`; use `psql -f`.

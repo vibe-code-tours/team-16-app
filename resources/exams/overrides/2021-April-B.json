@@ -1,0 +1,38 @@
+{
+  "questions": {
+    "5": {
+      "note": "Figure 4 (Booking screen) had broken-font Wingdings glyphs for the Search book icon and the row checkboxes; replaced them with [book icon], ☑ and ☐ as printed.",
+      "replacements": [
+        {
+          "find": "__",
+          "replace": "_[book icon]_"
+        },
+        {
+          "find": "500 ",
+          "replace": "500 ☑"
+        },
+        {
+          "find": "360 ",
+          "replace": "360 ☐"
+        },
+        {
+          "find": "550 ",
+          "replace": "550 ☐"
+        }
+      ]
+    },
+    "6": {
+      "note": "The CCI formula in description (2) was extracted as broken-font Syriac/Malayalam characters; replaced it with the printed formula CCI = (n − 1) / ∑(distance to other nodes) in linear form.",
+      "replacements": [
+        {
+          "find": "ܥܥܫ ൌെ1",
+          "replace": "CCI = (n − 1)"
+        },
+        {
+          "find": "∑ሺݏݐܽ݊ܿ݁ ݐ݋ ݋ݐ݄݁ ݎ ݊݋݀݁ ݏ ሻ",
+          "replace": "/ ∑(distance to other nodes)"
+        }
+      ]
+    }
+  }
+}

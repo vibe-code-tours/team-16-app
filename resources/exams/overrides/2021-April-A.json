@@ -1,0 +1,309 @@
+{
+  "questions": {
+    "1": {
+      "note": "Logic expressions were garbled by a broken math font map; retyped the expression, the operator legend and all four choices from the page image (NOT shown as x with combining overline).",
+      "question_text": "Q1. Which of the following is equivalent to the logic expression below?\n\n(x + y) ∙ (x + z)\n\nHere, the letters are logic variables; x + y, x ∙ y, and x̅ are OR, AND, and NOT operations on the corresponding variables, respectively.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "x ∙ (y + z)"
+        },
+        {
+          "label": "b",
+          "text": "x + y ∙ z"
+        },
+        {
+          "label": "c",
+          "text": "x ∙ y + y ∙ z"
+        },
+        {
+          "label": "d",
+          "text": "(x̅ + y) ∙ z"
+        }
+      ]
+    },
+    "3": {
+      "note": "Subscripts in the procedure were flattened (x0, xi−2 read as plain text); restored them as x₀, x₁, x_i, x_(i−2), x_(i−1).",
+      "question_text": "Q3. The GCD (Greatest Common Divisor) of two positive integers, x₀ and x₁ (x₀ > x₁), is computed by the procedure below. When x₀ = 175 and x₁ = 77, how many times should step (2) of this procedure be executed before it stops? Here, “A ← B” indicates that B is substituted for A.\n\n[Procedure]\n(1) i ← 2\n(2) x_i ← remainder of x_(i−2) divided by x_(i−1)\n(3) if x_i = 0, stop with x_(i−1) as the GCD\n(4) i ← i + 1\n(5) return to step (2)"
+    },
+    "5": {
+      "note": "The blank-character symbol (a triangle) was lost from the question text and choice d, choice d also carried the page footer, and the table was flattened; restored the symbol as △, rewrote the table as text rows and cleaned choice d.",
+      "question_text": "Q5. The table below is a state transition table used for character string validation. In this table, “A” represents the initial state, and “E” represents the failure state. Which of the following is a character string that fails this validation? Here, each character of a string is parsed from the leftmost side, and the symbol “△” represents a blank character.\n\nCurrent state \\ Character | Blank | Number | Sign | Radix point | Other\nA | A | B | C | D | E\nB | A | B | E | D | E\nC | E | B | E | D | E\nD | A | E | E | E | E",
+      "choices": [
+        {
+          "label": "a",
+          "text": "+0010"
+        },
+        {
+          "label": "b",
+          "text": "−1"
+        },
+        {
+          "label": "c",
+          "text": "12.2"
+        },
+        {
+          "label": "d",
+          "text": "9.△"
+        }
+      ]
+    },
+    "12": {
+      "note": "The instruction-mix table was flattened with its cells split across lines; rewrote it as text rows.",
+      "question_text": "Q12. Which of the following is the performance of a CPU in MIPS when the instruction mix of the CPU is as listed in the table below? Here, the CPU does not use a pipeline architecture.\n\nInstruction type | Instruction execution time in μs | Appearance ratio\nRegister to register operation | 0.1 | 40%\nRegister from memory operation | 0.3 | 50%\nUnconditional branch operation | 0.6 | 10%"
+    },
+    "17": {
+      "note": "The A/B/C answer table was scrambled into the question text and choices, and the figure included the table's top border; removed the table fragments, transcribed each choice row as A/B/C text and recropped the figure to the diagram.",
+      "question_text": "Q17. In the switching procedure of processes in the multiprogramming shown in the figure below, which of the following is an appropriate combination of OS processing from A to C?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "A: Restoration of the running state, B: Selection of the process, C: Saving of the running state"
+        },
+        {
+          "label": "b",
+          "text": "A: Saving of the running state, B: Restoration of the running state, C: Selection of the process"
+        },
+        {
+          "label": "c",
+          "text": "A: Saving of the running state, B: Selection of the process, C: Restoration of the running state"
+        },
+        {
+          "label": "d",
+          "text": "A: Selection of the process, B: Restoration of the running state, C: Saving of the running state"
+        }
+      ],
+      "figures": [
+        {
+          "page": 8,
+          "rect": [
+            125,
+            122,
+            470,
+            314
+          ]
+        }
+      ]
+    },
+    "21": {
+      "note": "Table header \"A B\" was left in the question text and each choice merged the A and B cells without a separator; removed the stray header and labelled the cells A/B in each choice.",
+      "question_text": "Q21. The half adder in the diagram below adds two (2) single-digit binary numbers, x and y, and produces z (the first digit of the sum) and c (the carry bit) as outputs. Which of the following is the appropriate combination of gate devices A and B?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "A: Exclusive logical sum (XOR), B: Logical product (AND)"
+        },
+        {
+          "label": "b",
+          "text": "A: Logical product (AND), B: Logical sum (OR)"
+        },
+        {
+          "label": "c",
+          "text": "A: Negative logical product (NAND), B: Negative logical sum (NOR)"
+        },
+        {
+          "label": "d",
+          "text": "A: Negative logical sum (NOR), B: Exclusive logical sum (XOR)"
+        }
+      ]
+    },
+    "22": {
+      "note": "Choice images were correct but included the printed a)-d) labels and were also duplicated as question figures; recropped each circuit as a clean choice figure and removed the duplicate question figures.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 10,
+            "rect": [
+              116,
+              132,
+              258,
+              206
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 10,
+            "rect": [
+              340,
+              132,
+              478,
+              206
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 10,
+            "rect": [
+              116,
+              228,
+              258,
+              305
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 10,
+            "rect": [
+              340,
+              228,
+              478,
+              305
+            ]
+          }
+        }
+      ],
+      "figures": []
+    },
+    "30": {
+      "note": "The conditions table was flattened with cells split across lines and 10^6 was flattened to \"106\"; rewrote the table as text rows and restored 10⁶.",
+      "question_text": "Q30. Which of the following is the response time when a client and server at different locations communicate under the conditions below? Here, the response time is in seconds and starts from the moment the client sends a message until a response is received from the server. 1 MB is 10⁶ bytes. The propagation delay between the client and server can be ignored.\n\n[Conditions]\nLine speed between client and server | 8 Mbit/s\nTransmission efficiency | 60%\nMessage size | 1 MB for upstreaming and 2 MB for downstreaming\nProcessing time at client side | Total of 0.4 s for sending and receiving\nProcessing time at server side | Total of 0.4 s for sending and receiving"
+    },
+    "45": {
+      "note": "The four class-diagram choices were extracted as garbled label text and the only figure showed all four diagrams together; cropped each diagram as a choice figure and dropped the combined figure.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 17,
+            "rect": [
+              114,
+              98,
+              206,
+              252
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 17,
+            "rect": [
+              294,
+              98,
+              386,
+              228
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 17,
+            "rect": [
+              114,
+              256,
+              206,
+              388
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 17,
+            "rect": [
+              271,
+              256,
+              418,
+              393
+            ]
+          }
+        }
+      ],
+      "figures": []
+    },
+    "46": {
+      "note": "The circle symbol in the question text was lost to a broken font map and choice d carried the page footer; restored the symbol as ○ and cleaned choice d.",
+      "question_text": "Q46. The figure below shows an example of a DFD that uses one of the DFD notations and represents a flow of data in a system. Texts in the figure are not shown. Which of the following is represented by the circle “○” in the DFD notation used in the example?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Activity"
+        },
+        {
+          "label": "b",
+          "text": "Data flow"
+        },
+        {
+          "label": "c",
+          "text": "Data store"
+        },
+        {
+          "label": "d",
+          "text": "Process"
+        }
+      ]
+    },
+    "54": {
+      "note": "The multiplication sign was lost to a broken font map, the exponent 1/3 was flattened, and choice d carried the page footer; restored × and ^(1/3) and cleaned choice d.",
+      "question_text": "Q54. In system development, when the relationship between person-months and the duration (months) is represented in the approximate expression shown below, and the total person-month is 4096, how many months does it take?\n\nDuration = 2.5 × person-months^(1/3)",
+      "choices": [
+        {
+          "label": "a",
+          "text": "16"
+        },
+        {
+          "label": "b",
+          "text": "40"
+        },
+        {
+          "label": "c",
+          "text": "64"
+        },
+        {
+          "label": "d",
+          "text": "160"
+        }
+      ]
+    },
+    "71": {
+      "note": "Tree labels (A, B(2), C(1), ...) were dumped into the question text and the figure included a cut-off text line; removed the stray labels and recropped the figure to the parts tree.",
+      "question_text": "Q71. The figure below shows the relationships among the components of product A, and the numbers in parentheses indicate the quantity of components necessary to produce one unit of the upper-level product or component. When 10 units of product A are produced, how many units of component C must be ordered? Here, there are presently five units of component C in the inventory.",
+      "figures": [
+        {
+          "page": 25,
+          "rect": [
+            218,
+            154,
+            420,
+            230
+          ]
+        }
+      ]
+    },
+    "72": {
+      "note": "The escrow transaction diagram had no figure and its labels were dumped into the question text; removed the stray labels and added a figure crop of the diagram.",
+      "question_text": "Q72. The figure below shows the transaction model of an escrow service that is used in an Internet auction site or other similar transactions. Which of the following is the action that corresponds to (5) in this figure? Here, (1) through (6) indicate the sequence of transactions, and each of the numbers from (3) to (6) corresponds to an action in a) through d).",
+      "figures": [
+        {
+          "page": 25,
+          "rect": [
+            158,
+            393,
+            430,
+            527
+          ]
+        }
+      ]
+    },
+    "79": {
+      "note": "The cost table was flattened into run-together text; rewrote it as text rows with cell separators.",
+      "question_text": "Q79. The break-even point (BEP) is a level where total cost and total revenue are equal. The table below lists the fixed cost, variable cost per unit, price per unit, and BEP in units. Which of the following is a value of the price per unit?\n\nFixed cost ($) | 100,000\nVariable cost per unit ($) | 2\nPrice per unit ($) |\nBEP in units | 10,000"
+    }
+  }
+}

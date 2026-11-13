@@ -1,0 +1,21 @@
+{
+  "questions": {
+    "15": {
+      "note": "The IDF formula was split over three lines in math-italic characters from a broken font map; rebuilt it as one plain linear line, IDF(t) = log (N/(1 + df(t))).",
+      "replacements": [
+        {
+          "find": "𝐼𝐷𝐹(𝑡) = log ( )",
+          "replace": "IDF(t) = log (N/(1 + df(t)))"
+        },
+        {
+          "find": " 𝑁",
+          "replace": ""
+        },
+        {
+          "find": " 1 + 𝑑𝑓(𝑡)",
+          "replace": ""
+        }
+      ]
+    }
+  }
+}
