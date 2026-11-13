@@ -11,6 +11,7 @@ import type { QuizResult as QuizResultType } from '../types/Quiz';
 function mapApiResult(apiResult: QuizResultApi): QuizResultType {
   return {
     session_id: apiResult.sessionId,
+    subtopic_id: apiResult.answers[0]?.question.subtopicId,
     total_questions: apiResult.totalQuestions,
     correct_answers: apiResult.correctAnswers,
     score_percentage: apiResult.scorePercentage,
@@ -93,6 +94,8 @@ export function QuizResult() {
       </div>
     );
   }
+
+  const retryPath = result.subtopic_id ? `/quiz/${result.subtopic_id}` : '/quizzes';
 
   const getScoreColor = (percentage: number) => {
     if (percentage >= 80) return 'text-green-600';
@@ -215,7 +218,7 @@ export function QuizResult() {
         <div className="mt-8 flex gap-4">
           <Button
             variant="outline"
-            onClick={() => navigate('/quizzes')}
+            onClick={() => navigate(retryPath)}
             className="flex-1"
           >
             Try Again
