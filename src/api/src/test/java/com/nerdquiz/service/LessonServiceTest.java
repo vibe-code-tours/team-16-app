@@ -79,6 +79,7 @@ class LessonServiceTest {
         assertNotNull(saved.getValue().getStartedAt());
         assertNotNull(saved.getValue().getCompletedAt());
         verify(userService).incrementUserXp(userId, LESSON_XP_REWARD);
+        verify(userService).recordStudyActivity(userId);
     }
 
     @Test
@@ -95,6 +96,7 @@ class LessonServiceTest {
         assertEquals(startedAt, inProgress.getStartedAt());
         verify(progressRepository).save(inProgress);
         verify(userService).incrementUserXp(userId, LESSON_XP_REWARD);
+        verify(userService).recordStudyActivity(userId);
     }
 
     @Test
@@ -107,6 +109,7 @@ class LessonServiceTest {
 
         verify(progressRepository, never()).save(any());
         verify(userService, never()).incrementUserXp(any(), anyInt());
+        verify(userService, never()).recordStudyActivity(any());
     }
 
     @Test
@@ -116,6 +119,7 @@ class LessonServiceTest {
         assertThrows(LessonNotFoundException.class, () -> lessonService.completeLesson(lessonId, userId));
 
         verify(userService, never()).incrementUserXp(any(), anyInt());
+        verify(userService, never()).recordStudyActivity(any());
     }
 
     @Test
@@ -127,6 +131,7 @@ class LessonServiceTest {
 
         verify(progressRepository, never()).save(any());
         verify(userService, never()).incrementUserXp(any(), anyInt());
+        verify(userService, never()).recordStudyActivity(any());
     }
 
     private UserLessonProgress progress(String status) {

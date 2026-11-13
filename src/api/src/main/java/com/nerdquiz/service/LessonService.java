@@ -93,7 +93,8 @@ public class LessonService {
 
     /**
      * Marks a published lesson as completed for the user. The lesson's {@code xp_reward}
-     * is awarded on the first completion only; repeating it is a no-op.
+     * is awarded and the day counts toward the study streak on the first completion only;
+     * repeating it is a no-op.
      */
     @Transactional
     public void completeLesson(UUID lessonId, UUID userId) {
@@ -116,6 +117,7 @@ public class LessonService {
         row.setCompletedAt(now);
         progressRepository.save(row);
         userService.incrementUserXp(userId, lesson.getXpReward());
+        userService.recordStudyActivity(userId);
     }
 
     private static UserLessonProgress newProgress(UUID userId, UUID lessonId) {
