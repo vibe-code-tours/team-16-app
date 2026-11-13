@@ -1,0 +1,47 @@
+{
+  "questions": {
+    "2": {
+      "note": "Broken font glyph U+F0C5 replaced with the XOR symbol; the Subquestion 3 formulas (duplicated lines, lost overbars) and answer-group E choices a/b (lost overbars, identical text) and e (page footer) were re-transcribed from the page.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "(G1+G̅2̅)•G3 + (G̅1̅+G2)•G3 + G1•G2•G3"
+        },
+        {
+          "label": "b",
+          "text": "(G1+G̅2̅)•G3 + (G̅1̅+G2)•G̅3̅ + G1•G2•G3"
+        },
+        {
+          "label": "c",
+          "text": "(G1 ⊕ G2) • G3"
+        },
+        {
+          "label": "d",
+          "text": "(G1 ⊕ G2) + G3"
+        },
+        {
+          "label": "e",
+          "text": "G1 ⊕ G2 ⊕ G3"
+        }
+      ],
+      "replacements": [
+        {
+          "find": "B1 = G1 B2 = G1•G2 + G1•G2 = G1  G2",
+          "replace": "B1 = G1"
+        },
+        {
+          "find": "B2 = G1•G2 + G1•G2 = G1  G2 B3 = G1•G2•G3 + G1•G2•G3 + G1•G2•G3 + G1•G2•G3",
+          "replace": "B2 = G̅1̅•G2 + G1•G̅2̅ = G1 ⊕ G2"
+        },
+        {
+          "find": "B3 = G1•G2•G3 + G1•G2•G3 + G1•G2•G3 + G1•G2•G3 = E",
+          "replace": "B3 = G̅1̅•G̅2̅•G3 + G̅1̅•G2•G̅3̅ + G1•G̅2̅•G̅3̅ + G1•G2•G3 = E"
+        },
+        {
+          "find": "",
+          "replace": "⊕"
+        }
+      ]
+    }
+  }
+}

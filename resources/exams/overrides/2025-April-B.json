@@ -1,0 +1,173 @@
+{
+  "questions": {
+    "5": {
+      "note": "The second square root in (√x + √y)² was extracted as a broken font glyph and the exponent was flattened; replaced with (√x + √y)². Also removed the page footer '- 8 -' from choice f.",
+      "replacements": [
+        {
+          "find": "(√x + ඥy )2",
+          "replace": "(√x + √y)²"
+        }
+      ],
+      "choices": [
+        {
+          "label": "a",
+          "text": "pow(pow(x, 0.5) + pow(y, 0.5), 2)"
+        },
+        {
+          "label": "b",
+          "text": "pow(pow(x, 0.5), 2) + pow(pow(y, 0.5), 2)"
+        },
+        {
+          "label": "c",
+          "text": "pow(pow(x, 2) + pow(y, 2), 0.5)"
+        },
+        {
+          "label": "d",
+          "text": "pow(x, 0.5) + pow(y, 0.5)"
+        },
+        {
+          "label": "e",
+          "text": "pow(x, 0.5) + pow(y, 0.5) ÷ pow(2, 0.5)"
+        },
+        {
+          "label": "f",
+          "text": "pow(x, 2) + pow(y, 2) ÷ pow(2, 0.5)"
+        }
+      ]
+    },
+    "9": {
+      "note": "Math italic T, N, v with broken subscript glyphs; replaced with plain T₁, N₁, v₁, T₂, N₂, v₂. Also removed the page footer '- 15 -' from choice d.",
+      "replacements": [
+        {
+          "find": "𝑇ଵ",
+          "replace": "T₁"
+        },
+        {
+          "find": "𝑁ଵ",
+          "replace": "N₁"
+        },
+        {
+          "find": "𝑣ଵ",
+          "replace": "v₁"
+        },
+        {
+          "find": "𝑇ଶ",
+          "replace": "T₂"
+        },
+        {
+          "find": "𝑁ଶ",
+          "replace": "N₂"
+        },
+        {
+          "find": "𝑣ଶ",
+          "replace": "v₂"
+        }
+      ],
+      "choices": [
+        {
+          "label": "a",
+          "text": "or and and",
+          "values": {
+            "A": "or",
+            "B": "and",
+            "C": "and"
+          }
+        },
+        {
+          "label": "b",
+          "text": "and or or",
+          "values": {
+            "A": "and",
+            "B": "or",
+            "C": "or"
+          }
+        },
+        {
+          "label": "c",
+          "text": "and or and",
+          "values": {
+            "A": "and",
+            "B": "or",
+            "C": "and"
+          }
+        },
+        {
+          "label": "d",
+          "text": "or and or",
+          "values": {
+            "A": "or",
+            "B": "and",
+            "C": "or"
+          }
+        }
+      ]
+    },
+    "14": {
+      "note": "The Maclaurin series formula lost its fraction layout (numerators/denominators as broken glyphs on separate lines); replaced the whole span with a linear cos(y) = 1 − (y²)/(2!) + (y⁴)/(4!) − (y⁶)/(6!) + ⋯. Also removed the page footer '- 23 -' from choice f.",
+      "replacements": [
+        {
+          "find": "௬మ ௬ర ௬ల",
+          "replace": "cos(y) = 1 − (y²)/(2!) + (y⁴)/(4!) − (y⁶)/(6!) + ⋯"
+        },
+        {
+          "find": " cos(y) = 1 − + − + ⋯",
+          "replace": ""
+        },
+        {
+          "find": " ଶ! ସ! ଺!",
+          "replace": ""
+        }
+      ],
+      "choices": [
+        {
+          "label": "a",
+          "text": "cosy raised to the power of (2 × n)",
+          "values": {
+            "A": "cosy",
+            "B": "raised to the power of (2 × n)"
+          }
+        },
+        {
+          "label": "b",
+          "text": "cosy raised to the power of 4",
+          "values": {
+            "A": "cosy",
+            "B": "raised to the power of 4"
+          }
+        },
+        {
+          "label": "c",
+          "text": "cosy squared",
+          "values": {
+            "A": "cosy",
+            "B": "squared"
+          }
+        },
+        {
+          "label": "d",
+          "text": "term raised to the power of (2 × n)",
+          "values": {
+            "A": "term",
+            "B": "raised to the power of (2 × n)"
+          }
+        },
+        {
+          "label": "e",
+          "text": "term raised to the power of 4",
+          "values": {
+            "A": "term",
+            "B": "raised to the power of 4"
+          }
+        },
+        {
+          "label": "f",
+          "text": "term squared",
+          "values": {
+            "A": "term",
+            "B": "squared"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,376 @@
+{
+  "questions": {
+    "1": {
+      "note": "Set expression was garbled by a broken font map and the four Venn-diagram choices were empty; retyped the expression and cropped each diagram as a choice figure.",
+      "question_text": "Q1. Which of the following is a Venn diagram that represents the set below?\n\n(A ∩ C̅) ∪ (A ∩ B̅ ∩ C) ∪ (A̅ ∩ B ∩ C)",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 3,
+            "rect": [
+              104,
+              137,
+              207,
+              231
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 3,
+            "rect": [
+              326,
+              137,
+              428,
+              231
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 3,
+            "rect": [
+              106,
+              232,
+              207,
+              326
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 3,
+            "rect": [
+              326,
+              232,
+              429,
+              327
+            ]
+          }
+        }
+      ],
+      "figures": []
+    },
+    "4": {
+      "note": "Fraction choices were split into stray numerators/denominators; rewrote the question text without the stray numerators and set the choices to 1/100, 1/20, 1/10, 1/5.",
+      "question_text": "Q4. Random(n) is a function that returns an integer of 0 or more and less than n with a uniform probability. When the series of procedures below is run on the integer type variables A, B, and C, what is the probability that the value of C will be 0?\n\nA = Random(10)\nB = Random(10)\nC = A−B",
+      "choices": [
+        {
+          "label": "a",
+          "text": "1/100"
+        },
+        {
+          "label": "b",
+          "text": "1/20"
+        },
+        {
+          "label": "c",
+          "text": "1/10"
+        },
+        {
+          "label": "d",
+          "text": "1/5"
+        }
+      ]
+    },
+    "7": {
+      "note": "Tree node numbers from the figure were dumped into the question text; removed them (figure already shows the tree).",
+      "question_text": "Q7. Which of the following is the pre-order traversal of the tree below?"
+    },
+    "9": {
+      "note": "Subscripts flattened (a1a2a3a4a5) and the Position/Array diagram dumped as loose numbers; restored subscripts, removed the dump and added a crop of the array diagram.",
+      "question_text": "Q9. A five-digit number a₁a₂a₃a₄a₅ needs to be stored in an array by means of hashing. When the hash function is mod (a₁+a₂+a₃+a₄+a₅, 13) and the number is stored in the array element at the position corresponding to the calculated hash value, which of the following is the position where 54321 is stored in the array? Here, the value of mod (x, 13) is the remainder after dividing x by 13.",
+      "figures": [
+        {
+          "page": 6,
+          "rect": [
+            228,
+            170,
+            375,
+            309
+          ]
+        }
+      ]
+    },
+    "18": {
+      "note": "Process table was flattened with its two-line headers split apart; rewrote the table as pipe-separated rows.",
+      "question_text": "Q18. In preemptive Shortest Remaining Time First (SRTF) scheduling, on arrival or completion of any process, the scheduler schedules processes from the list of available processes and running processes that have the least remaining CPU-burst time. The four processes, namely, P1, P2, P3, and P4, their corresponding CPU-burst time and arrival time are shown in the table below. Which of the following is the average waiting time in milliseconds for the processes to be executed in preemptive SRTF scheduling?\n\nProcess | Arrival time in millisecond | CPU-burst time in millisecond\nP1 | 0 | 8\nP2 | 2 | 3\nP3 | 3 | 7\nP4 | 5 | 4"
+    },
+    "20": {
+      "note": "Expression used mathematical-italic characters and the four circuit choices were empty; retyped the expression and cropped each circuit as a choice figure, dropping the old figure that only showed the choices.",
+      "question_text": "Q20. Which of the following is the logic circuit that is equivalent to the logical expression A̅BC + AC?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              107,
+              113,
+              267,
+              200
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              333,
+              113,
+              495,
+              195
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              107,
+              202,
+              230,
+              268
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              333,
+              202,
+              472,
+              295
+            ]
+          }
+        }
+      ],
+      "figures": []
+    },
+    "21": {
+      "note": "Gate-symbol choices were empty (d held the page number); cropped each gate symbol as a choice figure and recropped the question figure to the circuit only.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              101,
+              480,
+              166,
+              512
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              326,
+              480,
+              391,
+              512
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              101,
+              516,
+              166,
+              550
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              326,
+              516,
+              391,
+              550
+            ]
+          }
+        }
+      ],
+      "figures": [
+        {
+          "page": 9,
+          "rect": [
+            159,
+            394,
+            363,
+            455
+          ]
+        }
+      ]
+    },
+    "22": {
+      "note": "Waveform labels (Data, Strobe, Clock, Time) were dumped into the question text; removed them (figure shows the complete timing diagram).",
+      "question_text": "Q22. At the rising edge of the clock signal, the content of an 8-bit serial-in parallel-out shift register is shifted upward, while positive logic data is simultaneously read into the least significant bit. The value is fixed at the rising edge of a strobe. When the results of an observation of each signal’s waveform are as shown in the diagram below, which of the following is the value of the shift register after it is fixed? Here, numeric values are represented in hexadecimal."
+    },
+    "28": {
+      "note": "UML diagram labels were dumped into the text and the diagram was included twice; removed the dump and kept a single crop of the diagram.",
+      "question_text": "Q28. Which of the following is the appropriate interpretation of the conceptual data model shown in the diagram in UML?",
+      "figures": [
+        {
+          "page": 11,
+          "rect": [
+            150,
+            528,
+            422,
+            572
+          ]
+        }
+      ]
+    },
+    "44": {
+      "note": "Each choice is a two-row filtering-rule table that was flattened (headers misaligned, next choice's header leaked in, stray header in question text); transcribed each row with its column headings and cleaned the question text.",
+      "question_text": "Q44. A packet filtering firewall is installed at the connection point of an internal network and the Internet. Which of the following is the appropriate combination of filtering rules that enables PCs on the internal network to access a web server on the Internet (port number 80)?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Source: PC, Destination: Web server, Source port number: 80, Destination port number: 1024 or higher\nSource: Web server, Destination: PC, Source port number: 80, Destination port number: 1024 or higher"
+        },
+        {
+          "label": "b",
+          "text": "Source: PC, Destination: Web server, Source port number: 80, Destination port number: 1024 or higher\nSource: Web server, Destination: PC, Source port number: 1024 or higher, Destination port number: 80"
+        },
+        {
+          "label": "c",
+          "text": "Source: PC, Destination: Web server, Source port number: 1024 or higher, Destination port number: 80\nSource: Web server, Destination: PC, Source port number: 80, Destination port number: 1024 or higher"
+        },
+        {
+          "label": "d",
+          "text": "Source: PC, Destination: Web server, Source port number: 1024 or higher, Destination port number: 80\nSource: Web server, Destination: PC, Source port number: 1024 or higher, Destination port number: 80"
+        }
+      ]
+    },
+    "46": {
+      "note": "The circle symbol was a private-use glyph; replaced it with ○ and recropped the figure to the DFD only (the old crop also showed the choices).",
+      "question_text": "Q46. The diagram below is an example of a DFD that is used in the structured analysis method. Which of the following is represented by a “○” in the diagram below?",
+      "figures": [
+        {
+          "page": 17,
+          "rect": [
+            184,
+            116,
+            453,
+            212
+          ]
+        }
+      ]
+    },
+    "48": {
+      "note": "Fraction formulas were garbled by a broken font map; retyped the question text without the junk and the four equations as linear fractions.",
+      "question_text": "Q48. In the error embedding method, when the number of embedded errors is S, the number of discovered errors from the embedded errors is m, the number of latent errors before the start of testing not including embedded errors is T, and the total number of discovered errors is n, which of the following expresses the relationship of S, T, m, and n?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "(m)/(S) = (n−m)/(T)"
+        },
+        {
+          "label": "b",
+          "text": "(m)/(S) = (T)/(n−m)"
+        },
+        {
+          "label": "c",
+          "text": "(m)/(S) = (n)/(T)"
+        },
+        {
+          "label": "d",
+          "text": "(m)/(S) = (T)/(n)"
+        }
+      ]
+    },
+    "49": {
+      "note": "Choice tables were empty or merged into choice d, and the question text carried flowchart labels; removed the labels and transcribed each choice table as rows of A/B values.",
+      "question_text": "Q49. Which of the following is an appropriate test case when a test is to be performed with decision condition coverage (branch coverage) on the section of a program shown in the figure below?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "A: False, B: True"
+        },
+        {
+          "label": "b",
+          "text": "A: False, B: True; A: True, B: False"
+        },
+        {
+          "label": "c",
+          "text": "A: False, B: False; A: True, B: True"
+        },
+        {
+          "label": "d",
+          "text": "A: False, B: True; A: True, B: False; A: True, B: True"
+        }
+      ]
+    },
+    "54": {
+      "note": "Choices are rows of a two-column table but were flattened to bare number pairs with the headings left in the question text; transcribed each row with its column headings.",
+      "question_text": "Q54. A project was planned to be completed in six months. After six months, the project is behind schedule. The actual cost of Activity A is $100,000. The planned value of Activity A is $80,000. Activity A is only 75% complete. What is the schedule performance index and cost performance index of the project?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Schedule performance index: 0.6, Cost performance index: 0.75"
+        },
+        {
+          "label": "b",
+          "text": "Schedule performance index: 0.75, Cost performance index: 0.6"
+        },
+        {
+          "label": "c",
+          "text": "Schedule performance index: 0.75, Cost performance index: 1.25"
+        },
+        {
+          "label": "d",
+          "text": "Schedule performance index: 1.25, Cost performance index: 0.75"
+        }
+      ]
+    },
+    "64": {
+      "note": "Bidding-price table was flattened without column separators; rewrote it as pipe-separated rows.",
+      "question_text": "Q64. Procurement is performed by using the comprehensive evaluation bidding method under the conditions shown below. When the bidding prices and technology points of Companies A to D are as shown in the table below, which of the following is the successful bidder?\n\n[Conditions]\n(1) The bidder with the highest comprehensive evaluation points obtained by summing up the price points and the technology points is the successful bidder.\n(2) The target price is 100,000 dollars. Any bids that exceed the target price are not evaluated.\n(3) The price points are calculated by the formula shown below.\n[1 − (Bidding price / Target price)] × 100\n\n[Bidding price and technology points of Companies A to D]\n | Bidding price (1,000 dollars) | Technology points\nCompany A | 70 | 50\nCompany B | 80 | 65\nCompany C | 90 | 80\nCompany D | 110 | 100"
+    },
+    "70": {
+      "note": "Four-column process table was flattened into scrambled header fragments; removed it from the text and added a crop of the table.",
+      "question_text": "Q70. A product that is produced through four (4) processes of A, B, C, and D must be produced in a quantity of 1,000 units per month. The table below lists the manufacturing time per unit, number of machines owned, and monthly production capacity in hours per machine for each process. Which of the following is a process that is lacking in capability?",
+      "figures": [
+        {
+          "page": 26,
+          "rect": [
+            96,
+            382,
+            498,
+            548
+          ]
+        }
+      ]
+    }
+  }
+}

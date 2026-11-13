@@ -1,0 +1,292 @@
+{
+  "questions": {
+    "3": {
+      "note": "Fraction choices were split apart by extraction (numerators in question text, denominators in choice d); rewrote question text and choices as 1/90, 1/72, 1/15, 1/12.",
+      "question_text": "Q3. A parking lot has 10 parking spaces in a row, and 7 cars are parked at random parking spaces. What is the probability that the three empty places are adjacent to each other?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "1/90"
+        },
+        {
+          "label": "b",
+          "text": "1/72"
+        },
+        {
+          "label": "c",
+          "text": "1/15"
+        },
+        {
+          "label": "d",
+          "text": "1/12"
+        }
+      ]
+    },
+    "6": {
+      "note": "Code table was flattened into the text and the blank for D was lost; replaced it with a crop of the table.",
+      "question_text": "Q6. There is communication data that consists of five characters “A”, “B”, “C”, “D”, and “E” that have different appearance frequencies, and in order to compress the data by using Huffman coding, the code table shown below is created. Which of the following is an appropriate code that should be inserted in the blank?",
+      "figures": [
+        {
+          "page": 4,
+          "rect": [
+            128,
+            147,
+            467,
+            288
+          ]
+        }
+      ]
+    },
+    "8": {
+      "note": "Tree node values were dumped into the text and the figure included the question text and choices; removed the stray numbers and cropped the tree only.",
+      "question_text": "Q8. In the binary search tree below, when a new node of value 11 is inserted, where will this insertion be made?",
+      "figures": [
+        {
+          "page": 4,
+          "rect": [
+            150,
+            593,
+            400,
+            720
+          ]
+        }
+      ]
+    },
+    "9": {
+      "note": "Item table was flattened into loose lines; rewrote it as a pipe-separated table.",
+      "question_text": "Q9. In the table below, there are five items A through E. Each item cannot be divided into smaller pieces. When a knapsack with a maximum volume of 7 units is used for carrying the items, which of the following is a set of items to be packed in the knapsack so that the total price can be maximized?\n\nItem | Volume | Price\nA | 3 | 4\nB | 2 | 3\nC | 3 | 5\nD | 1 | 2\nE | 5 | 9"
+    },
+    "14": {
+      "note": "Power 2^n was flattened to '2n'; restored the exponent.",
+      "replacements": [
+        {
+          "find": "width of 2n bits",
+          "replace": "width of 2^n bits"
+        }
+      ]
+    },
+    "21": {
+      "note": "Choice circuits were empty and the question figure included all choices; cropped the question circuit alone and gave each choice its own circuit crop.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 8,
+            "rect": [
+              114,
+              283,
+              228,
+              333
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 8,
+            "rect": [
+              323,
+              283,
+              431,
+              333
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 8,
+            "rect": [
+              114,
+              337,
+              225,
+              389
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 8,
+            "rect": [
+              323,
+              337,
+              436,
+              391
+            ]
+          }
+        }
+      ],
+      "figures": [
+        {
+          "page": 8,
+          "rect": [
+            143,
+            199,
+            326,
+            266
+          ]
+        }
+      ]
+    },
+    "23": {
+      "note": "Five-column order-data table was flattened into the text; replaced it with a crop of the table.",
+      "question_text": "Q23. When an order data in the format shown below is entered, which of the following is a data validation method that is performed to determine whether the order date is a business day and whether the date is on or before the date of data entry or after the date of data entry?",
+      "figures": [
+        {
+          "page": 8,
+          "rect": [
+            78,
+            612,
+            512,
+            690
+          ]
+        }
+      ]
+    },
+    "28": {
+      "note": "Primary-key underlines and the blank box A in the SQL were lost in the flattened text; replaced the schema and SQL with a crop.",
+      "question_text": "Q28. From a “Score” table, the average score for all subjects is to be calculated for each student, and the student number and average score for students with an average score of 80 or higher are to be determined. Which of the following is the appropriate term or phrase to be entered in blank A? Here, a solid underline represents a primary key.",
+      "figures": [
+        {
+          "page": 10,
+          "rect": [
+            96,
+            145,
+            322,
+            266
+          ]
+        }
+      ]
+    },
+    "41": {
+      "note": "Diagram labels were dumped into the question text; removed them (the figure shows the diagram).",
+      "question_text": "Q41. As shown in the figure below, an application on a client accesses the data in the database on a server via database connection programs. Which of the following is a measure for preventing the leakage of the commands and execution results transmitted between the application and database?"
+    },
+    "52": {
+      "note": "Choice graphs were empty or garbled axis-label text; replaced each choice with a crop of its graph and removed the question figures that only showed choice graphs.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 16,
+            "rect": [
+              118,
+              353,
+              244,
+              478
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 16,
+            "rect": [
+              322,
+              353,
+              455,
+              478
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 16,
+            "rect": [
+              118,
+              506,
+              248,
+              631
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 16,
+            "rect": [
+              322,
+              506,
+              457,
+              633
+            ]
+          }
+        }
+      ],
+      "figures": []
+    },
+    "53": {
+      "note": "Table with split header was flattened into confusing text; replaced it with a crop of the table.",
+      "question_text": "Q53. When the number of programs composing the system and the number of person-days required for coding per program are as shown in the table below, what is the minimum number of staff members required to develop the system in 95 days? Here, in addition to coding, the activities of design and testing are also necessary to develop the system, and those activities require eight times as many person-days as coding.",
+      "figures": [
+        {
+          "page": 17,
+          "rect": [
+            97,
+            162,
+            520,
+            273
+          ]
+        }
+      ]
+    },
+    "54": {
+      "note": "Figure included the question text and the answer choices; cropped the arrow diagram and legend only.",
+      "figures": [
+        {
+          "page": 17,
+          "rect": [
+            102,
+            380,
+            468,
+            485
+          ]
+        }
+      ]
+    },
+    "61": {
+      "note": "Investment table was flattened; rewrote it as a pipe-separated table.",
+      "question_text": "Q61. The purchase of two types of IT devices A and B is being examined. The payout period is set in consideration of the useful life of each of the devices. Which of the following is an appropriate description for the minimum amount of annual profit necessary to recover the amount of investment within the set payout period for A and B? Here, the annual profit is made evenly each year, and the interest rate is not considered.\n\n | A | B\nAmount of investment (10,000 yen) | 90 | 300\nPayout period (years) | 3 | 5"
+    },
+    "77": {
+      "note": "Four-column payoff table was flattened into the text; replaced it with a crop of the table.",
+      "question_text": "Q77. When the weather tomorrow is sunny with 30% probability, cloudy with 50% probability, and rainy with 20% probability, which of the following strategies offers the highest expected value?",
+      "figures": [
+        {
+          "page": 25,
+          "rect": [
+            100,
+            362,
+            478,
+            480
+          ]
+        }
+      ]
+    },
+    "78": {
+      "note": "Inventory statement table was flattened into loose lines; replaced it with a crop of the table.",
+      "question_text": "Q78. The following inventory statement of Build-Up Property Company describes the status of the company’s inventory since the beginning of the year 2014. When the company uses a first-in-first-out (FIFO) method for inventory asset valuation, what is the inventory value at the end of the year 2014?",
+      "figures": [
+        {
+          "page": 26,
+          "rect": [
+            100,
+            146,
+            492,
+            361
+          ]
+        }
+      ]
+    }
+  }
+}
