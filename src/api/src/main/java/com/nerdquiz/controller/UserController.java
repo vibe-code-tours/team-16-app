@@ -36,13 +36,17 @@ public class UserController {
         ));
     }
 
+    /**
+     * Returns the current streak. Kept as POST for frontend compatibility; it no longer
+     * increments the streak, which is now driven by study activity (quiz, lesson, exam).
+     */
     @PostMapping("/me/streak")
-    public ResponseEntity<StreakResponse> updateStreak(Authentication authentication) {
+    public ResponseEntity<StreakResponse> getStreak(Authentication authentication) {
         Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
         if (userId.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        int streakCount = userService.updateUserStreak(userId.get());
+        int streakCount = userService.getCurrentStreak(userId.get());
         return ResponseEntity.ok(new StreakResponse(streakCount));
     }
 

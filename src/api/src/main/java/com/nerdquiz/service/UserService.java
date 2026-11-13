@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,55 +20,69 @@ public class UserService {
         this.activityService = activityService;
     }
 
+    /**
+     * Records that the user studied today (answered a quiz question, completed a lesson,
+     * or finished an exam) and updates the streak. Idempotent within a calendar day:
+     * the first study event of a day extends or resets the streak, later ones change nothing.
+     *
+     * @return the streak count after this study event
+     */
     @Transactional
-    public int updateUserStreak(UUID userId) {
-        List<Integer> updatedStreaks = jdbcTemplate.query(
+    public int recordStudyActivity(UUID userId) {
+        StreakSnapshot snapshot = jdbcTemplate.query(
             """
-            WITH profile AS (
-                SELECT
-                    id,
-                    COALESCE(streak_count, 0) AS current_streak,
-                    COALESCE(longest_streak, 0) AS longest_streak,
-                    last_login_at::date AS last_login_date
-                FROM public.user_profiles
-                WHERE id = ?
-                FOR UPDATE
-            ),
-            computed AS (
-                SELECT
-                    id,
-                    CASE
-                        WHEN last_login_date = CURRENT_DATE THEN current_streak
-                        WHEN last_login_date = CURRENT_DATE - 1 THEN current_streak + 1
-                        ELSE 1
-                    END AS new_streak,
-                    CASE
-                        WHEN last_login_date = CURRENT_DATE THEN longest_streak
-                        WHEN last_login_date = CURRENT_DATE - 1 THEN GREATEST(longest_streak, current_streak + 1)
-                        ELSE GREATEST(longest_streak, 1)
-                    END AS new_longest
-                FROM profile
-            )
-            UPDATE public.user_profiles AS user_profiles
-            SET streak_count = computed.new_streak,
-                longest_streak = computed.new_longest,
-                last_login_at = now()
-            FROM computed
-            WHERE user_profiles.id = computed.id
-            RETURNING user_profiles.streak_count
+            SELECT COALESCE(streak_count, 0) AS streak_count,
+                   COALESCE(longest_streak, 0) AS longest_streak,
+                   last_login_at::date AS last_activity_date,
+                   CURRENT_DATE AS today
+            FROM public.user_profiles
+            WHERE id = ?
+            FOR UPDATE
             """,
-            (ps) -> ps.setObject(1, userId),
-            (rs, rowNum) -> rs.getInt("streak_count")
+            (rs, rowNum) -> new StreakSnapshot(
+                rs.getInt("streak_count"),
+                rs.getInt("longest_streak"),
+                rs.getObject("last_activity_date", LocalDate.class),
+                rs.getObject("today", LocalDate.class)
+            ),
+            userId
+        ).stream().findFirst().orElseThrow(UserProfileNotFoundException::new);
+
+        StreakState next = nextStreak(snapshot);
+
+        // last_login_at holds the time of the last study activity (shown to admins as "Last Active")
+        jdbcTemplate.update(
+            """
+            UPDATE public.user_profiles
+            SET streak_count = ?, longest_streak = ?, last_login_at = now()
+            WHERE id = ?
+            """,
+            next.streakCount(), next.longestStreak(), userId
         );
 
-        if (updatedStreaks.isEmpty()) {
-            throw new UserProfileNotFoundException();
-        }
-
-        // Record daily activity on login (streak update)
         activityService.recordActivity(userId, 0, 0);
 
-        return updatedStreaks.getFirst();
+        return next.streakCount();
+    }
+
+    /**
+     * Returns the user's current streak without changing it. A streak whose last study
+     * activity is older than yesterday has lapsed and is reported as 0.
+     */
+    @Transactional(readOnly = true)
+    public int getCurrentStreak(UUID userId) {
+        return jdbcTemplate.query(
+            """
+            SELECT CASE
+                       WHEN last_login_at::date >= CURRENT_DATE - 1 THEN COALESCE(streak_count, 0)
+                       ELSE 0
+                   END AS streak_count
+            FROM public.user_profiles
+            WHERE id = ?
+            """,
+            (rs, rowNum) -> rs.getInt("streak_count"),
+            userId
+        ).stream().findFirst().orElseThrow(UserProfileNotFoundException::new);
     }
 
     @Transactional
@@ -97,5 +112,27 @@ public class UserService {
         activityService.recordActivity(userId, 0, delta);
 
         return updatedXp.getFirst();
+    }
+
+    /**
+     * Computes the streak after a study event: same day keeps it, the day after the last
+     * activity extends it, anything else (a gap or no previous activity) restarts it at 1.
+     */
+    static StreakState nextStreak(StreakSnapshot snapshot) {
+        LocalDate lastActivity = snapshot.lastActivityDate();
+        LocalDate today = snapshot.today();
+
+        if (today.equals(lastActivity)) {
+            return new StreakState(snapshot.currentStreak(), snapshot.longestStreak());
+        }
+
+        int newStreak = today.minusDays(1).equals(lastActivity) ? snapshot.currentStreak() + 1 : 1;
+        return new StreakState(newStreak, Math.max(snapshot.longestStreak(), newStreak));
+    }
+
+    record StreakSnapshot(int currentStreak, int longestStreak, LocalDate lastActivityDate, LocalDate today) {
+    }
+
+    record StreakState(int streakCount, int longestStreak) {
     }
 }
