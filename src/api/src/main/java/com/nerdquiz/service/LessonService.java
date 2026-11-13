@@ -23,18 +23,23 @@ import java.util.stream.Collectors;
 @Service
 public class LessonService {
 
+    private static final String STATUS_COMPLETED = "completed";
+
     private final LessonRepository lessonRepository;
     private final SubtopicRepository subtopicRepository;
     private final UserLessonProgressRepository progressRepository;
+    private final UserService userService;
     private final ObjectMapper objectMapper;
 
     public LessonService(LessonRepository lessonRepository,
                          SubtopicRepository subtopicRepository,
                          UserLessonProgressRepository progressRepository,
+                         UserService userService,
                          ObjectMapper objectMapper) {
         this.lessonRepository = lessonRepository;
         this.subtopicRepository = subtopicRepository;
         this.progressRepository = progressRepository;
+        this.userService = userService;
         this.objectMapper = objectMapper;
     }
 
@@ -86,26 +91,38 @@ public class LessonService {
         }
     }
 
+    /**
+     * Marks a published lesson as completed for the user. The lesson's {@code xp_reward}
+     * is awarded on the first completion only; repeating it is a no-op.
+     */
     @Transactional
     public void completeLesson(UUID lessonId, UUID userId) {
-        // Validate lesson exists
-        if (!lessonRepository.existsById(lessonId)) {
-            throw new LessonNotFoundException();
+        Lesson lesson = lessonRepository.findById(lessonId)
+                .filter(Lesson::getPublished)
+                .orElseThrow(LessonNotFoundException::new);
+
+        UserLessonProgress row = progressRepository
+                .findByUserIdAndLessonId(userId, lessonId)
+                .orElseGet(() -> newProgress(userId, lessonId));
+        if (STATUS_COMPLETED.equals(row.getStatus())) {
+            return;
         }
 
         Instant now = Instant.now();
-        UserLessonProgress row = progressRepository
-                .findByUserIdAndLessonId(userId, lessonId)
-                .orElseGet(() -> {
-                    UserLessonProgress fresh = new UserLessonProgress();
-                    fresh.setUserId(userId);
-                    fresh.setLessonId(lessonId);
-                    fresh.setStartedAt(now);
-                    return fresh;
-                });
-        row.setStatus("completed");
+        if (row.getStartedAt() == null) {
+            row.setStartedAt(now);
+        }
+        row.setStatus(STATUS_COMPLETED);
         row.setCompletedAt(now);
         progressRepository.save(row);
+        userService.incrementUserXp(userId, lesson.getXpReward());
+    }
+
+    private static UserLessonProgress newProgress(UUID userId, UUID lessonId) {
+        UserLessonProgress fresh = new UserLessonProgress();
+        fresh.setUserId(userId);
+        fresh.setLessonId(lessonId);
+        return fresh;
     }
 
     private LessonResponse toResponse(Lesson lesson, String status) {

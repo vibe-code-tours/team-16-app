@@ -10,7 +10,7 @@
 | Learning map | Visual topic tree — locked/unlocked states, category nodes |
 | Short lessons | Brief reading notes (2-3 min) displayed before each quiz |
 | 5-question quizzes | Per-topic quiz, instant feedback after each answer |
-| XP tracking | Earn XP per correct answer, display total XP on profile |
+| XP tracking | Earn XP per correct answer and per lesson completed (lesson's `xp_reward`, first completion only), display total XP on profile |
 | Countdown timer (exam sim) | Answer questions during a 60-minute countdown timer; no wrong-answer penalty |
 | Streak tracking | Daily login streak, displayed on dashboard |
 | Mistake Garden | Wrong answers collected per user, reviewable with correct answer + explanation |
