@@ -182,6 +182,9 @@ public class ExamService {
         if (shouldAwardXp && xpEarned > 0) {
             userService.incrementUserXp(userId, xpEarned);
         }
+        if (shouldAwardXp) {
+            userService.recordStudyActivity(userId);
+        }
 
         int reportedXp = "abandoned".equals(session.getStatus()) ? 0 : xpEarned;
 

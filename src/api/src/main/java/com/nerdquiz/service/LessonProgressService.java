@@ -54,6 +54,7 @@ public class LessonProgressService {
             progress.setCompletedAt(completedAt);
             userLessonProgressRepository.save(progress);
             userService.incrementUserXp(userId, XP_PER_LESSON_COMPLETE);
+            userService.recordStudyActivity(userId);
         }
 
         return toResponse(progress);

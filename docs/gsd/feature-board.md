@@ -11,7 +11,7 @@
 | 4 | 5-question quizzes | YE MIN KO | Done | Backend: `QuizController` (start/submit/result). Frontend: `QuizPage.tsx`. Instant feedback, per-subtopic |
 | 5 | XP tracking | | Done | Backend: `QuizService` awards 10 XP/correct. DB: `increment_user_xp()` RPC. Frontend: Header shows total XP |
 | — | ~~Hearts (exam sim)~~ | | Removed 2026-07-24 | Heart/lives system removed from exam simulation. Replaced with countdown timer only — wrong answers have no penalty. See docs/plans/remove-heart-system.md |
-| 7 | Streak tracking | | Done | Backend: `UserService.updateUserStreak()` (atomic CTE). Frontend: Header shows streak, syncs on login via `/api/v1/me/streak` |
+| 7 | Streak tracking | | Done | Backend: `UserService.recordStudyActivity()` (row-locked, idempotent per day) runs on quiz answer, lesson completion, and exam finish. `POST /api/v1/me/streak` is read-only and reports a lapsed streak as 0. Frontend: Header shows streak, fetched on login |
 | 8 | Mistake Garden | | Done | Backend: `MistakeController` (GET/POST/PUT `review`). Frontend: `MistakeGarden.tsx` reads from `/api/v1/me/mistakes`. Supports marking mistakes as reviewed. |
 | 9 | Exam simulation | | Done | Backend: `ExamController` (start/answers/complete). `ExamService` handles session lifecycle, heart enforcement, XP award. Frontend: `ExamSimulation.tsx` + `useExamSimulation` hook. 60 questions, 60 min timer, difficulty selector. |
 | 10 | Rule-based difficulty | | Done | DB trigger `assign_question_difficulty()` (migration 007) auto-calculates `difficulty_score` + `difficulty` label from question metadata |
