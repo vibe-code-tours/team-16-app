@@ -139,6 +139,7 @@ class QuizServiceTest {
         assertEquals(1, sampleSession.getScore());
         assertEquals(10, sampleSession.getXpEarned());
         verify(weakPointService).updateMastery(userId, sampleQuestion.getId(), true);
+        verify(activityService).recordAnsweredQuestion(userId);
     }
 
     @Test
@@ -168,6 +169,7 @@ class QuizServiceTest {
         assertEquals(0, sampleSession.getXpEarned());
         verify(weakPointService).updateMastery(userId, sampleQuestion.getId(), false);
         verify(mistakeService).recordMistake(eq(userId), any(RecordMistakeRequest.class));
+        verify(activityService).recordAnsweredQuestion(userId);
     }
 
     @Test
@@ -228,6 +230,7 @@ class QuizServiceTest {
         // Act & Assert
         assertThrows(DuplicateAnswerException.class,
                 () -> quizService.submitAnswer(userId, sessionId, request));
+        verify(activityService, never()).recordAnsweredQuestion(any());
     }
 
     @Test

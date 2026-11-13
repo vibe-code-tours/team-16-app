@@ -48,6 +48,9 @@ class ExamServiceTest {
     @Mock
     private UserService userService;
 
+    @Mock
+    private UserDailyActivityService activityService;
+
     @InjectMocks
     private ExamService examService;
 
@@ -157,6 +160,7 @@ class ExamServiceTest {
         SubmitExamAnswerResponse result = examService.submitAnswer(userId, sessionId, request);
 
         assertNull(result.isCorrect());
+        verify(activityService).recordAnsweredQuestion(userId);
     }
 
     @Test
@@ -229,6 +233,7 @@ class ExamServiceTest {
 
         assertThrows(com.nerdquiz.exception.QuestionNotFoundException.class,
                 () -> examService.submitAnswer(userId, sessionId, request));
+        verify(activityService, never()).recordAnsweredQuestion(any());
     }
 
     @Test
