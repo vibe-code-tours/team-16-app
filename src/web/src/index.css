@@ -164,6 +164,45 @@ button:not(:disabled),
   }
 }
 
+/* Celebration confetti (quiz perfect score, exam pass) */
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+.celebration-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -1rem;
+  width: 0.5rem;
+  height: 1rem;
+  border-radius: 2px;
+  opacity: 0;
+  animation: confetti-fall 2400ms ease-in both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celebration-confetti {
+    display: none;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

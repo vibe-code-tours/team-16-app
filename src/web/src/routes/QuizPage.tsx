@@ -24,7 +24,7 @@ const QUIZ_LENGTH = 5
 export function QuizPage() {
   const { subtopicId } = useParams<{ subtopicId: string }>()
   const navigate = useNavigate()
-  const { refreshUser } = useAuth()
+  const { user, refreshUser } = useAuth()
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [index, setIndex] = useState(0)
@@ -111,8 +111,10 @@ export function QuizPage() {
       setIsAnswered(false)
       return
     }
+    // The profile is not refreshed during the quiz, so this is the XP total before the session.
+    const previousTotalXp = user?.total_xp
     refreshUser()
-    navigate(`/quiz-result/${sessionId}`)
+    navigate(`/quiz-result/${sessionId}`, { state: { previousTotalXp } })
   }
 
   if (!started) {
