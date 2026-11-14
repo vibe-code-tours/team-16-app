@@ -1,55 +1,19 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Sprout, Search } from 'lucide-react'
-import { api } from '../lib/api'
 import { EmptyState } from '../components/ui/EmptyState'
 import { Button } from '../components/ui/Button'
-
-interface Choice {
-  label: string
-  text: string
-}
-
-interface Mistake {
-  id: string
-  questionId: string
-  subtopicId: string | null
-  subtopicName: string | null
-  topicName: string | null
-  questionText: string | null
-  correctAnswer: string | null
-  choices: Choice[]
-  explanation: string | null
-  lastUserAnswer: string | null
-  lastMissedAt: string
-}
+import { GardenSummary } from '../components/features/mistakes/GardenSummary'
+import { MistakeRetryCard } from '../components/features/mistakes/MistakeRetryCard'
+import { useMistakes } from '../hooks/useMistakes'
+import type { Mistake } from '../types/Mistake'
 
 export function MistakeGarden() {
-  const [mistakes, setMistakes] = useState<Mistake[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const { mistakes, loading, error, clearedCount, refetch, markReviewed } = useMistakes()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('All')
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null)
   const navigate = useNavigate()
-
-  const fetchMistakes = useCallback(async () => {
-    setLoading(true)
-    setError(null)
-
-    try {
-      const data = await api.get<Mistake[]>('/api/v1/me/mistakes')
-      setMistakes(data)
-    } catch (requestError) {
-      setError(requestError instanceof Error ? requestError.message : 'Failed to load mistakes')
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    fetchMistakes()
-  }, [fetchMistakes])
 
   const filteredMistakes = useMemo(() => {
     return mistakes.filter((mistake) => {
@@ -79,21 +43,6 @@ export function MistakeGarden() {
     return groups
   }, [filteredMistakes])
 
-  const getChoiceText = (choices: Choice[], label: string) => {
-    const choice = choices.find((c) => c.label === label)
-    return choice?.text || label
-  }
-
-  const handleMarkReviewed = async (mistakeId: string) => {
-    setError(null)
-    try {
-      await api.put(`/api/v1/me/mistakes/${mistakeId}/review`)
-      setMistakes((previous) => previous.filter((mistake) => mistake.id !== mistakeId))
-    } catch (requestError) {
-      setError(requestError instanceof Error ? requestError.message : 'Failed to review mistake')
-    }
-  }
-
   return (
     <div className="overflow-hidden">
       <div className="mb-8 text-center">
@@ -106,7 +55,7 @@ export function MistakeGarden() {
       {error && (
         <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
           Couldn't load your mistakes: {error}
-          <Button onClick={fetchMistakes} variant="outline" size="sm" className="mt-3">
+          <Button onClick={refetch} variant="outline" size="sm" className="mt-3">
             Retry
           </Button>
         </div>
@@ -117,13 +66,18 @@ export function MistakeGarden() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
         </div>
       ) : mistakes.length === 0 ? (
-        <EmptyState
+        <>
+          {clearedCount > 0 && <GardenSummary remainingCount={0} clearedCount={clearedCount} />}
+          <EmptyState
           icon={<Sprout className="size-8 text-gray-400" />}
           title="Your garden is empty!"
-          description="You haven't made any mistakes yet. Keep studying!"
-        />
+          description={clearedCount > 0 ? 'Every mistake has bloomed. Great work!' : "You haven't made any mistakes yet. Keep studying!"}
+          />
+        </>
       ) : (
         <>
+          <GardenSummary remainingCount={mistakes.length} clearedCount={clearedCount} />
+
           {/* Search and Filter */}
           <div className="mb-6 space-y-4">
             <div className="relative">
@@ -240,48 +194,7 @@ export function MistakeGarden() {
                     {isExpanded && (
                       <div className="border-t border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
                         {topicMistakes.map((mistake) => (
-                          <div key={mistake.id} className="p-6">
-                            <div className="flex items-start justify-between mb-4">
-                              <div className="text-sm text-gray-400 dark:text-gray-500">
-                                {new Date(mistake.lastMissedAt).toLocaleDateString()}
-                              </div>
-                              <button
-                                onClick={() => handleMarkReviewed(mistake.id)}
-                                className="text-xs font-medium text-green-600 hover:text-green-700 bg-green-50 px-2 py-1 rounded dark:text-green-400 dark:hover:text-green-300 dark:bg-green-900/30"
-                              >
-                                Mark as Reviewed
-                              </button>
-                            </div>
-
-                            <div className="mb-4">
-                              <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Question</p>
-                              <p className="text-lg text-gray-900 dark:text-gray-100 break-words">{mistake.questionText}</p>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div className="p-4 rounded-xl bg-red-50 border border-red-100 dark:bg-red-900/30 dark:border-red-800">
-                                <p className="text-xs font-bold text-red-600 uppercase mb-1 dark:text-red-400">Your Answer</p>
-                                <p className="text-gray-700 dark:text-gray-300">
-                                  {mistake.lastUserAnswer}.{' '}
-                                  {getChoiceText(mistake.choices, mistake.lastUserAnswer || '')}
-                                </p>
-                              </div>
-                              <div className="p-4 rounded-xl bg-green-50 border border-green-100 dark:bg-green-900/30 dark:border-green-800">
-                                <p className="text-xs font-bold text-green-600 uppercase mb-1 dark:text-green-400">Correct Answer</p>
-                                <p className="text-gray-700 dark:text-gray-300">
-                                  {mistake.correctAnswer}.{' '}
-                                  {getChoiceText(mistake.choices, mistake.correctAnswer || '')}
-                                </p>
-                              </div>
-                            </div>
-
-                            {mistake.explanation && (
-                              <div className="mt-4 p-3 rounded-lg bg-blue-50 border border-blue-100 dark:bg-blue-900/30 dark:border-blue-800">
-                                <p className="text-xs font-bold text-blue-600 uppercase mb-1 dark:text-blue-400">Explanation</p>
-                                <p className="text-sm text-blue-700 dark:text-blue-300">{mistake.explanation}</p>
-                              </div>
-                            )}
-                          </div>
+                          <MistakeRetryCard key={mistake.id} mistake={mistake} onReviewed={markReviewed} />
                         ))}
                       </div>
                     )}
