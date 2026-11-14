@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { cn } from '../../lib/cn'
 import { Badge } from '../ui/Badge'
+import { MasteryStars } from './MasteryStars'
 import type { TopicCategory, TopicWithStatus } from '../../types/topic'
 
 interface TopicNodeProps {
@@ -25,7 +26,7 @@ const CATEGORY_STEP_BG: Record<TopicCategory, string> = {
 }
 
 export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
-  const { status, category, title, description, question_count, progress } = topic
+  const { status, category, title, description, progress } = topic
   const isLocked = status === 'locked'
   const isCompleted = status === 'completed'
   const isInProgress = status === 'in_progress'
@@ -42,13 +43,8 @@ export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
     isLocked ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500' : CATEGORY_STEP_BG[category]
   )
 
-  const meta = isLocked
-    ? 'Locked — clear the previous stop to unlock'
-    : isCompleted
-      ? `${progress?.questions_correct ?? question_count} / ${question_count} correct · Cleared`
-      : isInProgress
-        ? `${progress?.questions_answered ?? 0} / ${question_count} answered`
-        : `${question_count} questions`
+  const meta = getMetaText(topic)
+  const showStars = !isLocked && progress !== null
 
   const cardContent = (
     <div className={cardClasses}>
@@ -62,7 +58,12 @@ export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
           {isInProgress ? <InProgressBadge /> : null}
         </div>
         <p className="line-clamp-2 text-xs text-gray-500 dark:text-gray-400">{description}</p>
-        <p className="mt-1 text-xs font-medium text-gray-600 dark:text-gray-400">{meta}</p>
+        <div className="mt-1 flex flex-wrap items-center gap-2">
+          <p className="text-xs font-medium text-gray-600 dark:text-gray-400">{meta}</p>
+          {showStars ? (
+            <MasteryStars masteryScore={progress.mastery_score} questionsSeen={progress.questions_answered} />
+          ) : null}
+        </div>
       </div>
       <ChevronIcon
         className={cn(
@@ -93,6 +94,15 @@ export function TopicNode({ topic, stepNumber }: TopicNodeProps) {
       {cardContent}
     </Link>
   )
+}
+
+function getMetaText({ status, question_count, progress }: TopicWithStatus): string {
+  if (status === 'locked') return 'Locked — clear the previous stop to unlock'
+  const answered = progress?.questions_answered ?? 0
+  const stats = answered > 0
+    ? `${progress?.questions_correct ?? 0} / ${answered} correct`
+    : `${question_count} questions`
+  return status === 'completed' ? `${stats} · Cleared` : stats
 }
 
 function CompletedBadge() {

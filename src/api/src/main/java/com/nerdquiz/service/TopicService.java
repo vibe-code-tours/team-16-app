@@ -4,10 +4,12 @@ import com.nerdquiz.dto.TopicProgressResponse;
 import com.nerdquiz.dto.TopicResponse;
 import com.nerdquiz.model.Subtopic;
 import com.nerdquiz.model.Topic;
+import com.nerdquiz.model.UserSubtopicMastery;
 import com.nerdquiz.repository.LessonRepository;
 import com.nerdquiz.repository.QuestionRepository;
 import com.nerdquiz.repository.SubtopicRepository;
 import com.nerdquiz.repository.TopicRepository;
+import com.nerdquiz.repository.UserSubtopicMasteryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,15 +28,18 @@ public class TopicService {
     private final SubtopicRepository subtopicRepository;
     private final QuestionRepository questionRepository;
     private final LessonRepository lessonRepository;
+    private final UserSubtopicMasteryRepository masteryRepository;
 
     public TopicService(TopicRepository topicRepository,
                         SubtopicRepository subtopicRepository,
                         QuestionRepository questionRepository,
-                        LessonRepository lessonRepository) {
+                        LessonRepository lessonRepository,
+                        UserSubtopicMasteryRepository masteryRepository) {
         this.topicRepository = topicRepository;
         this.subtopicRepository = subtopicRepository;
         this.questionRepository = questionRepository;
         this.lessonRepository = lessonRepository;
+        this.masteryRepository = masteryRepository;
     }
 
     @Transactional(readOnly = true)
@@ -70,6 +75,8 @@ public class TopicService {
                                 LessonRepository.SubtopicLessonCount::getSubtopicId,
                                 LessonRepository.SubtopicLessonCount::getCnt));
 
+        Map<UUID, UserSubtopicMastery> masteryBySubtopic = loadMasteryBySubtopic(userId);
+
         Map<UUID, List<Subtopic>> byCategoryId = subtopics.stream()
                 .collect(Collectors.groupingBy(Subtopic::getTopicId));
 
@@ -93,11 +100,8 @@ public class TopicService {
 
                 String status = deriveStatus(totalLessons, completedLessons, prereqCompleted);
 
-                // TODO: Track actual question answers at subtopic level
-                // For now, use lesson completion as a proxy for progress
-                TopicProgressResponse progress = completedLessons > 0
-                        ? new TopicProgressResponse(sub.getId(), status, completedLessons, 0, null)
-                        : null;
+                TopicProgressResponse progress = buildProgress(
+                        sub.getId(), status, completedLessons, masteryBySubtopic.get(sub.getId()));
 
                 String description = sub.getDescription() == null || sub.getDescription().isBlank()
                         ? DEFAULT_DESCRIPTION
@@ -121,6 +125,35 @@ public class TopicService {
         }
 
         return result;
+    }
+
+    /** Loads all of the user's subtopic mastery rows in a single query, keyed by subtopic id. */
+    private Map<UUID, UserSubtopicMastery> loadMasteryBySubtopic(UUID userId) {
+        if (userId == null) return Map.of();
+        return masteryRepository.findByUserId(userId).stream()
+                .collect(Collectors.toMap(UserSubtopicMastery::getSubtopicId, m -> m));
+    }
+
+    /**
+     * Builds per-subtopic progress from lesson completion and question mastery.
+     * Returns null when the user has neither completed a lesson nor answered a question.
+     */
+    private static TopicProgressResponse buildProgress(UUID subtopicId,
+                                                       String status,
+                                                       int completedLessons,
+                                                       UserSubtopicMastery mastery) {
+        int questionsSeen = mastery == null ? 0 : mastery.getQuestionsSeen();
+        if (completedLessons == 0 && questionsSeen == 0) return null;
+        if (mastery == null) {
+            return new TopicProgressResponse(subtopicId, status, 0, 0, 0.0, null);
+        }
+        return new TopicProgressResponse(
+                subtopicId,
+                status,
+                questionsSeen,
+                mastery.getQuestionsCorrect(),
+                mastery.getMasteryScore().doubleValue(),
+                mastery.getLastPracticedAt());
     }
 
     private static boolean isSubtopicCompleted(UUID subtopicId,
