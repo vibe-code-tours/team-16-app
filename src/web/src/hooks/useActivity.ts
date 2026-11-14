@@ -3,16 +3,20 @@ import { api } from '../lib/api'
 import type { DailyActivity } from '../types/Activity'
 
 const API_ME_ACTIVITY = '/api/v1/me/activity'
+const DEFAULT_ACTIVITY_DAYS = 7
 
 interface UseActivityResult {
+  /** One entry per day, oldest first; the last entry is today (server date). */
   activity: DailyActivity[]
+  /** Today's entry, or null until loaded. */
+  today: DailyActivity | null
   loading: boolean
   error: string | null
   refetch: () => void
 }
 
-/** Loads the signed-in user's per-day activity for the last `days` days, oldest first. */
-export function useActivity(days: number): UseActivityResult {
+/** Loads the signed-in user's daily activity for the last `days` days. */
+export function useActivity(days: number = DEFAULT_ACTIVITY_DAYS): UseActivityResult {
   const [activity, setActivity] = useState<DailyActivity[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -47,5 +51,9 @@ export function useActivity(days: number): UseActivityResult {
     }
   }, [days, fetchTrigger])
 
-  return { activity, loading, error, refetch }
+  // The server returns days oldest first using its own date, so the last entry is "today"
+  // without comparing against the browser's clock or timezone.
+  const today = activity.length > 0 ? activity[activity.length - 1] : null
+
+  return { activity, today, loading, error, refetch }
 }
