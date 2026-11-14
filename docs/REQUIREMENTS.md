@@ -7,7 +7,7 @@
 | Feature | What "done" means |
 |---|---|
 | User registration & login | Email/password + Google sign-in via Supabase Auth |
-| Learning map | Visual topic tree — locked/unlocked states, category nodes |
+| Learning map | Visual topic tree — locked/unlocked states, category nodes; "Today's quest" daily goal of 10 questions answered with progress bar and done state |
 | Short lessons | Brief reading notes (2-3 min) displayed before each quiz |
 | 5-question quizzes | Per-topic quiz, instant feedback after each answer |
 | XP tracking | Earn XP per correct answer, display total XP on profile |
