@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
+import { LessonCheckBlock } from '../components/features/LessonCheckBlock'
 
 interface LessonDetail {
   id: string
@@ -121,7 +122,8 @@ export function LessonPage() {
         </div>
 
         <div className="rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-sm border border-gray-200 dark:border-gray-700">
-          {(lesson.content_blocks as Array<Record<string, unknown>>).map((block, i) => {
+          {(lesson.content_blocks as Array<Record<string, unknown> | null>).map((block, i) => {
+            if (typeof block !== 'object' || block === null) return null
             switch (block.type) {
               case 'heading':
                 return <h3 key={i} className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6 mb-3">{block.content as string}</h3>
@@ -130,7 +132,7 @@ export function LessonPage() {
               case 'list':
                 return (
                   <ul key={i} className="list-disc list-inside space-y-1 mb-3 text-gray-700 dark:text-gray-300">
-                    {(block.items as string[]).map((item, j) => (
+                    {(Array.isArray(block.items) ? (block.items as string[]) : []).map((item, j) => (
                       <li key={j}>{item}</li>
                     ))}
                   </ul>
@@ -154,6 +156,8 @@ export function LessonPage() {
                     <p className="text-sm text-green-700 dark:text-green-400">{block.content as string}</p>
                   </div>
                 )
+              case 'check':
+                return <LessonCheckBlock key={i} block={block} />
               default:
                 return null
             }

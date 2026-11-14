@@ -8,7 +8,7 @@
 |---|---|
 | User registration & login | Email/password + Google sign-in via Supabase Auth |
 | Learning map | Visual topic tree — locked/unlocked states, category nodes |
-| Short lessons | Brief reading notes (2-3 min) displayed before each quiz |
+| Short lessons | Brief reading notes (2-3 min) displayed before each quiz, with optional inline one-question checks (no XP, never block completion) |
 | 5-question quizzes | Per-topic quiz, instant feedback after each answer |
 | XP tracking | Earn XP per correct answer, display total XP on profile |
 | Countdown timer (exam sim) | Answer questions during a 60-minute countdown timer; no wrong-answer penalty |
