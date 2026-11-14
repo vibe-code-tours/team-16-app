@@ -30,6 +30,16 @@ public class UserMistakeController {
         return ResponseEntity.ok(mistakeService.getUserMistakes(userId.get()));
     }
 
+    /** Mistakes whose spaced-review date has arrived, for the "Due today" section. */
+    @GetMapping("/due")
+    public ResponseEntity<List<MistakeResponse>> getDueMistakes(Authentication authentication) {
+        Optional<UUID> userId = UuidUtil.tryParse(authentication.getName());
+        if (userId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(mistakeService.getDueMistakes(userId.get()));
+    }
+
     @PutMapping("/{id}/review")
     public ResponseEntity<Void> reviewMistake(
             Authentication authentication,

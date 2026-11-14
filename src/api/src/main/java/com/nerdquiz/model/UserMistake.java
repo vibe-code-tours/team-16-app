@@ -28,6 +28,15 @@ public class UserMistake {
     @Column
     private Boolean reviewed = false;
 
+    @Column(name = "review_count", nullable = false)
+    private int reviewCount = 0;
+
+    @Column(name = "interval_days", nullable = false)
+    private int intervalDays = 1;
+
+    @Column(name = "next_review_at")
+    private Instant nextReviewAt;
+
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
 
@@ -45,4 +54,13 @@ public class UserMistake {
 
     public Boolean getReviewed() { return reviewed; }
     public void setReviewed(Boolean reviewed) { this.reviewed = reviewed; }
+
+    public int getReviewCount() { return reviewCount; }
+    public void setReviewCount(int reviewCount) { this.reviewCount = reviewCount; }
+
+    public int getIntervalDays() { return intervalDays; }
+    public void setIntervalDays(int intervalDays) { this.intervalDays = intervalDays; }
+
+    public Instant getNextReviewAt() { return nextReviewAt; }
+    public void setNextReviewAt(Instant nextReviewAt) { this.nextReviewAt = nextReviewAt; }
 }
