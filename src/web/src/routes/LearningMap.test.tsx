@@ -1,19 +1,24 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useAuth } from '../hooks/useAuth'
 import { useTopics } from '../hooks/useTopics'
+import { api } from '../lib/api'
 import type { TopicWithStatus } from '../types/topic'
 import { LearningMap } from './LearningMap'
 
 vi.mock('../hooks/useAuth', () => ({ useAuth: vi.fn() }))
 vi.mock('../hooks/useTopics', () => ({ useTopics: vi.fn() }))
+vi.mock('../lib/api', () => ({ api: { get: vi.fn() } }))
 
 const mockUseAuth = vi.mocked(useAuth)
 const mockUseTopics = vi.mocked(useTopics)
+const mockApiGet = vi.mocked(api.get)
 
 describe('LearningMap', () => {
   beforeEach(() => {
+    vi.clearAllMocks()
+    mockApiGet.mockResolvedValue([{ date: '2026-11-14', questionsAnswered: 0, xpEarned: 0 }])
     mockUseAuth.mockReturnValue({
       user: {
         id: 'user-1',
@@ -131,6 +136,30 @@ describe('LearningMap', () => {
 
     expect(screen.getByRole('alert')).toHaveTextContent('Network unavailable')
     expect(screen.getByRole('link', { name: 'Check your learning path' })).toHaveAttribute('href', '#learning-path')
+  })
+
+  it("shows today's question goal from the activity API", async () => {
+    mockUseTopics.mockReturnValue({ topics: [createTopic()], loading: false, error: null, refetch: vi.fn() })
+    mockApiGet.mockResolvedValue([{ date: '2026-11-14', questionsAnswered: 4, xpEarned: 40 }])
+
+    renderLearningMap()
+
+    expect(await screen.findByText('4 / 10 questions today')).toBeInTheDocument()
+    expect(mockApiGet).toHaveBeenCalledWith('/api/v1/me/activity?days=1')
+    const hero = screen.getByRole('region', { name: 'Ready for your next win, Ada?' })
+    expect(within(hero).getByRole('progressbar', { name: 'Daily goal progress' })).toHaveAttribute('aria-valuenow', '4')
+    expect(screen.queryByText('Goal complete')).not.toBeInTheDocument()
+  })
+
+  it('marks the daily goal complete at ten questions', async () => {
+    mockUseTopics.mockReturnValue({ topics: [createTopic()], loading: false, error: null, refetch: vi.fn() })
+    mockApiGet.mockResolvedValue([{ date: '2026-11-14', questionsAnswered: 10, xpEarned: 100 }])
+
+    renderLearningMap()
+
+    expect(await screen.findByText('10 / 10 questions today')).toBeInTheDocument()
+    expect(screen.getByText('Goal complete')).toBeInTheDocument()
+    expect(screen.getByRole('progressbar', { name: 'Daily goal progress' })).toHaveAttribute('aria-valuenow', '10')
   })
 
   it('offers exam practice when no topics are available', () => {

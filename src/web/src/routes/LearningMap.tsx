@@ -1,11 +1,14 @@
-import { useMemo } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { DailyGoalCard } from '../components/features/DailyGoalCard'
 import { TopicNode } from '../components/features/TopicNode'
 import { Badge } from '../components/ui/Badge'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
+import { useActivity } from '../hooks/useActivity'
 import { useAuth } from '../hooks/useAuth'
 import { useTopics } from '../hooks/useTopics'
+import { getProgressWidthClass } from '../lib/progressWidth'
 import type { TopicCategory, TopicWithStatus } from '../types/topic'
 
 const CATEGORY_ORDER: readonly TopicCategory[] = [
@@ -32,23 +35,13 @@ const CATEGORY_PANEL_ACCENT: Record<TopicCategory, string> = {
   Business: 'border-t-amber-400',
 }
 
-const PROGRESS_WIDTH_CLASSES = [
-  'w-0',
-  'w-[10%]',
-  'w-[20%]',
-  'w-[30%]',
-  'w-[40%]',
-  'w-1/2',
-  'w-[60%]',
-  'w-[70%]',
-  'w-4/5',
-  'w-[90%]',
-  'w-full',
-] as const
+// Only today's entry is needed for the daily goal.
+const DAILY_GOAL_ACTIVITY_DAYS = 1
 
 export function LearningMap() {
   const { user } = useAuth()
   const { topics, loading, error, refetch } = useTopics()
+  const activity = useActivity(DAILY_GOAL_ACTIVITY_DAYS)
   const learningSummary = useMemo(() => summarizeLearning(topics), [topics])
   const topicsByCategory = useMemo(() => groupTopicsByCategory(topics), [topics])
   const learnerName = getLearnerName(user?.display_name, user?.email)
@@ -62,6 +55,14 @@ export function LearningMap() {
         summary={learningSummary}
         isLoading={loading}
         hasError={Boolean(error)}
+        dailyGoal={
+          <DailyGoalCard
+            questionsAnswered={activity.today?.questionsAnswered ?? 0}
+            isLoading={activity.loading}
+            error={activity.error}
+            onRetry={activity.refetch}
+          />
+        }
       />
 
       <section id="learning-path" aria-labelledby="learning-path-title" className="scroll-mt-24">
@@ -113,6 +114,7 @@ interface WelcomeHeroProps {
   summary: LearningSummary
   isLoading: boolean
   hasError: boolean
+  dailyGoal: ReactNode
 }
 
 function WelcomeHero({
@@ -122,6 +124,7 @@ function WelcomeHero({
   summary,
   isLoading,
   hasError,
+  dailyGoal,
 }: WelcomeHeroProps) {
   const motivation = getMotivation(summary.progressPercent, streakCount)
 
@@ -158,6 +161,8 @@ function WelcomeHero({
             Ready for your next win, {learnerName}?
           </h1>
           <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-400 sm:text-lg">{motivation}</p>
+
+          <div className="mt-5 max-w-md">{dailyGoal}</div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <ContinueAction summary={summary} isLoading={isLoading} hasError={hasError} />
@@ -423,9 +428,4 @@ function getMotivation(progressPercent: number, streakCount: number) {
   if (streakCount > 1) return `Your ${streakCount}-day streak is glowing. One focused lesson today keeps the momentum going.`
   if (progressPercent > 0) return 'Every completed topic is proof that you are getting exam-ready. Keep the momentum going!'
   return 'Start small, stay curious, and let each bite-sized lesson move you closer to exam confidence.'
-}
-
-function getProgressWidthClass(percent: number) {
-  const index = Math.min(10, Math.max(0, Math.round(percent / 10)))
-  return PROGRESS_WIDTH_CLASSES[index]
 }
