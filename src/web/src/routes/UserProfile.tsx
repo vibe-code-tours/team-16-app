@@ -5,6 +5,7 @@ import { WeeklyActivityChart } from "../components/features/WeeklyActivityChart"
 import { useAchievements } from "../hooks/useAchievements";
 import { AchievementsSection } from "../components/features/achievements/AchievementsSection";
 import { NextGoalCard } from "../components/features/achievements/NextGoalCard";
+import { getLevelProgress, type LevelProgress } from "../lib/levelProgress";
 
 export function UserProfile() {
   const { user, session, updateProfile } = useAuth();
@@ -973,30 +974,6 @@ function getInitials(name: string) {
     .toUpperCase();
 
   return initials || "NQ";
-}
-
-function getLevelProgress(totalXp: number): LevelProgress {
-  const xpPerLevel = 250;
-  const safeXp = Math.max(totalXp, 0);
-  const level = Math.floor(safeXp / xpPerLevel) + 1;
-  const currentXp = safeXp % xpPerLevel;
-  const remainingXp = xpPerLevel - currentXp;
-
-  return {
-    level,
-    currentXp,
-    remainingXp,
-    xpPerLevel,
-    percent: Math.round((currentXp / xpPerLevel) * 100),
-  };
-}
-
-interface LevelProgress {
-  level: number;
-  currentXp: number;
-  remainingXp: number;
-  xpPerLevel: number;
-  percent: number;
 }
 
 type IconName =
