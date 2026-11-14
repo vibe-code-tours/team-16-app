@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,6 +32,10 @@ public class MistakeService {
 
     private static final int DEFAULT_PAGE_SIZE = 20;
     private static final int MAX_PAGE_SIZE = 100;
+
+    /** Days until the next review, climbed one step per correct review and capped at the last step. */
+    static final List<Integer> REVIEW_INTERVAL_DAYS = List.of(1, 3, 7, 14);
+    static final int INITIAL_INTERVAL_DAYS = REVIEW_INTERVAL_DAYS.get(0);
 
     private final UserMistakeRepository userMistakeRepository;
     private final QuestionRepository questionRepository;
@@ -67,8 +72,12 @@ public class MistakeService {
                     newMistake.setReviewed(false);
                     return newMistake;
                 });
+        Instant now = Instant.now();
         mistake.setSelectedLabel(request.selectedLabel());
-        mistake.setCreatedAt(Instant.now());
+        mistake.setCreatedAt(now);
+        // A wrong answer (in a quiz or a garden retry) restarts the review schedule.
+        mistake.setIntervalDays(INITIAL_INTERVAL_DAYS);
+        mistake.setNextReviewAt(now.plus(Duration.ofDays(INITIAL_INTERVAL_DAYS)));
         UserMistake saved = userMistakeRepository.save(mistake);
 
         Question question = questionRepository.findById(saved.getQuestionId()).orElse(null);
@@ -87,7 +96,22 @@ public class MistakeService {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "createdAt"));
 
         List<UserMistake> mistakes = userMistakeRepository.findByUserIdOrderByCreatedAtDesc(userId, pageable);
+        return toResponses(mistakes);
+    }
 
+    /**
+     * Mistakes whose next review is due now, oldest due first. Capped at
+     * {@value #MAX_PAGE_SIZE} so the result stays bounded.
+     */
+    @Transactional(readOnly = true)
+    public List<MistakeResponse> getDueMistakes(UUID userId) {
+        Pageable pageable = PageRequest.of(0, MAX_PAGE_SIZE);
+        List<UserMistake> dueMistakes = userMistakeRepository
+                .findByUserIdAndNextReviewAtLessThanEqualOrderByNextReviewAtAsc(userId, Instant.now(), pageable);
+        return toResponses(dueMistakes);
+    }
+
+    private List<MistakeResponse> toResponses(List<UserMistake> mistakes) {
         Set<UUID> questionIds = mistakes.stream()
                 .map(UserMistake::getQuestionId)
                 .collect(Collectors.toSet());
@@ -113,12 +137,28 @@ public class MistakeService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Records a correct review: climbs one step on the review ladder and schedules
+     * the next review that many days from now.
+     */
     @Transactional
     public void reviewMistake(UUID userId, UUID mistakeId) {
         UserMistake mistake = userMistakeRepository.findByIdAndUserId(mistakeId, userId)
                 .orElseThrow(() -> new MistakeNotFoundException("Mistake not found or access denied"));
+        int nextInterval = nextIntervalDays(mistake.getIntervalDays());
         mistake.setReviewed(true);
+        mistake.setReviewCount(mistake.getReviewCount() + 1);
+        mistake.setIntervalDays(nextInterval);
+        mistake.setNextReviewAt(Instant.now().plus(Duration.ofDays(nextInterval)));
         userMistakeRepository.save(mistake);
+    }
+
+    /** The next step on the review ladder after {@code currentIntervalDays}, capped at the last step. */
+    static int nextIntervalDays(int currentIntervalDays) {
+        return REVIEW_INTERVAL_DAYS.stream()
+                .filter(days -> days > currentIntervalDays)
+                .findFirst()
+                .orElse(REVIEW_INTERVAL_DAYS.get(REVIEW_INTERVAL_DAYS.size() - 1));
     }
 
     private MistakeResponse toResponse(UserMistake mistake, Question question,
