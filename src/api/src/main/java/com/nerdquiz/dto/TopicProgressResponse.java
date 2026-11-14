@@ -9,5 +9,6 @@ public record TopicProgressResponse(
         String status,
         @JsonProperty("questions_answered") int questionsAnswered,
         @JsonProperty("questions_correct") int questionsCorrect,
+        @JsonProperty("mastery_score") double masteryScore,
         @JsonProperty("last_attempted_at") Instant lastAttemptedAt
 ) {}

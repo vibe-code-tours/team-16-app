@@ -29,6 +29,7 @@ export interface TopicProgress {
   status: Exclude<TopicStatus, 'locked'>
   questions_answered: number
   questions_correct: number
+  mastery_score: number
   last_attempted_at: string | null
 }
 
