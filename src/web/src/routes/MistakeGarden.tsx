@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { Sprout, Search } from 'lucide-react'
 import { EmptyState } from '../components/ui/EmptyState'
 import { Button } from '../components/ui/Button'
+import { DueTodaySection } from '../components/features/mistakes/DueTodaySection'
 import { GardenSummary } from '../components/features/mistakes/GardenSummary'
 import { MistakeRetryCard } from '../components/features/mistakes/MistakeRetryCard'
 import { useMistakes } from '../hooks/useMistakes'
 import type { Mistake } from '../types/Mistake'
 
 export function MistakeGarden() {
-  const { mistakes, loading, error, clearedCount, refetch, markReviewed } = useMistakes()
+  const { mistakes, dueMistakes, loading, error, clearedCount, refetch, markReviewed, recordMiss } = useMistakes()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('All')
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null)
@@ -76,6 +77,8 @@ export function MistakeGarden() {
         </>
       ) : (
         <>
+          <DueTodaySection mistakes={dueMistakes} onReviewed={markReviewed} onMissed={recordMiss} />
+
           <GardenSummary remainingCount={mistakes.length} clearedCount={clearedCount} />
 
           {/* Search and Filter */}
@@ -194,7 +197,7 @@ export function MistakeGarden() {
                     {isExpanded && (
                       <div className="border-t border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
                         {topicMistakes.map((mistake) => (
-                          <MistakeRetryCard key={mistake.id} mistake={mistake} onReviewed={markReviewed} />
+                          <MistakeRetryCard key={mistake.id} mistake={mistake} onReviewed={markReviewed} onMissed={recordMiss} />
                         ))}
                       </div>
                     )}

@@ -10,6 +10,8 @@ interface MistakeRetryCardProps {
   mistake: Mistake
   /** Marks the mistake reviewed; called on a correct retry or a manual review. */
   onReviewed: (mistakeId: string) => Promise<void>
+  /** Records a wrong retry, which resets the mistake's review interval. */
+  onMissed: (questionId: string, selectedLabel: string) => Promise<void>
 }
 
 function getChoiceText(choices: Choice[], label: string) {
@@ -17,7 +19,7 @@ function getChoiceText(choices: Choice[], label: string) {
 }
 
 /** One mistake in the garden: read the answer, or hide it and try again. */
-export function MistakeRetryCard({ mistake, onReviewed }: MistakeRetryCardProps) {
+export function MistakeRetryCard({ mistake, onReviewed, onMissed }: MistakeRetryCardProps) {
   const [mode, setMode] = useState<CardMode>('review')
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
@@ -31,6 +33,7 @@ export function MistakeRetryCard({ mistake, onReviewed }: MistakeRetryCardProps)
     if (!selectedAnswer) return
     if (selectedAnswer !== mistake.correctAnswer) {
       setMode('wrong')
+      await onMissed(mistake.questionId, selectedAnswer)
       return
     }
     setSubmitting(true)

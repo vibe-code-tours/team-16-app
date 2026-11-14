@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,4 +20,7 @@ public interface UserMistakeRepository extends JpaRepository<UserMistake, UUID> 
     Optional<UserMistake> findByIdAndUserId(UUID id, UUID userId);
 
     Optional<UserMistake> findByUserIdAndQuestionId(UUID userId, UUID questionId);
+
+    List<UserMistake> findByUserIdAndNextReviewAtLessThanEqualOrderByNextReviewAtAsc(
+            UUID userId, Instant dueBy, Pageable pageable);
 }
