@@ -1,5 +1,6 @@
 import ReactMarkdown from 'react-markdown'
 import type { Lesson, ContentBlock } from '../../hooks/useLessons'
+import { LessonCheckBlock } from './LessonCheckBlock'
 
 interface LessonContentProps {
   lesson: Lesson
@@ -10,6 +11,9 @@ interface LessonContentProps {
 }
 
 function ContentBlockRenderer({ block }: { block: ContentBlock }) {
+  // content_blocks is raw JSON from the API; skip entries that are not objects.
+  if (typeof block !== 'object' || block === null) return null
+
   switch (block.type) {
     case 'heading':
       return (
@@ -28,7 +32,7 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
     case 'list':
       return (
         <ul className="list-disc list-inside space-y-2 mb-4 text-gray-700 dark:text-gray-300">
-          {block.items?.map((item, i) => (
+          {(Array.isArray(block.items) ? block.items : []).map((item, i) => (
             <li key={i}>
               <ReactMarkdown>{item}</ReactMarkdown>
             </li>
@@ -83,6 +87,9 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
           </div>
         </div>
       )
+
+    case 'check':
+      return <LessonCheckBlock block={block} />
 
     default:
       return null
