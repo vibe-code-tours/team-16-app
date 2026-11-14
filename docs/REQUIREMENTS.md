@@ -13,7 +13,7 @@
 | XP tracking | Earn XP per correct answer, display total XP on profile |
 | Countdown timer (exam sim) | Answer questions during a 60-minute countdown timer; no wrong-answer penalty |
 | Streak tracking | Daily login streak, displayed on dashboard |
-| Mistake Garden | Wrong answers collected per user, reviewable with correct answer + explanation |
+| Mistake Garden | Wrong answers collected per user, reviewable with correct answer + explanation; "Try again" re-answers a mistake in place (correct clears it, wrong keeps it) with a seedling/flower garden summary |
 | Exam simulation | Timed exam (Subject-A: 60 questions), countdown timer, submit-and-score |
 | Rule-based difficulty | Assign easy/medium/hard based on question metadata — no AI |
 | Landing page | Mascot + hero text + CTA buttons |
