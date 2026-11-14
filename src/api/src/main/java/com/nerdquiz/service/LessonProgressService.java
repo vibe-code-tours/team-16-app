@@ -6,22 +6,19 @@ import com.nerdquiz.repository.UserLessonProgressRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class LessonProgressService {
 
-    private static final int XP_PER_LESSON_COMPLETE = 20;
-
     private final UserLessonProgressRepository userLessonProgressRepository;
-    private final UserService userService;
+    private final LessonService lessonService;
 
     public LessonProgressService(UserLessonProgressRepository userLessonProgressRepository,
-                                 UserService userService) {
+                                 LessonService lessonService) {
         this.userLessonProgressRepository = userLessonProgressRepository;
-        this.userService = userService;
+        this.lessonService = lessonService;
     }
 
     @Transactional(readOnly = true)
@@ -35,28 +32,14 @@ public class LessonProgressService {
         return toResponse(progress.get());
     }
 
+    /**
+     * Completes the lesson via {@link LessonService#completeLesson}, which owns the
+     * single XP rule (lesson {@code xp_reward}, first completion only).
+     */
     @Transactional
     public LessonProgressResponse markComplete(UUID userId, UUID lessonId) {
-        UserLessonProgress progress = userLessonProgressRepository.findByUserIdAndLessonId(userId, lessonId)
-                .orElseGet(() -> {
-                    UserLessonProgress newProgress = new UserLessonProgress();
-                    newProgress.setUserId(userId);
-                    newProgress.setLessonId(lessonId);
-                    return newProgress;
-                });
-
-        if (!"completed".equals(progress.getStatus())) {
-            Instant completedAt = Instant.now();
-            progress.setStatus("completed");
-            if (progress.getStartedAt() == null) {
-                progress.setStartedAt(completedAt);
-            }
-            progress.setCompletedAt(completedAt);
-            userLessonProgressRepository.save(progress);
-            userService.incrementUserXp(userId, XP_PER_LESSON_COMPLETE);
-        }
-
-        return toResponse(progress);
+        lessonService.completeLesson(lessonId, userId);
+        return getProgress(userId, lessonId);
     }
 
     private LessonProgressResponse createDefaultProgress(UUID userId, UUID lessonId) {

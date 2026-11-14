@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BookOpen } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth'
 import { useLessons } from '../hooks/useLessons'
 import { LessonContent } from '../components/features/LessonContent'
 import { EmptyState } from '../components/ui/EmptyState'
@@ -9,6 +10,7 @@ import { Button } from '../components/ui/Button'
 export function TopicDetail() {
   const { topicId } = useParams<{ topicId: string }>()
   const navigate = useNavigate()
+  const { refreshUser } = useAuth()
   const { lessons, progress, loading, error, completeLesson, refetch } = useLessons(topicId)
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null)
 
@@ -33,7 +35,9 @@ export function TopicDetail() {
   }, [selectedLesson, lessons, progress])
 
   const handleCompleteLesson = useCallback(async (lessonId: string) => {
-    await completeLesson(lessonId)
+    const completed = await completeLesson(lessonId)
+    // Lesson XP is awarded server-side; pull the new total so the header updates.
+    if (completed) await refreshUser()
 
     // Find the next unlocked lesson
     const currentIndex = lessons.findIndex((l) => l.id === lessonId)
@@ -49,7 +53,7 @@ export function TopicDetail() {
       // All lessons completed, stay on lesson list to show quiz CTA
       setSelectedLessonId(null)
     }
-  }, [completeLesson, lessons, allLessonsCompleted])
+  }, [completeLesson, refreshUser, lessons, allLessonsCompleted])
 
   if (loading) {
     return (

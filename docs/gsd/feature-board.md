@@ -9,7 +9,7 @@
 | 2 | Learning map | Htet Lin Ko | Done | Backend: `TopicController` + `TopicService` with prerequisite chain. Frontend: `LearningMap.tsx` + `TopicNode.tsx` + `useTopics` hook. Wired to `/api/v1/topics` |
 | 3 | Short lessons | YE MIN KO | Done | Backend: `LessonController` (3 endpoints). Frontend: `TopicDetail.tsx` + `LessonPage.tsx` + `LessonContent.tsx` + `useLessons` hook. 32+ lessons seeded. Lesson completion tracking via `/api/v1/lessons/{id}/complete` |
 | 4 | 5-question quizzes | YE MIN KO | Done | Backend: `QuizController` (start/submit/result). Frontend: `QuizPage.tsx`. Instant feedback, per-subtopic |
-| 5 | XP tracking | | Done | Backend: `QuizService` awards 10 XP/correct. DB: `increment_user_xp()` RPC. Frontend: Header shows total XP |
+| 5 | XP tracking | | Done | Backend: `QuizService` awards 10 XP/correct; `LessonService.completeLesson` awards the lesson's `xp_reward` on first completion only. DB: `increment_user_xp()` RPC. Frontend: Header shows total XP, refreshed after quiz/exam/lesson completion |
 | — | ~~Hearts (exam sim)~~ | | Removed 2026-07-24 | Heart/lives system removed from exam simulation. Replaced with countdown timer only — wrong answers have no penalty. See docs/plans/remove-heart-system.md |
 | 7 | Streak tracking | | Done | Backend: `UserService.updateUserStreak()` (atomic CTE). Frontend: Header shows streak, syncs on login via `/api/v1/me/streak` |
 | 8 | Mistake Garden | | Done | Backend: `MistakeController` (GET/POST/PUT `review`). Frontend: `MistakeGarden.tsx` reads from `/api/v1/me/mistakes`. Supports marking mistakes as reviewed. |
@@ -37,4 +37,4 @@
 3. **Orphaned frontend files**: `QuizSession.tsx`, `QuizResult.tsx`, `sampleQuestions.ts` not routed — legacy code should be removed.
 4. **No JPA entity for `user_profiles`**: `UserProfileService` uses raw `JdbcTemplate` instead of a repository.
 5. **No JPA entity for `user_mistakes`**: `MistakeService` also uses raw `JdbcTemplate`.
-6. **LessonProgressController duplicates LessonController**: Both handle lesson completion at different paths (`/api/v1/me/lessons/{id}/progress` vs `/api/v1/lessons/{id}/complete`).
+6. **LessonProgressController duplicates LessonController**: Both handle lesson completion at different paths (`/api/v1/me/lessons/{id}/progress` vs `/api/v1/lessons/{id}/complete`). Both now go through `LessonService.completeLesson`, so the XP rule is shared; the duplicate endpoint still exists.
