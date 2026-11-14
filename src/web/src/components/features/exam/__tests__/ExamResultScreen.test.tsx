@@ -37,7 +37,8 @@ describe('ExamResultScreen', () => {
   it('shows congratulations when passed', () => {
     render(<ExamResultScreen result={mockResult} onTryAgain={vi.fn()} />)
 
-    expect(screen.getByText('🏆')).toBeInTheDocument()
+    expect(screen.getByTestId('owl-mascot')).toHaveAttribute('data-mood', 'happy')
+    expect(screen.getByText("Hoo-ray! You're ready for the real exam.")).toBeInTheDocument()
     expect(screen.getByText('Congratulations!')).toBeInTheDocument()
   })
 
@@ -45,7 +46,10 @@ describe('ExamResultScreen', () => {
     const failedResult = { ...mockResult, passed: false, scorePercentage: 50 }
     render(<ExamResultScreen result={failedResult} onTryAgain={vi.fn()} />)
 
-    expect(screen.getByText('📚')).toBeInTheDocument()
+    expect(screen.getByTestId('owl-mascot')).toHaveAttribute('data-mood', 'encouraging')
+    expect(
+      screen.getByText("Don't give up! Review your mistakes and you'll get there.")
+    ).toBeInTheDocument()
     expect(screen.getByText('Keep Studying!')).toBeInTheDocument()
   })
 
