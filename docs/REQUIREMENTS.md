@@ -34,6 +34,7 @@
 | Performance tuning | API response times, frontend load speed |
 | Admin dashboard (stats) | Role-gated dashboard with: stat cards (total users, active today/this week, quiz/exam attempts, avg scores, exam pass rate), charts (daily active users line chart, topic engagement bar charts, quiz completion pie chart, exam pass/fail pie chart). User management page with searchable/sortable table, quick filters (Active Today, Inactive 30d+, New 7d), detail drawer with tabs (Overview, Activity, Performance), and actions (change role, reset streak, deactivate, CSV export). Requires `role` column on `user_profiles`. Uses Recharts for visualization. |
 | Achievements (backend) | `GET /api/v1/me/achievements` returns a fixed catalogue of 12 achievements (quizzes, perfect quiz, streak 3/7/30, XP 100/500/1000, lessons, exam pass, mistakes reviewed) with unlock state and progress derived on read from existing tables — no new tables |
+| Achievements (profile UI) | Profile page shows every achievement from the API as unlocked or locked with progress, a real unlocked count, and a "Next goal" card for the locked achievement closest to unlocking. Loading, error (with retry) and empty states |
 
 ## Explicitly out of scope (this project)
 
