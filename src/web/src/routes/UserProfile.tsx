@@ -1,32 +1,11 @@
 import { useState, useEffect, type FormEvent, type SVGProps } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { useAchievements } from "../hooks/useAchievements";
+import { AchievementsSection } from "../components/features/achievements/AchievementsSection";
+import { NextGoalCard } from "../components/features/achievements/NextGoalCard";
 
 const WEEKLY_ACTIVITY: Array<{ day: string; value: number; minutes: number }> = [];
-
-const ACHIEVEMENTS: Achievement[] = [
-  {
-    title: "Quick learner",
-    description: "Completed 10 quizzes",
-    icon: "zap",
-    iconClassName:
-      "bg-amber-100 text-amber-600 ring-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:ring-amber-700",
-  },
-  {
-    title: "On fire",
-    description: "3 day learning streak",
-    icon: "flame",
-    iconClassName:
-      "bg-orange-100 text-orange-600 ring-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:ring-orange-700",
-  },
-  {
-    title: "Sharp mind",
-    description: "Scored 90% or higher",
-    icon: "target",
-    iconClassName:
-      "bg-emerald-100 text-emerald-600 ring-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:ring-emerald-700",
-  },
-] as const;
 
 export function UserProfile() {
   const { user, session, updateProfile } = useAuth();
@@ -63,6 +42,7 @@ function StudentProfileView({
   }, [user?.display_name]);
   const [avatarFailed, setAvatarFailed] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const achievements = useAchievements();
 
   const email = session?.user?.email ?? user?.email ?? null;
   const memberSince = formatMemberSince(user?.created_at);
@@ -158,12 +138,23 @@ function StudentProfileView({
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.65fr)_minmax(280px,0.85fr)] lg:items-start">
         <div className="flex flex-col gap-6">
           <WeeklyActivity />
-          <Achievements />
+          <AchievementsSection
+            achievements={achievements.achievements}
+            unlockedCount={achievements.unlockedCount}
+            loading={achievements.loading}
+            error={achievements.error}
+            onRetry={achievements.refetch}
+          />
         </div>
 
         <aside className="flex flex-col gap-6" aria-label="Account details">
           <AccountCard email={email} memberSince={memberSince} />
-          <NextGoal />
+          <NextGoalCard
+            goal={achievements.nextGoal}
+            hasAchievements={achievements.achievements.length > 0}
+            loading={achievements.loading}
+            error={achievements.error}
+          />
         </aside>
       </div>
     </div>
@@ -805,59 +796,6 @@ function WeeklyActivity() {
   );
 }
 
-function Achievements() {
-  return (
-    <section
-      className="learning-feature-enter rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800"
-      aria-labelledby="achievements-title"
-    >
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-600 dark:text-purple-400">
-            Milestones
-          </p>
-          <h2
-            id="achievements-title"
-            className="mt-1 text-xl font-bold text-gray-950 dark:text-gray-50"
-          >
-            Recent achievements
-          </h2>
-        </div>
-        <span className="text-sm font-semibold text-gray-400 dark:text-gray-500">
-          3 unlocked
-        </span>
-      </div>
-
-      <div className="mt-5 grid gap-3 md:grid-cols-3">
-        {ACHIEVEMENTS.map((achievement) => {
-          return (
-            <article
-              key={achievement.title}
-              className="group rounded-2xl border border-gray-100 bg-gray-50/80 p-4 transition-all duration-200 hover:border-purple-200 hover:bg-purple-50/50 dark:border-gray-700 dark:bg-gray-900/80 dark:hover:border-purple-700 dark:hover:bg-purple-900/30"
-            >
-              <div
-                className={`flex size-11 items-center justify-center rounded-2xl ring-1 transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-110 ${achievement.iconClassName}`}
-              >
-                <Icon
-                  name={achievement.icon}
-                  className="size-5"
-                  aria-hidden="true"
-                />
-              </div>
-              <h3 className="mt-4 font-bold text-gray-900 dark:text-gray-100">
-                {achievement.title}
-              </h3>
-              <p className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                {achievement.description}
-              </p>
-            </article>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
 function AccountCard({
   email,
   memberSince,
@@ -922,61 +860,6 @@ function AccountDetail({
         </dd>
       </div>
     </div>
-  );
-}
-
-function NextGoal() {
-  return (
-    <section
-      className="learning-feature-enter overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 shadow-sm sm:p-6 dark:border-amber-700 dark:bg-gray-800"
-      aria-labelledby="next-goal-title"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200 dark:bg-gray-700 dark:text-amber-400 dark:ring-amber-700">
-            <Icon name="award" className="size-3.5" aria-hidden="true" />
-            Almost there
-          </span>
-          <h2
-            id="next-goal-title"
-            className="mt-3 text-lg font-bold text-gray-950 dark:text-gray-50"
-          >
-            Quiz champion
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
-            Complete 2 more quizzes to unlock your next badge.
-          </p>
-        </div>
-        <span className="text-4xl" aria-hidden="true">
-          🏆
-        </span>
-      </div>
-      <div
-        className="mt-5 h-2 overflow-hidden rounded-full bg-amber-200/70 dark:bg-amber-900/30"
-        role="progressbar"
-        aria-label="Quiz champion achievement progress"
-        aria-valuemin={0}
-        aria-valuemax={10}
-        aria-valuenow={8}
-      >
-        <div className="learning-progress-reveal h-full w-4/5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500" />
-      </div>
-      <div className="mt-2 flex items-center justify-between text-xs font-semibold text-amber-800 dark:text-amber-400">
-        <span>8 of 10 quizzes</span>
-        <span>80%</span>
-      </div>
-      <Link
-        to="/quizzes"
-        className="group mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-gray-950 px-4 py-2.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-purple-700 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 dark:bg-white dark:text-gray-900 dark:hover:bg-purple-600"
-      >
-        Continue learning
-        <Icon
-          name="chevron-right"
-          className="size-4 transition-transform group-hover:translate-x-0.5"
-          aria-hidden="true"
-        />
-      </Link>
-    </section>
   );
 }
 
@@ -1207,13 +1090,6 @@ type IconName =
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   name: IconName;
-}
-
-interface Achievement {
-  title: string;
-  description: string;
-  icon: IconName;
-  iconClassName: string;
 }
 
 interface StatItem {
