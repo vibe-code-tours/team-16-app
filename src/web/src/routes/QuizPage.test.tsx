@@ -94,4 +94,41 @@ describe('QuizPage', () => {
     })
     expect(screen.getByRole('button', { name: 'See results' })).toBeInTheDocument()
   })
+
+  it('shows the +XP popup after a correct answer', async () => {
+    await startQuizAndAnswer(null, 'Binary search')
+
+    expect(screen.getByText('+10 XP')).toBeInTheDocument()
+  })
+
+  it('does not show the +XP popup after a wrong answer', async () => {
+    await startQuizAndAnswer(null, 'Linear search')
+
+    expect(screen.queryByText('+10 XP')).not.toBeInTheDocument()
+  })
+
+  it('shows the combo counter after two correct answers in a row', async () => {
+    const session = sessionWith(null)
+    session.questions.push({ ...session.questions[0], id: 'q-2' })
+    mockPost.mockImplementation((path: string) =>
+      Promise.resolve(path === '/api/v1/quizzes/start' ? session : {})
+    )
+    render(
+      <MemoryRouter initialEntries={['/quiz/sub-1']}>
+        <Routes>
+          <Route path="/quiz/:subtopicId" element={<QuizPage />} />
+        </Routes>
+      </MemoryRouter>
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Start Quiz' }))
+    fireEvent.click(await screen.findByText('Binary search'))
+    fireEvent.click(screen.getByRole('button', { name: 'Check answer' }))
+    expect(screen.queryByText(/in a row/)).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Next question' }))
+    fireEvent.click(screen.getByText('Binary search'))
+    fireEvent.click(screen.getByRole('button', { name: 'Check answer' }))
+
+    expect(screen.getByText('2 in a row')).toBeInTheDocument()
+  })
 })

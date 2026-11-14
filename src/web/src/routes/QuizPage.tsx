@@ -6,6 +6,8 @@ import { ProgressBar } from '../components/features/ProgressBar'
 import { QuestionBlock } from '../components/features/QuestionBlock'
 import { ChoiceList } from '../components/features/ChoiceList'
 import { ExplanationBox } from '../components/features/ExplanationBox'
+import { XpComboPopup } from '../components/features/XpComboPopup'
+import { useQuizCombo, XP_PER_CORRECT_ANSWER } from '../hooks/useQuizCombo'
 import { toQuestionImages } from '../lib/toQuestionImages'
 import type { QuizQuestion } from '../types'
 
@@ -38,6 +40,7 @@ export function QuizPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [started, setStarted] = useState(false)
+  const { combo, recordAnswer } = useQuizCombo()
 
   const handleQuit = useCallback(() => {
     if (started && index > 0 && !window.confirm('Are you sure? Your progress will be lost.')) {
@@ -98,6 +101,7 @@ export function QuizPage() {
     if (correct) {
       scoreRef.current += 1
     }
+    recordAnswer(correct)
 
     // Submit answer to quiz session (backend tracks mastery + daily activity)
     if (sessionId) {
@@ -246,7 +250,8 @@ export function QuizPage() {
           </div>
         )}
 
-        <div className="flex justify-end">
+        <div className="flex items-center justify-between gap-4">
+          <XpComboPopup visible={isCorrect} xp={XP_PER_CORRECT_ANSWER} combo={combo} />
           {!isAnswered ? (
             <button
               onClick={handleCheck}
