@@ -6,7 +6,7 @@
 | # | Feature | Owner | Status | Notes |
 |---|---------|-------|--------|-------|
 | 1 | User registration & login | Sandar Win | Finished | Supabase Auth (email + Google). Backend: useAuth + LoginPage + RegisterPage |
-| 2 | Learning map | Htet Lin Ko | Done | Backend: `TopicController` + `TopicService` with prerequisite chain. Frontend: `LearningMap.tsx` + `TopicNode.tsx` + `useTopics` hook. Wired to `/api/v1/topics` |
+| 2 | Learning map | Htet Lin Ko | Done | Backend: `TopicController` + `TopicService` with prerequisite chain. Frontend: `LearningMap.tsx` + `TopicNode.tsx` + `useTopics` hook. Wired to `/api/v1/topics`. Daily goal (10 questions/day): `DailyGoalCard` + `useActivity` hook on `/api/v1/me/activity` |
 | 3 | Short lessons | YE MIN KO | Done | Backend: `LessonController` (3 endpoints). Frontend: `TopicDetail.tsx` + `LessonPage.tsx` + `LessonContent.tsx` + `useLessons` hook. 32+ lessons seeded. Lesson completion tracking via `/api/v1/lessons/{id}/complete` |
 | 4 | 5-question quizzes | YE MIN KO | Done | Backend: `QuizController` (start/submit/result). Frontend: `QuizPage.tsx`. Instant feedback, per-subtopic |
 | 5 | XP tracking | | Done | Backend: `QuizService` awards 10 XP/correct. DB: `increment_user_xp()` RPC. Frontend: Header shows total XP |
