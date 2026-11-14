@@ -15,6 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -41,16 +44,31 @@ class UserControllerTest {
     private UserProfileRepository userProfileRepository;
 
     @Test
-    void updateStreak_UsesAuthenticatedUser() throws Exception {
+    void getStreak_UsesAuthenticatedUser_ReturnsCurrentStreak() throws Exception {
         UUID userId = UUID.randomUUID();
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userId.toString(), null);
 
-        when(userService.updateUserStreak(userId)).thenReturn(3);
+        when(userService.getCurrentStreak(userId)).thenReturn(3);
 
         mockMvc.perform(post("/api/v1/me/streak").principal(authentication))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.streakCount").value(3));
+    }
+
+    @Test
+    void getStreak_LoginWithoutStudy_DoesNotIncrementStreak() throws Exception {
+        UUID userId = UUID.randomUUID();
+        UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(userId.toString(), null);
+
+        when(userService.getCurrentStreak(userId)).thenReturn(0);
+
+        mockMvc.perform(post("/api/v1/me/streak").principal(authentication))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.streakCount").value(0));
+
+        verify(userService, never()).recordStudyActivity(any());
     }
 
     @Test
