@@ -1,8 +1,7 @@
 import { useState, useEffect, type FormEvent, type SVGProps } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-
-const WEEKLY_ACTIVITY: Array<{ day: string; value: number; minutes: number }> = [];
+import { WeeklyActivityChart } from "../components/features/WeeklyActivityChart";
 
 const ACHIEVEMENTS: Achievement[] = [
   {
@@ -157,7 +156,7 @@ function StudentProfileView({
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.65fr)_minmax(280px,0.85fr)] lg:items-start">
         <div className="flex flex-col gap-6">
-          <WeeklyActivity />
+          <WeeklyActivityChart />
           <Achievements />
         </div>
 
@@ -735,73 +734,6 @@ function StatCard({ stat }: { stat: StatItem }) {
         {stat.detail}
       </p>
     </article>
-  );
-}
-
-function WeeklyActivity() {
-  return (
-    <section
-      className="learning-feature-enter rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800"
-      aria-labelledby="weekly-activity-title"
-    >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-purple-600 dark:text-purple-400">
-            Momentum
-          </p>
-          <h2
-            id="weekly-activity-title"
-            className="mt-1 text-xl font-bold text-gray-950 dark:text-gray-50"
-          >
-            Weekly activity
-          </h2>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            {WEEKLY_ACTIVITY.length > 0
-              ? `You studied ${Math.round(WEEKLY_ACTIVITY.reduce((sum, d) => sum + d.minutes, 0) / 60)}h ${WEEKLY_ACTIVITY.reduce((sum, d) => sum + d.minutes, 0) % 60}m this week. Keep it going!`
-              : 'Activity data will appear here once you start studying.'}
-          </p>
-        </div>
-        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-purple-50 px-3 py-1.5 text-xs font-semibold text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
-          <Icon name="calendar" className="size-3.5" aria-hidden="true" />
-          Last 7 days
-        </span>
-      </div>
-
-      <div
-        className="mt-8 grid h-48 grid-cols-7 items-end gap-2 sm:gap-4"
-        aria-label="Minutes studied each day"
-      >
-        {WEEKLY_ACTIVITY.length === 0 ? (
-          <div className="col-span-7 flex items-center justify-center text-sm text-gray-400 dark:text-gray-500">
-            No activity data yet
-          </div>
-        ) : WEEKLY_ACTIVITY.map((item, index) => (
-          <div
-            key={item.day}
-            className="group flex h-full flex-col items-center justify-end gap-2"
-          >
-            <span className="text-xs font-bold text-purple-700 dark:text-purple-400 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
-              {item.minutes}m
-            </span>
-            <div className="relative flex w-full flex-1 items-end justify-center overflow-hidden rounded-xl bg-purple-50 dark:bg-purple-900/30">
-              <div
-                className="learning-progress-reveal w-full rounded-xl bg-gradient-to-t from-purple-600 to-fuchsia-400 transition-all duration-200 group-hover:from-purple-700 group-hover:to-fuchsia-500"
-                style={{
-                  height: `${item.value}%`,
-                  animationDelay: `${index * 45}ms`,
-                }}
-                title={`${item.day}: ${item.minutes} minutes`}
-              />
-            </div>
-            <span
-              className={`text-xs font-semibold ${item.day === "Sun" ? "text-purple-700 dark:text-purple-400" : "text-gray-400 dark:text-gray-500"}`}
-            >
-              {item.day}
-            </span>
-          </div>
-        ))}
-      </div>
-    </section>
   );
 }
 
