@@ -1,5 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render as rtlRender, screen, fireEvent } from '@testing-library/react'
+import type { ReactElement } from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import { ExamResultScreen } from '../ExamResultScreen'
 import type { ExamResult } from '../../../../types/Exam'
 
@@ -31,6 +33,10 @@ const mockResult: ExamResult = {
       explanation: '3 + 3 = 6',
     },
   ],
+}
+
+function render(ui: ReactElement) {
+  return rtlRender(<MemoryRouter>{ui}</MemoryRouter>)
 }
 
 describe('ExamResultScreen', () => {
@@ -96,5 +102,17 @@ describe('ExamResultScreen', () => {
 
     fireEvent.click(screen.getByText('Take Another Exam'))
     expect(handleTryAgain).toHaveBeenCalledTimes(1)
+  })
+
+  it('links to the Mistake Garden', () => {
+    render(<ExamResultScreen result={mockResult} onTryAgain={vi.fn()} />)
+
+    expect(screen.getByRole('link', { name: 'Review mistakes' })).toHaveAttribute('href', '/mistakes')
+  })
+
+  it('links to weak point practice', () => {
+    render(<ExamResultScreen result={mockResult} onTryAgain={vi.fn()} />)
+
+    expect(screen.getByRole('link', { name: 'Practice weak areas' })).toHaveAttribute('href', '/weak-points')
   })
 })

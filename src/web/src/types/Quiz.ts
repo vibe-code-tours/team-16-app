@@ -31,6 +31,8 @@ export interface QuizSession {
 
 export interface QuizResult {
   session_id: string;
+  /** Subtopic the quiz session drew its questions from, used for "Try Again". */
+  subtopic_id?: string;
   total_questions: number;
   correct_answers: number;
   score_percentage: number;

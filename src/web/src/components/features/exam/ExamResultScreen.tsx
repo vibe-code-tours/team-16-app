@@ -1,7 +1,14 @@
+import { Link } from 'react-router-dom'
 import { Card } from '../../ui/Card'
 import { Button } from '../../ui/Button'
 import { Badge } from '../../ui/Badge'
 import type { ExamResult } from '../../../types/Exam'
+
+const ROUTE_MISTAKES = '/mistakes'
+const ROUTE_WEAK_POINTS = '/weak-points'
+
+const SECONDARY_ACTION_CLASSES =
+  'inline-flex items-center justify-center rounded-lg border-2 border-primary-500 px-6 py-3 text-lg font-medium text-primary-500 transition-colors hover:bg-primary-50 dark:hover:bg-primary-900/20 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2'
 
 interface ExamResultScreenProps {
   result: ExamResult
@@ -97,7 +104,13 @@ export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) 
       </Card>
 
       {/* Actions */}
-      <div className="flex justify-center gap-4">
+      <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+        <Link to={ROUTE_MISTAKES} className={SECONDARY_ACTION_CLASSES}>
+          Review mistakes
+        </Link>
+        <Link to={ROUTE_WEAK_POINTS} className={SECONDARY_ACTION_CLASSES}>
+          Practice weak areas
+        </Link>
         <Button size="lg" onClick={onTryAgain} aria-label="Take Another Exam">
           Take Another Exam
         </Button>
