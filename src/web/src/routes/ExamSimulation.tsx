@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useExamSimulation } from '../hooks/useExamSimulation'
 import { useAuth } from '../hooks/useAuth'
@@ -10,8 +10,10 @@ import { ExamResultScreen } from '../components/features/exam/ExamResultScreen'
 import { Button } from '../components/ui/Button'
 
 export default function ExamSimulation() {
-  const { session: authSession } = useAuth()
+  const { session: authSession, user, refreshUser } = useAuth()
   const navigate = useNavigate()
+  const [previousTotalXp, setPreviousTotalXp] = useState<number | undefined>(undefined)
+  const refreshedSessionIdRef = useRef<string | null>(null)
   const {
     session,
     currentQuestion,
@@ -30,6 +32,22 @@ export default function ExamSimulation() {
     finishExam,
     reset,
   } = useExamSimulation()
+
+  const handleStartExam = useCallback(
+    (questionCount: number, difficulty: string | null) => {
+      // Snapshot XP before the exam so the result screen can detect a level-up
+      setPreviousTotalXp(user?.total_xp)
+      return startExam(questionCount, difficulty)
+    },
+    [user, startExam]
+  )
+
+  // Sync the profile once per finished exam so header XP and the next level-up check stay current
+  useEffect(() => {
+    if (!result || refreshedSessionIdRef.current === result.sessionId) return
+    refreshedSessionIdRef.current = result.sessionId
+    refreshUser()
+  }, [result, refreshUser])
 
   const handleSubmitAnswer = useCallback(async () => {
     if (!currentQuestion) return
@@ -66,7 +84,11 @@ export default function ExamSimulation() {
     return (
       <PageWrapper>
         <main className="mx-auto max-w-3xl px-4 py-6">
-          <ExamResultScreen result={result} onTryAgain={handleTryAgain} />
+          <ExamResultScreen
+            result={result}
+            previousTotalXp={previousTotalXp}
+            onTryAgain={handleTryAgain}
+          />
         </main>
       </PageWrapper>
     )
@@ -241,7 +263,7 @@ export default function ExamSimulation() {
             <ExamStartScreen
               isLoading={isLoading}
               isStarting={isLoading}
-              onStart={startExam}
+              onStart={handleStartExam}
             />
           </>
         )}

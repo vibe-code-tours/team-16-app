@@ -3,6 +3,7 @@ import { Card } from '../../ui/Card'
 import { Button } from '../../ui/Button'
 import { Badge } from '../../ui/Badge'
 import { OwlMascot } from '../OwlMascot'
+import { ResultCelebrations } from '../ResultCelebrations'
 import type { ExamResult } from '../../../types/Exam'
 
 const PASSED_OWL_MESSAGE = "Hoo-ray! You're ready for the real exam."
@@ -16,14 +17,21 @@ const SECONDARY_ACTION_CLASSES =
 
 interface ExamResultScreenProps {
   result: ExamResult
+  /** The user's total XP before the exam; undefined skips the level-up check. */
+  previousTotalXp?: number
   onTryAgain: () => void
 }
 
-export function ExamResultScreen({ result, onTryAgain }: ExamResultScreenProps) {
+export function ExamResultScreen({ result, previousTotalXp, onTryAgain }: ExamResultScreenProps) {
   const percentage = Math.round(result.scorePercentage)
 
   return (
     <div className="space-y-6">
+      <ResultCelebrations
+        showConfetti={result.passed}
+        previousTotalXp={previousTotalXp}
+        xpEarned={result.xpEarned}
+      />
       {/* Score card */}
       <Card padding="lg" className="text-center">
         <OwlMascot

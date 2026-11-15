@@ -4,6 +4,7 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { OwlMascot } from '../components/features/OwlMascot';
+import { ResultCelebrations } from '../components/features/ResultCelebrations';
 import { api } from '../lib/api';
 import type { QuizResultApi } from '../types';
 import type { QuizResult as QuizResultType } from '../types/Quiz';
@@ -49,6 +50,7 @@ export function QuizResult() {
 
   // location.state holds results passed immediately after quiz completion
   const initialState = location.state?.result as QuizResultType | undefined;
+  const previousTotalXp = location.state?.previousTotalXp as number | undefined;
 
   const [result, setResult] = useState<QuizResultType | null>(initialState ?? null);
   const [loading, setLoading] = useState(!initialState);
@@ -118,9 +120,16 @@ export function QuizResult() {
   };
 
   const isHappyOwl = result.score_percentage >= HAPPY_OWL_THRESHOLD;
+  const isPerfectScore =
+    result.total_questions > 0 && result.correct_answers === result.total_questions;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <ResultCelebrations
+        showConfetti={isPerfectScore}
+        previousTotalXp={previousTotalXp}
+        xpEarned={result.xp_earned}
+      />
       <div className="max-w-2xl mx-auto">
         {/* Score Header */}
         <Card className="mb-6 text-center">
