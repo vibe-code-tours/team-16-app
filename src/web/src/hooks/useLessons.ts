@@ -17,8 +17,9 @@ export interface Lesson {
 }
 
 export interface ContentBlock {
-  type: 'text' | 'heading' | 'list' | 'code' | 'tip' | 'warning' | 'example'
-  content: string
+  type: 'text' | 'heading' | 'list' | 'code' | 'tip' | 'warning' | 'example' | 'check'
+  /** Absent on `check` blocks, which carry question/choices/answer instead (see LessonCheck). */
+  content?: string
   items?: string[]
   language?: string
 }
