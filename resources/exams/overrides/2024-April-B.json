@@ -1,0 +1,17 @@
+{
+  "questions": {
+    "18": {
+      "note": "The two requirement bullets were extracted as private-use glyph U+F06C (broken Wingdings font map); replaced with a real bullet, and restored the hyphen in 'third-party' that was lost at a line break.",
+      "replacements": [
+        {
+          "find": " The e-commerce",
+          "replace": "● The e-commerce"
+        },
+        {
+          "find": " The staff directory",
+          "replace": "● The staff directory"
+        }
+      ]
+    }
+  }
+}

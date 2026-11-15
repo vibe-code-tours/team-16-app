@@ -1,0 +1,266 @@
+{
+  "questions": {
+    "3": {
+      "note": "Union/intersection symbols were lost to a broken font map; rewrote the question text and all four choices with ∪ and ∩ as printed.",
+      "question_text": "Q3. For three sets A, B and C, which of the following equalities holds? Here, ∪ and ∩ are the union and intersection symbols, respectively.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "(A ∪ B) ∩ (A ∩ C) = B ∩ (A ∪ C)"
+        },
+        {
+          "label": "b",
+          "text": "(A ∪ B) ∩ C = (A ∪ C) ∩ (B ∪ C)"
+        },
+        {
+          "label": "c",
+          "text": "(A ∩ C) ∪ (B ∩ A) = (A ∩ B) ∪ (B ∩ C)"
+        },
+        {
+          "label": "d",
+          "text": "(A ∩ C) ∪ (B ∩ C) = (A ∪ B) ∩ C"
+        }
+      ]
+    },
+    "4": {
+      "note": "Choices a-c were empty and all four matrices were merged into choice d; transcribed each adjacency matrix as text and recropped the graph figure without the question text and choice labels.",
+      "question_text": "Q4. An adjacency matrix is used to indicate which vertices of a directed or undirected graph are adjacent to each other. Which of the following is an appropriate matrix that represents the directed graph below?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Columns A, B, C — Row A: 1 1 1; Row B: 1 1 1; Row C: 0 0 1"
+        },
+        {
+          "label": "b",
+          "text": "Columns A, B, C — Row A: 1 0 1; Row B: 0 1 0; Row C: 1 1 1"
+        },
+        {
+          "label": "c",
+          "text": "Columns A, B, C — Row A: 0 1 1; Row B: 1 0 1; Row C: 0 0 1"
+        },
+        {
+          "label": "d",
+          "text": "Columns A, B, C — Row A: 0 1 0; Row B: 1 0 1; Row C: 0 0 0"
+        }
+      ],
+      "figures": [
+        {
+          "page": 3,
+          "rect": [
+            140,
+            542,
+            287,
+            598
+          ]
+        }
+      ]
+    },
+    "5": {
+      "note": "Table choices were flattened with powers lost (n2 for n squared) and the column headings split; rewrote the choices with column headings and n², and restored 'average-case'.",
+      "question_text": "Q5. When sorting an array of n elements by using a randomized version of the quicksort algorithm, where the pivot is selected randomly, which of the following shows the average-case and the worst-case time complexities? Here, big-O notation, O(x), is used to denote the growth rate.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Average-case time complexity: O(n log n), Worst-case time complexity: O(n)"
+        },
+        {
+          "label": "b",
+          "text": "Average-case time complexity: O(n log n), Worst-case time complexity: O(n²)"
+        },
+        {
+          "label": "c",
+          "text": "Average-case time complexity: O(n² log n), Worst-case time complexity: O(n)"
+        },
+        {
+          "label": "d",
+          "text": "Average-case time complexity: O(n² log n), Worst-case time complexity: O(n²)"
+        }
+      ]
+    },
+    "6": {
+      "note": "Question text ended with stray labels dumped from the state transition diagram (already shown by the figure); removed them.",
+      "question_text": "Q6. For an automaton with input and output symbols {0, 1} and a state transition diagram shown below, which of the following is the output string for the input string 0011001110? Here, S₁ represents the initial state, and the label x/y on each arc indicates that if x is an input, then y is the corresponding output at the state transition."
+    },
+    "8": {
+      "note": "Tree node keys were dumped into the text and the figure included the question text and choices; removed the stray numbers and recropped the figure to the tree only.",
+      "question_text": "Q8. Which of the following is the name for the tree depicted below? Here, the number in each node represents the key of the node.",
+      "figures": [
+        {
+          "page": 5,
+          "rect": [
+            100,
+            500,
+            455,
+            636
+          ]
+        }
+      ]
+    },
+    "9": {
+      "note": "Comparison and minus signs were lost to a broken font map; rewrote the piecewise definition of M(n) in linear text.",
+      "question_text": "Q9. When the function M(n) is defined as shown below, what is the value of M(97)?\n\nM(n) = n − 10 (n > 100)\nM(n) = M(M(n + 11)) (n ≤ 100)"
+    },
+    "16": {
+      "note": "Time-chart lost its shading (which parts are working vs failed) and had no figure; replaced the flattened cell labels with a crop of the chart.",
+      "question_text": "Q16. In the time-chart of a system shown below, the shaded parts represent the normal working hours of the system, and the white parts represent the time when the system is not available due to failure. The numbers inside each part indicate the start and end hours of each state. Which of the following is the availability of the system?",
+      "figures": [
+        {
+          "page": 7,
+          "rect": [
+            94,
+            651,
+            462,
+            684
+          ]
+        }
+      ]
+    },
+    "21": {
+      "note": "Stray input labels A and B from the logic circuit were dumped into the text; removed them (circuit is in the figure).",
+      "question_text": "Q21. Which of the following is a logical expression that is equivalent to the logic circuit shown below?"
+    },
+    "22": {
+      "note": "Axis labels from the operating-time chart were dumped into the text; removed them (chart is in the figure).",
+      "question_text": "Q22. A device, which operates using a 100V household power supply and through which a current of 10 A flows during operation, is operated from 0 minutes to 120 minutes as shown in the figure below. How much electrical energy, in watt-hour, is consumed during this time? Here, the value of the voltage and current is the effective value, no current flows when the device stops, and the power factor is 1."
+    },
+    "25": {
+      "note": "Choice table was flattened (no column labels) and the figure included part of the choice table header; rewrote choices with A-D labels, removed stray header text and recropped the figure to the class diagram.",
+      "question_text": "Q25. When the relationships between continent and country, and between country and city are shown in the class diagram below, which of the following is an appropriate combination of multiplicities that are to be inserted into blank A through blank D? Here, there are no cross continental countries. Each continent has at least one country, and each country has at least one city.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "A: 1..1, B: 1..*, C: 1..*, D: 1..1"
+        },
+        {
+          "label": "b",
+          "text": "A: 1..1, B: 1..*, C: 1..1, D: 1..*"
+        },
+        {
+          "label": "c",
+          "text": "A: 1..1, B: 0..*, C: 0..*, D: 1..1"
+        },
+        {
+          "label": "d",
+          "text": "A: 1..1, B: 0..*, C: 1..1, D: 0..*"
+        }
+      ],
+      "figures": [
+        {
+          "page": 11,
+          "rect": [
+            100,
+            165,
+            486,
+            212
+          ]
+        }
+      ]
+    },
+    "26": {
+      "note": "Choices a-c were empty and all result tables were merged into choice d; transcribed each result table as text and rewrote the question tables as | separated rows.",
+      "question_text": "Q26. Tables Course and Section were created to record the course and section information of a university, respectively, as shown below; the primary keys are underlined.\n\nCourse (cid, title, credits)  [primary key: cid]\nSection (cid, secid, semester, year)  [primary key: cid, secid, semester, year]\n\nThe current status of those tables are shown below.\n\nCourse\ncid | title | credits\nCSE101 | Discrete Mathematics | 3\nCSE102 | Computer Prog. I | 3\nCSE103 | Computer Prog. II | 3\nEEE101 | Electrical Circuits I | 4\nEEE102 | Electrical Circuits II | 4\n\nSection\ncid | secid | semester | year\nCSE101 | 1 | Spring | 2018\nCSE101 | 1 | Spring | 2019\nCSE101 | 2 | Fall | 2019\nCSE102 | 1 | Fall | 2018\nCSE102 | 2 | Fall | 2018\nCSE103 | 1 | Spring | 2019\nCSE103 | 2 | Fall | 2019\nEEE101 | 1 | Spring | 2019\nEEE102 | 1 | Spring | 2019\nEEE102 | 1 | Fall | 2019\n\nWhen the SQL shown below is executed, which of the following tables is obtained as the output?\n\nSELECT C.title\nFROM Course C\nWHERE 1 = (SELECT COUNT(cid)\nFROM Section S\nWHERE C.cid = S.cid AND S.year = 2019);",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Title: Null"
+        },
+        {
+          "label": "b",
+          "text": "title: Computer Prog. II; Electrical Circuits I; Electrical Circuits II"
+        },
+        {
+          "label": "c",
+          "text": "title: Discrete Mathematics; Computer Prog. I; Electrical Circuits I; Electrical Circuits II"
+        },
+        {
+          "label": "d",
+          "text": "title: Electrical Circuits I"
+        }
+      ]
+    },
+    "43": {
+      "note": "SQL statement had a curly apostrophe in '1'='1'; restored the straight quote as printed.",
+      "replacements": [
+        {
+          "find": "'1’='1'",
+          "replace": "'1'='1'"
+        }
+      ]
+    },
+    "54": {
+      "note": "Arrow diagram labels were dumped into the text and the figure cut off the legend; removed the stray labels and recropped the figure to include the whole diagram and legend.",
+      "question_text": "Q54. The activities and nodes of a project are shown in the arrow diagram below. Which of the following is the effect of extending the duration of activity C by 3 days?",
+      "figures": [
+        {
+          "page": 21,
+          "rect": [
+            130,
+            118,
+            494,
+            318
+          ]
+        }
+      ]
+    },
+    "60": {
+      "note": "Question text had swallowed Q61-Q80 and the choices belonged to Q80; restored Q60's own text and its four choices from page 23.",
+      "question_text": "Q60. The director requested a system auditor to audit the operating status of an accounting system that was developed by the information systems department and is operated by the accounting department. Which of the following is the most appropriate description concerning the system auditor for this audit?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "The system auditor must be a certified public accountant because the accounting system must conform to the various standards of business accounting."
+        },
+        {
+          "label": "b",
+          "text": "The system auditor must be a person who belongs to neither the information systems department nor the accounting department to guarantee independence."
+        },
+        {
+          "label": "c",
+          "text": "The system auditor must report directly to the accounting department manager because the accounting system handles highly confidential information."
+        },
+        {
+          "label": "d",
+          "text": "The system auditor must report directly to the information systems department manager to perform system audits efficiently."
+        }
+      ],
+      "figures": []
+    },
+    "68": {
+      "note": "Six-column table was flattened into unreadable text with no figure; removed it from the text and added a crop of the table.",
+      "question_text": "Q68. Company T sells three (3) products: A, B, and C. Currently, products A, B, and C have 10,000, 20,000, and 80,000 purchasers every month, respectively. There is a plan to change the product line and sell four (4) new products, P, Q, R, and S, from next year. Accordingly, a trial calculation was made on the proportion of existing customers that will purchase the new products and the number of new customers. Which of the following is an appropriate conclusion from the trial calculation? Here, numerical values up to one (1) decimal point in each line of the table below represent the proportion of people who will change to the new product from the corresponding old product.",
+      "figures": [
+        {
+          "page": 26,
+          "rect": [
+            98,
+            222,
+            508,
+            425
+          ]
+        }
+      ]
+    },
+    "79": {
+      "note": "Arrow before 'minimize' was a private-use glyph (U+F0E0); replaced with →. Cost/exposure table rewritten as text rows.",
+      "question_text": "Q79. Company A has two media plans. One plan is for a series of 30-second radio advertisements (ads) and the other is for 60-second TV ads. Exposure is rated in points. The company is considering an exposure of at least 60 points in the city and at most 40 points outside the city. The table below shows the cost and exposure of both TV and radio ads. Which of the following is the set of expressions that can determine the number of media ads to minimize the total cost?\n\n | Cost | In the city exposure (points) | Outside the city exposure (points)\nTV ads | 2000 | 8 | 6\nRadio ads | 800 | 10 | 3",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Conditions 8x + 6y ≤ 60, 10x + 3y ≤ 40, x ≥ 0, y ≥ 0\nObjective function 2000x + 800y → minimize"
+        },
+        {
+          "label": "b",
+          "text": "Conditions 8x + 6y ≥ 60, 10x + 3y ≤ 40, x ≥ 0, y ≥ 0\nObjective function 2000x + 800y → minimize"
+        },
+        {
+          "label": "c",
+          "text": "Conditions 8x + 10y ≤ 60, 6x + 3y ≤ 40, x ≥ 0, y ≥ 0\nObjective function 2000x + 800y → minimize"
+        },
+        {
+          "label": "d",
+          "text": "Conditions 8x + 10y ≥ 60, 6x + 3y ≤ 40, x ≥ 0, y ≥ 0\nObjective function 2000x + 800y → minimize"
+        }
+      ]
+    }
+  }
+}

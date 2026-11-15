@@ -1,0 +1,45 @@
+{
+  "_meta": {"paper": "2022-October-B", "written_by": "AI model (Claude). Not ITPEC content.", "human_reviewed": false},
+  "questions": {
+    "1": {
+      "subtopic_slug": "security-threats",
+      "confidence": 0.85,
+      "explanation": "Subquestion 1: the browser uses HTTPS only as far as the reverse proxy, which holds the certificate and converts to HTTP, so the encrypted routes are 1, 2, 3 (PC to FW3, FW3 to FW1, FW1 to RPS); from the RPS onward through FW2 to the Web server (routes 4 and 5) the traffic is plain HTTP. Blank A is SQL injection, the attack that makes the database server run unexpected SQL; blank B is cross-site scripting, where an attacker embeds a script in a Web page; blank C is social engineering, which exploits human error rather than technical flaws. Subquestion 3: the download flaw (i) is a directory traversal risk, so the safe fix is to let the user give only a file name and serve it only if it exists in that wholesaler's own folder; relative or absolute paths and showing the folder tree all let users reach other files. Subquestion 4: because the ID is never locked after repeated wrong passwords, a program that automatically tries passwords one after another (a brute force attack) can eventually log in; the other choices are not prevented by a lockout."
+    },
+    "2": {
+      "subtopic_slug": "computer-architecture",
+      "confidence": 0.85,
+      "explanation": "Blanks A and B: for inputs 0,1,0,1,1,1,0,1 the states go S0,S1,S0,S1,S2,S2,S0,S1, and only S2 outputs 1, so the last four outputs are 1→1→0→0 and the final state is S1. Blank C: the present state in the last two rows is S2 and the next states are S0 (output 0) and S2 (output 1), so C is 0 over 1. Blank D: VN is 1 for (VP, ZP, I) = (0,1,1), whose minterm is NOT VP • ZP • I. Blank E: NOT VP•ZP•I + VP•ZP•I = ZP•I(NOT VP + VP) = ZP • I. Blank F: in every row ZN equals the input I (the code VP=1, ZP=0 never occurs), so ZN = I."
+    },
+    "3": {
+      "subtopic_slug": "databases",
+      "confidence": 0.95,
+      "explanation": "SQL1 subtracts the quantities still to be delivered from stock, so blank A is P.Quantity and blank B is SUM(D.Quantity), giving for example LC100: 800 − 10 = 790 and MP080: 20 − 4 = 16. Blank C must be LEFT OUTER JOIN so that products with no pending deliveries (LC050, MP032) still appear; their SUM is NULL, which the CASE turns into 0 so the stock is shown unchanged. An inner join would drop those two rows. In SQL2, blank D is UPDATE Employee because the Salary column belongs to the Employee table, blank E is O.OrderID = D.OrderID to join each order with its detail lines, and blank F is GROUP BY O.EmployeeID HAVING SUM(D.Amount) > 10000, since a condition on an aggregate must go in HAVING, not WHERE. Frank Fairchild (E003) handled order 102102 worth 3000 + 8000 = 11000, so only he qualifies."
+    },
+    "4": {
+      "subtopic_slug": "networking",
+      "confidence": 0.95,
+      "explanation": "Blank A: in the NAPT table, public port 3312 on 198.51.100.20 maps back to inside address 192.168.1.6:4524, so the response reaches 192.168.1.6 (port 3312 on 192.168.1.5 is only the inside port and is irrelevant). Lab 2 needs addresses for 20 trainee PCs, the trainer PC, a file server, a printer and the router port, 24 hosts, which with the network and broadcast addresses needs a 32-address block. So blank B is the /27 mask 255.255.255.224, and blank C is the next /27-aligned block after 192.168.1.0/28, which is 192.168.1.32 - 63/27 (192.168.1.16 is not a valid /27 boundary). Blank D, the last assignable address of that block, is 192.168.1.62 because .63 is the broadcast address. Blank E: the hosts and links are now 1 Gbps and 10 Gbps but CAT-5 cable is only rated for 100 Mbps, so replacing it with CAT-6a (10 Gbps) raises the bandwidth; the PCs are already powerful enough and a hub would make things worse."
+    },
+    "5": {
+      "subtopic_slug": "software-development",
+      "confidence": 0.75,
+      "explanation": "Blank A: after the update step, assets are either 2 (updated) or 0 (not checked, including ones whose information was incomplete), so the accountant asks for a recheck of assets whose flag is 0. Blank B: generating and printing the sticker is optional within Register assets, so the relation is «extend» with the arrow pointing to Register assets (the X ← Y form in the note). Blanks C1 to C3: View assets is included by both Update assets and Report assets, while Scan QR code and View location are used only by Report assets, giving View assets, Scan QR code, View location. Blank D: the accountant selects the department and location in step 2, and the asset ID, condition and checking flag are set by the system, so the extra inputs are department and location. Blank E: on registration the system assigns the asset ID and sets the asset condition to Normal and the checking flag to 0, as stated in function (1)."
+    },
+    "6": {
+      "subtopic_slug": "algorithms",
+      "confidence": 0.95,
+      "explanation": "Step 1 counts occurrences, so blank A is Count[Score[i]] (incremented by 1). Step 2 gives each value present its starting position: blank B sets Index[i] to the running total n, and blank C adds Count[i] to n, producing Index[7] = 3, Index[8] = 5 and so on. Step 3 takes the slot for each score with blank D, n ← Index[Score[i]], then blank E advances that slot with Index[Score[i]] ← Index[Score[i]] + 1 so the next equal score goes to the following position. Every loop runs a fixed number of times over the data (plus the small value range), so the cost is O(n) (blank F). For descending order, method 2 mirrors each position with n ← 9 − n (blank G); this reverses the order of equal scores, so it is unstable, whereas method 1 just assigns starting positions from the highest value down and still copies in input order, so it is stable (blank H)."
+    },
+    "7": {
+      "subtopic_slug": "algorithms",
+      "confidence": 0.8,
+      "explanation": "Blank A completes the swap with *b = t. In the array form the parent of node k is (child − 1) / 2 (blank B), and heap_up recurses only while parent > 0 (blank C), since the root has no parent. In heap_down a left child exists only if l_child < heap_size (blank D), and the parent is swapped with the larger child using swap(&data[parent], &data[child]) (blank E). After swapping the root with the last element, the heap is fixed from the root with heap_down(data, heap_size, 0) (blank F), and main passes the element count as sizeof(data) / sizeof(Data_t) (blank G). Subquestion 2: building the heap moves ID 2 (96) to the root, giving IDs 2,1,0,3; the three removal passes then leave IDs 1, 0, 3 for the three 84s followed by 2, because heap sort does not keep equal values in input order (it is unstable)."
+    },
+    "8": {
+      "subtopic_slug": "software-development",
+      "confidence": 0.8,
+      "explanation": "The gradeBook maps student ID to grade, so blank A is String, Double (a generic type needs the wrapper class, not the primitive double). Blank B, putIfAbsent(sid, 0.0) == null, adds the student only if not already present and returns true only for a new entry; blank C, replace(sid, grade) != null, records a grade only for a student already in the map. Both faculty and student keep their courses keyed by course code, so blank D is String, Course. Blank E, course.getFaculty() == null, stops a course that already has a teacher from being assigned again, and blank F, course.addStudent(id), enforces the course capacity and duplicate check; blank G passes the Course object: faculties.get(fid).addCourse(courses.get(code)). Subquestion 2: student 16200 starts with 24 credit hours at 3.0 (72 grade points) and gains 3 × 3.0 + 3 × 2.0 = 15 points over 6 more hours, so CGPA = 87 / 30 = 2.90."
+    }
+  }
+}

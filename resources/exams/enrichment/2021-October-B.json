@@ -1,0 +1,45 @@
+{
+  "_meta": {"paper": "2021-October-B", "written_by": "AI model (Claude). Not ITPEC content.", "human_reviewed": false},
+  "questions": {
+    "1": {
+      "subtopic_slug": "cryptography",
+      "confidence": 0.95,
+      "explanation": "A signature is made with the sender's private key and checked with the sender's public key, so Alice signs the catalogue with Alice's private key (A) and Charlie verifies it with Alice's public key (B). Encryption uses the receiver's public key so only the receiver's private key can decrypt, so Bob encrypts the order with Alice's public key (C). Bob signed the message with his own private key, so Alice verifies it with Bob's public key (D) before decrypting with her private key. With encrypt-then-sign (E), the receiver can check the outer signature first and detect and discard unauthenticated messages early, without spending effort on decryption. With sign-then-encrypt (F), the signature is hidden inside the ciphertext, which hides the signatory from unintended parties who intercept the message."
+    },
+    "2": {
+      "subtopic_slug": "computer-architecture",
+      "confidence": 0.8,
+      "explanation": "Comparing 1001 and 1010, only the last two bit positions differ, so the Hamming distance (A) is 2. In plain binary the largest jump between neighbours is from 7 (0111) to 8 (1000) (B), where all four bits change, giving a distance of 4 (C); Gray code avoids this by changing only one bit per step. Each Gray bit is the XOR of the binary bit and the binary bit to its left, so G4 = B3 ⊕ B4 (D), matching G2 = B1 ⊕ B2 and G3 = B2 ⊕ B3. Going back, each binary bit is the XOR of all Gray bits from the left up to that position: B2 = G1 ⊕ G2 and so B3 = B2 ⊕ G3 = G1 ⊕ G2 ⊕ G3 (E), which is exactly the sum-of-products in the text (true when an odd number of G1, G2, G3 are 1)."
+    },
+    "3": {
+      "subtopic_slug": "databases",
+      "confidence": 0.95,
+      "explanation": "DVDs still with a customer are bills whose ReturnDateTime IS NULL (A); Penalty is also NULL for on-time returns, so it cannot identify unreturned disks. A customer misses the deadline when more than 72 hours have passed since renting, so B is DATEDIFF(HH, RentDateTime, GETDATE()) > 72: Kathy's B2120 (2021-10-21 12:10) is 73 hours 20 minutes old at 2021-10-24 13:30, while Tom's B2180 (18:40) is under 67 hours old. SQL2 must list every customer, including John who has no bill, with NULLs for bill columns, which is a LEFT OUTER JOIN from Customer to Bill (C); an inner join would drop John. In SQL3, FilmName is selected next to COUNT(*), so the grouping must be GROUP BY D.DiskID, FilmName (D), and the condition on the group count must use HAVING COUNT(*) >= 2 (E), because aggregates cannot appear in WHERE."
+    },
+    "4": {
+      "subtopic_slug": "networking",
+      "confidence": 0.85,
+      "explanation": "A DHCP request is a broadcast, and routers do not forward broadcasts, so the DHCP server only hears clients on its own network 172.16.2.0/24 (A). A relay agent on Router A turns the request into a unicast addressed directly to the DHCP server, 172.16.2.10 (B). PC-B#1 at 172.16.2.50 has the default gateway 172.16.1.1, which is Router A's interface on a different network, so it cannot reach other networks: the host received an incorrect gateway address from the DHCP server (C). The gateway handed out for Network B must be Router B's interface on that network, 172.16.2.1 (D). On the firewall, the first rule maps mail transfer from the Internet to the mail server, so its service is SMTP (E), and DMZ servers reach the Internet through address translation, so the translation is NAT (F)."
+    },
+    "5": {
+      "subtopic_slug": "software-development",
+      "confidence": 0.85,
+      "explanation": "Placing an order always requires the customer to state when they will collect the food, so Place order includes Set pickup time (A). Confirming the order is a mandatory part of both Place order and Cancel order, so both connect to Confirm order with an include arrow pointing from the base use case to Confirm order (B); extend would mean optional behaviour. When cooking starts the restaurant sends a \"Cannot cancel order\" message, so the use case linking Cancel order and Manage kitchen is No cancellation (C). The Place order input must identify each chosen item, so it needs the Food ID (D) alongside the menu ID. In the basic flow the customer enters the number of dishes for each food item, which the application checks (E), and at submission the customer fills in the pickup time, which is checked against the rules such as same-day pickup (F)."
+    },
+    "6": {
+      "subtopic_slug": "algorithms",
+      "confidence": 0.75,
+      "explanation": "Encrypting \"non=no(on)\" with keyEven 3 and keyOdd 2 shifts n at even positions to q and o at odd positions to q, giving qqq=qq(qq) (A); for B, encrypting \"f(x)=x+1\" gives i at index 0, a at index 2 and z at index 5, so the ciphertext is i(a)=z+1. Even positions use keyEven, so C is i % 2 = 0. Encryption converts the letter to 0-25, adds the key and wraps with % 26, so D is 'A' + (input[i] − 'A' + key) % 26 (and the same with 'a'). For decryption the key is subtracted, but since % keeps the sign of the left operand, 26 is added first so the result stays non-negative: 'A' + (input[i] − 'A' − key + 26) % 26 (E). Calling Encrypt with 26 − key fails only when a key is 0 (F), because 26 is outside 0-25. To normalise any key, take keyEven % 26 and then add 26 if it is negative (G), which equals ((keyEven % 26) + 26) % 26 (H)."
+    },
+    "7": {
+      "subtopic_slug": "algorithms",
+      "confidence": 0.8,
+      "explanation": "main draws the requested triangle with DrawTriangle(N) (A) and the previous one with DrawTriangle(N − 1) (B), then checks the property T(N−1) + T(N) = N² with Ta + Tb == S (C). In row i of an n-row triangle the leading spaces shrink as rows go down, so PrintSpace(n − i) (D), and row i holds i dots, so the inner loop runs while j <= i (E). In DrawSquare each row prints i 'O's and then '*'s for the remaining positions, so the second loop starts at j = i + 1 (F) and runs to n. For n = 3 the rows are O * *, O O *, O O O (G). The changed printf prints N − 1, N and N into \"T(%d) + T(%d) = S(%d)\", so the line is T(2) + T(3) = S(3) (H)."
+    },
+    "8": {
+      "subtopic_slug": "software-development",
+      "confidence": 0.75,
+      "explanation": "Both enums provide the Key interface's method, so they are declared with implements Key (A). A digit key replaces the top value with value × 10 + digit, so it pushes stack.pop() (B) × 10 + ordinal() (C), since DIGITn has ordinal n. Only the four arithmetic keys have a BinaryOperator, so the operation runs if operator != null (D), and the map holds both kinds of key, so its value type is Key (E). For \"2*4==\" the first = computes 2 × 4 = 8 and the second = does nothing because EQUAL has no operator, so the last output is 8 (F). For \"2*4C2=\" the C key resets the calculator, so only 2 = remains and the output is 2 (G). For \"8/2/=\" the second / computes 8 / 2 = 4 and pushes 0, then = attempts 4 / 0, which throws ArithmeticException that is caught and printed as Error (H)."
+    }
+  }
+}

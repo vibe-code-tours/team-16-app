@@ -1,150 +1,46 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { api } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
+import { useQuizSession } from '../hooks/useQuizSession'
 import { ProgressBar } from '../components/features/ProgressBar'
-import type { QuizQuestion } from '../types'
+import { QuizAnswerFeedback } from '../components/features/quiz/QuizAnswerFeedback'
+import { QuizQuestionCard } from '../components/features/quiz/QuizQuestionCard'
+import { QuizStartScreen } from '../components/features/quiz/QuizStartScreen'
 
-interface QuizSessionFromApi {
-  id: string
-  questions: {
-    id: string
-    subtopicId: string
-    questionText: string
-    images?: unknown[]
-    choices: { label: string; text: string }[]
-    correctAnswer: string
-    explanation: string | null
-  }[]
-  status: string
-}
-
-const QUIZ_LENGTH = 5
+const ROUTE_MAP = '/map'
+const PRIMARY_BUTTON =
+  'rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700'
 
 export function QuizPage() {
   const { subtopicId } = useParams<{ subtopicId: string }>()
   const navigate = useNavigate()
   const { refreshUser } = useAuth()
-  const [questions, setQuestions] = useState<QuizQuestion[]>([])
-  const [sessionId, setSessionId] = useState<string | null>(null)
-  const [index, setIndex] = useState(0)
-  const [selectedLabel, setSelectedLabel] = useState<string | null>(null)
-  const [isAnswered, setIsAnswered] = useState(false)
-  const scoreRef = useRef(0)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [started, setStarted] = useState(false)
+  const quiz = useQuizSession(subtopicId)
+  const { currentQuestion, currentIndex, questions } = quiz
+
+  const handleBackToMap = useCallback(() => navigate(ROUTE_MAP), [navigate])
 
   const handleQuit = useCallback(() => {
-    if (started && index > 0 && !window.confirm('Are you sure? Your progress will be lost.')) {
+    if (currentIndex > 0 && !window.confirm('Are you sure? Your progress will be lost.')) {
       return
     }
-    navigate('/map')
-  }, [started, index, navigate])
-
-  const loadQuiz = useCallback(async () => {
-    if (!subtopicId) return
-    setLoading(true)
-    setError(null)
-
-    try {
-      // Start quiz session — response includes the questions to display
-      const session = await api.post<QuizSessionFromApi>(
-        '/api/v1/quizzes/start',
-        { subtopicId, questionCount: QUIZ_LENGTH }
-      )
-      setSessionId(session.id)
-      setQuestions(
-        session.questions.map((q) => ({
-          id: q.id,
-          subtopic_id: q.subtopicId,
-          question_text: q.questionText,
-          images: q.images,
-          choices: q.choices,
-          correct_answer: q.correctAnswer,
-          explanation: q.explanation,
-        }))
-      )
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Failed to load quiz')
-    } finally {
-      setLoading(false)
-    }
-  }, [subtopicId])
-
-  useEffect(() => {
-    if (started) {
-      loadQuiz()
-    }
-  }, [started, loadQuiz])
-
-  const currentQuestion = questions[index]
-  const isLastQuestion = index === questions.length - 1
-
-  const handleSelect = (label: string) => {
-    if (isAnswered) return
-    setSelectedLabel(label)
-  }
-
-  const handleCheck = async () => {
-    if (!selectedLabel || !currentQuestion) return
-    setIsAnswered(true)
-
-    const correct = selectedLabel === currentQuestion.correct_answer
-    if (correct) {
-      scoreRef.current += 1
-    }
-
-    // Submit answer to quiz session (backend tracks mastery + daily activity)
-    if (sessionId) {
-      api.post(`/api/v1/quizzes/${sessionId}/answers`, {
-        questionId: currentQuestion.id,
-        answer: selectedLabel,
-      }).catch((err) => console.error('Failed to record answer:', err))
-    }
-  }
+    navigate(ROUTE_MAP)
+  }, [currentIndex, navigate])
 
   const handleNext = () => {
-    if (!isLastQuestion) {
-      setIndex((i) => i + 1)
-      setSelectedLabel(null)
-      setIsAnswered(false)
+    if (!quiz.isLastQuestion) {
+      quiz.goToNextQuestion()
       return
     }
     refreshUser()
-    navigate(`/quiz-result/${sessionId}`)
+    navigate(`/quiz-result/${quiz.sessionId}`)
   }
 
-  if (!started) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-        <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
-          <div className="mb-4 text-5xl">📝</div>
-          <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">Quiz Practice</h2>
-          <p className="mb-6 text-gray-500 dark:text-gray-400">
-            Test your knowledge with 5 questions
-          </p>
-
-          <div className="space-y-3">
-            <button
-              onClick={() => setStarted(true)}
-              className="w-full rounded-lg bg-purple-600 px-4 py-3 font-bold text-white transition-colors hover:bg-purple-700"
-            >
-              Start Quiz
-            </button>
-            <button
-              onClick={() => navigate('/map')}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
-            >
-              Back to Map
-            </button>
-          </div>
-        </div>
-      </div>
-    )
+  if (!quiz.hasStarted) {
+    return <QuizStartScreen onStart={quiz.startQuiz} onBack={handleBackToMap} />
   }
 
-  if (loading) {
+  if (quiz.isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-purple-600" />
@@ -152,17 +48,17 @@ export function QuizPage() {
     )
   }
 
-  if (error) {
+  if (quiz.error) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
         <div className="max-w-md rounded-xl border border-red-200 bg-red-50 p-6 text-center text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-400">
-          Couldn't load quiz: {error}
+          Couldn't load quiz: {quiz.error}
         </div>
       </div>
     )
   }
 
-  if (questions.length === 0) {
+  if (!currentQuestion) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
         <div className="max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center dark:border-gray-700 dark:bg-gray-800">
@@ -171,7 +67,7 @@ export function QuizPage() {
             We don't have any practice questions for this subtopic yet. Try another topic on the map.
           </p>
           <button
-            onClick={() => navigate('/map')}
+            onClick={handleBackToMap}
             className="rounded-lg bg-purple-600 px-4 py-2 font-medium text-white hover:bg-purple-700"
           >
             Back to Map
@@ -180,8 +76,6 @@ export function QuizPage() {
       </div>
     )
   }
-
-  const isCorrect = isAnswered && selectedLabel === currentQuestion.correct_answer
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -194,91 +88,39 @@ export function QuizPage() {
             ← Quit quiz
           </button>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            Question {index + 1} of {questions.length}
+            Question {currentIndex + 1} of {questions.length}
           </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-2xl px-4 py-8">
         <div className="mb-8">
-          <ProgressBar
-            current={index + 1}
-            total={questions.length}
-            showLabel={false}
-            variant="solid"
-          />
+          <ProgressBar current={currentIndex + 1} total={questions.length} showLabel={false} variant="solid" />
         </div>
 
-        <h2 className="mb-6 whitespace-pre-line text-lg font-semibold leading-relaxed text-gray-900 dark:text-gray-100">
-          {currentQuestion.question_text}
-        </h2>
+        <QuizQuestionCard
+          question={currentQuestion}
+          selectedLabel={quiz.selectedLabel}
+          isAnswered={quiz.isAnswered}
+          onSelect={quiz.selectAnswer}
+        />
 
-        {currentQuestion.images && currentQuestion.images.length > 0 && (
-          <div className="mb-6 flex flex-wrap gap-3">
-            {currentQuestion.images.map((img, i) => {
-              if (typeof img === 'string') {
-                return <img key={i} src={img} alt={`Question image ${i + 1}`} className="max-w-full rounded-lg" />
-              }
-              if (img && typeof img === 'object' && 'url' in img) {
-                return <img key={i} src={(img as { url: string }).url} alt={(img as { alt?: string }).alt || `Question image ${i + 1}`} className="max-w-full rounded-lg" />
-              }
-              return null
-            })}
-          </div>
+        {quiz.isAnswered && currentQuestion.explanation && (
+          <QuizAnswerFeedback isCorrect={quiz.isCorrect} explanation={currentQuestion.explanation} />
         )}
 
-        <div className="mb-8 space-y-3">
-          {currentQuestion.choices.map((choice) => {
-            const isSelected = selectedLabel === choice.label
-            const isCorrectChoice = choice.label === currentQuestion.correct_answer
-
-            let styles = 'border-gray-200 bg-white text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
-            if (isAnswered && isCorrectChoice) styles = 'border-green-500 bg-green-50 text-green-800 dark:border-green-500 dark:bg-green-900/30 dark:text-green-400'
-            else if (isAnswered && isSelected) styles = 'border-red-500 bg-red-50 text-red-800 dark:border-red-500 dark:bg-red-900/30 dark:text-red-400'
-            else if (isSelected) styles = 'border-purple-600 bg-purple-50 text-purple-800 dark:border-purple-500 dark:bg-purple-900/30 dark:text-purple-300'
-
-            return (
-              <button
-                key={choice.label}
-                onClick={() => handleSelect(choice.label)}
-                disabled={isAnswered}
-                className={`w-full rounded-xl border-2 p-4 text-left transition ${styles}`}
-              >
-                <span className="mr-2 font-bold uppercase">{choice.label}.</span>
-                <span className="whitespace-pre-line">{choice.text}</span>
-              </button>
-            )
-          })}
-        </div>
-
-        {isAnswered && currentQuestion.explanation ? (
-          <div
-            className={`mb-6 rounded-xl border p-4 text-sm ${
-              isCorrect
-                ? 'border-green-200 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-900/30 dark:text-green-400'
-                : 'border-orange-200 bg-orange-50 text-orange-800 dark:border-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
-            }`}
-          >
-            <p className="mb-1 font-bold">{isCorrect ? 'Correct!' : 'Not quite.'}</p>
-            <p>{currentQuestion.explanation}</p>
-          </div>
-        ) : null}
-
         <div className="flex justify-end">
-          {!isAnswered ? (
-            <button
-              onClick={handleCheck}
-              disabled={!selectedLabel}
-              className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Check answer
+          {quiz.isAnswered ? (
+            <button onClick={handleNext} className={PRIMARY_BUTTON}>
+              {quiz.isLastQuestion ? 'See results' : 'Next question'}
             </button>
           ) : (
             <button
-              onClick={handleNext}
-              className="rounded-lg bg-purple-600 px-6 py-3 font-bold text-white transition-colors hover:bg-purple-700"
+              onClick={quiz.checkAnswer}
+              disabled={!quiz.selectedLabel}
+              className={`${PRIMARY_BUTTON} disabled:cursor-not-allowed disabled:opacity-50`}
             >
-              {isLastQuestion ? 'See results' : 'Next question'}
+              Check answer
             </button>
           )}
         </div>

@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "paper": "2022-April-B",
+    "written_by": "AI model (Claude). Not ITPEC content.",
+    "human_reviewed": false
+  },
+  "questions": {
+    "1": {
+      "subtopic_slug": "security-threats",
+      "confidence": 0.85,
+      "explanation": "Risk value = asset value × threat × vulnerability. Blank A (R5, integrity) = I 2 × threat T5 2 × vulnerability V5 2 = 8, and blank B (R6, availability) = A 1 × T6 1 × V6 1 = 1. For Subquestion 2, reason (ii) is about information leaking out of the company, which is confidentiality (C), and reason (iii) is about inconsistent program versions, which is integrity (I). For Subquestion 3, a risk needs extra measures when any C, I or A value exceeds 12; only R1 (C = 3×3×2 = 18) and R4 (C = 3×3×2 = 18) do, so 2 threats need additional measures, while R5's C value of 12 is still accepted. Subquestion 4 has no answer in the key used here."
+    },
+    "2": {
+      "subtopic_slug": "software-development",
+      "confidence": 0.85,
+      "explanation": "Blank A: a compiler translates the whole program ahead of time for a specific instruction set, so it can optimize the executable program for the target computer; the other choices (immediate rerun, interactive checking) are interpreter advantages. Blank B: intermediate code runs on any OS or hardware that has the virtual machine, so the program is independent of any specific OS or hardware. Blank C: dynamic compilation costs 100 ms startup plus compiling 400 instructions at 100 ms per 1,000 = 40 ms, total 140 ms. Blank D: 100 calls × 2,000 native instructions × 0.01 microseconds = 2,000 microseconds = 2 ms. Blank E: compiling first costs 140 + 0.02n ms versus 1n ms interpreted (2,000 × 0.5 microseconds = 1 ms per call), and 0.98n > 140 gives n > 142.8, so compiling first wins when F is called more than 142 times."
+    },
+    "3": {
+      "subtopic_slug": "databases",
+      "confidence": 0.95,
+      "explanation": "Blank A: every registered customer has at least one account, so the Account end of the Customer relationship is many and mandatory (one or more). In SQL1 the Employee table is self-joined, so blank B is Employee (alias S for the superior) and blank C is S.EmpID = E.SuperiorEmpID, matching each employee's SuperiorEmpID to the superior's EmpID; the LEFT OUTER JOIN keeps Bob, whose superior is NULL, and ISNULL shows (none). Blank D: as written, EXISTS selects accounts opened before 2020 that DO have a 2020-2021 transaction, so it outputs 50001 and 50003. Blank E: changing EXISTS to NOT EXISTS returns the unused pre-2020 accounts 50002 and 50004; EXISTS returns each account at most once, so the duplicate-row choices are wrong."
+    },
+    "4": {
+      "subtopic_slug": "networking",
+      "confidence": 0.9,
+      "explanation": "Blank A: the smaller of the two advertised MSS values is used, so the segment size is 1240 bytes (RWIN values are buffer sizes, not segment sizes). Blank B: the server's 22-byte data started at SeqNo 11, so its next sequence number, used by the FIN, is 11 + 22 = 33. Blank C: the client first acknowledges the FIN with an ACK whose AckNo is 33 + 1 = 34, and blank D: it then sends its own FIN. Blank E: the client's sequence number is still 21 because after the SYN (20) it sent no data and pure ACKs consume no sequence number; the server's final ACK of 22 confirms this. For Subquestion 2, SYN flooding fills the queue of half-open connections, so it blocks new clients from connecting rather than dropping already established connections."
+    },
+    "5": {
+      "subtopic_slug": "software-development",
+      "confidence": 0.9,
+      "explanation": "Blank A is the use case linked only to the Administrator, Set authority for the Organizer. Blank C is Review information, the Manager's use case that receives the Organizer's submission, and blank B is Update information, the Organizer use case that is notified when the Manager rejects the event so it can be corrected and resubmitted. In the activity diagram, the SEC system first checks the submitted data against the database, so blank D is Verify information, and after the Manager approves, the system makes the event public, so blank E is Publish information. In the state chart, finishing a published event leads to Waiting for report (F1), and an approved update returns the event to Published (F2), so the combination is Waiting for report / Published."
+    },
+    "6": {
+      "subtopic_slug": "algorithms",
+      "confidence": 0.85,
+      "explanation": "Blank A: all tested bits are 1 exactly when (Data & Mask) = Mask, and blank B: all tested bits are 0 when (Data & Mask) = '00000000'B. With only one mask bit, the tested bits cannot be mixed, so BitTest never returns 1 (C); when Data equals Mask, Data & Mask = Mask, so it always returns 2 (D). Blank E: for an all-zero Mask both conditions are true, so only change proposal (2), which tests condition B first and returns 0, works; proposals (1) and (3) would return 2. For the rightmost-bit test, (Work | '00000001'B) = Work (F) and (Work & '11111110'B) ≠ Work (G) both hold only when bit 0 is 1. Blank H: with Data = 0 the WHILE body never runs, so the minimum time is 1 + 1 + 2 + 2 = 6. Blank I: 01100110 − 1 = 01100101, and ANDing gives 01100100, clearing the lowest 1 bit."
+    },
+    "7": {
+      "subtopic_slug": "data-structures",
+      "confidence": 0.85,
+      "explanation": "Blank A prints win, the number PlayGame returned, and blank B numbers each node with the loop counter i. Blank C keeps eliminating while more than one node remains, which is players->next != players. Blank D unlinks the eliminated node by setting p->next = has_pillow->next (p trails one node behind has_pillow), and blank E advances the display loop with temp = temp->next. Subquestion 2: with 5 players and rd = 4, 2, 1, 2, the players eliminated are 5, 3, 1 and then 2, so PlayGame returns 4. Subquestion 3: to restart passing from the player before the eliminated one, replace line γ (has_pillow = p->next) with has_pillow = p."
+    },
+    "8": {
+      "subtopic_slug": "algorithms",
+      "confidence": 0.7,
+      "explanation": "Blank A must compare string contents, so it is element.equals(lowerCaseWord); == only compares references. The iterator continues while index < dictWords.length (B) and returns dictWords[index++] (C), returning the current word and then moving forward. Blank D is ==, so equal characters cost 0 and different ones cost 2. For the sentence output, a word missing from the dictionary is followed by \"(\" (E), \"?\" when there are no suggestions (F), and \"/\" before each suggested word (G), giving forms like abt(/about) and expire(?). In the binary search, when dictWords[mid] is smaller than the target the search moves right with low = mid + 1 (H), and when it is larger it moves left with high = mid − 1 (I)."
+    }
+  }
+}

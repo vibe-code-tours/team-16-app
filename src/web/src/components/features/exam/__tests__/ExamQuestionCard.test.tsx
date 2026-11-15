@@ -69,6 +69,46 @@ describe('ExamQuestionCard', () => {
     expect(handleSelect).not.toHaveBeenCalled()
   })
 
+  it('shows question figures served from the question-images folder', () => {
+    render(
+      <ExamQuestionCard
+        question={{ ...mockQuestion, images: ['2021-april-a-q08-figure1.webp'] }}
+        selectedAnswer={null}
+        isSubmitted={false}
+        result={null}
+        onSelect={vi.fn()}
+      />
+    )
+
+    expect(screen.getByRole('img', { name: 'Question figure 1' })).toHaveAttribute(
+      'src',
+      '/question-images/2021-april-a-q08-figure1.webp'
+    )
+  })
+
+  it('shows a drawing for choices that have an image and still lets the user pick it', () => {
+    const handleSelect = vi.fn()
+    const choices = ['a', 'b', 'c', 'd'].map((label) => ({
+      label,
+      text: '',
+      image: `2022-october-a-q20-choice-${label}.webp`,
+    }))
+    render(
+      <ExamQuestionCard
+        question={{ ...mockQuestion, choices }}
+        selectedAnswer={null}
+        isSubmitted={false}
+        result={null}
+        onSelect={handleSelect}
+      />
+    )
+
+    const choiceImage = screen.getByRole('img', { name: 'Choice c' })
+    expect(choiceImage).toHaveAttribute('src', '/question-images/2022-october-a-q20-choice-c.webp')
+    fireEvent.click(choiceImage)
+    expect(handleSelect).toHaveBeenCalledWith('c')
+  })
+
   it('acknowledges submission without disclosing correctness', () => {
     render(
       <ExamQuestionCard

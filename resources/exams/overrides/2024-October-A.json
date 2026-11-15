@@ -1,0 +1,374 @@
+{
+  "questions": {
+    "1": {
+      "note": "Choices are rows of a Q/R table but were flattened to bare values with a stray 'Q R' header in the text; removed the stray header and labelled each choice value with its column.",
+      "question_text": "Q1. P, Q, and R are propositions. It is known that the truth value of proposition P is true, and the values of both the propositions “(not P) or Q” and “(not Q) or R” are true. Which of the following is a combination of the truth values of Q and R? Here, X or Y represents the logical sum of X and Y, and not X represents the negation of X.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Q: False, R: False"
+        },
+        {
+          "label": "b",
+          "text": "Q: False, R: True"
+        },
+        {
+          "label": "c",
+          "text": "Q: True, R: False"
+        },
+        {
+          "label": "d",
+          "text": "Q: True, R: True"
+        }
+      ]
+    },
+    "3": {
+      "note": "Power flattened in choice c ('O (n2)'); restored as O (n²).",
+      "choices": [
+        {
+          "label": "a",
+          "text": "O (log n)"
+        },
+        {
+          "label": "b",
+          "text": "O (n)"
+        },
+        {
+          "label": "c",
+          "text": "O (n²)"
+        },
+        {
+          "label": "d",
+          "text": "O (n log n)"
+        }
+      ]
+    },
+    "4": {
+      "note": "All four choices are graph drawings but held only the node letters 'a b c d e f', and the single figure mixed the matrix with all four choices; the 7-column matrix was also dumped as text. Cropped the matrix as the question figure, removed it from the text and added a choice figure for each graph.",
+      "question_text": "Q4. The presence of an edge between nodes is represented by an adjacent matrix. When the adjacent matrix of an undirected graph is as below, which of the following is its graph representation? Here, the nodes correspond with the rows and columns of the adjacent matrix. If there is an edge between nodes, this is indicated with 1, and if there is no edge, this is indicated with 0.",
+      "figures": [
+        {
+          "page": 5,
+          "rect": [
+            232,
+            170,
+            366,
+            293
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 5,
+            "rect": [
+              120,
+              322,
+              306,
+              380
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 5,
+            "rect": [
+              120,
+              412,
+              306,
+              470
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 5,
+            "rect": [
+              120,
+              502,
+              306,
+              561
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 5,
+            "rect": [
+              120,
+              592,
+              306,
+              651
+            ]
+          }
+        }
+      ]
+    },
+    "5": {
+      "note": "The tree figure also contained the answer choices a) to c); recropped it to the binary tree only.",
+      "figures": [
+        {
+          "page": 6,
+          "rect": [
+            165,
+            115,
+            353,
+            330
+          ]
+        }
+      ]
+    },
+    "8": {
+      "note": "The instruction-mix table was flattened into misaligned lines (header and cells split across lines); rewrote it as pipe-separated rows.",
+      "question_text": "Q8. What is the approximate performance of a CPU in MIPS, when the instruction mix of the CPU is shown in the table below? Here, the CPU does not use a pipeline architecture.\n\nInstruction type | Instruction execution time in μs | Appearance ratio\nRegister to register operation | 0.3 | 30%\nRegister to memory operation | 0.6 | 50%\nConditional branch operation | 0.1 | 20%"
+    },
+    "9": {
+      "note": "The access-time table was flattened so header and cells ran together; rewrote it as pipe-separated rows.",
+      "question_text": "Q9. When the CPU needs data, it first accesses the cache memory. When the data is not available in the cache memory, the CPU accesses the main memory. If the miss ratio is 0.2 and the access times for cache memory and main memory are as shown below, what is the approximate average memory access time in ns for the CPU? Here, there are only cache memory and main memory for the CPU, the access time for main memory includes the time to confirm whether the data is available in cache memory, and the overhead time for the cache management can be ignored.\n\nAccess destination | Access time (ns)\nCache Memory | 75\nMain Memory | 1500"
+    },
+    "12": {
+      "note": "Stray device labels and availabilities from the reliability diagram were dumped into the text; removed them (the figure already shows the diagram).",
+      "question_text": "Q12. Which of the following is the approximate availability of the system comprising five devices, namely, A, B, C, D, and E as shown in the figure below? The numeric value in parentheses represents the availability of each device. The system is operational if either device connected in parallel is available."
+    },
+    "15": {
+      "note": "Process table flattened with stray 'P1 P2 P3 P4' header, and the choices (rows of a P1-P4 table) lost their column labels; rewrote the table as pipe-separated rows and labelled each choice value.",
+      "question_text": "Q15. An OS chooses a process for CPU execution based on a scheduling algorithm. Consider four processes, P1, P2, P3, and P4, and their corresponding arrival times along with their burst times shown in the table below. Which of the following is the correct combination of waiting times for the processes to be executed in the First-Come-First-Serve (FCFS) scheduling algorithm? Here, arrival time is when a process enters the ready queue, burst time is the time required for CPU execution, and waiting time is the time a process spends in the ready queue before CPU execution begins.\n\nUnit: millisecond\nProcess | Arrival time | Burst Time\nP1 | 0 | 6\nP2 | 2 | 4\nP3 | 4 | 9\nP4 | 5 | 7",
+      "choices": [
+        {
+          "label": "a",
+          "text": "P1: 0, P2: 2, P3: 4, P4: 5"
+        },
+        {
+          "label": "b",
+          "text": "P1: 0, P2: 4, P3: 6, P4: 14"
+        },
+        {
+          "label": "c",
+          "text": "P1: 6, P2: 4, P3: 9, P4: 7"
+        },
+        {
+          "label": "d",
+          "text": "P1: 6, P2: 6, P3: 13, P4: 12"
+        }
+      ]
+    },
+    "16": {
+      "note": "All four choices are logic-gate drawings and were empty; added a choice figure crop for each and narrowed the second question figure to the MUX circuit only (it previously also showed the choices). Also restored flattened subscripts I0/I1 as I₀/I₁.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 11,
+            "rect": [
+              108,
+              390,
+              188,
+              431
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 11,
+            "rect": [
+              219,
+              390,
+              300,
+              431
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 11,
+            "rect": [
+              323,
+              390,
+              398,
+              431
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 11,
+            "rect": [
+              423,
+              390,
+              500,
+              431
+            ]
+          }
+        }
+      ],
+      "figures": [
+        {
+          "page": 11,
+          "rect": [
+            143,
+            153,
+            313,
+            233
+          ]
+        },
+        {
+          "page": 11,
+          "rect": [
+            135,
+            300,
+            262,
+            374
+          ]
+        }
+      ],
+      "replacements": [
+        {
+          "find": "(I0, I1)",
+          "replace": "(I₀, I₁)"
+        },
+        {
+          "find": "input I0",
+          "replace": "input I₀"
+        },
+        {
+          "find": "input I1",
+          "replace": "input I₁"
+        }
+      ]
+    },
+    "17": {
+      "note": "Power flattened: '512 × 106 bytes' restored as 512 × 10⁶ bytes.",
+      "replacements": [
+        {
+          "find": "× 106",
+          "replace": "× 10⁶"
+        }
+      ]
+    },
+    "19": {
+      "note": "All four choices are ER diagrams whose cardinality labels were scrambled into text, and the figures just showed the choices; replaced each choice with a crop of its diagram and removed the question figures.",
+      "figures": [],
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 12,
+            "rect": [
+              88,
+              190,
+              457,
+              227
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 12,
+            "rect": [
+              88,
+              259,
+              457,
+              295
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 12,
+            "rect": [
+              88,
+              326,
+              457,
+              362
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 12,
+            "rect": [
+              88,
+              394,
+              457,
+              430
+            ]
+          }
+        }
+      ]
+    },
+    "20": {
+      "note": "The three data tables were merged into one garbled block and the choice tables were split/mixed across choices (choice a empty); rewrote the question text with each table as pipe-separated lines and transcribed each choice table as text.",
+      "question_text": "Q20. An employee works for a department, which can be located in multiple regions. Three tables EMP, DEPT, and DEPT_LOCS are created as shown below for recording the employee, department, and department location data, respectively.\n\nEMP\nEID | Ename | DNO | Salary\n11 | John Bate | 1 | 20000\n12 | Mohammed Karim | 2 | 40000\n13 | Sadat Hossain | 1 | 50000\n14 | Katherine Li | 3 | 20000\n15 | Shuvashish Bose | 3 | 40000\n\nDEPT\nDNO | Dname | Manager ID\n1 | Admin | 11\n2 | Accounts | 13\n3 | Research | 15\n\nDEPT_LOCS\nDNO | Region\n1 | L1\n1 | L3\n2 | L2\n3 | L3\n3 | L2\n\nWhat is the output of the SQL shown below?\n\nSELECT EName, Salary\nFROM EMP\nWHERE DNO IN (( SELECT DNO\n                FROM DEPT)\n                MINUS\n                (SELECT DNO\n                 FROM DEPT_LOCS\n                 WHERE Region=’L2’)\n                 ))",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Ename | Salary\nNULL | NULL"
+        },
+        {
+          "label": "b",
+          "text": "Ename | Salary\nJohn Bate | 20000\nSadat Hossain | 50000"
+        },
+        {
+          "label": "c",
+          "text": "Ename | Salary\nJohn Bate | 20000\nSadat Hossain | 50000\nKatherine Li | 20000\nShuvashish Bose | 40000"
+        },
+        {
+          "label": "d",
+          "text": "Ename | Salary\nJohn Bate | 20000\nMohammed Karim | 40000\nSadat Hossain | 50000\nKatherine Li | 20000\nShuvashish Bose | 40000"
+        }
+      ]
+    },
+    "57": {
+      "note": "Stray axis labels from the scatter plot were dumped into the text and the figure included a sliver of the question line; removed the stray text and recropped the figure to the plot only.",
+      "question_text": "Q57. The relationship between the value “x” of a certain factor in the manufacture of a product and the value “y” of a quality characteristic of the product is plotted in the figure below. Which of the following is an appropriate interpretation of this figure?",
+      "figures": [
+        {
+          "page": 24,
+          "rect": [
+            165,
+            418,
+            316,
+            532
+          ]
+        }
+      ]
+    },
+    "58": {
+      "note": "The 4-column raw-material table was flattened into unreadable text with no figure; removed it from the text and added a crop of the table.",
+      "question_text": "Q58. Two (2) types of raw materials A and B are required to manufacture products X and Y. The quantity of each raw material required per unit and the procurable quantity are listed in the table below. When the profit per unit is $1 for product X and $1.5 for product Y , which of the following is the maximum profit in dollar?",
+      "figures": [
+        {
+          "page": 25,
+          "rect": [
+            94,
+            149,
+            516,
+            234
+          ]
+        }
+      ]
+    }
+  }
+}

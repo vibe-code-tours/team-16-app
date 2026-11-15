@@ -15,20 +15,22 @@ import pymupdf
 
 VERSION = "3.0"
 Q_RE = re.compile(r"(?m)^\s*Q\s*(\d{1,2})(?:\.|\s)\s*")
-CHOICE_RE = re.compile(r"(?<![A-Za-z])([a-i])(?:\)|(?=\s+\d))\s*")
+CHOICE_RE = re.compile(r"(?<![A-Za-z])([a-j])(?:\)|(?=\s+\d))\s*")
 FOOTER_RE = re.compile(r"(?m)^\s*FE Exam - (?:Morning|Afternoon).*?\d+\s*$")
+# Question numbers in a Subject A answer key: 60 on current papers, 80 on the
+# 2021-2023 morning papers.
+ANSWER_NUMBER_RE = re.compile(r"[1-9]|[1-7]\d|80")
+# Bare page-number footers such as "- 28 -" or "– 4 –".
+PAGE_NUMBER_RE = re.compile(r"(?m)^[ \t]*[-–—][ \t]*\d{1,3}[ \t]*[-–—][ \t]*$")
+# Cover/instruction pages carry a sample Q1 (and, on some papers, a "Q2 2021"
+# quarter title) that must never be mistaken for real questions.
+INSTRUCTION_PAGE_RE = re.compile(r"\[Sample (?:Question|Answer)\]")
 
 # Source-specific visual boundaries for layouts where generic vector grouping
 # cannot distinguish a diagram from nearby prose or graphical answer choices.
 PAGE_FIGURE_OVERRIDES: dict[tuple[str, str, int, int], list[tuple[float, float, float, float]]] = {
     ("2021-april", "A", 8, 5): [(70, 532, 525, 676)],
     ("2021-april", "A", 21, 9): [(90, 500, 525, 593)],
-    ("2021-april", "A", 22, 10): [
-        (75, 130, 295, 228),   # a
-        (295, 130, 525, 228),  # b
-        (75, 222, 295, 318),   # c
-        (295, 222, 525, 318),  # d
-    ],
     ("2021-april", "A", 46, 17): [(120, 492, 480, 590)],
     # Legacy PM paper: keep the full Table 8 excerpt, discard the dashed
     # placeholder repeated later in prose.
@@ -66,8 +68,10 @@ def page_text(page: pymupdf.Page, ocr_language: str) -> tuple[str, str]:
 
 
 def clean(text: str) -> str:
-    text = FOOTER_RE.sub("", text).replace("\u00ad", "")
-    text = re.sub(r"(?<=\w)-\n\s*(?=\w)", "", text)
+    text = PAGE_NUMBER_RE.sub("", FOOTER_RE.sub("", text)).replace("\u00ad", "")
+    # These papers are not auto-hyphenated: a hyphen at a line end belongs to the
+    # word ("object-\noriented"), so keep it and only join the lines.
+    text = re.sub(r"(?<=\w)-\n\s*(?=\w)", "-", text)
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
@@ -103,7 +107,7 @@ def semantic_subject_b(question_text: str, choices: list[dict], blocks: list[dic
         table_rows = []
         for row in rows[1:]:
             label = clean(str(row[0] or "")).rstrip(")")
-            if not re.fullmatch(r"[a-h]", label):
+            if not re.fullmatch(r"[a-j]", label):
                 continue
             values = []
             for cell in row[1:len(headers) + 1]:
@@ -148,7 +152,7 @@ def answers(path: Path) -> dict[int, str | list[dict]]:
                     current_sq = int(word)
                 elif 160 <= x < 195 and re.fullmatch(r"[A-Z]", word):
                     current_blank = word
-                elif x >= 200 and re.fullmatch(r"[a-i]", word):
+                elif x >= 200 and re.fullmatch(r"[a-j]", word):
                     answer = word
             if current_q is not None and answer is not None:
                 rows.setdefault(current_q, []).append({
@@ -160,11 +164,11 @@ def answers(path: Path) -> dict[int, str | list[dict]]:
         return rows
     candidates: list[tuple[float, float, str]] = []
     for x0, y0, _x1, _y1, word, *_ in words:
-        if re.fullmatch(r"(?:[1-9]|[1-5]\d|60)", word) or re.fullmatch(r"[a-i]", word):
+        if ANSWER_NUMBER_RE.fullmatch(word) or re.fullmatch(r"[a-j]", word):
             candidates.append((x0, y0, word))
     result: dict[int, str] = {}
     numbers = [w for w in candidates if w[2].isdigit()]
-    letters = [w for w in candidates if re.fullmatch(r"[a-i]", w[2])]
+    letters = [w for w in candidates if re.fullmatch(r"[a-j]", w[2])]
     for x, y, number in numbers:
         near = sorted(letters, key=lambda w: abs(w[1] - y) * 10 + abs(w[0] - x))
         same_row = [w for w in near if abs(w[1] - y) < 5 and w[0] > x]
@@ -187,11 +191,11 @@ def split_choices(chunk: str) -> tuple[str, list[dict[str, str]]]:
         sequence = [candidate]
         expected = ord("b")
         for following in candidates[start_index + 1:]:
+            # Skip incidental letters ("a 3D space" inside choice b) instead of
+            # abandoning the sequence; a later complete sequence still wins.
             if ord(following.group(1)) == expected:
                 sequence.append(following)
                 expected += 1
-            elif following.group(1) == "a":
-                break
         if len(sequence) >= 4:
             matches = sequence
     if not matches:
@@ -441,6 +445,8 @@ def extract(subject: str, question_pdf: Path, answer_pdf: Path, output: Path,
 
     candidates: dict[int, list[tuple[int, int]]] = {}
     for page_index, page in enumerate(pages):
+        if INSTRUCTION_PAGE_RE.search(page["text"]):
+            continue
         for match in Q_RE.finditer(page["text"]):
             candidates.setdefault(int(match.group(1)), []).append((page_index, match.start()))
     key = answers(answer_pdf)
@@ -503,9 +509,6 @@ def extract(subject: str, question_pdf: Path, answer_pdf: Path, output: Path,
                 pix.pil_image().save(image_dir / filename, format="WEBP", quality=86, method=6)
                 image_paths.append(filename)
             content_blocks.extend(structured_blocks(page, clip, page_index + 1))
-        if (exam_session, subject, number) == ("2021-april", "A", 22):
-            for index, choice in enumerate(choices[:4]):
-                choice["image"] = image_paths[index]
         if subject == "B":
             question, choices, content_blocks = semantic_subject_b(question, choices, content_blocks)
         rows.append({

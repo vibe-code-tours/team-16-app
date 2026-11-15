@@ -1,6 +1,7 @@
 # SQL Seed Generation Reference
 
-How `scripts/generate_exam_seed_sql.py` produces Supabase-ready SQL from extracted JSON.
+How `scripts/generate_exam_seed_sql.py` produces one Supabase-ready SQL file from the
+extracted papers.
 
 ## Table of contents
 
@@ -9,159 +10,128 @@ How `scripts/generate_exam_seed_sql.py` produces Supabase-ready SQL from extract
 - [Column mapping](#column-mapping)
 - [Idempotent upserts](#idempotent-upserts)
 - [Schema overview](#schema-overview)
-- [Deployment](#deployment)
-- [Storage layout](#storage-layout)
+- [Applying the seed](#applying-the-seed)
+- [Figures and reference PDFs](#figures-and-reference-pdfs)
 
 ## How it works
 
-The generator reads `questions.json` from both Subject A and Subject B folders for a
-given exam term and produces a single combined SQL file.
+The generator reads every paper listed in `resources/exams/index.json` and joins three
+inputs per paper:
+
+| Input | Path | Committed? |
+|---|---|---|
+| Extracted questions | `resources/exams/{Year}-{Season}-{A\|B}/questions.json` | No — rebuilt by `build_itpec_resources.py` |
+| Corrections | `resources/exams/overrides/{paper}.json` | Yes — already applied to `questions.json` by the build |
+| Subtopic + explanation | `resources/exams/enrichment/{paper}.json` | Yes |
 
 ```bash
-python scripts/generate_exam_seed_sql.py \
-  --resources-dir resources/exams \
-  --year 2021 \
-  --season April \
-  --output supabase/seed_data/2021-April-Exam.sql
+python scripts/generate_exam_seed_sql.py --all \
+  --output supabase/seed_data/009_seed_exam_questions.sql
 ```
 
-**Input:** `resources/exams/2021-April-A/questions.json` + `resources/exams/2021-April-B/questions.json`
-**Output:** `supabase/seed_data/2021-April-Exam.sql`
+`--year 2021 --season April` writes a single term instead. Generation refuses to run while
+`validate_itpec_resources.py --require-enrichment` reports any failure.
+
+**Output:** `supabase/seed_data/009_seed_exam_questions.sql` — a generated file; never edit
+it by hand.
 
 ## SQL structure
 
-The generated file contains:
+One transaction for the whole file. For each paper, in order:
 
 ```sql
--- NerdQuiz seed: 2021 April FE Subjects A and B
 BEGIN;
 
--- 1. Subject A exam definition
-INSERT INTO exams (...) VALUES (...) ON CONFLICT ...;
+-- 2021 April FE Subject A: 80 questions
+INSERT INTO questions (...) VALUES (...), (...)
+ON CONFLICT (exam_session, subject, question_number) DO UPDATE SET ...;
 
--- 2. Subject B exam definition
-INSERT INTO exams (...) VALUES (...) ON CONFLICT ...;
+DELETE FROM question_subtopics WHERE question_id IN (...this paper...);
+INSERT INTO question_subtopics (question_id, subtopic_id, is_primary, confidence, classification_source)
+SELECT q.id, s.id, true, v.confidence, 'llm' FROM (VALUES ...) ...;
 
--- 3. All question records (Subject A + B)
-INSERT INTO questions (...) VALUES (...)
-ON CONFLICT (exam_session, subject, question_number)
-DO UPDATE SET ...;
+INSERT INTO exams (...) VALUES (...) ON CONFLICT (exam_session, subject) DO UPDATE SET ...;
+DELETE FROM exam_questions WHERE exam_id = (...);
+INSERT INTO exam_questions (exam_id, question_id, sequence_number) SELECT ...;
 
--- 4. Ordered exam-question mappings
-INSERT INTO exam_questions (...) VALUES (...)
-ON CONFLICT ...;
-
+-- next paper ...
 COMMIT;
 ```
 
-Everything is wrapped in a single transaction — all-or-nothing.
-
 ## Column mapping
 
-JSON fields map to database columns:
-
-| JSON field | DB column | Type |
+| Source | DB column | Type |
 |---|---|---|
-| `exam_session` | `exam_session` | `text` |
-| `subject` | `subject` | `text` |
-| `question_number` | `question_number` | `integer` |
+| `exam_session`, `subject`, `question_number` | same | `text`, `text`, `integer` |
 | `question_text` | `question_text` | `text` |
-| `content_blocks` | `content_blocks` | `jsonb` |
-| `images` | `images` | `jsonb` |
-| `choices` | `choices` | `jsonb` |
+| `content_blocks`, `images`, `choices`, `answer_key`, `ref_doc` | same | `jsonb` |
 | `correct_answer` | `correct_answer` | `text` |
-| `answer_key` | `answer_key` | `jsonb` |
-| `explanation` | `explanation` | `text` |
-| `difficulty` | `difficulty` | `text` |
-| `source_file` | `source_file` | `text` |
-| `source_citation` | `source_citation` | `text` |
+| enrichment `explanation` | `explanation` | `text` |
+| enrichment `subtopic_slug` | `subtopic_id` | `(SELECT id FROM subtopics WHERE slug = ...)` |
+| `source_file`, `source_citation`, `source_text` | same | `text` |
 | `source_pages` | `source_pages` | `integer[]` |
-| `extraction_method` | `extraction_method` | `text` |
+| `extraction_method` | `extraction_method` | `native_text`, or `manual_review` for overridden questions |
 | `extraction_version` | `extraction_version` | `text` |
-| `source_text` | `source_text` | `text` |
-| `ref_doc` | `ref_doc` | `jsonb` |
+
+`difficulty` and `difficulty_score` are written but then overwritten by the
+`set_question_difficulty` trigger (`20260715012200_difficulty_rules.sql`).
+
+`images` holds bare filenames (`2021-april-a-q08-figure1.webp`); a choice that is a drawing
+has `"image": "2022-october-a-q20-choice-a.webp"` and empty `text`.
 
 ## Idempotent upserts
 
-All inserts use `ON CONFLICT ... DO UPDATE SET` to make seed files safely re-runnable.
+- **Questions:** `ON CONFLICT (exam_session, subject, question_number) DO UPDATE` refreshes
+  every generated column, including `explanation` and `subtopic_id`. Row ids and the usage
+  counters (`times_answered`, `times_correct`) are left untouched.
+- **Question subtopics:** deleted and re-inserted per paper, one primary link per question.
+- **Exams:** `ON CONFLICT (exam_session, subject) DO UPDATE`.
+- **Exam questions:** deleted and re-inserted per exam, ordered by question number.
 
-**Questions:** conflict on `(exam_session, subject, question_number)`
-**Exams:** conflict on `(exam_session, subject)`
-**Exam questions:** conflict on `(exam_id, question_id)`
-
-This means running the same seed twice won't fail — it updates existing rows.
+Running the file twice leaves the same rows.
 
 ## Schema overview
 
-The seed writes to these tables (defined in `supabase/migrations/001_initial_schema.sql`):
+Defined in `supabase/migrations/20260712122400_initial_schema.sql`. The seed writes to
+`questions`, `question_subtopics`, `exams` and `exam_questions`, and reads `subtopics` (the
+20 slugs are seeded by that migration and mirrored in `SUBTOPIC_SLUGS` in
+`scripts/validate_itpec_resources.py`).
 
-| Table | Purpose |
-|---|---|
-| `exams` | Exam definitions (session, subject, total questions) |
-| `questions` | All question records with structured content |
-| `exam_questions` | Many-to-many: which questions belong to which exam, with ordering |
+## Applying the seed
 
-The full schema also includes topics, lessons, quizzes, user progress, XP, streaks,
-mistake garden, flashcards, and more — but the seed only touches the three tables above.
+The file is several MB — too large for the dashboard SQL Editor. Use `psql`:
 
-## Deployment
+```bash
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/seed_data/009_seed_exam_questions.sql
+```
 
-### Browser-only deployment order
-
-1. **SQL Editor:** run `001_initial_schema.sql` (first time only)
-2. **Storage → question-images:** upload all WebP figures
-3. **Storage → exam-reference-docs:** upload original PDFs
-4. **SQL Editor:** run the generated seed file
-5. **Verify:** count queries
+Migrations must already be applied. There is no `supabase/config.toml` seed wiring, so
+`supabase db reset` does not load this file.
 
 ### Verification queries
 
 ```sql
--- Count questions per subject
-SELECT subject, COUNT(*) FROM questions
-WHERE exam_session = '2021-april'
-GROUP BY subject;
+SELECT exam_session, subject, COUNT(*) FROM questions
+WHERE exam_session ~ '^20' GROUP BY 1, 2 ORDER BY 1, 2;
 
--- Count exams
-SELECT * FROM exams WHERE exam_session = '2021-april';
+-- Subject A questions the app cannot serve (expect 0)
+SELECT COUNT(*) FROM questions
+WHERE subject = 'A' AND exam_session ~ '^20'
+  AND (jsonb_array_length(choices) = 0 OR correct_answer !~ '^[a-z]$'
+       OR subtopic_id IS NULL OR explanation IS NULL);
 
--- Verify mappings are ordered
-SELECT eq.question_number, q.question_text[:50]
-FROM exam_questions eq
-JOIN questions q ON q.id = eq.question_id
-JOIN exams e ON e.id = eq.exam_id
-WHERE e.exam_session = '2021-april' AND e.subject = 'A'
-ORDER BY eq.question_number;
+-- Exactly one primary subtopic per question (expect 0 rows)
+SELECT question_id FROM question_subtopics WHERE is_primary
+GROUP BY 1 HAVING COUNT(*) <> 1;
 ```
 
-## Storage layout
+## Figures and reference PDFs
 
-### question-images/
+Figures are committed with the web app in `src/web/public/question-images/` (flat, named
+`{session}-{subject}-q{NN}-figure{n}.webp` or `...-choice-{label}.webp`). The build copies
+them there, and `src/web/src/lib/questionImage.ts` turns a stored filename into
+`/question-images/<name>`. Nothing needs uploading to Supabase Storage for figures.
 
-All WebP figures, named by convention:
-
-```
-question-images/
-├── 2021-april-a-q08-figure1.webp
-├── 2021-april-a-q22-figure1.webp
-├── 2021-april-a-q22-figure2.webp
-├── 2021-april-b-q01-figure1.webp
-└── ...
-```
-
-### exam-reference-docs/
-
-Original PDFs organized by exam term and subject:
-
-```
-exam-reference-docs/
-└── 2021-april/
-    ├── a/
-    │   ├── questions.pdf
-    │   └── answers.pdf
-    └── b/
-        ├── questions.pdf
-        └── answers.pdf
-```
-
-The subject subdirectory prevents filename collisions (both A and B have `questions.pdf`).
+`ref_doc.storage_path` still records where the original PDFs would live in the
+`exam-reference-docs` bucket (`2021-april/a/questions.pdf`); uploading them is optional and
+nothing in the app reads them.

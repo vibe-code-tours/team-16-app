@@ -1,0 +1,45 @@
+{
+  "_meta": {"paper": "2023-April-B", "written_by": "AI model (Claude). Not ITPEC content.", "human_reviewed": false},
+  "questions": {
+    "1": {
+      "subtopic_slug": "cryptography",
+      "confidence": 0.8,
+      "explanation": "Blank A is the CA's private key: the CA signs the server certificate with its private key, which is why anyone can verify the signature with the CA's public key held in the CA certificate. Blank B is (2) ServerHello, because that is the message in which the server picks the cipher suite and other parameters, completing the agreement on connection parameters. Blank C is the session key, since the agreed master secret is what both sides use to derive the symmetric session key. Blank D is (6) ClientKeyExchange: only after receiving the client's key-exchange contribution does the server have everything needed to compute the master secret. Blank E is the server's public key, because in RSA key exchange the client encrypts the premaster secret with the public key from the server certificate so only the server can decrypt it. Blank F is the server's private key: if it leaks, every recorded RSA-exchanged premaster secret can be decrypted, whereas DHE-RSA uses RSA only for signing, so a leaked private key does not expose past sessions (forward secrecy)."
+    },
+    "2": {
+      "subtopic_slug": "operating-systems",
+      "confidence": 0.85,
+      "explanation": "Blank A: the weakness of linked allocation is that it is poor for direct (random) access, because reaching a given part of the file means following the chain of blocks from the beginning. Blank B: indexed allocation needs a whole index block per file, so it wastes more space than linked allocation when there are many small files. Blank C is 11 and 11: with linked allocation each 4 kB block loses 4 bytes to the next-block number, so 40 kB (40,960 bytes) no longer fits in 10 blocks of 4,092 data bytes and needs 11, while indexed allocation needs 10 data blocks plus 1 index block. Blank D is 257: 1 MB is 256 data blocks; 12 are reached by direct pointers and the remaining 244 through the single indirect pointer, which costs one extra pointer block. Blank E is about 16 GB: with 1 kB blocks and 4-byte pointers a block holds 256 pointers, so the triple indirect level reaches 256 × 256 × 256 blocks × 1 kB = 2²⁴ kB = 16 GB, which dominates the total."
+    },
+    "3": {
+      "subtopic_slug": "databases",
+      "confidence": 0.95,
+      "explanation": "In SQL1, blank A is SUM(Amount) to total the payments per store, blank B is Payment p because the later join condition refers to the alias p, and blank C is Sales DESC to list stores from highest to lowest sales (store 20 gets 2.99 + 9.99 = 12.98 through staff S002). In SQL2, blank D is (FirstName LIKE 'B%') AND (LastName LIKE 'Gre_n'): the first name only has to start with B (any length), while the last name has exactly five characters, so one underscore stands for the single unknown fourth character; 'Gre%n' would also match longer names and 'B_' would demand a two-letter first name. In SQL3, blank E puts the date range in WHERE (BETWEEN '2023-04-01' AND '2023-04-15'), groups by customer, and filters the groups with HAVING COUNT(*) >= 2; an aggregate like COUNT(*) cannot appear in WHERE, and grouping by PayDate would split each customer's payments into separate groups. Only C003 has two payments in that period."
+    },
+    "4": {
+      "subtopic_slug": "networking",
+      "confidence": 0.85,
+      "explanation": "Blank A is 172.16.10.241, the first usable address of the DMZ subnet 172.16.10.240/29, which is assigned to the FW interface as the DMZ gateway. Blanks B and C follow from allocating subnets largest first after Technology's 172.16.10.0/25: Sales needs 32 hosts, more than the 30 a /27 offers, so it gets 172.16.10.128/26 (128–191), and Solutions needs 28 hosts, which fits a /27, so it gets the next free block 172.16.10.192/27 (192–223), just before Finance at .224/28. In Table 2, blank D is the Internet, since rule 3 lets DMZ servers reach the Internet through NAT. Blank E is 172.16.10.224/28, the Finance department, which alone may reach the Finance server by HTTPS, and blank F is ANY, so rule 5 then denies every other source to 172.16.10.250."
+    },
+    "5": {
+      "subtopic_slug": "algorithms",
+      "confidence": 0.65,
+      "explanation": "Blank A is South: with the strict test UnempRate > UnempRateHigh, South (15.0) replaces the high value first and West's equal 15.0 does not replace it. Blank B is ????: when every rate is 0.0, the test 0.0 > 0.0 is never true, so CityHigh keeps its initial value. Blank C is West: after changing the operators to ≥ and ≤, every city with 100.0 satisfies 100.0 ≤ UnempRateLow (initially 100.0), so the last city read, West, ends up as CityLow. Blank D is North: rerunning test case 1 with ≤, North's 10.0 ties East's and overwrites it. Blanks E and F are −0.1 and 100.1: starting the high value below 0 and the low value above 100 guarantees the first city always updates both, while keeping the strict > and < comparisons so ties keep the first city."
+    },
+    "6": {
+      "subtopic_slug": "data-structures",
+      "confidence": 0.75,
+      "explanation": "Blank A is free.state ← procName: when the free node is exactly the requested size, the whole node is simply relabelled as allocated. Blanks B and C (either order) are new.prev ← last and free.prev ← new, which finish inserting the new node between last and free in both directions; blank D is free.size − reqSize, the blocks left in the shrunken free node. In release, when the previous node is also free, blanks E and F (either order) are prev2.next ← proc and proc.prev ← prev2, which unlink prev1 by connecting its predecessor directly to proc, and blank G is proc.size + prev1.size so the merged node covers both ranges (its start is taken from prev1). Blank H is case 1 and case 3: allocate(n1, 'Z', 2) splits the 4-block node n1 and inserts a new node right after n0, and release(n2) merges n2 with the free node after it and with the free node n1 before it, so n0.next is reset to n2; allocate(n1, 'Z', 4) only changes n1's state and leaves n0.next unchanged."
+    },
+    "7": {
+      "subtopic_slug": "algorithms",
+      "confidence": 0.6,
+      "explanation": "Blank A is str[i] < '0' || str[i] > '9', which is true for any non-digit character (the && version can never be true). Blank B is i = len - 1, j = 0; i >= 0; i--, j++, copying characters from the last to the first so that j ends at len for the terminating NUL. Blank C is str[len - 1 - i], the character mirrored from position i. In add, blank D is digit % 10 (the digit to store) and blank E is digit / 10 (the carry into the next position). Blank F is −1, the value doLychrelProcess returns when no palindrome appears within the maximum attempts. In Subquestion 2, blank G is str - 1, because after skipping a string of only zeros str points at the NUL, so stepping back one gives the last '0'; blank H is strNum, skipLeadingZeros(strNum), strlen(skipLeadingZeros(strNum)) + 1, which moves the digits after the leading zeros to the front of strNum, with + 1 so the NUL terminator is copied too."
+    },
+    "8": {
+      "subtopic_slug": "software-development",
+      "confidence": 0.65,
+      "explanation": "Blank A is ArrayBag<T>, because a generic class must declare its type parameter to implement Bag<T>, and blank B is T[], the type of the array that holds the items. Blank C is numberOfEntries, the count of items in the bag (bag.length is the capacity, not the size). Blank D is numberOfEntries++, which stores the entry in the next free slot and then increments the count. Blank E is bag.length, since the bag is full when the count reaches the capacity, and blank F is 0 for an empty bag. In remove, blank G is bag[index], the element being removed, and blank H is bag[numberOfEntries - 1], the last element, which is moved into the gap before its old slot is set to null and the count decremented."
+    }
+  }
+}

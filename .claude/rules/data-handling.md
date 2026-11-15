@@ -44,6 +44,6 @@ full procedure.
 
 ## Scope for demo
 
-- Subject-A only for Week 1 (60 questions per exam × 3 exams = ~180 questions).
-- Subject-B can be added in Week 2 if extraction progress allows.
-- Focus on 3 recent exam sessions for the demo.
+- Ten exam sessions are seeded: 2021 April to 2025 October (720 Subject-A questions; 80 per paper for 2021–2023, 60 from 2024).
+- Subject-B is seeded (128 questions) but not served by the app yet.
+- The seed is one generated file, `supabase/seed_data/009_seed_exam_questions.sql` — regenerate it, never hand-edit.

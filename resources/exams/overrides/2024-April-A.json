@@ -1,0 +1,278 @@
+{
+  "questions": {
+    "2": {
+      "note": "The stacked fractions in the choices were lost (numerators leaked into the question text, denominators into choice d); removed the stray digits from the text and transcribed the choices as 1/30, 1/20, 1/10, 3/10.",
+      "question_text": "Q2. Five people are sitting at a table in a restaurant. Two of them ordered coffee, and the other three ordered tea. The waiter forgets who ordered what and puts the drinks in a random order for the five persons. What is the probability that every person gets the correct drink?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "1/30"
+        },
+        {
+          "label": "b",
+          "text": "1/20"
+        },
+        {
+          "label": "c",
+          "text": "1/10"
+        },
+        {
+          "label": "d",
+          "text": "3/10"
+        }
+      ]
+    },
+    "5": {
+      "note": "Tree figure also contained the first row of answer choices; recropped to the tree only.",
+      "figures": [
+        {
+          "page": 5,
+          "rect": [
+            128,
+            98,
+            316,
+            250
+          ]
+        }
+      ]
+    },
+    "6": {
+      "note": "Flowchart labels were dumped into the question text; removed them (the flowchart figure already shows them).",
+      "question_text": "Q6. The flowchart below shows an algorithm that determines the sum (i.e. “1 +3+ 5+ … + (2N-1)”) of the first N odd integers from 1 through 2N-1 (where N ≥ 1) and inserts the result into variable x. Which of the following is an expression to be inserted in blank A ?"
+    },
+    "7": {
+      "note": "Superscript 2 was flattened ('N 2'); rewrote choices b and d as N² ÷ 2 and N².",
+      "choices": [
+        {
+          "label": "a",
+          "text": "N(N-1) ÷ 2"
+        },
+        {
+          "label": "b",
+          "text": "N² ÷ 2"
+        },
+        {
+          "label": "c",
+          "text": "N(N-1)"
+        },
+        {
+          "label": "d",
+          "text": "N²"
+        }
+      ]
+    },
+    "14": {
+      "note": "Diagram labels were dumped into the question text; removed them (figure already shows the diagram).",
+      "question_text": "Q14. Data is continuously sent for T seconds from the sending task to the receiving task in the diagram below. When the volume of data sent in 1 second is S and the volume of data received in 1 second is R, which of the following is the appropriate relational expression indicating the buffer size L to prevent buffer overflow? Here, the sending task has a higher transfer speed than the receiving task, and there is a sufficient time interval until the start of the next transfer."
+    },
+    "16": {
+      "note": "Circuit labels were dumped into the text and choices, and the figures were fragmented crops mixing several choices; question figure is now the main circuit and each choice is its own circuit image.",
+      "question_text": "Q16. Which of the following is equivalent to the circuit below?",
+      "figures": [
+        {
+          "page": 9,
+          "rect": [
+            178,
+            106,
+            410,
+            170
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              120,
+              203,
+              288,
+              268
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              120,
+              295,
+              340,
+              355
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              118,
+              390,
+              332,
+              446
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 9,
+            "rect": [
+              118,
+              476,
+              280,
+              534
+            ]
+          }
+        }
+      ]
+    },
+    "19": {
+      "note": "Figure included the question sentence and entity names were dumped into the text; recropped to the E-R diagram and removed the stray labels.",
+      "question_text": "Q19. Which of the following is the appropriate interpretation of the E-R model shown below?",
+      "figures": [
+        {
+          "page": 10,
+          "rect": [
+            92,
+            90,
+            432,
+            128
+          ]
+        }
+      ]
+    },
+    "20": {
+      "note": "Figure was cropped to a fragment (missing the Catalog header, CatalogProduct box and ProductItem class) and class attributes were dumped into the text; recropped the whole class diagram and removed the dump.",
+      "question_text": "Q20. From the figure below, which of the following is an appropriate set of attributes for the “CatalogProduct” class table?",
+      "figures": [
+        {
+          "page": 10,
+          "rect": [
+            98,
+            297,
+            490,
+            466
+          ]
+        }
+      ]
+    },
+    "35": {
+      "note": "Choices are rows of a Class/Object table and the two columns were interleaved line by line; transcribed each row as 'Class: ... Object: ...' and removed the stray header from the text.",
+      "question_text": "Q35. Which of the following represents the appropriate combination of a class and an object in Object Oriented Programming?",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Class: A class can be defined as a group of objects with similar behavior and attributes. Object: An object is an instance of a class."
+        },
+        {
+          "label": "b",
+          "text": "Class: A class can be defined as a group of objects with similar behavior and attributes. Object: An object is the blueprint of the class."
+        },
+        {
+          "label": "c",
+          "text": "Class: A class is an instance of objects. Object: An object can be defined as a template that describes the behavior that the class of its type supports."
+        },
+        {
+          "label": "d",
+          "text": "Class: A class stores the actual values of its attributes. Object: An object has the definition and behavior of a class."
+        }
+      ]
+    },
+    "37": {
+      "note": "The inequality used a mathematical italic x from a broken font map; rewrote it as plain '25 ≤ x < 50'.",
+      "question_text": "Q37. There is a program module that is executed only when the integer value of integer x is 25 ≤ x < 50. When testing this module using boundary value analysis, which of the following is an appropriate combination of values to be tested?"
+    },
+    "40": {
+      "note": "The arrow symbols between phases were extracted as a private-use glyph; replaced them with → in all four choices and in the content blocks.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Requirements Analysis → Design → Programming → Deployment → Testing → Maintenance"
+        },
+        {
+          "label": "b",
+          "text": "Requirements Analysis → Design → Programming → Testing → Deployment → Maintenance"
+        },
+        {
+          "label": "c",
+          "text": "Requirements Analysis → Design → Programming → Testing → Maintenance → Deployment"
+        },
+        {
+          "label": "d",
+          "text": "Requirements Analysis → Programming → Testing → Design → Maintenance → Deployment"
+        }
+      ],
+      "replacements": [
+        {
+          "find": "",
+          "replace": "→"
+        }
+      ]
+    },
+    "41": {
+      "note": "Figure included the last line of the question and diagram labels were dumped into the text; recropped to the arrow diagram with legend and removed the dump.",
+      "question_text": "Q41. The activities and milestones of a project are shown in the arrow diagram below. Which of the following is an appropriate description of the project if the duration of activity B is increased by 5 days?",
+      "figures": [
+        {
+          "page": 16,
+          "rect": [
+            105,
+            288,
+            540,
+            490
+          ]
+        }
+      ]
+    },
+    "43": {
+      "note": "The arrow symbols between lifecycle stages were extracted as a private-use glyph; replaced them with → in all four choices and in the content blocks.",
+      "choices": [
+        {
+          "label": "a",
+          "text": "Service design → Continual service improvement → Service strategy → Service operation → Service transition"
+        },
+        {
+          "label": "b",
+          "text": "Service design → Service strategy → Service operation → Service transition → Continual service improvement"
+        },
+        {
+          "label": "c",
+          "text": "Service strategy → Service design → Service operation → Service transition → Continual service improvement"
+        },
+        {
+          "label": "d",
+          "text": "Service strategy → Service design → Service transition → Service operation → Continual service improvement"
+        }
+      ],
+      "replacements": [
+        {
+          "find": "",
+          "replace": "→"
+        }
+      ]
+    },
+    "54": {
+      "note": "The 4-column product table was flattened into misaligned text; replaced it with a crop of the table.",
+      "question_text": "Q54. A factory manufactures the three products that are shown in the table below. Which of the following is the maximum possible profit in dollars? Here, there is an upper limit to the monthly demand volume for each product. Also, the factory can only use up to 200 hours per month for the manufacturing process and cannot manufacture more than one products in parallel.",
+      "figures": [
+        {
+          "page": 21,
+          "rect": [
+            94,
+            167,
+            518,
+            272
+          ]
+        }
+      ]
+    }
+  }
+}

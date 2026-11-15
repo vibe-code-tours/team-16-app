@@ -18,8 +18,8 @@
 | Rule-based difficulty | Assign easy/medium/hard based on question metadata — no AI |
 | Landing page | Mascot + hero text + CTA buttons |
 | Mobile-responsive | Works on phone browser (no native app) |
-| ~180 questions seeded | 3 recent exam sessions × 60 Subject-A questions |
-| Data extraction pipeline | PDF → JSON → SQL seed, PyMuPDF + OCR fallback, figures as WebP |
+| 720 Subject-A questions seeded | 10 exam sessions (2021 April – 2025 October), each question with a subtopic and an explanation |
+| Data extraction pipeline | PDF → JSON → one generated SQL seed; PyMuPDF + OCR fallback, validation gate, page-image corrections, figures as WebP served by the web app |
 | Database schema | Complete Supabase schema with RLS, deployed to remote |
 
 ## Week 2 — Public Demo (polish + stretch)
@@ -29,8 +29,8 @@
 | Polish UI/UX | Transitions, loading states, empty states, error handling |
 | Flashcards | Key concept cards with manual flip (spaced repetition is a stretch) |
 | Weak point analysis | Dashboard shows which topic categories the user scores lowest in |
-| Additional exams | Extract and seed 1-2 more exam sessions if time allows |
-| Subject-B questions | Add if extraction progress allows |
+| Additional exams | Done — all 10 sessions from 2021 April to 2025 October are in `009_seed_exam_questions.sql` |
+| Subject-B questions | 128 questions seeded but not yet served by quizzes or exams; 2021–2023 Subject-B text is incomplete |
 | Performance tuning | API response times, frontend load speed |
 | Admin dashboard (stats) | Role-gated dashboard with: stat cards (total users, active today/this week, quiz/exam attempts, avg scores, exam pass rate), charts (daily active users line chart, topic engagement bar charts, quiz completion pie chart, exam pass/fail pie chart). User management page with searchable/sortable table, quick filters (Active Today, Inactive 30d+, New 7d), detail drawer with tabs (Overview, Activity, Performance), and actions (change role, reset streak, deactivate, CSV export). Requires `role` column on `user_profiles`. Uses Recharts for visualization. |
 

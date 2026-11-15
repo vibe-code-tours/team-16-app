@@ -1,0 +1,237 @@
+{
+  "questions": {
+    "4": {
+      "note": "Diagram text was dumped into the question, the figure was cut into the choice table header, and choices lost their column headings; cropped the diagram only, removed the dump, and transcribed the choice rows with headings.",
+      "question_text": "Q4. A vehicle travels along a circular path as shown in the figure below. Two sensors, L and\n R, whose revolution speeds are independently controlled, are attached to the left and right\n rear wheels. Sensors L and R are photo-reflective sensors, and their values change according\n to the ratio of black and white regions they pass over. If the ratio increases, the sensor value\n decreases, and if the ratio decreases, the sensor value increases. Which of the following is\n an appropriate control to ensure that the vehicle travels along the black outline of the circle?\n Here, if the values of the two sensors are equal, the motor revolution speeds return to the\n initial values.",
+      "figures": [
+        {
+          "page": 5,
+          "rect": [
+            104,
+            226,
+            480,
+            427
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "a",
+          "text": "Sensor L value > Sensor R value: Motor L revolution speed Decrease, Motor R revolution speed Increase; Sensor L value < Sensor R value: Motor L revolution speed Decrease, Motor R revolution speed Increase"
+        },
+        {
+          "label": "b",
+          "text": "Sensor L value > Sensor R value: Motor L revolution speed Decrease, Motor R revolution speed Increase; Sensor L value < Sensor R value: Motor L revolution speed Increase, Motor R revolution speed Decrease"
+        },
+        {
+          "label": "c",
+          "text": "Sensor L value > Sensor R value: Motor L revolution speed Increase, Motor R revolution speed Decrease; Sensor L value < Sensor R value: Motor L revolution speed Decrease, Motor R revolution speed Increase"
+        },
+        {
+          "label": "d",
+          "text": "Sensor L value > Sensor R value: Motor L revolution speed Increase, Motor R revolution speed Decrease; Sensor L value < Sensor R value: Motor L revolution speed Increase, Motor R revolution speed Decrease"
+        }
+      ]
+    },
+    "5": {
+      "note": "Tree node values were dumped into the text and the figure included the first choice row; removed the dump, restored 'pre-order', cropped only the tree.",
+      "question_text": "Q5. Among the four tree traversal techniques—breadth-first, in-order, post-order, and pre-order—which of the following is the appropriate combination to ensure that the last two\n nodes visited are the same in the tree shown below, when the left child is explored first?",
+      "figures": [
+        {
+          "page": 6,
+          "rect": [
+            120,
+            132,
+            275,
+            266
+          ]
+        }
+      ]
+    },
+    "6": {
+      "note": "Graph vertex labels were dumped into the question text; removed them (figure already shows the graph).",
+      "question_text": "Q6. In the graph shown below, which of the following is the output of a depth-first traversal\n starting from vertex A, and visiting all vertices in ascending character order?"
+    },
+    "13": {
+      "note": "Mapping diagram was dumped into the text and the figure included part of the answer choices; removed the dump and re-cropped the diagram only.",
+      "question_text": "Q13. The relation between virtual address and physical address is shown below. Each virtual\n page and page frame starts at a multiple of 4096 and ends 4095 addresses higher. Virtual\n address space 4K-8K corresponds to 4096-8191 and 8K to 12K corresponds to 8192-12287.\n Which of the following is the physical address corresponding to the virtual address\n numbered 8300?",
+      "figures": [
+        {
+          "page": 9,
+          "rect": [
+            110,
+            175,
+            310,
+            452
+          ]
+        }
+      ]
+    },
+    "14": {
+      "note": "Four-column process table was flattened with the '(in ms)' header detached; replaced it with a crop of the table.",
+      "question_text": "Q14. In a system with preemptive priority scheduling, where the smallest priority number is\n considered as the highest priority, there are four processes, P1, P2, P3, and P4. Their arrival\n times, CPU-burst times, and priorities are shown in the table below. Which of the following\n is the average waiting time (in ms) for the processes to be executed?",
+      "figures": [
+        {
+          "page": 9,
+          "rect": [
+            134,
+            589,
+            460,
+            712
+          ]
+        }
+      ]
+    },
+    "17": {
+      "note": "Five-column ordering data layout was flattened so headings and types no longer aligned; replaced it with a crop of the table.",
+      "question_text": "Q17. When ordering data is entered in the format shown below, which of the following is the\n appropriate method for checking whether the order date is a business day that is the same as\n or prior to the entering date?",
+      "figures": [
+        {
+          "page": 10,
+          "rect": [
+            92,
+            461,
+            512,
+            530
+          ]
+        }
+      ]
+    },
+    "20": {
+      "note": "UML diagram was split into two partial figures that also caught the choice table, stray 'I II' was in the text, and choices lacked headings; one full-diagram crop, removed stray text, choices as 'I: .., II: ..'.",
+      "question_text": "Q20. In the UML data model shown in the figure below, which of the following is a\n multiplicity that should be inserted in blanks I and II?\n\n [Conditions]\n (1) One or more employees belong to a department.\n (2) An employee belongs to any one department.\n (3) The history of the departments to which an employee has belonged is recorded as\n the assignment history.",
+      "figures": [
+        {
+          "page": 11,
+          "rect": [
+            76,
+            384,
+            516,
+            486
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "a",
+          "text": "I: 0..*, II: 0..*"
+        },
+        {
+          "label": "b",
+          "text": "I: 0..*, II: 1..*"
+        },
+        {
+          "label": "c",
+          "text": "I: 1..*, II: 0..*"
+        },
+        {
+          "label": "d",
+          "text": "I: 1..*, II: 1..*"
+        }
+      ]
+    },
+    "26": {
+      "note": "Stray 'A B' table header was in the text and choices lost their column headings; removed it and wrote choices as 'A: .., B: ..'.",
+      "question_text": "Q26. An administrator of a small network is testing the new network. Which of the following\n is the correct combination of the network management tools to be inserted in the blanks\n below?\n\n The administrator first tests reachability of a remote host using ___A___, and determines\n the path that packets take to the destination with ___B___",
+      "choices": [
+        {
+          "label": "a",
+          "text": "A: netstat, B: ping"
+        },
+        {
+          "label": "b",
+          "text": "A: netstat, B: traceroute"
+        },
+        {
+          "label": "c",
+          "text": "A: ping, B: traceroute"
+        },
+        {
+          "label": "d",
+          "text": "A: traceroute, B: ping"
+        }
+      ]
+    },
+    "35": {
+      "note": "Choices are UML class diagrams but were extracted as scrambled text plus one combined figure; made each choice a figure and removed the combined figure.",
+      "figures": [],
+      "choices": [
+        {
+          "label": "a",
+          "text": "",
+          "figure": {
+            "page": 16,
+            "rect": [
+              114,
+              438,
+              205,
+              593
+            ]
+          }
+        },
+        {
+          "label": "b",
+          "text": "",
+          "figure": {
+            "page": 16,
+            "rect": [
+              294,
+              438,
+              386,
+              571
+            ]
+          }
+        },
+        {
+          "label": "c",
+          "text": "",
+          "figure": {
+            "page": 16,
+            "rect": [
+              114,
+              598,
+              205,
+              729
+            ]
+          }
+        },
+        {
+          "label": "d",
+          "text": "",
+          "figure": {
+            "page": 16,
+            "rect": [
+              271,
+              597,
+              418,
+              734
+            ]
+          }
+        }
+      ]
+    },
+    "37": {
+      "note": "Flowchart had no figure and was flattened into loose text; added a crop of the flowchart and removed the loose text.",
+      "question_text": "Q37. Test cases for the part of a program shown in the flowchart below are created to achieve\n decision condition coverage (branch coverage). In order to make the test cases achieve\n multiple-condition coverage, which of the following is the appropriate set of test cases to be\n added? Here, the part enclosed by parentheses () represents a test case.\n\n• Test cases to achieve decision condition coverage (branch coverage)\n (A = 4, B = 1), (A = 5, B = 0)",
+      "figures": [
+        {
+          "page": 17,
+          "rect": [
+            238,
+            406,
+            372,
+            548
+          ]
+        }
+      ]
+    },
+    "55": {
+      "note": "Diagram labels were dumped into the question text; removed them (figure already shows the diagram).",
+      "question_text": "Q55. Which of the following corresponds to (5) in the example of a model of an affiliate\n program that is shown in the Internet advertising? Here, (1) to (5) indicate the order of\n operations in the model, and (1), (2), (4), and (5) each correspond to one of the options a) to\n d)."
+    },
+    "58": {
+      "note": "Diagram labels 'A' and 'B' were dumped into the question text; removed them (figure already shows the diagram).",
+      "question_text": "Q58. The figure below shows part of a cause and effect diagram (also known as a fishbone\n diagram). Which of the following is the relationship between A and B?"
+    }
+  }
+}
