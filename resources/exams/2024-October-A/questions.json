@@ -1,0 +1,5960 @@
+[
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 1,
+    "question_text": "Q1. P, Q, and R are propositions. It is known that the truth value of proposition P is true, and the values of both the propositions “(not P) or Q” and “(not Q) or R” are true. Which of the following is a combination of the truth values of Q and R? Here, X or Y represents the logical sum of X and Y, and not X represents the negation of X.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Q: False, R: False"
+      },
+      {
+        "label": "b",
+        "text": "Q: False, R: True"
+      },
+      {
+        "label": "c",
+        "text": "Q: True, R: False"
+      },
+      {
+        "label": "d",
+        "text": "Q: True, R: True"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q1)",
+    "source_pages": [
+      4
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q1. P, Q, and R are propositions. It is known that the truth value of proposition P is true, and\n the values of both the propositions “(not P) or Q” and “(not Q) or R” are true. Which of the\n following is a combination of the truth values of Q and R? Here, X or Y represents the\n logical sum of X and Y, and not X represents the negation of X.\n\n Q R\n a) False False\n b) False True\n c) True False\n d) True True",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q1. P, Q, and R are propositions. It is known that the truth value of proposition P is true, and the values of both the propositions “(not P) or Q” and “(not Q) or R” are true. Which of the following is a combination of the truth values of Q and R? Here, X or Y represents the logical sum of X and Y, and not X represents the negation of X."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 2,
+    "question_text": "Q2. What is the value of the postfix expression below? Here, A, B, C, and D are operands\n whose values are 4, 3, 5, and 6, respectively. Symbols “+”, “−”, “×”, and “÷” are arithmetic\n operators for addition, subtraction, multiplication, and division, respectively.\n\n A B 2 × + D B ÷ C × −",
+    "choices": [
+      {
+        "label": "a",
+        "text": "−3"
+      },
+      {
+        "label": "b",
+        "text": "0"
+      },
+      {
+        "label": "c",
+        "text": "3"
+      },
+      {
+        "label": "d",
+        "text": "40/3"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q2)",
+    "source_pages": [
+      4
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q2. What is the value of the postfix expression below? Here, A, B, C, and D are operands\n whose values are 4, 3, 5, and 6, respectively. Symbols “+”, “−”, “×”, and “÷” are arithmetic\n operators for addition, subtraction, multiplication, and division, respectively.\n\n A B 2 × + D B ÷ C × −\n\n a) −3 b) 0 c) 3 d) 40/3",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          65.22,
+          269.93,
+          510.14,
+          301.21
+        ],
+        "text": "Q2.  What is the value of the postfix expression below? Here, A, B, C, and D are operands"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          85.74,
+          305.93,
+          527.68,
+          337.21
+        ],
+        "text": "whose values are 4, 3, 5, and 6, respectively. Symbols “+”, “−”, “×”, and “÷” are arithmetic\noperators for addition, subtraction, multiplication, and division, respectively."
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          107.7,
+          359.27,
+          218.98,
+          372.55
+        ],
+        "text": "A B 2 × + D B ÷ C × −"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          84.12,
+          395.93,
+          479.46,
+          409.21
+        ],
+        "text": "a) −3\nb) 0\nc) 3\nd) 40/3"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 3,
+    "question_text": "Q3. Which of the following is the computational complexity of the Heapsort algorithm? Here,\n n is the number of elements to be sorted, and all comparisons, swaps, and other needed\n operations can proceed in constant time.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "O (log n)"
+      },
+      {
+        "label": "b",
+        "text": "O (n)"
+      },
+      {
+        "label": "c",
+        "text": "O (n²)"
+      },
+      {
+        "label": "d",
+        "text": "O (n log n)"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q3)",
+    "source_pages": [
+      4
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q3. Which of the following is the computational complexity of the Heapsort algorithm? Here,\n n is the number of elements to be sorted, and all comparisons, swaps, and other needed\n operations can proceed in constant time.\n\n a) O (log n) b) O (n) c) O (n2) d) O (n log n)",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          65.22,
+          431.93,
+          530.55,
+          463.21
+        ],
+        "text": "Q3.  Which of the following is the computational complexity of the Heapsort algorithm? Here,"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          85.74,
+          467.93,
+          506.0,
+          499.21
+        ],
+        "text": "n is the number of elements to be sorted, and all comparisons, swaps, and other needed\noperations can proceed in constant time."
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          65.22,
+          521.49,
+          511.08,
+          570.13
+        ],
+        "text": "a) O (log n)\nb) O (n)\nc) O (n2)\nd) O (n log n)"
+      },
+      {
+        "type": "code",
+        "page": 4,
+        "bbox": [
+          65.22,
+          794.63,
+          311.58,
+          807.97
+        ],
+        "text": "– 4 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 4,
+    "question_text": "Q4. The presence of an edge between nodes is represented by an adjacent matrix. When the adjacent matrix of an undirected graph is as below, which of the following is its graph representation? Here, the nodes correspond with the rows and columns of the adjacent matrix. If there is an edge between nodes, this is indicated with 1, and if there is no edge, this is indicated with 0.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "",
+        "image": "2024-october-a-q04-choice-a.webp"
+      },
+      {
+        "label": "b",
+        "text": "",
+        "image": "2024-october-a-q04-choice-b.webp"
+      },
+      {
+        "label": "c",
+        "text": "",
+        "image": "2024-october-a-q04-choice-c.webp"
+      },
+      {
+        "label": "d",
+        "text": "",
+        "image": "2024-october-a-q04-choice-d.webp"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [
+      "2024-october-a-q04-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q4)",
+    "source_pages": [
+      5
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q4. The presence of an edge between nodes is represented by an adjacent matrix. When the\n adjacent matrix of an undirected graph is as below, which of the following is its graph\n representation? Here, the nodes correspond with the rows and columns of the adjacent\n matrix. If there is an edge between nodes, this is indicated with 1, and if there is no edge,\n this is indicated with 0.\n\n a b c d e f\n a 0 1 0 0 0 0\n b 1 0 1 1 0 0\n c 0 1 0 1 1 0\n d 0 1 1 0 0 0\n e 0 0 1 0 0 1\n f 0 0 0 0 1 0\n\n a)\n\n a b c d e f\n\n b)\n\n a b c d e f\n\n c)\n\n a b c d e f\n\n d)\n\n a b c d e f",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q4. The presence of an edge between nodes is represented by an adjacent matrix. When the adjacent matrix of an undirected graph is as below, which of the following is its graph representation? Here, the nodes correspond with the rows and columns of the adjacent matrix. If there is an edge between nodes, this is indicated with 1, and if there is no edge, this is indicated with 0."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 5,
+    "question_text": "Q5. What is the value of the arithmetic expression resulting from an in-order traversal of the\n binary tree below?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "11"
+      },
+      {
+        "label": "b",
+        "text": "20"
+      },
+      {
+        "label": "c",
+        "text": "27"
+      },
+      {
+        "label": "d",
+        "text": "45"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [
+      "2024-october-a-q05-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q5)",
+    "source_pages": [
+      6
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q5. What is the value of the arithmetic expression resulting from an in-order traversal of the\n binary tree below?\n\n a) 11 b) 20 c) 27 d) 45",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 6,
+        "bbox": [
+          65.22,
+          68.76,
+          522.21,
+          82.21
+        ],
+        "text": "Q5.  What is the value of the arithmetic expression resulting from an in-order traversal of the"
+      },
+      {
+        "type": "text",
+        "page": 6,
+        "bbox": [
+          85.74,
+          86.93,
+          178.04,
+          100.21
+        ],
+        "text": "binary tree below?"
+      },
+      {
+        "type": "text",
+        "page": 6,
+        "bbox": [
+          84.12,
+          354.89,
+          476.1,
+          368.17
+        ],
+        "text": "a) 11\nb) 20\nc) 27\nd) 45"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 6,
+    "question_text": "Q6. The function f (n) is recursively defined in terms of the natural number n as below. Which\n of the following is the value of f (5)?\n\n f (n): if n≦1 then return 1 else return n + f (n−1)",
+    "choices": [
+      {
+        "label": "a",
+        "text": "6"
+      },
+      {
+        "label": "b",
+        "text": "9"
+      },
+      {
+        "label": "c",
+        "text": "15"
+      },
+      {
+        "label": "d",
+        "text": "25"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q6)",
+    "source_pages": [
+      6
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q6. The function f (n) is recursively defined in terms of the natural number n as below. Which\n of the following is the value of f (5)?\n\n f (n): if n≦1 then return 1 else return n + f (n−1)\n\n a) 6 b) 9 c) 15 d) 25",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 6,
+        "bbox": [
+          65.22,
+          390.72,
+          531.8,
+          422.17
+        ],
+        "text": "Q6.  The function f (n) is recursively defined in terms of the natural number n as below. Which"
+      },
+      {
+        "type": "text",
+        "page": 6,
+        "bbox": [
+          65.22,
+          426.89,
+          265.37,
+          458.17
+        ],
+        "text": "of the following is the value of f (5)?"
+      },
+      {
+        "type": "text",
+        "page": 6,
+        "bbox": [
+          85.2,
+          462.18,
+          348.9,
+          494.17
+        ],
+        "text": "f (n): if n≦1 then return 1 else return n + f (n−1)"
+      },
+      {
+        "type": "text",
+        "page": 6,
+        "bbox": [
+          65.22,
+          498.89,
+          441.72,
+          548.17
+        ],
+        "text": "a)\n6\nb) 9\nc) 15\nd) 25"
+      },
+      {
+        "type": "code",
+        "page": 6,
+        "bbox": [
+          65.22,
+          794.63,
+          311.58,
+          807.97
+        ],
+        "text": "– 6 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 7,
+    "question_text": "Q7. Which of the following is the appropriate description of the “selection sort” algorithm?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "An intermediate reference value is determined, and then the elements are divided into\n two groups of “larger” values and “smaller” values. This operation is recursively\n repeated."
+      },
+      {
+        "label": "b",
+        "text": "Each set of elements extracted at regular intervals is sorted, and then the interval is\n further decreased. The operation is repeatedly performed until the interval becomes 1."
+      },
+      {
+        "label": "c",
+        "text": "The element with the largest value is determined and swapped for the last element, and\n then the largest value of the unsorted elements is determined and swapped for the\n second-to-the-last element. This operation is repeated in the same way."
+      },
+      {
+        "label": "d",
+        "text": "Two adjacent elements are repeatedly compared and swapped if the first element is\n larger than the second. This operation is repeated until all elements are arranged in an\n orderly fashion."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q7)",
+    "source_pages": [
+      7
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q7. Which of the following is the appropriate description of the “selection sort” algorithm?\n\n a) An intermediate reference value is determined, and then the elements are divided into\n two groups of “larger” values and “smaller” values. This operation is recursively\n repeated.\n b) Each set of elements extracted at regular intervals is sorted, and then the interval is\n further decreased. The operation is repeatedly performed until the interval becomes 1.\n c) The element with the largest value is determined and swapped for the last element, and\n then the largest value of the unsorted elements is determined and swapped for the\n second-to-the-last element. This operation is repeated in the same way.\n d) Two adjacent elements are repeatedly compared and swapped if the first element is\n larger than the second. This operation is repeated until all elements are arranged in an\n orderly fashion.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          65.22,
+          67.74,
+          523.56,
+          81.19
+        ],
+        "text": "Q7.  Which of the following is the appropriate description of the “selection sort” algorithm?"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          84.12,
+          104.93,
+          516.08,
+          118.21
+        ],
+        "text": "a) An intermediate reference value is determined, and then the elements are divided into"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          84.12,
+          122.93,
+          502.71,
+          172.21
+        ],
+        "text": "two groups of “larger” values and “smaller” values. This operation is recursively\nrepeated.\nb) Each set of elements extracted at regular intervals is sorted, and then the interval is"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          84.12,
+          176.93,
+          523.29,
+          208.21
+        ],
+        "text": "further decreased. The operation is repeatedly performed until the interval becomes 1.\nc) The element with the largest value is determined and swapped for the last element, and"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          84.12,
+          212.93,
+          504.37,
+          262.21
+        ],
+        "text": "then the largest value of the unsorted elements is determined and swapped for the\nsecond-to-the-last element. This operation is repeated in the same way.\nd) Two adjacent elements are repeatedly compared and swapped if the first element is"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          102.12,
+          266.93,
+          516.01,
+          298.21
+        ],
+        "text": "larger than the second. This operation is repeated until all elements are arranged in an\norderly fashion."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 8,
+    "question_text": "Q8. What is the approximate performance of a CPU in MIPS, when the instruction mix of the CPU is shown in the table below? Here, the CPU does not use a pipeline architecture.\n\nInstruction type | Instruction execution time in μs | Appearance ratio\nRegister to register operation | 0.3 | 30%\nRegister to memory operation | 0.6 | 50%\nConditional branch operation | 0.1 | 20%",
+    "choices": [
+      {
+        "label": "a",
+        "text": "0.03"
+      },
+      {
+        "label": "b",
+        "text": "0.41"
+      },
+      {
+        "label": "c",
+        "text": "2.44"
+      },
+      {
+        "label": "d",
+        "text": "35.00"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q8)",
+    "source_pages": [
+      7
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q8. What is the approximate performance of a CPU in MIPS, when the instruction mix of the\n CPU is shown in the table below? Here, the CPU does not use a pipeline architecture.\n\n Instruction type Instruction execution Appearance ratio\n time in μs\n Register to register 0.3 30%\n operation\n Register to memory 0.6 50%\n operation\n Conditional branch 0.1 20%\n operation\n\n a) 0.03 b) 0.41 c) 2.44 d) 35.00",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q8. What is the approximate performance of a CPU in MIPS, when the instruction mix of the CPU is shown in the table below? Here, the CPU does not use a pipeline architecture.\n\nInstruction type | Instruction execution time in μs | Appearance ratio\nRegister to register operation | 0.3 | 30%\nRegister to memory operation | 0.6 | 50%\nConditional branch operation | 0.1 | 20%"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 9,
+    "question_text": "Q9. When the CPU needs data, it first accesses the cache memory. When the data is not available in the cache memory, the CPU accesses the main memory. If the miss ratio is 0.2 and the access times for cache memory and main memory are as shown below, what is the approximate average memory access time in ns for the CPU? Here, there are only cache memory and main memory for the CPU, the access time for main memory includes the time to confirm whether the data is available in cache memory, and the overhead time for the cache management can be ignored.\n\nAccess destination | Access time (ns)\nCache Memory | 75\nMain Memory | 1500",
+    "choices": [
+      {
+        "label": "a",
+        "text": "315"
+      },
+      {
+        "label": "b",
+        "text": "360"
+      },
+      {
+        "label": "c",
+        "text": "1,215"
+      },
+      {
+        "label": "d",
+        "text": "1,260"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q9)",
+    "source_pages": [
+      8
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q9. When the CPU needs data, it first accesses the cache memory. When the data is not\n available in the cache memory, the CPU accesses the main memory. If the miss ratio is 0.2\n and the access times for cache memory and main memory are as shown below, what is the\n approximate average memory access time in ns for the CPU? Here, there are only cache\n memory and main memory for the CPU, the access time for main memory includes the time\n to confirm whether the data is available in cache memory, and the overhead time for the\n cache management can be ignored.\n\n Access destination Access time (ns)\n Cache Memory 75\n Main Memory 1500\n\n a) 315 b) 360 c) 1,215 d) 1,260",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q9. When the CPU needs data, it first accesses the cache memory. When the data is not available in the cache memory, the CPU accesses the main memory. If the miss ratio is 0.2 and the access times for cache memory and main memory are as shown below, what is the approximate average memory access time in ns for the CPU? Here, there are only cache memory and main memory for the CPU, the access time for main memory includes the time to confirm whether the data is available in cache memory, and the overhead time for the cache management can be ignored.\n\nAccess destination | Access time (ns)\nCache Memory | 75\nMain Memory | 1500"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 10,
+    "question_text": "Q10. Which of the following is the appropriate purpose of defragmentation of hard disks?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "To access disk files faster and more efficiently"
+      },
+      {
+        "label": "b",
+        "text": "To clean up temporary and junk files"
+      },
+      {
+        "label": "c",
+        "text": "To delete IBG (interblock gap) and increase capacity"
+      },
+      {
+        "label": "d",
+        "text": "To protect disk drives from physical failures"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q10)",
+    "source_pages": [
+      8
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q10. Which of the following is the appropriate purpose of defragmentation of hard disks?\n\n a) To access disk files faster and more efficiently\n b) To clean up temporary and junk files\n c) To delete IBG (interblock gap) and increase capacity\n d) To protect disk drives from physical failures",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          65.22,
+          322.91,
+          514.84,
+          372.19
+        ],
+        "text": "Q10.\nWhich of the following is the appropriate purpose of defragmentation of hard disks?"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          91.98,
+          376.91,
+          367.66,
+          444.19
+        ],
+        "text": "a) To access disk files faster and more efficiently\nb) To clean up temporary and junk files\nc) To delete IBG (interblock gap) and increase capacity\nd) To protect disk drives from physical failures"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 11,
+    "question_text": "Q11. Which of the following is a fail-safe concept for improving the security and reliability\n of the information system?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Even when the user performs an incorrect operation, a problem does not occur in the\n system."
+      },
+      {
+        "label": "b",
+        "text": "Even when there is a partial system fault, the required functions of the overall system are\n maintained."
+      },
+      {
+        "label": "c",
+        "text": "When a device configuring the system fails, damage can be minimized by enabling the\n system to stop safely."
+      },
+      {
+        "label": "d",
+        "text": "When a system failure occurs, processing is continued by switching to a standby system."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q11)",
+    "source_pages": [
+      8
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q11. Which of the following is a fail-safe concept for improving the security and reliability\n of the information system?\n\n a) Even when the user performs an incorrect operation, a problem does not occur in the\n system.\n b) Even when there is a partial system fault, the required functions of the overall system are\n maintained.\n c) When a device configuring the system fails, damage can be minimized by enabling the\n system to stop safely.\n d) When a system failure occurs, processing is continued by switching to a standby system.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          65.22,
+          484.74,
+          523.2,
+          498.19
+        ],
+        "text": "Q11.\nWhich of the following is a fail-safe concept for improving the security and reliability"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          502.91,
+          511.2,
+          552.19
+        ],
+        "text": "of the information system?\n\na) Even when the user performs an incorrect operation, a problem does not occur in the"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          556.91,
+          532.49,
+          588.19
+        ],
+        "text": "system.\nb) Even when there is a partial system fault, the required functions of the overall system are"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          592.91,
+          521.66,
+          624.19
+        ],
+        "text": "maintained.\nc) When a device configuring the system fails, damage can be minimized by enabling the"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          65.22,
+          628.91,
+          530.74,
+          713.11
+        ],
+        "text": "system to stop safely.\nd) When a system failure occurs, processing is continued by switching to a standby system."
+      },
+      {
+        "type": "code",
+        "page": 8,
+        "bbox": [
+          65.22,
+          794.63,
+          311.58,
+          807.97
+        ],
+        "text": "– 8 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 12,
+    "question_text": "Q12. Which of the following is the approximate availability of the system comprising five devices, namely, A, B, C, D, and E as shown in the figure below? The numeric value in parentheses represents the availability of each device. The system is operational if either device connected in parallel is available.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "0.003"
+      },
+      {
+        "label": "b",
+        "text": "0.031"
+      },
+      {
+        "label": "c",
+        "text": "0.282"
+      },
+      {
+        "label": "d",
+        "text": "0.795"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [
+      "2024-october-a-q12-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q12)",
+    "source_pages": [
+      9
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q12. Which of the following is the approximate availability of the system comprising five\n devices, namely, A, B, C, D, and E as shown in the figure below? The numeric value in\n parentheses represents the availability of each device. The system is operational if either\n device connected in parallel is available.\n\n A D\n (0.8) (0.7)\n C\n (0.9)\n B E\n (0.7) (0.8)\n\n a) 0.003 b) 0.031 c) 0.282 d) 0.795",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q12. Which of the following is the approximate availability of the system comprising five devices, namely, A, B, C, D, and E as shown in the figure below? The numeric value in parentheses represents the availability of each device. The system is operational if either device connected in parallel is available."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 13,
+    "question_text": "Q13. There are minor and major page faults in an Operating System (OS). Which of the\n following is an appropriate action of the OS when a major page fault occurs?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Asking the user to input the instruction corresponding to the page"
+      },
+      {
+        "label": "b",
+        "text": "Looking for a page in CPU cache"
+      },
+      {
+        "label": "c",
+        "text": "Looking for a page in virtual memory on the hard disk"
+      },
+      {
+        "label": "d",
+        "text": "Looking for the missed block corresponding to the page on the physical memory"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q13)",
+    "source_pages": [
+      9
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q13. There are minor and major page faults in an Operating System (OS). Which of the\n following is an appropriate action of the OS when a major page fault occurs?\n\n a) Asking the user to input the instruction corresponding to the page\n b) Looking for a page in CPU cache\n c) Looking for a page in virtual memory on the hard disk\n d) Looking for the missed block corresponding to the page on the physical memory",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 9,
+        "bbox": [
+          65.22,
+          302.76,
+          505.12,
+          334.21
+        ],
+        "text": "Q13.\nThere are minor and major page faults in an Operating System (OS). Which of the\nfollowing is an appropriate action of the OS when a major page fault occurs?"
+      },
+      {
+        "type": "text",
+        "page": 9,
+        "bbox": [
+          84.12,
+          356.93,
+          492.49,
+          424.21
+        ],
+        "text": "a) Asking the user to input the instruction corresponding to the page\nb) Looking for a page in CPU cache\nc) Looking for a page in virtual memory on the hard disk\nd) Looking for the missed block corresponding to the page on the physical memory"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 14,
+    "question_text": "Q14. A real-time OS that performs preemptive priority scheduling for tasks A and B with A\n having a higher priority than B. Which of the following is the action that the OS takes?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "When A is launched during the execution of B, B is put into a ready state and A is\n executed."
+      },
+      {
+        "label": "b",
+        "text": "When A is launched during the execution of B, B is put into a waiting state and A is\n executed."
+      },
+      {
+        "label": "c",
+        "text": "When B is launched during the execution of A, A is put into a ready state and B is\n executed."
+      },
+      {
+        "label": "d",
+        "text": "When B is launched during the execution of A, A is put into a waiting state and B is\n executed."
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q14)",
+    "source_pages": [
+      9
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q14. A real-time OS that performs preemptive priority scheduling for tasks A and B with A\n having a higher priority than B. Which of the following is the action that the OS takes?\n\n a) When A is launched during the execution of B, B is put into a ready state and A is\n executed.\n b) When A is launched during the execution of B, B is put into a waiting state and A is\n executed.\n c) When B is launched during the execution of A, A is put into a ready state and B is\n executed.\n d) When B is launched during the execution of A, A is put into a waiting state and B is\n executed.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 9,
+        "bbox": [
+          65.22,
+          446.76,
+          521.4,
+          514.21
+        ],
+        "text": "Q14.\nA real-time OS that performs preemptive priority scheduling for tasks A and B with A\nhaving a higher priority than B. Which of the following is the action that the OS takes?"
+      },
+      {
+        "type": "text",
+        "page": 9,
+        "bbox": [
+          84.12,
+          518.93,
+          495.41,
+          532.21
+        ],
+        "text": "a) When A is launched during the execution of B, B is put into a ready state and A is"
+      },
+      {
+        "type": "text",
+        "page": 9,
+        "bbox": [
+          84.12,
+          536.93,
+          504.77,
+          568.21
+        ],
+        "text": "executed.\nb) When A is launched during the execution of B, B is put into a waiting state and A is"
+      },
+      {
+        "type": "text",
+        "page": 9,
+        "bbox": [
+          84.12,
+          572.93,
+          495.41,
+          604.21
+        ],
+        "text": "executed.\nc) When B is launched during the execution of A, A is put into a ready state and B is"
+      },
+      {
+        "type": "text",
+        "page": 9,
+        "bbox": [
+          84.12,
+          608.93,
+          504.77,
+          640.21
+        ],
+        "text": "executed.\nd) When B is launched during the execution of A, A is put into a waiting state and B is"
+      },
+      {
+        "type": "text",
+        "page": 9,
+        "bbox": [
+          102.12,
+          644.93,
+          150.78,
+          658.21
+        ],
+        "text": "executed."
+      },
+      {
+        "type": "code",
+        "page": 9,
+        "bbox": [
+          65.22,
+          794.63,
+          311.58,
+          807.97
+        ],
+        "text": "– 9 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 15,
+    "question_text": "Q15. An OS chooses a process for CPU execution based on a scheduling algorithm. Consider four processes, P1, P2, P3, and P4, and their corresponding arrival times along with their burst times shown in the table below. Which of the following is the correct combination of waiting times for the processes to be executed in the First-Come-First-Serve (FCFS) scheduling algorithm? Here, arrival time is when a process enters the ready queue, burst time is the time required for CPU execution, and waiting time is the time a process spends in the ready queue before CPU execution begins.\n\nUnit: millisecond\nProcess | Arrival time | Burst Time\nP1 | 0 | 6\nP2 | 2 | 4\nP3 | 4 | 9\nP4 | 5 | 7",
+    "choices": [
+      {
+        "label": "a",
+        "text": "P1: 0, P2: 2, P3: 4, P4: 5"
+      },
+      {
+        "label": "b",
+        "text": "P1: 0, P2: 4, P3: 6, P4: 14"
+      },
+      {
+        "label": "c",
+        "text": "P1: 6, P2: 4, P3: 9, P4: 7"
+      },
+      {
+        "label": "d",
+        "text": "P1: 6, P2: 6, P3: 13, P4: 12"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q15)",
+    "source_pages": [
+      10
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q15. An OS chooses a process for CPU execution based on a scheduling algorithm. Consider\n four processes, P1, P2, P3, and P4, and their corresponding arrival times along with their\n burst times shown in the table below. Which of the following is the correct combination of\n waiting times for the processes to be executed in the First-Come-First-Serve (FCFS)\n scheduling algorithm? Here, arrival time is when a process enters the ready queue, burst\n time is the time required for CPU execution, and waiting time is the time a process spends\n in the ready queue before CPU execution begins.\n\n Unit: millisecond\n\n Process Arrival time Burst Time\n\n P1 0 6\n\n P2 2 4\n\n P3 4 9\n\n P4 5 7\n\n P1 P2 P3 P4\n\n a) 0 2 4 5\n\n b) 0 4 6 14\n\n c) 6 4 9 7\n\n d) 6 6 13 12",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q15. An OS chooses a process for CPU execution based on a scheduling algorithm. Consider four processes, P1, P2, P3, and P4, and their corresponding arrival times along with their burst times shown in the table below. Which of the following is the correct combination of waiting times for the processes to be executed in the First-Come-First-Serve (FCFS) scheduling algorithm? Here, arrival time is when a process enters the ready queue, burst time is the time required for CPU execution, and waiting time is the time a process spends in the ready queue before CPU execution begins.\n\nUnit: millisecond\nProcess | Arrival time | Burst Time\nP1 | 0 | 6\nP2 | 2 | 4\nP3 | 4 | 9\nP4 | 5 | 7"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 16,
+    "question_text": "Q16. A graphical symbol for the 2-to-1 MUX (multiplexer) and its truth table are shown in\n the figure below. The MUX has two data inputs (I₀, I₁), one select-line (S) and one output\n (Z). If the select line is S=0, then the output Z is switched to input I₀, whereas if a select line\n is S=1, then the output Z is switched to input I₁.\n\n Which of the following is a logic gate that is equivalent to the circuit implemented with the\n 2-to-1 MUX below?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "",
+        "image": "2024-october-a-q16-choice-a.webp"
+      },
+      {
+        "label": "b",
+        "text": "",
+        "image": "2024-october-a-q16-choice-b.webp"
+      },
+      {
+        "label": "c",
+        "text": "",
+        "image": "2024-october-a-q16-choice-c.webp"
+      },
+      {
+        "label": "d",
+        "text": "",
+        "image": "2024-october-a-q16-choice-d.webp"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [
+      "2024-october-a-q16-figure1.webp",
+      "2024-october-a-q16-figure2.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q16)",
+    "source_pages": [
+      11
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q16. A graphical symbol for the 2-to-1 MUX (multiplexer) and its truth table are shown in\n the figure below. The MUX has two data inputs (I0, I1), one select-line (S) and one output\n (Z). If the select line is S=0, then the output Z is switched to input I0, whereas if a select line\n is S=1, then the output Z is switched to input I1.\n\n Which of the following is a logic gate that is equivalent to the circuit implemented with the\n 2-to-1 MUX below?\n\n a) b) c) d)",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          65.22,
+          68.76,
+          520.09,
+          82.21
+        ],
+        "text": "Q16.\nA graphical symbol for the 2-to-1 MUX (multiplexer) and its truth table are shown in"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          85.74,
+          86.95,
+          517.7,
+          100.21
+        ],
+        "text": "the figure below. The MUX has two data inputs (I₀, I₁), one select-line (S) and one output"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          85.74,
+          104.95,
+          530.06,
+          118.21
+        ],
+        "text": "(Z). If the select line is S=0, then the output Z is switched to input I₀, whereas if a select line"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          85.74,
+          122.93,
+          316.5,
+          136.21
+        ],
+        "text": "is S=1, then the output Z is switched to input I₁."
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          86.34,
+          247.87,
+          533.16,
+          261.13
+        ],
+        "text": "Which of the following is a logic gate that is equivalent to the circuit implemented with the"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          86.34,
+          265.87,
+          187.32,
+          279.13
+        ],
+        "text": "2-to-1 MUX below?"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          95.28,
+          401.83,
+          423.3,
+          415.09
+        ],
+        "text": "a)\nb)\nc)\nd)"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 17,
+    "question_text": "Q17. Audio signals are recorded using 8-bit samples at a sampling rate of 11,000 times per\n second. When a flash memory of 512 × 10⁶ bytes is used, what is the maximum recording\n time of such data in minutes?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "77"
+      },
+      {
+        "label": "b",
+        "text": "96"
+      },
+      {
+        "label": "c",
+        "text": "775"
+      },
+      {
+        "label": "d",
+        "text": "969"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q17)",
+    "source_pages": [
+      11
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q17. Audio signals are recorded using 8-bit samples at a sampling rate of 11,000 times per\n second. When a flash memory of 512 × 106 bytes is used, what is the maximum recording\n time of such data in minutes?\n\n a) 77 b) 96 c) 775 d) 969",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          65.22,
+          477.78,
+          533.17,
+          509.17
+        ],
+        "text": "Q17.\nAudio signals are recorded using 8-bit samples at a sampling rate of 11,000 times per\nsecond. When a flash memory of 512 × 10⁶ bytes is used, what is the maximum recording"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          85.08,
+          513.91,
+          229.06,
+          527.17
+        ],
+        "text": "time of such data in minutes?"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          84.12,
+          550.99,
+          476.1,
+          564.25
+        ],
+        "text": "a) 77\nb) 96\nc) 775\nd) 969"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 18,
+    "question_text": "Q18. Which of the following is a database design that consists of multiple tables with rows\n and columns that are linked together through matching data stored in each table?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Hierarchical database"
+      },
+      {
+        "label": "b",
+        "text": "Network database"
+      },
+      {
+        "label": "c",
+        "text": "Object-oriented database"
+      },
+      {
+        "label": "d",
+        "text": "Relational database"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q18)",
+    "source_pages": [
+      11
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q18. Which of the following is a database design that consists of multiple tables with rows\n and columns that are linked together through matching data stored in each table?\n\n a) Hierarchical database b) Network database\n c) Object-oriented database d) Relational database",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          65.22,
+          604.8,
+          520.19,
+          618.25
+        ],
+        "text": "Q18.\nWhich of the following is a database design that consists of multiple tables with rows"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          85.74,
+          622.99,
+          475.93,
+          636.25
+        ],
+        "text": "and columns that are linked together through matching data stored in each table?"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          84.12,
+          659.0,
+          416.8,
+          672.25
+        ],
+        "text": "a) Hierarchical database\nb) Network database"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          84.12,
+          676.97,
+          430.14,
+          690.25
+        ],
+        "text": "c) Object-oriented database\nd) Relational database"
+      },
+      {
+        "type": "code",
+        "page": 11,
+        "bbox": [
+          65.22,
+          794.65,
+          317.4,
+          807.97
+        ],
+        "text": "– 11 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 19,
+    "question_text": "Q19. Which of the following is an appropriate ER diagram after considering the conditions\n below?\n - An employee is associated with 1 program and a program is associated with at least one\n employee\n - A program belongs to 1 college and a college has one or many programs",
+    "choices": [
+      {
+        "label": "a",
+        "text": "",
+        "image": "2024-october-a-q19-choice-a.webp"
+      },
+      {
+        "label": "b",
+        "text": "",
+        "image": "2024-october-a-q19-choice-b.webp"
+      },
+      {
+        "label": "c",
+        "text": "",
+        "image": "2024-october-a-q19-choice-c.webp"
+      },
+      {
+        "label": "d",
+        "text": "",
+        "image": "2024-october-a-q19-choice-d.webp"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q19)",
+    "source_pages": [
+      12
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q19. Which of the following is an appropriate ER diagram after considering the conditions\n below?\n - An employee is associated with 1 program and a program is associated with at least one\n employee\n - A program belongs to 1 college and a college has one or many programs\n\n a)\n 1..1 1.* 1.* 1.1\n College Program Employee\n\n b)\n 1..1 1.* 1.1 1.*\n College Program Employee\n\n c)\n 1..* 1.1 1.* 1.1\n Employee College Program\n\n d)\n 1..* 1.1 1.1 1.*\n Program College Employee",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          68.76,
+          533.12,
+          82.21
+        ],
+        "text": "Q19. Which of the following is an appropriate ER diagram after considering the conditions"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          79.5,
+          86.93,
+          510.96,
+          118.21
+        ],
+        "text": "below?\n- An employee is associated with 1 program and a program is associated with at least one"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          122.93,
+          435.04,
+          172.15
+        ],
+        "text": "employee\n- A program belongs to 1 college and a college has one or many programs"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          77.22,
+          179.99,
+          89.52,
+          193.27
+        ],
+        "text": "a)"
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          90.9,
+          188.73,
+          197.01,
+          221.02
+        ],
+        "rows": [
+          [
+            null,
+            "1..1",
+            null
+          ],
+          [
+            "College",
+            "",
+            null
+          ],
+          [
+            null,
+            null,
+            ""
+          ]
+        ]
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          206.82,
+          188.73,
+          236.1,
+          214.62
+        ],
+        "rows": [
+          [
+            "1.*",
+            null
+          ],
+          [
+            null,
+            ""
+          ],
+          [
+            "",
+            null
+          ]
+        ]
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          108.84,
+          195.43,
+          441.93,
+          217.03
+        ],
+        "text": "1.1\n1.*\n1..1\nEmployee\nCollege\nProgram"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          309.42,
+          198.19,
+          323.92,
+          209.0
+        ],
+        "text": "1.*"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          77.22,
+          247.67,
+          90.24,
+          260.95
+        ],
+        "text": "b)"
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          90.9,
+          256.98,
+          197.01,
+          288.74
+        ],
+        "rows": [
+          [
+            null,
+            "1..1"
+          ],
+          [
+            "College",
+            ""
+          ]
+        ]
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          108.84,
+          262.33,
+          441.93,
+          284.71
+        ],
+        "text": "1.*\n1.*\n1..1\nEmployee\nCollege\nProgram"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          310.08,
+          265.87,
+          325.12,
+          276.68
+        ],
+        "text": "1.1"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          77.22,
+          315.35,
+          95.52,
+          328.63
+        ],
+        "text": "c)"
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          90.9,
+          324.82,
+          197.01,
+          356.42
+        ],
+        "rows": [
+          [
+            null,
+            "1..*",
+            null
+          ],
+          [
+            "Employee",
+            "",
+            null
+          ],
+          [
+            null,
+            null,
+            ""
+          ]
+        ]
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          206.82,
+          324.82,
+          236.1,
+          350.72
+        ],
+        "rows": [
+          [
+            "1.1",
+            null
+          ],
+          [
+            null,
+            ""
+          ],
+          [
+            "",
+            null
+          ]
+        ]
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          353.82,
+          324.82,
+          383.1,
+          350.72
+        ],
+        "rows": [
+          [
+            "1.1",
+            null
+          ],
+          [
+            null,
+            ""
+          ],
+          [
+            "",
+            null
+          ]
+        ]
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          103.14,
+          331.75,
+          438.3,
+          352.39
+        ],
+        "text": "1.1\n1.1\n1..*\nProgram\nEmployee\nCollege\n1.*"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          77.22,
+          383.09,
+          96.24,
+          396.37
+        ],
+        "text": "d)"
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          90.9,
+          392.06,
+          197.01,
+          424.12
+        ],
+        "rows": [
+          [
+            null,
+            "1..*",
+            null
+          ],
+          [
+            "Program",
+            "",
+            null
+          ],
+          [
+            null,
+            null,
+            ""
+          ]
+        ]
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          206.82,
+          392.06,
+          236.1,
+          417.94
+        ],
+        "rows": [
+          [
+            "1.1",
+            null
+          ],
+          [
+            null,
+            ""
+          ],
+          [
+            "",
+            null
+          ]
+        ]
+      },
+      {
+        "type": "table",
+        "page": 12,
+        "bbox": [
+          353.82,
+          392.06,
+          383.1,
+          417.94
+        ],
+        "rows": [
+          [
+            "1.*",
+            null
+          ],
+          [
+            null,
+            ""
+          ],
+          [
+            "",
+            null
+          ]
+        ]
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          106.8,
+          399.31,
+          441.93,
+          420.13
+        ],
+        "text": "1.*\n1.1\n1..*\nEmployee\nProgram\nCollege"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          308.94,
+          400.69,
+          321.44,
+          411.5
+        ],
+        "text": "1.1"
+      },
+      {
+        "type": "code",
+        "page": 12,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 12 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 20,
+    "question_text": "Q20. An employee works for a department, which can be located in multiple regions. Three tables EMP, DEPT, and DEPT_LOCS are created as shown below for recording the employee, department, and department location data, respectively.\n\nEMP\nEID | Ename | DNO | Salary\n11 | John Bate | 1 | 20000\n12 | Mohammed Karim | 2 | 40000\n13 | Sadat Hossain | 1 | 50000\n14 | Katherine Li | 3 | 20000\n15 | Shuvashish Bose | 3 | 40000\n\nDEPT\nDNO | Dname | Manager ID\n1 | Admin | 11\n2 | Accounts | 13\n3 | Research | 15\n\nDEPT_LOCS\nDNO | Region\n1 | L1\n1 | L3\n2 | L2\n3 | L3\n3 | L2\n\nWhat is the output of the SQL shown below?\n\nSELECT EName, Salary\nFROM EMP\nWHERE DNO IN (( SELECT DNO\n                FROM DEPT)\n                MINUS\n                (SELECT DNO\n                 FROM DEPT_LOCS\n                 WHERE Region=’L2’)\n                 ))",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Ename | Salary\nNULL | NULL"
+      },
+      {
+        "label": "b",
+        "text": "Ename | Salary\nJohn Bate | 20000\nSadat Hossain | 50000"
+      },
+      {
+        "label": "c",
+        "text": "Ename | Salary\nJohn Bate | 20000\nSadat Hossain | 50000\nKatherine Li | 20000\nShuvashish Bose | 40000"
+      },
+      {
+        "label": "d",
+        "text": "Ename | Salary\nJohn Bate | 20000\nMohammed Karim | 40000\nSadat Hossain | 50000\nKatherine Li | 20000\nShuvashish Bose | 40000"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q20)",
+    "source_pages": [
+      13
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q20. An employee works for a department, which can be located in multiple regions. Three\n tables EMP, DEPT, and DEPT_LOCS are created as shown below for recording the employee,\n department, and department location data, respectively.\n\nEMP DEPT DEPT_LOCS\n EID Ename DNO Salary DNO Dname Manager DNO Region\n 11 John Bate 1 20000 ID 1 L1\n 12 Mohammed Karim 2 40000 1 Admin 11 1 L3\n 13 Sadat Hossain 1 50000 2 Accounts 13 2 L2\n 14 Katherine Li 3 20000 3 Research 15 3 L3\n 15 Shuvashish Bose 3 40000 3 L2\n\n What is the output of the SQL shown below?\n\n SELECT EName, Salary\n\n FROM EMP\n\n WHERE DNO IN (( SELECT DNO\n\n FROM DEPT)\n\n MINUS\n\n (SELECT DNO\n\n FROM DEPT_LOCS\n\n WHERE Region=’L2’)\n\n ))\n\n a) b) Ename Salary\n Ename Salary John Bate 20000\n NULL NULL Sadat Hossain 50000\n\n c) Ename Salary d) Ename Salary\n John Bate 20000 John Bate 20000\n Sadat Hossain 50000 Mohammed Karim 40000\n Katherine Li 20000 Sadat Hossain 50000\n Shuvashish Bose 40000 Katherine Li 20000\n Shuvashish Bose 40000",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q20. An employee works for a department, which can be located in multiple regions. Three tables EMP, DEPT, and DEPT_LOCS are created as shown below for recording the employee, department, and department location data, respectively.\n\nEMP\nEID | Ename | DNO | Salary\n11 | John Bate | 1 | 20000\n12 | Mohammed Karim | 2 | 40000\n13 | Sadat Hossain | 1 | 50000\n14 | Katherine Li | 3 | 20000\n15 | Shuvashish Bose | 3 | 40000\n\nDEPT\nDNO | Dname | Manager ID\n1 | Admin | 11\n2 | Accounts | 13\n3 | Research | 15\n\nDEPT_LOCS\nDNO | Region\n1 | L1\n1 | L3\n2 | L2\n3 | L3\n3 | L2\n\nWhat is the output of the SQL shown below?\n\nSELECT EName, Salary\nFROM EMP\nWHERE DNO IN (( SELECT DNO\n                FROM DEPT)\n                MINUS\n                (SELECT DNO\n                 FROM DEPT_LOCS\n                 WHERE Region=’L2’)\n                 ))"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 21,
+    "question_text": "Q21. If a transaction processing program ends abnormally while updating the database, the\n database is recovered by a rollback process. In these circumstances, which of the following\n is the information that is used?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Post-update information of log files"
+      },
+      {
+        "label": "b",
+        "text": "Pre-update information of log files"
+      },
+      {
+        "label": "c",
+        "text": "The latest backup file information"
+      },
+      {
+        "label": "d",
+        "text": "The latest snapshot information"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q21)",
+    "source_pages": [
+      14
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q21. If a transaction processing program ends abnormally while updating the database, the\n database is recovered by a rollback process. In these circumstances, which of the following\n is the information that is used?\n\n a) Post-update information of log files b) Pre-update information of log files\n c) The latest backup file information d) The latest snapshot information",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          68.76,
+          526.16,
+          172.21
+        ],
+        "text": "Q21.\nIf a transaction processing program ends abnormally while updating the database, the\ndatabase is recovered by a rollback process. In these circumstances, which of the following\nis the information that is used?\n\na) Post-update information of log files\nb) Pre-update information of log files\nc) The latest backup file information\nd) The latest snapshot information"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 22,
+    "question_text": "Q22. Which of the following is a property on a database that guarantees a result where a\n transaction either fully completes update processing or is revoked as if no processing took\n place at all?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Atomicity"
+      },
+      {
+        "label": "b",
+        "text": "Consistency"
+      },
+      {
+        "label": "c",
+        "text": "Durability"
+      },
+      {
+        "label": "d",
+        "text": "Isolation"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q22)",
+    "source_pages": [
+      14
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q22. Which of the following is a property on a database that guarantees a result where a\n transaction either fully completes update processing or is revoked as if no processing took\n place at all?\n\n a) Atomicity b) Consistency c) Durability d) Isolation",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          212.76,
+          520.98,
+          262.21
+        ],
+        "text": "Q22.\nWhich of the following is a property on a database that guarantees a result where a\ntransaction either fully completes update processing or is revoked as if no processing took\nplace at all?"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          84.12,
+          266.93,
+          500.18,
+          298.21
+        ],
+        "text": "a) Atomicity\nb) Consistency\nc) Durability\nd) Isolation"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 23,
+    "question_text": "Q23. Which of the following is an appropriate description of a device that connects LANs?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A bridge relays frames based on IP addresses."
+      },
+      {
+        "label": "b",
+        "text": "A gateway converts the protocols of only the first through third levels in the OSI basic\n reference model."
+      },
+      {
+        "label": "c",
+        "text": "A repeater extends the transmission distance by amplifying signals between segments of\n the same type."
+      },
+      {
+        "label": "d",
+        "text": "A router relays frames based on MAC addresses."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q23)",
+    "source_pages": [
+      14
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q23. Which of the following is an appropriate description of a device that connects LANs?\n\n a) A bridge relays frames based on IP addresses.\n b) A gateway converts the protocols of only the first through third levels in the OSI basic\n reference model.\n c) A repeater extends the transmission distance by amplifying signals between segments of\n the same type.\n d) A router relays frames based on MAC addresses.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          338.76,
+          521.2,
+          352.21
+        ],
+        "text": "Q23.\nWhich of the following is an appropriate description of a device that connects LANs?"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          84.12,
+          374.93,
+          520.02,
+          406.21
+        ],
+        "text": "a) A bridge relays frames based on IP addresses.\nb) A gateway converts the protocols of only the first through third levels in the OSI basic"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          84.12,
+          410.93,
+          529.35,
+          442.21
+        ],
+        "text": "reference model.\nc) A repeater extends the transmission distance by amplifying signals between segments of"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          446.93,
+          340.37,
+          496.21
+        ],
+        "text": "the same type.\nd) A router relays frames based on MAC addresses."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 24,
+    "question_text": "Q24. What is the broadcast address of the network 192.168.128.0/22?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "192.168.128.127"
+      },
+      {
+        "label": "b",
+        "text": "192.168.128.255"
+      },
+      {
+        "label": "c",
+        "text": "192.168.131.255"
+      },
+      {
+        "label": "d",
+        "text": "192.168.255.255"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q24)",
+    "source_pages": [
+      14
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q24. What is the broadcast address of the network 192.168.128.0/22?\n\n a) 192.168.128.127 b) 192.168.128.255\n c) 192.168.131.255 d) 192.168.255.255",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          500.93,
+          419.11,
+          531.26
+        ],
+        "text": "Q24.\nWhat is the broadcast address of the network 192.168.128.0/22?"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          554.93,
+          390.24,
+          604.21
+        ],
+        "text": "a) 192.168.128.127\nb) 192.168.128.255\nc) 192.168.131.255\nd) 192.168.255.255"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 25,
+    "question_text": "Q25. Which of the following is a protocol to gather information on network components to\n manage and troubleshoot the network?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "NTP"
+      },
+      {
+        "label": "b",
+        "text": "SMTP"
+      },
+      {
+        "label": "c",
+        "text": "SNMP"
+      },
+      {
+        "label": "d",
+        "text": "TELNET"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q25)",
+    "source_pages": [
+      14
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q25. Which of the following is a protocol to gather information on network components to\n manage and troubleshoot the network?\n\n a) NTP b) SMTP c) SNMP d) TELNET",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          608.76,
+          520.4,
+          676.21
+        ],
+        "text": "Q25.\nWhich of the following is a protocol to gather information on network components to\nmanage and troubleshoot the network?"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          680.93,
+          503.44,
+          712.21
+        ],
+        "text": "a) NTP\nb) SMTP\nc) SNMP\nd) TELNET"
+      },
+      {
+        "type": "code",
+        "page": 14,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 14 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 26,
+    "question_text": "Q26. Which of the following is the way of using a phone to supply an Internet connection to\n other devices, such as a tablet or laptop computer over either Wi-Fi or Bluetooth?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Dedicated mobile hotspots"
+      },
+      {
+        "label": "b",
+        "text": "PPPoE"
+      },
+      {
+        "label": "c",
+        "text": "Tethering"
+      },
+      {
+        "label": "d",
+        "text": "UPnP"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q26)",
+    "source_pages": [
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q26. Which of the following is the way of using a phone to supply an Internet connection to\n other devices, such as a tablet or laptop computer over either Wi-Fi or Bluetooth?\n\n a) Dedicated mobile hotspots b) PPPoE\n c) Tethering d) UPnP",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          68.76,
+          526.8,
+          118.21
+        ],
+        "text": "Q26.\nWhich of the following is the way of using a phone to supply an Internet connection to\nother devices, such as a tablet or laptop computer over either Wi-Fi or Bluetooth?"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          122.93,
+          364.46,
+          172.21
+        ],
+        "text": "a) Dedicated mobile hotspots\nb) PPPoE\nc) Tethering\nd) UPnP"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 27,
+    "question_text": "Q27. Which of the following is an example of a phishing email?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "An email containing pop-up ads for products unrelated to the email"
+      },
+      {
+        "label": "b",
+        "text": "An email intercepted, altered, and successfully sent"
+      },
+      {
+        "label": "c",
+        "text": "An email with a link that automatically installs an application collecting and sending\n data to the remote server"
+      },
+      {
+        "label": "d",
+        "text": "An email with a link that redirects to a fake banking site"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q27)",
+    "source_pages": [
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q27. Which of the following is an example of a phishing email?\n\n a) An email containing pop-up ads for products unrelated to the email\n b) An email intercepted, altered, and successfully sent\n c) An email with a link that automatically installs an application collecting and sending\n data to the remote server\n d) An email with a link that redirects to a fake banking site",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          175.74,
+          392.44,
+          207.19
+        ],
+        "text": "Q27.\nWhich of the following is an example of a phishing email?"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          230.93,
+          511.75,
+          280.21
+        ],
+        "text": "a) An email containing pop-up ads for products unrelated to the email\nb) An email intercepted, altered, and successfully sent\nc) An email with a link that automatically installs an application collecting and sending"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          284.93,
+          374.7,
+          334.21
+        ],
+        "text": "data to the remote server\nd) An email with a link that redirects to a fake banking site"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 28,
+    "question_text": "Q28. Which of the following bitwise logical operation can be applied in stream cipher\n between a plain text and a keystream to produce a cipher text, and between a ciphertext and\n the keystream to recover the plaintext?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "AND"
+      },
+      {
+        "label": "b",
+        "text": "NAND"
+      },
+      {
+        "label": "c",
+        "text": "OR"
+      },
+      {
+        "label": "d",
+        "text": "XOR"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q28)",
+    "source_pages": [
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q28. Which of the following bitwise logical operation can be applied in stream cipher\n between a plain text and a keystream to produce a cipher text, and between a ciphertext and\n the keystream to recover the plaintext?\n\n a) AND b) NAND c) OR d) XOR",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          338.93,
+          528.24,
+          423.13
+        ],
+        "text": "Q28.\nWhich of the following bitwise logical operation can be applied in stream cipher\nbetween a plain text and a keystream to produce a cipher text, and between a ciphertext and\nthe keystream to recover the plaintext?"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          428.93,
+          489.41,
+          477.13
+        ],
+        "text": "a) AND\nb) NAND\nc) OR\nd) XOR"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 29,
+    "question_text": "Q29. Which of the following description is an appropriate use of asymmetric encryption to\n ensure the confidentiality of a message that a sender is going to send to a receiver?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "The message is encrypted using a pre-shared secret key."
+      },
+      {
+        "label": "b",
+        "text": "The message is encrypted using a private key of the sender."
+      },
+      {
+        "label": "c",
+        "text": "The message is encrypted using a public key of the receiver."
+      },
+      {
+        "label": "d",
+        "text": "The message is encrypted using a public key of the sender."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q29)",
+    "source_pages": [
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q29. Which of the following description is an appropriate use of asymmetric encryption to\n ensure the confidentiality of a message that a sender is going to send to a receiver?\n\n a) The message is encrypted using a pre-shared secret key.\n b) The message is encrypted using a private key of the sender.\n c) The message is encrypted using a public key of the receiver.\n d) The message is encrypted using a public key of the sender.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          482.76,
+          519.44,
+          532.15
+        ],
+        "text": "Q29.\nWhich of the following description is an appropriate use of asymmetric encryption to\nensure the confidentiality of a message that a sender is going to send to a receiver?"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          536.93,
+          394.74,
+          622.15
+        ],
+        "text": "a) The message is encrypted using a pre-shared secret key.\nb) The message is encrypted using a private key of the sender.\nc) The message is encrypted using a public key of the receiver.\nd) The message is encrypted using a public key of the sender."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 30,
+    "question_text": "Q30. Which type of attack involves intercepting communication between sender and\n receiver?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Brute Force Attack"
+      },
+      {
+        "label": "b",
+        "text": "Man-in-the-Middle Attack"
+      },
+      {
+        "label": "c",
+        "text": "Phishing Attack"
+      },
+      {
+        "label": "d",
+        "text": "Ransomware Attack"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q30)",
+    "source_pages": [
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q30. Which type of attack involves intercepting communication between sender and\n receiver?\n\n a) Brute Force Attack b) Man-in-the-Middle Attack\n c) Phishing Attack d) Ransomware Attack",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          626.76,
+          489.81,
+          676.21
+        ],
+        "text": "Q30.\nWhich type of attack involves intercepting communication between sender and\nreceiver?"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          698.93,
+          458.12,
+          730.21
+        ],
+        "text": "a) Brute Force Attack\nb) Man-in-the-Middle Attack\nc) Phishing Attack\nd) Ransomware Attack"
+      },
+      {
+        "type": "code",
+        "page": 15,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 15 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 31,
+    "question_text": "Q31. Which of the following refers to a technique that is used in a credential stuffing attack?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Focusing on the case where there are users that set a word from the dictionary as their\n password, selecting one (1) user ID as the target of the attack, and attempting to log in\n using words in the dictionary and their combinations as the password"
+      },
+      {
+        "label": "b",
+        "text": "Focusing on the case where there are users that use the same user ID and password on\n multiple websites, and attempting to log in using a list of user IDs and passwords\n fraudulently acquired from other websites"
+      },
+      {
+        "label": "c",
+        "text": "Selecting one (1) frequently used password, and attempting to log in by using user IDs\n of all possible combinations of characters"
+      },
+      {
+        "label": "d",
+        "text": "Selecting one (1) user ID as the target of the attack on a website that has a low maximum\n number of characters for passwords, and attempting to log in by using the user ID and\n passwords of all possible combinations of characters"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q31)",
+    "source_pages": [
+      16
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q31. Which of the following refers to a technique that is used in a credential stuffing attack?\n\n a) Focusing on the case where there are users that set a word from the dictionary as their\n password, selecting one (1) user ID as the target of the attack, and attempting to log in\n using words in the dictionary and their combinations as the password\n b) Focusing on the case where there are users that use the same user ID and password on\n multiple websites, and attempting to log in using a list of user IDs and passwords\n fraudulently acquired from other websites\n c) Selecting one (1) frequently used password, and attempting to log in by using user IDs\n of all possible combinations of characters\n d) Selecting one (1) user ID as the target of the attack on a website that has a low maximum\n number of characters for passwords, and attempting to log in by using the user ID and\n passwords of all possible combinations of characters",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          65.22,
+          67.74,
+          528.21,
+          81.19
+        ],
+        "text": "Q31.\nWhich of the following refers to a technique that is used in a credential stuffing attack?"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          86.93,
+          517.07,
+          118.21
+        ],
+        "text": "a) Focusing on the case where there are users that set a word from the dictionary as their"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          122.93,
+          519.02,
+          172.21
+        ],
+        "text": "password, selecting one (1) user ID as the target of the attack, and attempting to log in\nusing words in the dictionary and their combinations as the password\nb) Focusing on the case where there are users that use the same user ID and password on"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          176.93,
+          520.63,
+          226.21
+        ],
+        "text": "multiple websites, and attempting to log in using a list of user IDs and passwords\nfraudulently acquired from other websites\nc) Selecting one (1) frequently used password, and attempting to log in by using user IDs"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          230.93,
+          532.98,
+          262.21
+        ],
+        "text": "of all possible combinations of characters\nd) Selecting one (1) user ID as the target of the attack on a website that has a low maximum"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          65.22,
+          266.93,
+          517.56,
+          316.21
+        ],
+        "text": "number of characters for passwords, and attempting to log in by using the user ID and\npasswords of all possible combinations of characters"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 32,
+    "question_text": "Q32. Which of the following is the name of an attack where manipulation is made to display\n a malicious website near the top of the results on a search website?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Cross-site scripting"
+      },
+      {
+        "label": "b",
+        "text": "DNS cache poisoning"
+      },
+      {
+        "label": "c",
+        "text": "SEO poisoning"
+      },
+      {
+        "label": "d",
+        "text": "Social engineering"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q32)",
+    "source_pages": [
+      16
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q32. Which of the following is the name of an attack where manipulation is made to display\n a malicious website near the top of the results on a search website?\n\n a) Cross-site scripting b) DNS cache poisoning\n c) SEO poisoning d) Social engineering",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          65.22,
+          320.93,
+          527.78,
+          424.21
+        ],
+        "text": "Q32.\nWhich of the following is the name of an attack where manipulation is made to display\na malicious website near the top of the results on a search website?\n\na) Cross-site scripting\nb) DNS cache poisoning\nc) SEO poisoning\nd) Social engineering"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 33,
+    "question_text": "Q33. Which of the following is a function of security information and event management\n (SIEM)?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "The centralized control of a range of communication devices in a network, and the\n changing of network configuration and security settings"
+      },
+      {
+        "label": "b",
+        "text": "The execution of a file in an isolated virtual environment, and the monitoring of\n communication to a C&C server and other behavior"
+      },
+      {
+        "label": "c",
+        "text": "The general analysis of logs that are collected from a range of devices, and the support\n of analysis and action by an administrator"
+      },
+      {
+        "label": "d",
+        "text": "The inspection of header information in packets, the identification of application\n programs that receive communication, and the control of communication"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q33)",
+    "source_pages": [
+      16
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q33. Which of the following is a function of security information and event management\n (SIEM)?\n\n a) The centralized control of a range of communication devices in a network, and the\n changing of network configuration and security settings\n b) The execution of a file in an isolated virtual environment, and the monitoring of\n communication to a C&C server and other behavior\n c) The general analysis of logs that are collected from a range of devices, and the support\n of analysis and action by an administrator\n d) The inspection of header information in packets, the identification of application\n programs that receive communication, and the control of communication",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          65.22,
+          463.74,
+          501.32,
+          477.19
+        ],
+        "text": "Q33. Which of the following is a function of security information and event management"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          85.08,
+          481.85,
+          130.08,
+          495.13
+        ],
+        "text": "(SIEM)?"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          500.93,
+          501.06,
+          532.21
+        ],
+        "text": "a) The centralized control of a range of communication devices in a network, and the"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          536.93,
+          489.03,
+          568.21
+        ],
+        "text": "changing of network configuration and security settings\nb) The execution of a file in an isolated virtual environment, and the monitoring of"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          572.93,
+          520.96,
+          604.21
+        ],
+        "text": "communication to a C&C server and other behavior\nc) The general analysis of logs that are collected from a range of devices, and the support"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          608.93,
+          492.02,
+          640.21
+        ],
+        "text": "of analysis and action by an administrator\nd) The inspection of header information in packets, the identification of application"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          102.12,
+          644.93,
+          455.33,
+          658.21
+        ],
+        "text": "programs that receive communication, and the control of communication"
+      },
+      {
+        "type": "code",
+        "page": 16,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 16 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 34,
+    "question_text": "Q34. Which of the following is the UML behavioral diagram showing the behavior of a\n single object in response to triggers?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Activity diagram"
+      },
+      {
+        "label": "b",
+        "text": "Sequence diagram"
+      },
+      {
+        "label": "c",
+        "text": "State machine diagram"
+      },
+      {
+        "label": "d",
+        "text": "Use case diagram"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q34)",
+    "source_pages": [
+      17
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q34. Which of the following is the UML behavioral diagram showing the behavior of a\n single object in response to triggers?\n\n a) Activity diagram b) Sequence diagram\n c) State machine diagram d) Use case diagram",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          65.22,
+          68.76,
+          504.59,
+          100.21
+        ],
+        "text": "Q34.\nWhich of the following is the UML behavioral diagram showing the behavior of a\nsingle object in response to triggers?"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          122.93,
+          418.79,
+          154.36
+        ],
+        "text": "a) Activity diagram\nb) Sequence diagram\nc) State machine diagram\nd) Use case diagram"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 35,
+    "question_text": "Q35. In object-oriented programming, which of the following is abstraction?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Concealing implementation details and exposing only a simplified interface for\n interacting with objects"
+      },
+      {
+        "label": "b",
+        "text": "Creating a subclass instance inheriting attributes and behaviors from its superclass"
+      },
+      {
+        "label": "c",
+        "text": "Defining multiple methods with the same name but different parameters"
+      },
+      {
+        "label": "d",
+        "text": "Redefining in the child class a method that is already provided by the superclass with the\n same name and parameters but a different implementation"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q35)",
+    "source_pages": [
+      17
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q35. In object-oriented programming, which of the following is abstraction?\n\n a) Concealing implementation details and exposing only a simplified interface for\n interacting with objects\n b) Creating a subclass instance inheriting attributes and behaviors from its superclass\n c) Defining multiple methods with the same name but different parameters\n d) Redefining in the child class a method that is already provided by the superclass with the\n same name and parameters but a different implementation",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          65.22,
+          176.76,
+          451.85,
+          207.19
+        ],
+        "text": "Q35.\nIn object-oriented programming, which of the following is abstraction?"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          230.93,
+          485.43,
+          244.21
+        ],
+        "text": "a) Concealing implementation details and exposing only a simplified interface for"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          248.93,
+          532.11,
+          316.21
+        ],
+        "text": "interacting with objects\nb) Creating a subclass instance inheriting attributes and behaviors from its superclass\nc) Defining multiple methods with the same name but different parameters\nd) Redefining in the child class a method that is already provided by the superclass with the"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          320.93,
+          390.03,
+          352.21
+        ],
+        "text": "same name and parameters but a different implementation"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 36,
+    "question_text": "Q36. Which of the following is an appropriate description of “delegation” in object\n orientation?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A mechanism that creates one (1) new object using multiple objects as its parts"
+      },
+      {
+        "label": "b",
+        "text": "A mechanism where a lower-level class inherits the attribute or operation of a higher-level class"
+      },
+      {
+        "label": "c",
+        "text": "A mechanism where an application of an operation to a certain object automatically\n causes the application of that operation to related objects"
+      },
+      {
+        "label": "d",
+        "text": "A mechanism where an operation to a certain object is internally requested to be\n performed by another object"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q36)",
+    "source_pages": [
+      17
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q36. Which of the following is an appropriate description of “delegation” in object\n orientation?\n\n a) A mechanism that creates one (1) new object using multiple objects as its parts\n b) A mechanism where a lower-level class inherits the attribute or operation of a higher-level class\n c) A mechanism where an application of an operation to a certain object automatically\n causes the application of that operation to related objects\n d) A mechanism where an operation to a certain object is internally requested to be\n performed by another object",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          65.22,
+          356.76,
+          483.19,
+          406.21
+        ],
+        "text": "Q36.\nWhich of the following is an appropriate description of “delegation” in object\norientation?"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          430.91,
+          513.07,
+          462.19
+        ],
+        "text": "a) A mechanism that creates one (1) new object using multiple objects as its parts\nb) A mechanism where a lower-level class inherits the attribute or operation of a higher-"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          466.91,
+          507.19,
+          498.19
+        ],
+        "text": "level class\nc) A mechanism where an application of an operation to a certain object automatically"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          502.91,
+          490.74,
+          534.19
+        ],
+        "text": "causes the application of that operation to related objects\nd) A mechanism where an operation to a certain object is internally requested to be"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          65.22,
+          538.91,
+          241.47,
+          570.19
+        ],
+        "text": "performed by another object"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 37,
+    "question_text": "Q37. In unit testing, which of the following activities is part of white box testing?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Boundary value analysis"
+      },
+      {
+        "label": "b",
+        "text": "Condition testing"
+      },
+      {
+        "label": "c",
+        "text": "Equivalence partitioning"
+      },
+      {
+        "label": "d",
+        "text": "Orthogonal array testing"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q37)",
+    "source_pages": [
+      17
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q37. In unit testing, which of the following activities is part of white box testing?\n\n a) Boundary value analysis b) Condition testing\n c) Equivalence partitioning d) Orthogonal array testing",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          65.22,
+          575.26,
+          475.38,
+          605.17
+        ],
+        "text": "Q37.\nIn unit testing, which of the following activities is part of white box testing?"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          628.91,
+          447.79,
+          660.19
+        ],
+        "text": "a) Boundary value analysis\nb) Condition testing\nc) Equivalence partitioning\nd) Orthogonal array testing"
+      },
+      {
+        "type": "code",
+        "page": 17,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 17 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 38,
+    "question_text": "Q38. Which of the following is the appropriate explanation of a stub or a driver used in a test?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A driver is a module that is called from the module to be tested"
+      },
+      {
+        "label": "b",
+        "text": "A driver passes arguments and calls the module to be tested"
+      },
+      {
+        "label": "c",
+        "text": "A stub is a module used to call the module to be tested"
+      },
+      {
+        "label": "d",
+        "text": "A stub is used to display or print the values returned from the module to be tested"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q38)",
+    "source_pages": [
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q38. Which of the following is the appropriate explanation of a stub or a driver used in a test?\n\n a) A driver is a module that is called from the module to be tested\n b) A driver passes arguments and calls the module to be tested\n c) A stub is a module used to call the module to be tested\n d) A stub is used to display or print the values returned from the module to be tested",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          67.74,
+          533.08,
+          81.19
+        ],
+        "text": "Q38.\nWhich of the following is the appropriate explanation of a stub or a driver used in a test?"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          84.12,
+          86.93,
+          496.35,
+          172.21
+        ],
+        "text": "a) A driver is a module that is called from the module to be tested\nb) A driver passes arguments and calls the module to be tested\nc) A stub is a module used to call the module to be tested\nd) A stub is used to display or print the values returned from the module to be tested"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 39,
+    "question_text": "Q39. Scrum is an agile development method. In Scrum, which of the following is an event\n where each member of the development team talks in turn about topics such as “things I did\n yesterday,” “things I will do today,” and “obstacles,” and all members share the status of a\n project?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Daily Scrum"
+      },
+      {
+        "label": "b",
+        "text": "Retrospective"
+      },
+      {
+        "label": "c",
+        "text": "Sprint planning"
+      },
+      {
+        "label": "d",
+        "text": "Sprint review"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q39)",
+    "source_pages": [
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q39. Scrum is an agile development method. In Scrum, which of the following is an event\n where each member of the development team talks in turn about topics such as “things I did\n yesterday,” “things I will do today,” and “obstacles,” and all members share the status of a\n project?\n\n a) Daily Scrum b) Retrospective\n c) Sprint planning d) Sprint review",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          194.93,
+          529.98,
+          280.21
+        ],
+        "text": "Q39.\nScrum is an agile development method. In Scrum, which of the following is an event\nwhere each member of the development team talks in turn about topics such as “things I did\nyesterday,” “things I will do today,” and “obstacles,” and all members share the status of a\nproject?"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          284.93,
+          396.5,
+          352.21
+        ],
+        "text": "a) Daily Scrum\nb) Retrospective\nc) Sprint planning\nd) Sprint review"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 40,
+    "question_text": "Q40. Among eXtreme Programming (XP) practices, which of the following is adopted to\n improve program quality in program development through smooth communication between\n programmers by exchanging their roles and reviewing each other’s work?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Coding standard"
+      },
+      {
+        "label": "b",
+        "text": "Pair programming"
+      },
+      {
+        "label": "c",
+        "text": "Planning game"
+      },
+      {
+        "label": "d",
+        "text": "Test-driven development"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q40)",
+    "source_pages": [
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q40. Among eXtreme Programming (XP) practices, which of the following is adopted to\n improve program quality in program development through smooth communication between\n programmers by exchanging their roles and reviewing each other’s work?\n\n a) Coding standard b) Pair programming\n c) Planning game d) Test-driven development",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          374.76,
+          504.96,
+          388.21
+        ],
+        "text": "Q40. Among eXtreme Programming (XP) practices, which of the following is adopted to"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          85.2,
+          392.93,
+          528.97,
+          441.13
+        ],
+        "text": "improve program quality in program development through smooth communication between\nprogrammers by exchanging their roles and reviewing each other’s work?"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          446.93,
+          450.85,
+          513.13
+        ],
+        "text": "a) Coding standard\nb) Pair programming\nc) Planning game\nd) Test-driven development"
+      },
+      {
+        "type": "code",
+        "page": 18,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 18 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 41,
+    "question_text": "Q41. Which of the following is an appropriate purpose for using a Work Breakdown\n Structure (WBS) in a software development project?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "To clarify the sequence relation of activities and understand the critical path that should\n be intensively managed"
+      },
+      {
+        "label": "b",
+        "text": "To hierarchically detail activities and segment them into a manageable scale"
+      },
+      {
+        "label": "c",
+        "text": "To optimize the total cost when there is a trade-off between the duration and the cost of\n development"
+      },
+      {
+        "label": "d",
+        "text": "To represent the schedule of an activity with a horizontal bar, and clarify the start time\n and end time of the activity as well as the progress at the present point in time"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q41)",
+    "source_pages": [
+      19
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q41. Which of the following is an appropriate purpose for using a Work Breakdown\n Structure (WBS) in a software development project?\n\n a) To clarify the sequence relation of activities and understand the critical path that should\n be intensively managed\n b) To hierarchically detail activities and segment them into a manageable scale\n c) To optimize the total cost when there is a trade-off between the duration and the cost of\n development\n d) To represent the schedule of an activity with a horizontal bar, and clarify the start time\n and end time of the activity as well as the progress at the present point in time",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          68.76,
+          489.43,
+          117.13
+        ],
+        "text": "Q41.\nWhich of the following is an appropriate purpose for using a Work Breakdown\nStructure (WBS) in a software development project?"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          122.93,
+          525.99,
+          136.21
+        ],
+        "text": "a) To clarify the sequence relation of activities and understand the critical path that should"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          140.93,
+          525.02,
+          190.21
+        ],
+        "text": "be intensively managed\nb) To hierarchically detail activities and segment them into a manageable scale\nc) To optimize the total cost when there is a trade-off between the duration and the cost of"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          194.93,
+          520.27,
+          226.21
+        ],
+        "text": "development\nd) To represent the schedule of an activity with a horizontal bar, and clarify the start time"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          102.12,
+          230.93,
+          479.02,
+          244.21
+        ],
+        "text": "and end time of the activity as well as the progress at the present point in time"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 42,
+    "question_text": "Q42. Which of the following is an appropriate explanation concerning the scope creep in\n project scope management?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A hierarchical decomposition of the total scope of work to be carried out by the project\n team to accomplish the project objectives and create the required deliverables"
+      },
+      {
+        "label": "b",
+        "text": "Any change to the project scope, which almost consistently requires an adjustment to the\n project cost or schedule"
+      },
+      {
+        "label": "c",
+        "text": "The sum of the products, services, and results to be provided as a project"
+      },
+      {
+        "label": "d",
+        "text": "The uncontrolled expansion of product or project scope without adjustments to time,\n cost, and resources"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q42)",
+    "source_pages": [
+      19
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q42. Which of the following is an appropriate explanation concerning the scope creep in\n project scope management?\n\n a) A hierarchical decomposition of the total scope of work to be carried out by the project\n team to accomplish the project objectives and create the required deliverables\n b) Any change to the project scope, which almost consistently requires an adjustment to the\n project cost or schedule\n c) The sum of the products, services, and results to be provided as a project\n d) The uncontrolled expansion of product or project scope without adjustments to time,\n cost, and resources",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          283.74,
+          533.16,
+          315.13
+        ],
+        "text": "Q42.\nWhich of the following is an appropriate explanation concerning the scope creep in\nproject scope management?"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          338.93,
+          523.26,
+          352.21
+        ],
+        "text": "a) A hierarchical decomposition of the total scope of work to be carried out by the project"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          356.93,
+          531.77,
+          388.21
+        ],
+        "text": "team to accomplish the project objectives and create the required deliverables\nb) Any change to the project scope, which almost consistently requires an adjustment to the"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          392.93,
+          512.0,
+          442.21
+        ],
+        "text": "project cost or schedule\nc) The sum of the products, services, and results to be provided as a project\nd) The uncontrolled expansion of product or project scope without adjustments to time,"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          446.93,
+          196.93,
+          478.21
+        ],
+        "text": "cost, and resources"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 43,
+    "question_text": "Q43. Which of the following is a requirement for service level management?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A capacity plan is created, implemented, and maintained while human, technical,\n informational, and financial resources are considered."
+      },
+      {
+        "label": "b",
+        "text": "A service catalog and SLA are created for the service to be provided, and they are\n agreed upon with the customer."
+      },
+      {
+        "label": "c",
+        "text": "Costs are monitored and reported against the budget; the financial forecasts are\n reviewed, and costs are managed."
+      },
+      {
+        "label": "d",
+        "text": "Risks to service continuity and availability of services are assessed and documented."
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q43)",
+    "source_pages": [
+      19
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q43. Which of the following is a requirement for service level management?\n\n a) A capacity plan is created, implemented, and maintained while human, technical,\n informational, and financial resources are considered.\n b) A service catalog and SLA are created for the service to be provided, and they are\n agreed upon with the customer.\n c) Costs are monitored and reported against the budget; the financial forecasts are\n reviewed, and costs are managed.\n d) Risks to service continuity and availability of services are assessed and documented.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          482.76,
+          495.08,
+          550.21
+        ],
+        "text": "Q43.\nWhich of the following is a requirement for service level management?\n\na) A capacity plan is created, implemented, and maintained while human, technical,"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          554.93,
+          498.31,
+          586.21
+        ],
+        "text": "informational, and financial resources are considered.\nb) A service catalog and SLA are created for the service to be provided, and they are"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          590.93,
+          484.72,
+          622.21
+        ],
+        "text": "agreed upon with the customer.\nc) Costs are monitored and reported against the budget; the financial forecasts are"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          626.93,
+          510.94,
+          676.15
+        ],
+        "text": "reviewed, and costs are managed.\nd) Risks to service continuity and availability of services are assessed and documented."
+      },
+      {
+        "type": "code",
+        "page": 19,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 19 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 44,
+    "question_text": "Q44. A device that operates 24 hours a day, 360 days a year has an MTBF value of 1,440\n hours. Which of the following is the average number of failures for this device for 360 days?\n Here, the result is rounded to the closest whole number, and the MTTR of the device is\n ignored.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "3"
+      },
+      {
+        "label": "b",
+        "text": "6"
+      },
+      {
+        "label": "c",
+        "text": "9"
+      },
+      {
+        "label": "d",
+        "text": "12"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q44)",
+    "source_pages": [
+      20
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q44. A device that operates 24 hours a day, 360 days a year has an MTBF value of 1,440\n hours. Which of the following is the average number of failures for this device for 360 days?\n Here, the result is rounded to the closest whole number, and the MTTR of the device is\n ignored.\n\n a) 3 b) 6 c) 9 d) 12",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          65.22,
+          68.76,
+          533.12,
+          136.21
+        ],
+        "text": "Q44.\nA device that operates 24 hours a day, 360 days a year has an MTBF value of 1,440\nhours. Which of the following is the average number of failures for this device for 360 days?\nHere, the result is rounded to the closest whole number, and the MTTR of the device is\nignored."
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          65.22,
+          158.93,
+          470.1,
+          190.15
+        ],
+        "text": "a) 3\nb) 6\nc) 9\nd) 12"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 45,
+    "question_text": "Q45. Which of the following is the most appropriate description of a system auditor?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "The entire audit interview must be conducted by one (1) system auditor, because\n discrepancies may occur in the record if multiple auditors are involved."
+      },
+      {
+        "label": "b",
+        "text": "The system auditor must instruct the department being audited to implement\n improvement measures for deficiencies identified during the audit interview."
+      },
+      {
+        "label": "c",
+        "text": "The system auditor must make an effort to obtain documents and records that support the\n information obtained from the department being audited during the audit interview."
+      },
+      {
+        "label": "d",
+        "text": "The system auditor must select audit interviewees from administrators who have been an\n auditor within the department being audited."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q45)",
+    "source_pages": [
+      20
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q45. Which of the following is the most appropriate description of a system auditor?\n\n a) The entire audit interview must be conducted by one (1) system auditor, because\n discrepancies may occur in the record if multiple auditors are involved.\n b) The system auditor must instruct the department being audited to implement\n improvement measures for deficiencies identified during the audit interview.\n c) The system auditor must make an effort to obtain documents and records that support the\n information obtained from the department being audited during the audit interview.\n d) The system auditor must select audit interviewees from administrators who have been an\n auditor within the department being audited.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          65.22,
+          194.76,
+          492.08,
+          262.21
+        ],
+        "text": "Q45.\nWhich of the following is the most appropriate description of a system auditor?\n\na) The entire audit interview must be conducted by one (1) system auditor, because"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          266.93,
+          471.77,
+          298.21
+        ],
+        "text": "discrepancies may occur in the record if multiple auditors are involved.\nb) The system auditor must instruct the department being audited to implement"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          302.93,
+          532.96,
+          334.21
+        ],
+        "text": "improvement measures for deficiencies identified during the audit interview.\nc) The system auditor must make an effort to obtain documents and records that support the"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          338.93,
+          531.69,
+          370.21
+        ],
+        "text": "information obtained from the department being audited during the audit interview.\nd) The system auditor must select audit interviewees from administrators who have been an"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          102.12,
+          374.93,
+          318.43,
+          388.21
+        ],
+        "text": "auditor within the department being audited."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 46,
+    "question_text": "Q46. Which of the following is an explanation of an application architecture that constitutes\n enterprise architecture?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "It systematically describes the business processes or the information flows necessary for\n the business strategy."
+      },
+      {
+        "label": "b",
+        "text": "It systematically describes the contents of the data necessary for business operations, the\n relations or structures between the data, etc."
+      },
+      {
+        "label": "c",
+        "text": "It systematically describes the functions or system configurations that support business\n processes."
+      },
+      {
+        "label": "d",
+        "text": "It systematically describes the technical components necessary for the developments and\n operations of the information systems."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q46)",
+    "source_pages": [
+      20
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q46. Which of the following is an explanation of an application architecture that constitutes\n enterprise architecture?\n\n a) It systematically describes the business processes or the information flows necessary for\n the business strategy.\n b) It systematically describes the contents of the data necessary for business operations, the\n relations or structures between the data, etc.\n c) It systematically describes the functions or system configurations that support business\n processes.\n d) It systematically describes the technical components necessary for the developments and\n operations of the information systems.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          65.22,
+          428.76,
+          528.7,
+          496.21
+        ],
+        "text": "Q46.\nWhich of the following is an explanation of an application architecture that constitutes\nenterprise architecture?\n\na) It systematically describes the business processes or the information flows necessary for"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          500.93,
+          530.0,
+          532.21
+        ],
+        "text": "the business strategy.\nb) It systematically describes the contents of the data necessary for business operations, the"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          536.93,
+          522.4,
+          568.21
+        ],
+        "text": "relations or structures between the data, etc.\nc) It systematically describes the functions or system configurations that support business"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          572.93,
+          530.96,
+          604.21
+        ],
+        "text": "processes.\nd) It systematically describes the technical components necessary for the developments and"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          102.12,
+          608.93,
+          289.42,
+          622.21
+        ],
+        "text": "operations of the information systems."
+      },
+      {
+        "type": "code",
+        "page": 20,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 20 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 47,
+    "question_text": "Q47. Which of the following is a description of the SOA?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A concept of constructing a system by considering the software functions as components\n called services and combining them"
+      },
+      {
+        "label": "b",
+        "text": "A concept of improving sales efficiency and quality by using IT for sales activities to\n increase sales and profits as well as to improve customer satisfaction"
+      },
+      {
+        "label": "c",
+        "text": "A concept of re-designing the business processes to innovatively improve the cost,\n quality, service, and speed"
+      },
+      {
+        "label": "d",
+        "text": "Outsourcing the in-house operations that are not part of the core businesses to\n concentrate the management resources on the core businesses"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q47)",
+    "source_pages": [
+      21
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q47. Which of the following is a description of the SOA?\n\n a) A concept of constructing a system by considering the software functions as components\n called services and combining them\n b) A concept of improving sales efficiency and quality by using IT for sales activities to\n increase sales and profits as well as to improve customer satisfaction\n c) A concept of re-designing the business processes to innovatively improve the cost,\n quality, service, and speed\n d) Outsourcing the in-house operations that are not part of the core businesses to\n concentrate the management resources on the core businesses",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          67.74,
+          361.06,
+          99.13
+        ],
+        "text": "Q47.\nWhich of the following is a description of the SOA?"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          104.93,
+          531.69,
+          118.21
+        ],
+        "text": "a) A concept of constructing a system by considering the software functions as components"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          122.93,
+          514.36,
+          154.21
+        ],
+        "text": "called services and combining them\nb) A concept of improving sales efficiency and quality by using IT for sales activities to"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          158.93,
+          501.63,
+          190.21
+        ],
+        "text": "increase sales and profits as well as to improve customer satisfaction\nc) A concept of re-designing the business processes to innovatively improve the cost,"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          194.93,
+          478.42,
+          226.21
+        ],
+        "text": "quality, service, and speed\nd) Outsourcing the in-house operations that are not part of the core businesses to"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          102.12,
+          230.93,
+          406.71,
+          244.21
+        ],
+        "text": "concentrate the management resources on the core businesses"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 48,
+    "question_text": "Q48. Which of the following is the work that is performed when non-functional requirements\n are defined?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Clarifying the flow of information (i.e., data) between the functions constituting business\n operations"
+      },
+      {
+        "label": "b",
+        "text": "Clarifying the interface for exchanging information with other systems"
+      },
+      {
+        "label": "c",
+        "text": "Creating the technical requirements for the development criteria and standards according\n to the programming language used in system development"
+      },
+      {
+        "label": "d",
+        "text": "Defining the scope to be implemented as system functions"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q48)",
+    "source_pages": [
+      21
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q48. Which of the following is the work that is performed when non-functional requirements\n are defined?\n\n a) Clarifying the flow of information (i.e., data) between the functions constituting business\n operations\n b) Clarifying the interface for exchanging information with other systems\n c) Creating the technical requirements for the development criteria and standards according\n to the programming language used in system development\n d) Defining the scope to be implemented as system functions",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          265.74,
+          533.19,
+          315.13
+        ],
+        "text": "Q48.\nWhich of the following is the work that is performed when non-functional requirements\nare defined?"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          338.93,
+          533.06,
+          352.21
+        ],
+        "text": "a) Clarifying the flow of information (i.e., data) between the functions constituting business"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          356.93,
+          531.62,
+          406.21
+        ],
+        "text": "operations\nb) Clarifying the interface for exchanging information with other systems\nc) Creating the technical requirements for the development criteria and standards according"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          410.93,
+          391.42,
+          460.21
+        ],
+        "text": "to the programming language used in system development\nd) Defining the scope to be implemented as system functions"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 49,
+    "question_text": "Q49. Which of the following is an explanation of diversity management?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Both labor and management to reach an agreement on working conditions and work\n together with the aim of increasing profits"
+      },
+      {
+        "label": "b",
+        "text": "For employees to harmonize between work and private life, approach their work with a\n sense of purpose, and increase the vitality of the organization"
+      },
+      {
+        "label": "c",
+        "text": "For employees to take an autonomous approach to work with the aim of achieving the\n objectives that they set for themselves and be evaluated according to the degree of\n achievement"
+      },
+      {
+        "label": "d",
+        "text": "To increase the vitality of the organization by respecting the diversity among its\n employees in terms of aspects such as gender, age, and nationality"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q49)",
+    "source_pages": [
+      21
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q49. Which of the following is an explanation of diversity management?\n\n a) Both labor and management to reach an agreement on working conditions and work\n together with the aim of increasing profits\n b) For employees to harmonize between work and private life, approach their work with a\n sense of purpose, and increase the vitality of the organization\n c) For employees to take an autonomous approach to work with the aim of achieving the\n objectives that they set for themselves and be evaluated according to the degree of\n achievement\n d) To increase the vitality of the organization by respecting the diversity among its\n employees in terms of aspects such as gender, age, and nationality",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          481.74,
+          434.46,
+          495.19
+        ],
+        "text": "Q49.\nWhich of the following is an explanation of diversity management?"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          518.93,
+          508.37,
+          532.21
+        ],
+        "text": "a) Both labor and management to reach an agreement on working conditions and work"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          536.93,
+          523.63,
+          568.21
+        ],
+        "text": "together with the aim of increasing profits\nb) For employees to harmonize between work and private life, approach their work with a"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          572.93,
+          517.65,
+          604.21
+        ],
+        "text": "sense of purpose, and increase the vitality of the organization\nc) For employees to take an autonomous approach to work with the aim of achieving the"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          608.93,
+          499.99,
+          658.21
+        ],
+        "text": "objectives that they set for themselves and be evaluated according to the degree of\nachievement\nd) To increase the vitality of the organization by respecting the diversity among its"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          662.93,
+          422.86,
+          711.13
+        ],
+        "text": "employees in terms of aspects such as gender, age, and nationality"
+      },
+      {
+        "type": "code",
+        "page": 21,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 21 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 50,
+    "question_text": "Q50. In innovation theory, consumers are classified into five (5) groups innovators, early\n adopters, early majority, late majority, and laggards according to the timing of their\n purchase of a new product. Which of the following is the appropriate explanation of the\n early adopters?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A group that accepts a new product, service, or other such offering at an early phase, has\n a large impact on consumers, is sensitive to trends, and makes decisions after collecting\n information themselves"
+      },
+      {
+        "label": "b",
+        "text": "A group that accepts a new product, service, or other such offering at the soonest phase\n without worrying about risks"
+      },
+      {
+        "label": "c",
+        "text": "A group that is skeptical about the adoption of a new product or new technology and\n only adopts it after seeing it being adopted by most people around them"
+      },
+      {
+        "label": "d",
+        "text": "A group that is the most conservative, has limited interest in movements in society and\n tends to adopt new trends only after they become common or, in some cases, remains\n firm in refusing their adoption"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q50)",
+    "source_pages": [
+      22
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q50. In innovation theory, consumers are classified into five (5) groups innovators, early\n adopters, early majority, late majority, and laggards according to the timing of their\n purchase of a new product. Which of the following is the appropriate explanation of the\n early adopters?\n\n a) A group that accepts a new product, service, or other such offering at an early phase, has\n a large impact on consumers, is sensitive to trends, and makes decisions after collecting\n information themselves\n b) A group that accepts a new product, service, or other such offering at the soonest phase\n without worrying about risks\n c) A group that is skeptical about the adoption of a new product or new technology and\n only adopts it after seeing it being adopted by most people around them\n d) A group that is the most conservative, has limited interest in movements in society and\n tends to adopt new trends only after they become common or, in some cases, remains\n firm in refusing their adoption",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          65.22,
+          68.76,
+          511.22,
+          136.21
+        ],
+        "text": "Q50.\nIn innovation theory, consumers are classified into five (5) groups innovators, early\nadopters, early majority, late majority, and laggards according to the timing of their\npurchase of a new product. Which of the following is the appropriate explanation of the\nearly adopters?"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          140.93,
+          530.68,
+          172.21
+        ],
+        "text": "a) A group that accepts a new product, service, or other such offering at an early phase, has"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          176.93,
+          526.1,
+          226.21
+        ],
+        "text": "a large impact on consumers, is sensitive to trends, and makes decisions after collecting\ninformation themselves\nb) A group that accepts a new product, service, or other such offering at the soonest phase"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          230.93,
+          511.31,
+          262.21
+        ],
+        "text": "without worrying about risks\nc) A group that is skeptical about the adoption of a new product or new technology and"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          266.93,
+          522.09,
+          298.21
+        ],
+        "text": "only adopts it after seeing it being adopted by most people around them\nd) A group that is the most conservative, has limited interest in movements in society and"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          65.22,
+          302.93,
+          515.03,
+          352.21
+        ],
+        "text": "tends to adopt new trends only after they become common or, in some cases, remains\nfirm in refusing their adoption"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 51,
+    "question_text": "Q51. Which of the following is a definition of Customer Relationship Management (CRM)?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A framework used to support and integrate processes, people, and information across an\n organization to provide a unified gateway for information and a knowledge base for\n employees, partners, and customers"
+      },
+      {
+        "label": "b",
+        "text": "A technology for managing all of a company’s relationships and interactions with\n customers and potential customers in order to improve business relationships"
+      },
+      {
+        "label": "c",
+        "text": "A type of software that organizations use to manage day-to-day business activities such\n as accounting, procurement, project management, risk management and compliance, and\n supply chain operations"
+      },
+      {
+        "label": "d",
+        "text": "The broad range of activities required to plan, control, and execute a product's flow,\n from acquiring raw materials and production through distribution to the final customer,\n in the most streamlined and cost-effective way possible"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q51)",
+    "source_pages": [
+      22
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q51. Which of the following is a definition of Customer Relationship Management (CRM)?\n\n a) A framework used to support and integrate processes, people, and information across an\n organization to provide a unified gateway for information and a knowledge base for\n employees, partners, and customers\n b) A technology for managing all of a company’s relationships and interactions with\n customers and potential customers in order to improve business relationships\n c) A type of software that organizations use to manage day-to-day business activities such\n as accounting, procurement, project management, risk management and compliance, and\n supply chain operations\n d) The broad range of activities required to plan, control, and execute a product's flow,\n from acquiring raw materials and production through distribution to the final customer,\n in the most streamlined and cost-effective way possible",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          65.22,
+          373.74,
+          526.4,
+          387.19
+        ],
+        "text": "Q51.\nWhich of the following is a definition of Customer Relationship Management (CRM)?"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          410.93,
+          528.38,
+          424.21
+        ],
+        "text": "a) A framework used to support and integrate processes, people, and information across an"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          428.93,
+          507.8,
+          478.21
+        ],
+        "text": "organization to provide a unified gateway for information and a knowledge base for\nemployees, partners, and customers\nb) A technology for managing all of a company’s relationships and interactions with"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          482.93,
+          525.03,
+          514.21
+        ],
+        "text": "customers and potential customers in order to improve business relationships\nc) A type of software that organizations use to manage day-to-day business activities such"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          518.93,
+          531.27,
+          568.21
+        ],
+        "text": "as accounting, procurement, project management, risk management and compliance, and\nsupply chain operations\nd) The broad range of activities required to plan, control, and execute a product's flow,"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          102.12,
+          572.93,
+          523.81,
+          604.21
+        ],
+        "text": "from acquiring raw materials and production through distribution to the final customer,\nin the most streamlined and cost-effective way possible"
+      },
+      {
+        "type": "code",
+        "page": 22,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 22 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 52,
+    "question_text": "Q52. Which of the following is an appropriate explanation of concurrent engineering?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A product development technique that sequentially executes processes, such as design,\n manufacturing, and sales activities"
+      },
+      {
+        "label": "b",
+        "text": "A technique that analyzes a target system and clarifies its specifications"
+      },
+      {
+        "label": "c",
+        "text": "A technique that executes processes, such as design and production planning, in parallel\n with product development"
+      },
+      {
+        "label": "d",
+        "text": "A technique that grasps the optimal combination of functions and costs and improves\n value through systematic procedures"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q52)",
+    "source_pages": [
+      23
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q52. Which of the following is an appropriate explanation of concurrent engineering?\n\n a) A product development technique that sequentially executes processes, such as design,\n manufacturing, and sales activities\n b) A technique that analyzes a target system and clarifies its specifications\n c) A technique that executes processes, such as design and production planning, in parallel\n with product development\n d) A technique that grasps the optimal combination of functions and costs and improves\n value through systematic procedures",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          65.22,
+          68.76,
+          496.54,
+          82.21
+        ],
+        "text": "Q52.\nWhich of the following is an appropriate explanation of concurrent engineering?"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          84.12,
+          104.93,
+          521.64,
+          118.21
+        ],
+        "text": "a) A product development technique that sequentially executes processes, such as design,"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          84.12,
+          122.93,
+          527.69,
+          172.21
+        ],
+        "text": "manufacturing, and sales activities\nb) A technique that analyzes a target system and clarifies its specifications\nc) A technique that executes processes, such as design and production planning, in parallel"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          84.12,
+          176.93,
+          514.4,
+          208.21
+        ],
+        "text": "with product development\nd) A technique that grasps the optimal combination of functions and costs and improves"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          65.22,
+          212.93,
+          286.7,
+          244.21
+        ],
+        "text": "value through systematic procedures"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 53,
+    "question_text": "Q53. Which of the following is one of the main characteristics of a blockchain?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A centralized ledger on a server"
+      },
+      {
+        "label": "b",
+        "text": "A client-server network"
+      },
+      {
+        "label": "c",
+        "text": "A distributed ledger on a peer-to-peer network"
+      },
+      {
+        "label": "d",
+        "text": "A type of cryptocurrency"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q53)",
+    "source_pages": [
+      23
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q53. Which of the following is one of the main characteristics of a blockchain?\n\n a) A centralized ledger on a server\n b) A client-server network\n c) A distributed ledger on a peer-to-peer network\n d) A type of cryptocurrency",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          65.22,
+          265.74,
+          465.33,
+          279.19
+        ],
+        "text": "Q53.\nWhich of the following is one of the main characteristics of a blockchain?"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          65.22,
+          302.93,
+          328.36,
+          387.13
+        ],
+        "text": "a) A centralized ledger on a server\nb) A client-server network\nc) A distributed ledger on a peer-to-peer network\nd) A type of cryptocurrency"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 54,
+    "question_text": "Q54. Which of the following is the situation where an improvement can be expected by\n installing a Material Requirements Planning (MRP) system?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Drawing information is managed on both electronic files and hard copies, so the history\n of design changes cannot be accurately traced."
+      },
+      {
+        "label": "b",
+        "text": "High-mix, low-volume production is adopted, so the cost of installing production\n equipment is increasing."
+      },
+      {
+        "label": "c",
+        "text": "Information about materials and quantities necessary for production is complicated, so\n a miscalculation of order quantity or an interruption of production often occurs."
+      },
+      {
+        "label": "d",
+        "text": "There are too many design changes, so production efficiency does not improve."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q54)",
+    "source_pages": [
+      23
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q54. Which of the following is the situation where an improvement can be expected by\n installing a Material Requirements Planning (MRP) system?\n\n a) Drawing information is managed on both electronic files and hard copies, so the history\n of design changes cannot be accurately traced.\n b) High-mix, low-volume production is adopted, so the cost of installing production\n equipment is increasing.\n c) Information about materials and quantities necessary for production is complicated, so\n a miscalculation of order quantity or an interruption of production often occurs.\n d) There are too many design changes, so production efficiency does not improve.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          65.22,
+          392.93,
+          503.85,
+          460.21
+        ],
+        "text": "Q54.\nWhich of the following is the situation where an improvement can be expected by\ninstalling a Material Requirements Planning (MRP) system?"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          91.98,
+          464.93,
+          533.09,
+          478.21
+        ],
+        "text": "a) Drawing information is managed on both electronic files and hard copies, so the history"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          91.98,
+          482.93,
+          533.09,
+          514.21
+        ],
+        "text": "of design changes cannot be accurately traced.\nb) High-mix, low-volume production is adopted, so the cost of installing production"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          91.98,
+          518.93,
+          533.13,
+          550.21
+        ],
+        "text": "equipment is increasing.\nc) Information about materials and quantities necessary for production is complicated, so"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          65.22,
+          554.93,
+          501.43,
+          604.21
+        ],
+        "text": "a miscalculation of order quantity or an interruption of production often occurs.\nd) There are too many design changes, so production efficiency does not improve."
+      },
+      {
+        "type": "code",
+        "page": 23,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 23 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 55,
+    "question_text": "Q55. Which of the following is the objects that can benefit from the cell production method?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Products that require a wide variety and flexible production"
+      },
+      {
+        "label": "b",
+        "text": "Products that require division of labor by standardization, simplification, and\n specialization"
+      },
+      {
+        "label": "c",
+        "text": "Products that require mass production to increase productivity"
+      },
+      {
+        "label": "d",
+        "text": "Products whose specifications do not change for a long period"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q55)",
+    "source_pages": [
+      24
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q55. Which of the following is the objects that can benefit from the cell production method?\n\n a) Products that require a wide variety and flexible production\n b) Products that require division of labor by standardization, simplification, and\n specialization\n c) Products that require mass production to increase productivity\n d) Products whose specifications do not change for a long period",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          65.22,
+          67.74,
+          528.86,
+          99.13
+        ],
+        "text": "Q55.\nWhich of the following is the objects that can benefit from the cell production method?"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          84.12,
+          104.76,
+          474.74,
+          136.21
+        ],
+        "text": "a) Products that require a wide variety and flexible production\nb) Products that require division of labor by standardization, simplification, and"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          84.12,
+          140.93,
+          409.32,
+          190.21
+        ],
+        "text": "specialization\nc) Products that require mass production to increase productivity\nd) Products whose specifications do not change for a long period"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 56,
+    "question_text": "Q56. Which of the following is a technique that can be used to discover useful information and\n relationships from large amounts of customer and market data retained by a company?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Data dictionary"
+      },
+      {
+        "label": "b",
+        "text": "Data flow diagram"
+      },
+      {
+        "label": "c",
+        "text": "Data mining"
+      },
+      {
+        "label": "d",
+        "text": "Data warehouse"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q56)",
+    "source_pages": [
+      24
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q56. Which of the following is a technique that can be used to discover useful information and\n relationships from large amounts of customer and market data retained by a company?\n\n a) Data dictionary b) Data flow diagram\n c) Data mining d) Data warehouse",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          65.22,
+          229.74,
+          533.11,
+          261.13
+        ],
+        "text": "Q56.\nWhich of the following is a technique that can be used to discover useful information and\nrelationships from large amounts of customer and market data retained by a company?"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          84.12,
+          266.93,
+          420.49,
+          316.21
+        ],
+        "text": "a) Data dictionary\nb) Data flow diagram\nc) Data mining\nd) Data warehouse"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 57,
+    "question_text": "Q57. The relationship between the value “x” of a certain factor in the manufacture of a product and the value “y” of a quality characteristic of the product is plotted in the figure below. Which of the following is an appropriate interpretation of this figure?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "In order to estimate y from x, a quadratic regression coefficient needs to be calculated."
+      },
+      {
+        "label": "b",
+        "text": "The correlation coefficient between x and y is negative."
+      },
+      {
+        "label": "c",
+        "text": "The correlation coefficient between x and y is positive."
+      },
+      {
+        "label": "d",
+        "text": "The regression expression for estimating y from x is the same as that for estimating x\n from y."
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [
+      "2024-october-a-q57-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q57)",
+    "source_pages": [
+      24
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q57. The relationship between the value “x” of a certain factor in the manufacture of a\n product and the value “y” of a quality characteristic of the product is plotted in the figure\n below. Which of the following is an appropriate interpretation of this figure?\n\n y\n\n 0 x\n\n a) In order to estimate y from x, a quadratic regression coefficient needs to be calculated.\n b) The correlation coefficient between x and y is negative.\n c) The correlation coefficient between x and y is positive.\n d) The regression expression for estimating y from x is the same as that for estimating x\n from y.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q57. The relationship between the value “x” of a certain factor in the manufacture of a product and the value “y” of a quality characteristic of the product is plotted in the figure below. Which of the following is an appropriate interpretation of this figure?"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 58,
+    "question_text": "Q58. Two (2) types of raw materials A and B are required to manufacture products X and Y. The quantity of each raw material required per unit and the procurable quantity are listed in the table below. When the profit per unit is $1 for product X and $1.5 for product Y , which of the following is the maximum profit in dollar?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "50"
+      },
+      {
+        "label": "b",
+        "text": "60"
+      },
+      {
+        "label": "c",
+        "text": "70"
+      },
+      {
+        "label": "d",
+        "text": "80"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [
+      "2024-october-a-q58-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q58)",
+    "source_pages": [
+      25
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q58. Two (2) types of raw materials A and B are required to manufacture products X and Y.\n The quantity of each raw material required per unit and the procurable quantity are listed in\n the table below. When the profit per unit is $1 for product X and $1.5 for product Y , which\n of the following is the maximum profit in dollar?\n\n Raw Required quantity Required quantity Procurable\n material per unit of product X per unit of product Y quantity\n A 2 1 100\n B 1 2 80\n\n a) 50 b) 60 c) 70 d) 80",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q58. Two (2) types of raw materials A and B are required to manufacture products X and Y. The quantity of each raw material required per unit and the procurable quantity are listed in the table below. When the profit per unit is $1 for product X and $1.5 for product Y , which of the following is the maximum profit in dollar?"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 59,
+    "question_text": "Q59. When the selling price of a product is $50 and the fixed costs for production and sales\n are $100,000, which of the following is the number of units to be sold to achieve the desired\n profit of $50,000? Here, the variable cost ratio is 60%.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "5,000"
+      },
+      {
+        "label": "b",
+        "text": "7,500"
+      },
+      {
+        "label": "c",
+        "text": "10,000"
+      },
+      {
+        "label": "d",
+        "text": "12,500"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q59)",
+    "source_pages": [
+      25
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q59. When the selling price of a product is $50 and the fixed costs for production and sales\n are $100,000, which of the following is the number of units to be sold to achieve the desired\n profit of $50,000? Here, the variable cost ratio is 60%.\n\n a) 5,000 b) 7,500 c) 10,000 d) 12,500",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          65.22,
+          304.74,
+          531.57,
+          354.19
+        ],
+        "text": "Q59.\nWhen the selling price of a product is $50 and the fixed costs for production and sales\nare $100,000, which of the following is the number of units to be sold to achieve the desired\nprofit of $50,000? Here, the variable cost ratio is 60%."
+      },
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          65.22,
+          376.91,
+          491.1,
+          408.19
+        ],
+        "text": "a) 5,000\nb) 7,500\nc) 10,000\nd) 12,500"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2024-october",
+    "subject": "A",
+    "question_number": 60,
+    "question_text": "Q60. Which of the following is an explanation of a volume license agreement?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A contract that establishes standard license conditions and deems that a license\n agreement is automatically established between the rightsholder and the purchaser when\n a certain amount of package is unwrapped within the scope of the standard license\n conditions"
+      },
+      {
+        "label": "b",
+        "text": "A contract that predefines the number of installations and permits the use of software for\n companies or other such purchasers of large amounts of software"
+      },
+      {
+        "label": "c",
+        "text": "A contract that restricts the location of use and permits the use of an unlimited number\n of units or persons within a specific facility"
+      },
+      {
+        "label": "d",
+        "text": "A contract where use is permitted by selecting to agree to the terms of the contract on\n the screen that is displayed when software is downloaded from the Internet"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2024A, FE, Subject-A, Q60)",
+    "source_pages": [
+      25
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q60. Which of the following is an explanation of a volume license agreement?\n\n a) A contract that establishes standard license conditions and deems that a license\n agreement is automatically established between the rightsholder and the purchaser when\n a certain amount of package is unwrapped within the scope of the standard license\n conditions\n b) A contract that predefines the number of installations and permits the use of software for\n companies or other such purchasers of large amounts of software\n c) A contract that restricts the location of use and permits the use of an unlimited number\n of units or persons within a specific facility\n d) A contract where use is permitted by selecting to agree to the terms of the contract on\n the screen that is displayed when software is downloaded from the Internet",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          65.22,
+          412.91,
+          461.82,
+          443.17
+        ],
+        "text": "Q60.\nWhich of the following is an explanation of a volume license agreement?"
+      },
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          84.12,
+          466.91,
+          484.08,
+          480.19
+        ],
+        "text": "a) A contract that establishes standard license conditions and deems that a license"
+      },
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          102.12,
+          484.91,
+          529.0,
+          498.19
+        ],
+        "text": "agreement is automatically established between the rightsholder and the purchaser when"
+      },
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          84.12,
+          502.91,
+          530.95,
+          552.19
+        ],
+        "text": "a certain amount of package is unwrapped within the scope of the standard license\nconditions\nb) A contract that predefines the number of installations and permits the use of software for"
+      },
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          84.12,
+          556.91,
+          520.75,
+          588.19
+        ],
+        "text": "companies or other such purchasers of large amounts of software\nc) A contract that restricts the location of use and permits the use of an unlimited number"
+      },
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          84.12,
+          592.91,
+          515.62,
+          624.19
+        ],
+        "text": "of units or persons within a specific facility\nd) A contract where use is permitted by selecting to agree to the terms of the contract on"
+      },
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          102.12,
+          628.91,
+          464.61,
+          642.19
+        ],
+        "text": "the screen that is displayed when software is downloaded from the Internet"
+      },
+      {
+        "type": "code",
+        "page": 25,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 25 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2024-october/a/questions.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2024-october/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  }
+]

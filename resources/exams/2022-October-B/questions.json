@@ -1,0 +1,856 @@
+[
+  {
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_number": 1,
+    "question_text": "Q1. Read the following description of security in an Internet-based order management system,\n and then answer Subquestions 1 through 4.\n\nA manufacturer named Company M develops an Internet-based order management system.\n Company M sells its products to wholesalers. Since wholesalers also use the order\n management system, any security defects may result in damage to not only Company M but\n also the wholesalers. Therefore, Company M requested Company S, which provides security\n analytic services, to perform a vulnerability analysis of the order management system.\n\n[Order management system]\n The order management system’s application (hereinafter, the application) runs on a Web\n server. Orders, shipments, and other information are stored in an order information database\n that runs on the database server. The application is used to reference and update the\n information. Files that can be downloaded to or files that were uploaded from wholesaler’s\n PCs are stored on a disk that is connected to the Web server. Figure 1 shows the configuration\n of the order management system.\n\nWholesaler’s internal network (partial)\n\nFW3 The Internet\n\nWhole- Whole-\n … FW1 RPS saler’s PC saler’s PC\n\nFW2\n\nFW: Firewall Web Database Internal … Internal\n RPS: Reverse proxy server server server PC PC\n\nCompany M’s internal network (partial)\n\nFigure 1 Configuration of the order management system\n\nA digital certificate is configured on the RPS. The operator of the wholesaler who utilizes\n the order management system accesses the application via RPS from a browser on the\n wholesaler’s PC, and logs in using a user ID and password on the login screen. At that point,\n the browser on the wholesaler’s PC uses HTTP over TLS (hereinafter, HTTPS) for\n communication, and the RPS uses the digital certificate to convert the protocol from HTTPS\n to HTTP.\n\n[Result of the vulnerability analysis by Company S]\nIn the application, measures have been taken against ***A*** that makes the database\nserver execute unexpected operations to gain unauthorized access to the database. However,\nthe vulnerability analysis by Company S reveals multiple security vulnerabilities that require\nmeasures in the application. Table 1 shows an excerpt of the findings by Company S.\n\nTable 1 Findings by Company S (excerpt)\n\nFinding Cause\nAn operator of a wholesaler can access\nanother wholesaler’s order and shipping\ninformation.\nAn operator of a wholesaler can download (i) An issue exists in the download\narbitrary files on the Web server. processing of files in the application.\nSince there is a ***B*** vulnerability by\nwhich a script can be embedded in a Web\npage by an attacker, there is a possibility\nthat an operator of a wholesaler can be led\nto another Web site that steals the user ID\nand password.\n (ii) When an operator of a wholesaler\n logs in, the user ID is not locked even\n when the operator repeatedly enters\n wrong passwords.\n Note: Shaded parts are not shown.\n\nCompany M took the measures to address the underlined sections (i) and (ii) in Table 1.\nFurthermore, Company M took measures to address the other findings by Company S,\nincluding security education for operators to prevent ***C*** incidents that take\nadvantage of human errors to gain unauthorized access, and decided to launch the order\nmanagement system.\n\nSubquestion 1\n The sections of the communication routes in Figure 1 are numbered 1 through 5 as shown in\n Table 2. From the answer group below, select the correct answer that represents all of the\n communication routes that use HTTPS for communication when the wholesaler’s PC\n accesses the Web server.\n\nTable 2 Communication routes between devices\n\nRoute number Communication route\n 1 Between each wholesaler’s PC and FW3\n 2 Between FW3 and FW1\n 3 Between FW1 and RPS\n 4 Between FW1 and FW2\n 5 Between FW2 and the Web server\n\nAnswer group\n a) 1 b) 1, 2, 3\n c) 1, 2, 3, 4 d) 1, 2, 3, 4, 5\n e) 2, 3, 4 f) 2, 3, 4, 5\n g) 3, 4\n\nSubquestion 2\n From the answer group below, select the appropriate answer to be inserted in each blank\n _______ in the description.\n\nAnswer group for A through C\n a) brute force attacks b) cross-site scripting\n c) dictionary attacks d) directory traversal\n e) DoS attacks f) port scanning\n g) social engineering h) SQL injection\n\nSubquestion 3\n From the answer group below, select the answer that is appropriate as a measure to address\n the underlined section (i) in Table 1.\n\nAnswer group\n a) Making the user specify only the name of the file to be downloaded, and if the file\n exists in the folder set for each wholesaler, performing download processing.\n b) Making the user specify the file to be downloaded by using a relative path, and if the\n file exists, performing download processing.\n c) Making the user specify the file to be downloaded by using an absolute path, and if\n the file exists, performing download processing.\n d) On the browser on the wholesaler’s PC, displaying the structure of all folders and the\n files on the Web server, making the user specify the file to be downloaded, and\n performing download processing.\n\nSubquestion 4\n From the answer group below, select the answer that is appropriate as a security incident that\n can be caused by the vulnerability in the underlined section (ii) in Table 1.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A person could view the login operation over the operator’s shoulder, and later log in."
+      },
+      {
+        "label": "b",
+        "text": "A person who uses a program that automatically enters possible passwords in\n succession may be able to log in."
+      },
+      {
+        "label": "c",
+        "text": "If an operator of a wholesaler loses a memo on which the password is written, a\n person who finds the memo may be able to log in."
+      },
+      {
+        "label": "d",
+        "text": "If an operator of a wholesaler uses his or her birthday as a password, a person who\n knows the birthday can log in."
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": null, \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"A\", \"answer\": \"h\"}, {\"subquestion\": 2, \"blank\": \"B\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"C\", \"answer\": \"g\"}, {\"subquestion\": 3, \"blank\": null, \"answer\": \"a\"}, {\"subquestion\": 4, \"blank\": null, \"answer\": \"b\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": null,
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "A",
+          "answer": "h"
+        },
+        {
+          "subquestion": 2,
+          "blank": "B",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "C",
+          "answer": "g"
+        },
+        {
+          "subquestion": 3,
+          "blank": null,
+          "answer": "a"
+        },
+        {
+          "subquestion": 4,
+          "blank": null,
+          "answer": "b"
+        }
+      ]
+    },
+    "images": [
+      "2022-october-b-q01-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2022A, FE, Subject-B, Q1)",
+    "source_pages": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q1. Read the following description of security in an Internet-based order management system,\n and then answer Subquestions 1 through 4.\n\n A manufacturer named Company M develops an Internet-based order management system.\n Company M sells its products to wholesalers. Since wholesalers also use the order\n management system, any security defects may result in damage to not only Company M but\n also the wholesalers. Therefore, Company M requested Company S, which provides security\n analytic services, to perform a vulnerability analysis of the order management system.\n\n [Order management system]\n The order management system’s application (hereinafter, the application) runs on a Web\n server. Orders, shipments, and other information are stored in an order information database\n that runs on the database server. The application is used to reference and update the\n information. Files that can be downloaded to or files that were uploaded from wholesaler’s\n PCs are stored on a disk that is connected to the Web server. Figure 1 shows the configuration\n of the order management system.\n\n Wholesaler’s internal network (partial)\n\n FW3 The Internet\n\n Whole- Whole-\n … FW1 RPS saler’s PC saler’s PC\n\n FW2\n\n FW: Firewall Web Database Internal … Internal\n RPS: Reverse proxy server server server PC PC\n\n Company M’s internal network (partial)\n\n Figure 1 Configuration of the order management system\n\n A digital certificate is configured on the RPS. The operator of the wholesaler who utilizes\n the order management system accesses the application via RPS from a browser on the\n wholesaler’s PC, and logs in using a user ID and password on the login screen. At that point,\n the browser on the wholesaler’s PC uses HTTP over TLS (hereinafter, HTTPS) for\n communication, and the RPS uses the digital certificate to convert the protocol from HTTPS\n to HTTP.\n\n[Result of the vulnerability analysis by Company S]\nIn the application, measures have been taken against ___A___ that makes the database\nserver execute unexpected operations to gain unauthorized access to the database. However,\nthe vulnerability analysis by Company S reveals multiple security vulnerabilities that require\nmeasures in the application. Table 1 shows an excerpt of the findings by Company S.\n\n Table 1 Findings by Company S (excerpt)\n\n Finding Cause\nAn operator of a wholesaler can access\nanother wholesaler’s order and shipping\ninformation.\nAn operator of a wholesaler can download (i) An issue exists in the download\narbitrary files on the Web server. processing of files in the application.\nSince there is a ___B___ vulnerability by\nwhich a script can be embedded in a Web\npage by an attacker, there is a possibility\nthat an operator of a wholesaler can be led\nto another Web site that steals the user ID\nand password.\n (ii) When an operator of a wholesaler\n logs in, the user ID is not locked even\n when the operator repeatedly enters\n wrong passwords.\n Note: Shaded parts are not shown.\n\nCompany M took the measures to address the underlined sections (i) and (ii) in Table 1.\nFurthermore, Company M took measures to address the other findings by Company S,\nincluding security education for operators to prevent ___C___ incidents that take\nadvantage of human errors to gain unauthorized access, and decided to launch the order\nmanagement system.\n\nSubquestion 1\n The sections of the communication routes in Figure 1 are numbered 1 through 5 as shown in\n Table 2. From the answer group below, select the correct answer that represents all of the\n communication routes that use HTTPS for communication when the wholesaler’s PC\n accesses the Web server.\n\n Table 2 Communication routes between devices\n\n Route number Communication route\n 1 Between each wholesaler’s PC and FW3\n 2 Between FW3 and FW1\n 3 Between FW1 and RPS\n 4 Between FW1 and FW2\n 5 Between FW2 and the Web server\n\n Answer group\n a) 1 b) 1, 2, 3\n c) 1, 2, 3, 4 d) 1, 2, 3, 4, 5\n e) 2, 3, 4 f) 2, 3, 4, 5\n g) 3, 4\n\nSubquestion 2\n From the answer group below, select the appropriate answer to be inserted in each blank\n _______ in the description.\n\n Answer group for A through C\n a) brute force attacks b) cross-site scripting\n c) dictionary attacks d) directory traversal\n e) DoS attacks f) port scanning\n g) social engineering h) SQL injection\n\nSubquestion 3\n From the answer group below, select the answer that is appropriate as a measure to address\n the underlined section (i) in Table 1.\n\n Answer group\n a) Making the user specify only the name of the file to be downloaded, and if the file\n exists in the folder set for each wholesaler, performing download processing.\n b) Making the user specify the file to be downloaded by using a relative path, and if the\n file exists, performing download processing.\n c) Making the user specify the file to be downloaded by using an absolute path, and if\n the file exists, performing download processing.\n d) On the browser on the wholesaler’s PC, displaying the structure of all folders and the\n files on the Web server, making the user specify the file to be downloaded, and\n performing download processing.\n\nSubquestion 4\n From the answer group below, select the answer that is appropriate as a security incident that\n can be caused by the vulnerability in the underlined section (ii) in Table 1.\n\n Answer group\n a) A person could view the login operation over the operator’s shoulder, and later log in.\n b) A person who uses a program that automatically enters possible passwords in\n succession may be able to log in.\n c) If an operator of a wholesaler loses a memo on which the password is written, a\n person who finds the memo may be able to log in.\n d) If an operator of a wholesaler uses his or her birthday as a password, a person who\n knows the birthday can log in.",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q1. Read the following description of security in an Internet-based order management system,\n and then answer Subquestions 1 through 4."
+      },
+      {
+        "type": "context",
+        "text": "A manufacturer named Company M develops an Internet-based order management system.\n Company M sells its products to wholesalers. Since wholesalers also use the order\n management system, any security defects may result in damage to not only Company M but\n also the wholesalers. Therefore, Company M requested Company S, which provides security\n analytic services, to perform a vulnerability analysis of the order management system.\n\n[Order management system]\n The order management system’s application (hereinafter, the application) runs on a Web\n server. Orders, shipments, and other information are stored in an order information database\n that runs on the database server. The application is used to reference and update the\n information. Files that can be downloaded to or files that were uploaded from wholesaler’s\n PCs are stored on a disk that is connected to the Web server. Figure 1 shows the configuration\n of the order management system.\n\nWholesaler’s internal network (partial)\n\nFW3 The Internet\n\nWhole- Whole-\n … FW1 RPS saler’s PC saler’s PC\n\nFW2\n\nFW: Firewall Web Database Internal … Internal\n RPS: Reverse proxy server server server PC PC\n\nCompany M’s internal network (partial)\n\nFigure 1 Configuration of the order management system\n\nA digital certificate is configured on the RPS. The operator of the wholesaler who utilizes\n the order management system accesses the application via RPS from a browser on the\n wholesaler’s PC, and logs in using a user ID and password on the login screen. At that point,\n the browser on the wholesaler’s PC uses HTTP over TLS (hereinafter, HTTPS) for\n communication, and the RPS uses the digital certificate to convert the protocol from HTTPS\n to HTTP.\n\n[Result of the vulnerability analysis by Company S]\nIn the application, measures have been taken against ***A*** that makes the database\nserver execute unexpected operations to gain unauthorized access to the database. However,\nthe vulnerability analysis by Company S reveals multiple security vulnerabilities that require\nmeasures in the application. Table 1 shows an excerpt of the findings by Company S.\n\nTable 1 Findings by Company S (excerpt)\n\nFinding Cause\nAn operator of a wholesaler can access\nanother wholesaler’s order and shipping\ninformation.\nAn operator of a wholesaler can download (i) An issue exists in the download\narbitrary files on the Web server. processing of files in the application.\nSince there is a ***B*** vulnerability by\nwhich a script can be embedded in a Web\npage by an attacker, there is a possibility\nthat an operator of a wholesaler can be led\nto another Web site that steals the user ID\nand password.\n (ii) When an operator of a wholesaler\n logs in, the user ID is not locked even\n when the operator repeatedly enters\n wrong passwords.\n Note: Shaded parts are not shown.\n\nCompany M took the measures to address the underlined sections (i) and (ii) in Table 1.\nFurthermore, Company M took measures to address the other findings by Company S,\nincluding security education for operators to prevent ***C*** incidents that take\nadvantage of human errors to gain unauthorized access, and decided to launch the order\nmanagement system.\n\nSubquestion 1\n The sections of the communication routes in Figure 1 are numbered 1 through 5 as shown in\n Table 2. From the answer group below, select the correct answer that represents all of the\n communication routes that use HTTPS for communication when the wholesaler’s PC\n accesses the Web server.\n\nTable 2 Communication routes between devices\n\nRoute number Communication route\n 1 Between each wholesaler’s PC and FW3\n 2 Between FW3 and FW1\n 3 Between FW1 and RPS\n 4 Between FW1 and FW2\n 5 Between FW2 and the Web server\n\nAnswer group\n a) 1 b) 1, 2, 3\n c) 1, 2, 3, 4 d) 1, 2, 3, 4, 5\n e) 2, 3, 4 f) 2, 3, 4, 5\n g) 3, 4\n\nSubquestion 2\n From the answer group below, select the appropriate answer to be inserted in each blank\n _______ in the description.\n\nAnswer group for A through C\n a) brute force attacks b) cross-site scripting\n c) dictionary attacks d) directory traversal\n e) DoS attacks f) port scanning\n g) social engineering h) SQL injection\n\nSubquestion 3\n From the answer group below, select the answer that is appropriate as a measure to address\n the underlined section (i) in Table 1.\n\nAnswer group\n a) Making the user specify only the name of the file to be downloaded, and if the file\n exists in the folder set for each wholesaler, performing download processing.\n b) Making the user specify the file to be downloaded by using a relative path, and if the\n file exists, performing download processing.\n c) Making the user specify the file to be downloaded by using an absolute path, and if\n the file exists, performing download processing.\n d) On the browser on the wholesaler’s PC, displaying the structure of all folders and the\n files on the Web server, making the user specify the file to be downloaded, and\n performing download processing.\n\nSubquestion 4\n From the answer group below, select the answer that is appropriate as a security incident that\n can be caused by the vulnerability in the underlined section (ii) in Table 1."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2022-october/b/questions.pdf",
+        "pages": [
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2022-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_number": 2,
+    "question_text": "Q2. Read the following description of a logic circuit design, and then answer Subquestion.\n In this question, the symbols “ • ”, “ + ”, and “ ¯ ” indicate the logical operators AND, OR,\n and NOT respectively.\n\nEngineers are planning to design a logic circuit that detects a sequence of two or more\n consecutive 1’s in a bit string coming through an input line.\n\nThe first step in the design of a circuit is to provide a state diagram.\n Figure 1 shows a state diagram for the circuit. The diagram flows as follows:\n o Initially, the circuit stays at state S0, the reset state.\n o At S0: If the input is 0, the circuit stays at S0.\n If the input is 1, the circuit goes to S1; the circuit receives a 1.\n o At S1: If the input is 0, the circuit goes to S0.\n If the input is 1, the circuit goes to S2; the circuit receives two consecutive 1s.\n o At S2: If the input is 0, the circuit goes to S0.\n If the input is 1, the circuit stays at S2; the circuit receives more consecutive 1s.\n\nThe state transitions in the state diagram are synchronized by the clock signal. In a single\n clock cycle, the circuit receives an input signal, transits the state, and puts an output signal\n that is defined at the destination state.\n\nMark Description\n A state\n Transition between states\n I triggered by the input signal.\n I: Input signal (0 or 1)\n Sn: State name\n Sn/Q\n Q: Output signal (0 or 1)\n\nFigure 1 State diagram for the circuit\n\nStarting at the reset state S0, for example, if the circuit gets an 8-bit sequence of input signals\n 0→1→0→1→1→1→0→1 during the first 8 clock cycles, then the circuit puts an 8-bit\n sequence of output signals 0→0→0→0→***A***, and the final state is ***B*** .\n\nThe next step in the design of the circuit is to create a binary-coded state transition table.\nTable 1 shows the state names and their 2-bit state codes. The first(leftmost) bit of the state\ncode is name V bit, and the last(rightmost) bit is named Z bit.\n\nTable 1 State names and 2-bit state codes\n State name State code V bit Z bit\n S0 00 0 0\n S1 01 0 1\n S2 11 1 1\n\nTable 2 shows the binary-coded state transition table. This table is derived from the state\ndiagram in Figure 1.\nThe bits named VP and ZP represent the present state before the transition, and VN and ZN\nrepresent the next state after the transition. The bits named I and Q indicate the input and\noutput signals, respectively.\nThe next state becomes the present state in the next clock cycle.\n\nTable 2 Binary-coded state transition table\n Present state Input Next state Output\n VP ZP I VN ZN Q\n 0 0 0 0 0 0\n 0 0 1 0 1 0\n 0 1 0 0 0 0\n 0 1 1 1 1 1\n 1 1 0 0 0\n C\n 1 1 1 1 1\n\nThe next step in the design of the circuit is to determine logical expressions that derive the\nnext state VN and ZN, and output Q from the present state VP and ZP, and input I.\n\n(1) Determine the value of VN from VP, ZP, and I\n Table 2 shows that the value of VN becomes 1 only when the set of values (VP, ZP, I) is\n (0, 1, 1) and (1, 1, 1). Therefore, the value of VN can be determined by the following\n logical expression:\n\nVN = ***D*** + VP•ZP•I\n\nBased on the property of logical operations, the above logical expression can be\n simplified as follows:\n\nVN = ***E***\n\n(2) Determine the value of ZN from VP, ZP, and I\n From Table 2, the value of ZN can be determined by the following logical expression:\n\nZN = ***F***\n\n(3) Determine the value of Q\n Using VN and ZN that have been determined in (1) and (2), the value of Q can be\n determined by the following logical expression:\n\nQ = _______ Note: Shaded part is not shown.\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the description.\n\nAnswer group for A\n a) 0→1→1→0 b) 1→0→0→0 c) 1→1→0→0 d) 1→1→1→0\n\nAnswer group for B\n a) S0 b) S1 c) S2\n\nAnswer group for C\n\na) 0 b) 0 c) 1 d) 1\n 0 1 0 1\n\nAnswer group for D\n a) VP•ZP• I b) VP•ZP•II c) VP•ZP• I d) VP•ZP•II\n a) VP•ZP• I b) VP•ZP• I c) VP•ZP• I d) VP•ZP• I.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "I"
+      },
+      {
+        "label": "b",
+        "text": "VP• I"
+      },
+      {
+        "label": "c",
+        "text": "VP• I"
+      },
+      {
+        "label": "d",
+        "text": "VP•ZP"
+      },
+      {
+        "label": "e",
+        "text": "ZP• I"
+      },
+      {
+        "label": "f",
+        "text": "ZP• I\n d) VP•ZP e) ZP• I f) ZP• I"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 4, \"blank\": \"A\", \"answer\": \"c\"}, {\"subquestion\": 4, \"blank\": \"B\", \"answer\": \"b\"}, {\"subquestion\": 4, \"blank\": \"C\", \"answer\": \"b\"}, {\"subquestion\": 4, \"blank\": \"D\", \"answer\": \"c\"}, {\"subquestion\": 4, \"blank\": \"E\", \"answer\": \"e\"}, {\"subquestion\": 4, \"blank\": \"F\", \"answer\": \"a\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 4,
+          "blank": "A",
+          "answer": "c"
+        },
+        {
+          "subquestion": 4,
+          "blank": "B",
+          "answer": "b"
+        },
+        {
+          "subquestion": 4,
+          "blank": "C",
+          "answer": "b"
+        },
+        {
+          "subquestion": 4,
+          "blank": "D",
+          "answer": "c"
+        },
+        {
+          "subquestion": 4,
+          "blank": "E",
+          "answer": "e"
+        },
+        {
+          "subquestion": 4,
+          "blank": "F",
+          "answer": "a"
+        }
+      ]
+    },
+    "images": [
+      "2022-october-b-q02-figure1.webp",
+      "2022-october-b-q02-figure2.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2022A, FE, Subject-B, Q2)",
+    "source_pages": [
+      7,
+      8,
+      9
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q2. Read the following description of a logic circuit design, and then answer Subquestion.\n In this question, the symbols “ • ”, “ + ”, and “ ¯ ” indicate the logical operators AND, OR,\n and NOT respectively.\n\n Engineers are planning to design a logic circuit that detects a sequence of two or more\n consecutive 1’s in a bit string coming through an input line.\n\n The first step in the design of a circuit is to provide a state diagram.\n Figure 1 shows a state diagram for the circuit. The diagram flows as follows:\n o Initially, the circuit stays at state S0, the reset state.\n o At S0: If the input is 0, the circuit stays at S0.\n If the input is 1, the circuit goes to S1; the circuit receives a 1.\n o At S1: If the input is 0, the circuit goes to S0.\n If the input is 1, the circuit goes to S2; the circuit receives two consecutive 1s.\n o At S2: If the input is 0, the circuit goes to S0.\n If the input is 1, the circuit stays at S2; the circuit receives more consecutive 1s.\n\n The state transitions in the state diagram are synchronized by the clock signal. In a single\n clock cycle, the circuit receives an input signal, transits the state, and puts an output signal\n that is defined at the destination state.\n\n Mark Description\n A state\n Transition between states\n I triggered by the input signal.\n I: Input signal (0 or 1)\n Sn: State name\n Sn/Q\n Q: Output signal (0 or 1)\n\n Figure 1 State diagram for the circuit\n\n Starting at the reset state S0, for example, if the circuit gets an 8-bit sequence of input signals\n 0→1→0→1→1→1→0→1 during the first 8 clock cycles, then the circuit puts an 8-bit\n sequence of output signals 0→0→0→0→___A___, and the final state is ___B___ .\n\nThe next step in the design of the circuit is to create a binary-coded state transition table.\nTable 1 shows the state names and their 2-bit state codes. The first(leftmost) bit of the state\ncode is name V bit, and the last(rightmost) bit is named Z bit.\n\n Table 1 State names and 2-bit state codes\n State name State code V bit Z bit\n S0 00 0 0\n S1 01 0 1\n S2 11 1 1\n\nTable 2 shows the binary-coded state transition table. This table is derived from the state\ndiagram in Figure 1.\nThe bits named VP and ZP represent the present state before the transition, and VN and ZN\nrepresent the next state after the transition. The bits named I and Q indicate the input and\noutput signals, respectively.\nThe next state becomes the present state in the next clock cycle.\n\n Table 2 Binary-coded state transition table\n Present state Input Next state Output\n VP ZP I VN ZN Q\n 0 0 0 0 0 0\n 0 0 1 0 1 0\n 0 1 0 0 0 0\n 0 1 1 1 1 1\n 1 1 0 0 0\n C\n 1 1 1 1 1\n\nThe next step in the design of the circuit is to determine logical expressions that derive the\nnext state VN and ZN, and output Q from the present state VP and ZP, and input I.\n\n(1) Determine the value of VN from VP, ZP, and I\n Table 2 shows that the value of VN becomes 1 only when the set of values (VP, ZP, I) is\n (0, 1, 1) and (1, 1, 1). Therefore, the value of VN can be determined by the following\n logical expression:\n\n VN = ___D___ + VP•ZP•I\n\n Based on the property of logical operations, the above logical expression can be\n simplified as follows:\n\n VN = ___E___\n\n(2) Determine the value of ZN from VP, ZP, and I\n From Table 2, the value of ZN can be determined by the following logical expression:\n\n ZN = ___F___\n\n (3) Determine the value of Q\n Using VN and ZN that have been determined in (1) and (2), the value of Q can be\n determined by the following logical expression:\n\n Q = _______ Note: Shaded part is not shown.\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the description.\n\n Answer group for A\n a) 0→1→1→0 b) 1→0→0→0 c) 1→1→0→0 d) 1→1→1→0\n\n Answer group for B\n a) S0 b) S1 c) S2\n\n Answer group for C\n\n a) 0 b) 0 c) 1 d) 1\n 0 1 0 1\n\n Answer group for D\n a) VP•ZP• I b) VP•ZP•II c) VP•ZP• I d) VP•ZP•II\n a) VP•ZP• I b) VP•ZP• I c) VP•ZP• I d) VP•ZP• I.\n\n Answer group for E and F\n a) I b) VP• I c) VP• I\n a) I b) VP• I c) VP• I\n d) VP•ZP e) ZP• I f) ZP• I\n d) VP•ZP e) ZP• I f) ZP• I",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q2. Read the following description of a logic circuit design, and then answer Subquestion.\n In this question, the symbols “ • ”, “ + ”, and “ ¯ ” indicate the logical operators AND, OR,\n and NOT respectively."
+      },
+      {
+        "type": "context",
+        "text": "Engineers are planning to design a logic circuit that detects a sequence of two or more\n consecutive 1’s in a bit string coming through an input line.\n\nThe first step in the design of a circuit is to provide a state diagram.\n Figure 1 shows a state diagram for the circuit. The diagram flows as follows:\n o Initially, the circuit stays at state S0, the reset state.\n o At S0: If the input is 0, the circuit stays at S0.\n If the input is 1, the circuit goes to S1; the circuit receives a 1.\n o At S1: If the input is 0, the circuit goes to S0.\n If the input is 1, the circuit goes to S2; the circuit receives two consecutive 1s.\n o At S2: If the input is 0, the circuit goes to S0.\n If the input is 1, the circuit stays at S2; the circuit receives more consecutive 1s.\n\nThe state transitions in the state diagram are synchronized by the clock signal. In a single\n clock cycle, the circuit receives an input signal, transits the state, and puts an output signal\n that is defined at the destination state.\n\nMark Description\n A state\n Transition between states\n I triggered by the input signal.\n I: Input signal (0 or 1)\n Sn: State name\n Sn/Q\n Q: Output signal (0 or 1)\n\nFigure 1 State diagram for the circuit\n\nStarting at the reset state S0, for example, if the circuit gets an 8-bit sequence of input signals\n 0→1→0→1→1→1→0→1 during the first 8 clock cycles, then the circuit puts an 8-bit\n sequence of output signals 0→0→0→0→***A***, and the final state is ***B*** .\n\nThe next step in the design of the circuit is to create a binary-coded state transition table.\nTable 1 shows the state names and their 2-bit state codes. The first(leftmost) bit of the state\ncode is name V bit, and the last(rightmost) bit is named Z bit.\n\nTable 1 State names and 2-bit state codes\n State name State code V bit Z bit\n S0 00 0 0\n S1 01 0 1\n S2 11 1 1\n\nTable 2 shows the binary-coded state transition table. This table is derived from the state\ndiagram in Figure 1.\nThe bits named VP and ZP represent the present state before the transition, and VN and ZN\nrepresent the next state after the transition. The bits named I and Q indicate the input and\noutput signals, respectively.\nThe next state becomes the present state in the next clock cycle.\n\nTable 2 Binary-coded state transition table\n Present state Input Next state Output\n VP ZP I VN ZN Q\n 0 0 0 0 0 0\n 0 0 1 0 1 0\n 0 1 0 0 0 0\n 0 1 1 1 1 1\n 1 1 0 0 0\n C\n 1 1 1 1 1\n\nThe next step in the design of the circuit is to determine logical expressions that derive the\nnext state VN and ZN, and output Q from the present state VP and ZP, and input I.\n\n(1) Determine the value of VN from VP, ZP, and I\n Table 2 shows that the value of VN becomes 1 only when the set of values (VP, ZP, I) is\n (0, 1, 1) and (1, 1, 1). Therefore, the value of VN can be determined by the following\n logical expression:\n\nVN = ***D*** + VP•ZP•I\n\nBased on the property of logical operations, the above logical expression can be\n simplified as follows:\n\nVN = ***E***\n\n(2) Determine the value of ZN from VP, ZP, and I\n From Table 2, the value of ZN can be determined by the following logical expression:\n\nZN = ***F***\n\n(3) Determine the value of Q\n Using VN and ZN that have been determined in (1) and (2), the value of Q can be\n determined by the following logical expression:\n\nQ = _______ Note: Shaded part is not shown.\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the description.\n\nAnswer group for A\n a) 0→1→1→0 b) 1→0→0→0 c) 1→1→0→0 d) 1→1→1→0\n\nAnswer group for B\n a) S0 b) S1 c) S2\n\nAnswer group for C\n\na) 0 b) 0 c) 1 d) 1\n 0 1 0 1\n\nAnswer group for D\n a) VP•ZP• I b) VP•ZP•II c) VP•ZP• I d) VP•ZP•II\n a) VP•ZP• I b) VP•ZP• I c) VP•ZP• I d) VP•ZP• I."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2022-october/b/questions.pdf",
+        "pages": [
+          7,
+          8,
+          9
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2022-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_number": 3,
+    "question_text": "Q3. Read the following description of a relational database for a dairy store, and then answer\n Subquestions 1 and 2.\n\nStore U sells dairy products such as cow’s milk, skim milk, and cheese. Store U is open from\n 10:00 to 20:00 every day. It sells products at the store, by Web order, and by telephone order.\n Products are delivered free at a customer’s request.\n\nStore U builds a relational database to manage the store’s business. The database comprises\n five tables named Product, Customer, Employee, Order, and OrderDetail.\n The table structures and sample data are shown below.\n Note: Underline indicates the primary key, and dashed underline indicates the foreign key.\n\nProduct table\n Product table contains information on product ID, product name, quantity, and price.\n The quantity indicates the stocked quantity that is updated once a day after closing the store.\n\nProductID ProductName Quantity Price\n LC050 L’s cow milk (500ml) 250 150\n LC100 L’s cow milk (1000ml) 800 300\n MP032 M’s powdered milk (80g x 4) 40 800\n MP080 M’s powdered milk (800g) 20 2000\n\nCustomer table\n Customer table contains information on customer ID, customer name, and address.\n\nCustomerID CustomerName Address\n C001 Alice Arnold 12 North-hill, North town\n C002 Barbara Brown 345 East-lake, East town\n C003 Carol Crystal 67 South-road, South town\n\nEmployee table\n Employee table contains information on employee ID, employee name, and salary.\n\nEmployeeID EmployeeName Salary\n E001 Dan Denny 50,000\n E002 Elvis Erickson 60,000\n E003 Frank Fairchild 40,000\n\nOrder table\n Order table contains information on order ID, customer ID, employee ID, order date, and\n delivery date. When customers make purchases at the store, today’s date is set to the order\n date and delivery date.\n\nOrderID CustomerID EmployeeID OrderDate DeliveryDate\n 101605 C003 E002 2022-10-16 2022-10-20\n 101809 C001 E001 2022-10-18 2022-10-18\n 102102 C002 E003 2022-10-21 2022-10-26\n\nOrderDetail table\n OrderDetail table contains information on order detail ID, order ID, product ID, quantity,\n and amount.\n\nOrderDetailID OrderID ProductID Quantity Amount\n 101605-01 101605 LC050 2 300\n 101605-02 101605 LC100 10 3000\n 101809-01 101809 MP032 2 1600\n 102102-01 102102 LC100 10 3000\n 102102-02 102102 MP080 4 8000\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL1.\n\nThe store manager wants to know if the currently stocked quantities are enough or not to\n satisfy all the delivery requests scheduled on and after tomorrow.\n At the manager’s request, a database engineer plans to execute the following process as the\n night batch after updating the stocked quantities in the Product table.\n First, extract the rows of the OrderDetail table that contain the products to be delivered on\n and after tomorrow, and create the ExtractedOrderDetail table.\n Assuming that today is 2022-10-23. From the sample data shown above, the contents of the\n ExtractedOrderDetail table are as follows:\n\nExtractedOrderDetail table\n\nOrderDetailID OrderID ProductID Quantity Amount\n 102102-01 102102 LC100 10 3000\n 102102-02 102102 MP080 4 8000\n\nAnd then, execute the following SQL statement SQL1.\n\n-- SQL1 –\n SELECT P.ProductID, P.ProductName, ***A*** -\n\nCASE\n WHEN ***B*** IS NULL THEN 0\n ELSE ***B***\n\nEND AS EstimateQuantity\n FROM Product P ***C*** ExtractedOrderDetail D\n\nON P.ProductID = D.ProductID\n\nGROUP BY P.ProductID, P.ProductName, P.Quantity\n\nWhen SQL1 is executed with the sample data shown above, it outputs the following result:\n\nProductID ProductName EstimateQuantity\n LC050 L’s cow milk (500ml) 250\n LC100 L’s cow milk (1000ml) 790\n MP032 M’s powdered milk (80g x 4) 40\n MP080 M’s powdered milk (800g) 16\n\nNote:\nINNER JOIN returns the values on the matched rows from the left and right tables.\nLEFT OUTER JOIN returns the values on all rows from the left table and the matched rows\n from the right table. Columns of unmatched rows are set to NULL.\nRIGHT OUTER JOIN returns the values on all rows from the right table and the matched rows\n from the left table. Columns of unmatched rows are set to NULL.\nCASE WHEN a THEN b ELSE c END returns b if condition a is true; otherwise returns c.\n\nAnswer group for A and B\n a) D.Quantity b) D.Quantity – P.Quantity\n c) P.Quantity d) P.Quantity – D.Quantity\n e) SUM(D.Quantity)\n\nAnswer group for C\n a) INNER JOIN b) LEFT OUTER JOIN\n c) RIGHT OUTER JOIN\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL2.\n\nThe following SQL statement increases salary by 10% for employees who contributed to\n getting orders from their customers of more than total amount 10,000 in 2022. When SQL2\n is executed with the sample data shown above, it increases the salary of Frank Fairchild.\n\n-- SQL2 –\n ***D***\n\nSET Salary = Salary * 1.10\n\nWHERE EmployeeID =\n\n( SELECT O.EmployeeID\n\nFROM Order O INNER JOIN OrderDetail D\n\nON O.EmployeeID = Employee.EmployeeID\n WHERE ***E***\n\nAND YEAR(O.OrderDate) = 2022\n ***F***\n )\n\nNote: The function YEAR(date) returns the four-digit year of the date as a number.\n\nAnswer group for D\n a) CREATE Employee b) CREATE Salary\n c) INSERT INTO Employee d) INSERT INTO Salary\n e) UPDATE Employee f) UPDATE Salary\n\nAnswer group for E\n a) O.CustomerID = Customer.CustomerID\n b) O.EmployeeID = Employee.EmployeeID\n c) O.OrderDate IS NOT NULL\n d) O.OrderID = D.OrderID\n\nAnswer group for F\n a) AND SUM(D.Amount) > 10000 b) AND SUM(D.Amount) > 10000\n GROUP BY O.EmployeeID GROUP BY O.OrderID\n\nc) GROUP BY O.EmployeeID\n HAVING SUM(D.Amount) > 10000",
+    "choices": [],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"e\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"e\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"F\", \"answer\": \"c\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "e"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "e"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "F",
+          "answer": "c"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2022A, FE, Subject-B, Q3)",
+    "source_pages": [
+      10,
+      11,
+      12,
+      13
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q3. Read the following description of a relational database for a dairy store, and then answer\n Subquestions 1 and 2.\n\n Store U sells dairy products such as cow’s milk, skim milk, and cheese. Store U is open from\n 10:00 to 20:00 every day. It sells products at the store, by Web order, and by telephone order.\n Products are delivered free at a customer’s request.\n\n Store U builds a relational database to manage the store’s business. The database comprises\n five tables named Product, Customer, Employee, Order, and OrderDetail.\n The table structures and sample data are shown below.\n Note: Underline indicates the primary key, and dashed underline indicates the foreign key.\n\n Product table\n Product table contains information on product ID, product name, quantity, and price.\n The quantity indicates the stocked quantity that is updated once a day after closing the store.\n\n ProductID ProductName Quantity Price\n LC050 L’s cow milk (500ml) 250 150\n LC100 L’s cow milk (1000ml) 800 300\n MP032 M’s powdered milk (80g x 4) 40 800\n MP080 M’s powdered milk (800g) 20 2000\n\n Customer table\n Customer table contains information on customer ID, customer name, and address.\n\n CustomerID CustomerName Address\n C001 Alice Arnold 12 North-hill, North town\n C002 Barbara Brown 345 East-lake, East town\n C003 Carol Crystal 67 South-road, South town\n\n Employee table\n Employee table contains information on employee ID, employee name, and salary.\n\n EmployeeID EmployeeName Salary\n E001 Dan Denny 50,000\n E002 Elvis Erickson 60,000\n E003 Frank Fairchild 40,000\n\nOrder table\n Order table contains information on order ID, customer ID, employee ID, order date, and\n delivery date. When customers make purchases at the store, today’s date is set to the order\n date and delivery date.\n\n OrderID CustomerID EmployeeID OrderDate DeliveryDate\n 101605 C003 E002 2022-10-16 2022-10-20\n 101809 C001 E001 2022-10-18 2022-10-18\n 102102 C002 E003 2022-10-21 2022-10-26\n\n OrderDetail table\n OrderDetail table contains information on order detail ID, order ID, product ID, quantity,\n and amount.\n\n OrderDetailID OrderID ProductID Quantity Amount\n 101605-01 101605 LC050 2 300\n 101605-02 101605 LC100 10 3000\n 101809-01 101809 MP032 2 1600\n 102102-01 102102 LC100 10 3000\n 102102-02 102102 MP080 4 8000\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL1.\n\n The store manager wants to know if the currently stocked quantities are enough or not to\n satisfy all the delivery requests scheduled on and after tomorrow.\n At the manager’s request, a database engineer plans to execute the following process as the\n night batch after updating the stocked quantities in the Product table.\n First, extract the rows of the OrderDetail table that contain the products to be delivered on\n and after tomorrow, and create the ExtractedOrderDetail table.\n Assuming that today is 2022-10-23. From the sample data shown above, the contents of the\n ExtractedOrderDetail table are as follows:\n\n ExtractedOrderDetail table\n\n OrderDetailID OrderID ProductID Quantity Amount\n 102102-01 102102 LC100 10 3000\n 102102-02 102102 MP080 4 8000\n\nAnd then, execute the following SQL statement SQL1.\n\n -- SQL1 –\n SELECT P.ProductID, P.ProductName, ___A___ -\n\n CASE\n WHEN ___B___ IS NULL THEN 0\n ELSE ___B___\n\n END AS EstimateQuantity\n FROM Product P ___C___ ExtractedOrderDetail D\n\n ON P.ProductID = D.ProductID\n\n GROUP BY P.ProductID, P.ProductName, P.Quantity\n\nWhen SQL1 is executed with the sample data shown above, it outputs the following result:\n\n ProductID ProductName EstimateQuantity\n LC050 L’s cow milk (500ml) 250\n LC100 L’s cow milk (1000ml) 790\n MP032 M’s powdered milk (80g x 4) 40\n MP080 M’s powdered milk (800g) 16\n\nNote:\nINNER JOIN returns the values on the matched rows from the left and right tables.\nLEFT OUTER JOIN returns the values on all rows from the left table and the matched rows\n from the right table. Columns of unmatched rows are set to NULL.\nRIGHT OUTER JOIN returns the values on all rows from the right table and the matched rows\n from the left table. Columns of unmatched rows are set to NULL.\nCASE WHEN a THEN b ELSE c END returns b if condition a is true; otherwise returns c.\n\nAnswer group for A and B\n a) D.Quantity b) D.Quantity – P.Quantity\n c) P.Quantity d) P.Quantity – D.Quantity\n e) SUM(D.Quantity)\n\nAnswer group for C\n a) INNER JOIN b) LEFT OUTER JOIN\n c) RIGHT OUTER JOIN\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL2.\n\n The following SQL statement increases salary by 10% for employees who contributed to\n getting orders from their customers of more than total amount 10,000 in 2022. When SQL2\n is executed with the sample data shown above, it increases the salary of Frank Fairchild.\n\n -- SQL2 –\n ___D___\n\n SET Salary = Salary * 1.10\n\n WHERE EmployeeID =\n\n ( SELECT O.EmployeeID\n\n FROM Order O INNER JOIN OrderDetail D\n\n ON O.EmployeeID = Employee.EmployeeID\n WHERE ___E___\n\n AND YEAR(O.OrderDate) = 2022\n __F__\n )\n\n Note: The function YEAR(date) returns the four-digit year of the date as a number.\n\n Answer group for D\n a) CREATE Employee b) CREATE Salary\n c) INSERT INTO Employee d) INSERT INTO Salary\n e) UPDATE Employee f) UPDATE Salary\n\n Answer group for E\n a) O.CustomerID = Customer.CustomerID\n b) O.EmployeeID = Employee.EmployeeID\n c) O.OrderDate IS NOT NULL\n d) O.OrderID = D.OrderID\n\n Answer group for F\n a) AND SUM(D.Amount) > 10000 b) AND SUM(D.Amount) > 10000\n GROUP BY O.EmployeeID GROUP BY O.OrderID\n\n c) GROUP BY O.EmployeeID\n HAVING SUM(D.Amount) > 10000",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q3. Read the following description of a relational database for a dairy store, and then answer\n Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "Store U sells dairy products such as cow’s milk, skim milk, and cheese. Store U is open from\n 10:00 to 20:00 every day. It sells products at the store, by Web order, and by telephone order.\n Products are delivered free at a customer’s request.\n\nStore U builds a relational database to manage the store’s business. The database comprises\n five tables named Product, Customer, Employee, Order, and OrderDetail.\n The table structures and sample data are shown below.\n Note: Underline indicates the primary key, and dashed underline indicates the foreign key.\n\nProduct table\n Product table contains information on product ID, product name, quantity, and price.\n The quantity indicates the stocked quantity that is updated once a day after closing the store.\n\nProductID ProductName Quantity Price\n LC050 L’s cow milk (500ml) 250 150\n LC100 L’s cow milk (1000ml) 800 300\n MP032 M’s powdered milk (80g x 4) 40 800\n MP080 M’s powdered milk (800g) 20 2000\n\nCustomer table\n Customer table contains information on customer ID, customer name, and address.\n\nCustomerID CustomerName Address\n C001 Alice Arnold 12 North-hill, North town\n C002 Barbara Brown 345 East-lake, East town\n C003 Carol Crystal 67 South-road, South town\n\nEmployee table\n Employee table contains information on employee ID, employee name, and salary.\n\nEmployeeID EmployeeName Salary\n E001 Dan Denny 50,000\n E002 Elvis Erickson 60,000\n E003 Frank Fairchild 40,000\n\nOrder table\n Order table contains information on order ID, customer ID, employee ID, order date, and\n delivery date. When customers make purchases at the store, today’s date is set to the order\n date and delivery date.\n\nOrderID CustomerID EmployeeID OrderDate DeliveryDate\n 101605 C003 E002 2022-10-16 2022-10-20\n 101809 C001 E001 2022-10-18 2022-10-18\n 102102 C002 E003 2022-10-21 2022-10-26\n\nOrderDetail table\n OrderDetail table contains information on order detail ID, order ID, product ID, quantity,\n and amount.\n\nOrderDetailID OrderID ProductID Quantity Amount\n 101605-01 101605 LC050 2 300\n 101605-02 101605 LC100 10 3000\n 101809-01 101809 MP032 2 1600\n 102102-01 102102 LC100 10 3000\n 102102-02 102102 MP080 4 8000\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL1.\n\nThe store manager wants to know if the currently stocked quantities are enough or not to\n satisfy all the delivery requests scheduled on and after tomorrow.\n At the manager’s request, a database engineer plans to execute the following process as the\n night batch after updating the stocked quantities in the Product table.\n First, extract the rows of the OrderDetail table that contain the products to be delivered on\n and after tomorrow, and create the ExtractedOrderDetail table.\n Assuming that today is 2022-10-23. From the sample data shown above, the contents of the\n ExtractedOrderDetail table are as follows:\n\nExtractedOrderDetail table\n\nOrderDetailID OrderID ProductID Quantity Amount\n 102102-01 102102 LC100 10 3000\n 102102-02 102102 MP080 4 8000\n\nAnd then, execute the following SQL statement SQL1.\n\n-- SQL1 –\n SELECT P.ProductID, P.ProductName, ***A*** -\n\nCASE\n WHEN ***B*** IS NULL THEN 0\n ELSE ***B***\n\nEND AS EstimateQuantity\n FROM Product P ***C*** ExtractedOrderDetail D\n\nON P.ProductID = D.ProductID\n\nGROUP BY P.ProductID, P.ProductName, P.Quantity\n\nWhen SQL1 is executed with the sample data shown above, it outputs the following result:\n\nProductID ProductName EstimateQuantity\n LC050 L’s cow milk (500ml) 250\n LC100 L’s cow milk (1000ml) 790\n MP032 M’s powdered milk (80g x 4) 40\n MP080 M’s powdered milk (800g) 16\n\nNote:\nINNER JOIN returns the values on the matched rows from the left and right tables.\nLEFT OUTER JOIN returns the values on all rows from the left table and the matched rows\n from the right table. Columns of unmatched rows are set to NULL.\nRIGHT OUTER JOIN returns the values on all rows from the right table and the matched rows\n from the left table. Columns of unmatched rows are set to NULL.\nCASE WHEN a THEN b ELSE c END returns b if condition a is true; otherwise returns c.\n\nAnswer group for A and B\n a) D.Quantity b) D.Quantity – P.Quantity\n c) P.Quantity d) P.Quantity – D.Quantity\n e) SUM(D.Quantity)\n\nAnswer group for C\n a) INNER JOIN b) LEFT OUTER JOIN\n c) RIGHT OUTER JOIN\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL2.\n\nThe following SQL statement increases salary by 10% for employees who contributed to\n getting orders from their customers of more than total amount 10,000 in 2022. When SQL2\n is executed with the sample data shown above, it increases the salary of Frank Fairchild.\n\n-- SQL2 –\n ***D***\n\nSET Salary = Salary * 1.10\n\nWHERE EmployeeID =\n\n( SELECT O.EmployeeID\n\nFROM Order O INNER JOIN OrderDetail D\n\nON O.EmployeeID = Employee.EmployeeID\n WHERE ***E***\n\nAND YEAR(O.OrderDate) = 2022\n ***F***\n )\n\nNote: The function YEAR(date) returns the four-digit year of the date as a number.\n\nAnswer group for D\n a) CREATE Employee b) CREATE Salary\n c) INSERT INTO Employee d) INSERT INTO Salary\n e) UPDATE Employee f) UPDATE Salary\n\nAnswer group for E\n a) O.CustomerID = Customer.CustomerID\n b) O.EmployeeID = Employee.EmployeeID\n c) O.OrderDate IS NOT NULL\n d) O.OrderID = D.OrderID\n\nAnswer group for F\n a) AND SUM(D.Amount) > 10000 b) AND SUM(D.Amount) > 10000\n GROUP BY O.EmployeeID GROUP BY O.OrderID\n\nc) GROUP BY O.EmployeeID\n HAVING SUM(D.Amount) > 10000"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2022-october/b/questions.pdf",
+        "pages": [
+          10,
+          11,
+          12,
+          13
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2022-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_number": 4,
+    "question_text": "Q4. Read the following description of a network in an institute, and then answer Subquestions\n 1 and 2.\n\nA training institute V has a computer lab named Computer Lab 1. It has 8 PCs for trainees,\n a PC for a trainer, a file server, a printer, a 16-port manageable 10/100 switch, and a\n 10/100/1000 router.\n The institute has several public IP addresses that allow LAN users to access the Internet. A\n network administrator uses a private IP address 192.168.1.0/28 for configuring PCs, printers,\n and servers in Computer lab 1. The institute subscribes to SaaS for efficient training. The\n SaaS provides contents such as instructional videos for trainers, textbooks, material files for\n trainees, and online applications. Generally, there is no major issue with the total network\n system.\n Figure 1 shows the institute network and Table 1 shows some of the IP addresses.\n\nFigure 1 The institute network\n\nTable 1 Some of the IP addresses\n\nLocation IP address (range) Comment\n Computer Lab 1 192.168.1.0/28 Private network (Used for local communication)\n Central Router 198.51.100.20 Used for NAPT\n SaaS Web Server1 203.0.113.55 A public Web server on the Internet\n\nThe central router uses public IP address 198.51.100.20 to enable LAN users to browse\nmaterials on the Internet. The network administrator configured Network Address Port\nTranslation (NAPT), also known as NAT overload, in the central router. The NAPT enables\ninside local IP addresses (private addresses on the LAN) to hide from the Internet and allows\nlocal users to access the Internet. When PCs on the LAN send requests/packets to SaaS Web\nserver1, the packets pass through the central router. The central router replaces the inside\nlocal IP addresses of the packets with the public IP address of the router. It also attaches\nindividual port numbers with each IP address to map the inside local IP address of the sender\nPC with the public IP address of the router. The router receives a response from the Internet\nalong with the same port number it attached when sending the request/packet. Using this\nport number, the router translates the public IP address back to the inside local IP address\nand delivers the responded message to the right destination on the LAN.\nFigure 2 shows the connection diagram and communication path. Table 2 shows port\nnumbers and IP addresses at a different stage of communication when the packet goes from\nPCs to SaaS Web Server1.\n\nInside local (private LAN) The Internet\n SaaS Web Server1\n Central the Internet\n Router\n\n198.51.100.20 203.0.113.55 IP address range: 192.168.1.1 to\n 192.168.1.15\n\nFigure 2 Connection diagram and communication path\n\nTable 2 Port numbers and IP addresses at a different stage of communication\n\nInside local (address:port) The Internet (address:port)\n Source Destination Source Destination\n 192.168.1.5:3312 203.0.113.55:80 198.51.100.20:5589 203.0.113.55:80\n 192.168.1.6:4524 203.0.113.55:80 198.51.100.20:3312 203.0.113.55:80\n 192.168.1.7:8923 203.0.113.55:80 198.51.100.20:8923 203.0.113.55:80\n 192.168.1.8:12870 203.0.113.55:80 198.51.100.20:8924 203.0.113.55:80\n 192.168.1.7:3312 203.0.113.55:80 198.51.100.20:3313 203.0.113.55:80\n\nWhen SaaS Web Server1 responds to a request of a PC on the LAN, the translation process\ngoes in reverse order. For example, when SaaS Web Server1 wants to send a response to one\nof a request in Table-2, it will create a packet with source and destination address along with\nport number as follows:\n\nSource address:port Destination address:port\n 203.0.113.55:80 198.51.100.20:3312\n\nIn this case, the packet will finally be received by the PC whose IP address is ***A*** .\n\n[Establishment of Computer Lab 2]\nTraining institute V has established Computer Lab 2 for a larger class. The network\nconfiguration of Computer Lab 2 will be the same as Computer Lab 1, except that there will\nbe 20 PCs for trainees. Figure 3 shows the new institute network.\n\nFigure 3 New institute network\n\nThe network administrator assigns the next assignable address block so that the new subnet\n accommodates the minimum number of IP addresses that can cover all network devices in\n Computer Lab 2.\n\nThe network administrator assigns the IP addresses within the IP address block to the PCs,\n printer, server, and router in Computer Lab 2.\n The new subnet mask is ***B*** , and the IP address range is ***C*** . The network\n administrator uses the last assignable IP address of the second subnet as the default gateway\n address of that network. For Computer Lab 2, ***D*** is used as the default gateway.\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n\nAnswer group for A\n a) 192.168.1.5 b) 192.168.1.6\n c) 192.168.1.7 d) 192.168.1.8\n\nAnswer group for B\n a) 255.255.255.0 b) 255.255.255.128\n c) 255.255.255.192 d) 255.255.255.224\n e) 255.255.255.240\n\nAnswer group for C\n a) 192.168.1.16 - 31/28 b) 192.168.1.16 - 47/27\n c) 192.168.1.32 - 63/27 d) 192.168.1.64 - 127/26\n e) 192.168.1.128 - 255/25\n\nAnswer group for D\n a) 192.168.1.30 b) 192.168.1.31\n c) 192.168.1.62 d) 192.168.1.63\n e) 192.168.1.126 f) 192.168.1.127\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nThe contents and online applications provided by SaaS have recently been renewed, and the\ncurrent Internet connection 1Gbps does not have enough bandwidth to use the new contents.\nTherefore, the decision was made to upgrade the Internet connection and replace the\nswitches and routers.\n\nTable 3 shows the interface specifications of the devices before and after replacement.\n\nTable 3 Interface specifications of the devices\n\nDevice Before replacement After replacement\n Central Router 1Gbps: 4 ports 10Gbps: 4 ports\n Central Switch 1Gbps: 2 ports 10Gbps: 16 ports\n 100Mbps: 16 ports\n Router 1, Router 2 1Gbps: 2 ports 10Gbps: 2 ports\n Switch 1, Switch 2 1Gbps: 2 ports 10Gbps: 2 ports\n 100Mbps: 24 ports 1Gbps: 24 ports\n PCs for trainees and trainer 100Mbps: 1 port 1Gbps: 1 port\n File server 1, File server 2 1Gbps: 1 port 1Gbps: 1 port\n Printer1, Printer 2 100Mbps: 1 port 100Mbps: 1 port\n\nAfter replacement, all the hosts are connected to the 1Gbps ports of the switches, and the\nswitches are connected to the routers via a 10Gbps port. All the devices are interconnected\nby UTP cat5 cables. No cables are shorter than 3 meters and longer than 20 meters.\nThere are some training classes where the trainers conduct classes on 3D modeling, video\nediting, and rendering using online applications or tools provided by the SaaS. If the training\nclass wants to work with those online applications in real time, they need at least 1Gbps even\nin some cases 3 to 4Gbps bandwidth between the classroom and the SaaS server farm. The\nperformance of the PCs is well capable of handling all the tasks. However, when the entire\nclass wants to follow the trainer using the online applications, the bandwidth significantly\ndrops and becomes insufficient for trainees to work smoothly. The network administrator\nchecks all the devices, connections, and configurations, and suggests to ***E*** to\nincrease the bandwidth per computer.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "replace all the CAT-5 cables with CAT-6a cables"
+      },
+      {
+        "label": "b",
+        "text": "replace all the crossover cables with straight-through cables"
+      },
+      {
+        "label": "c",
+        "text": "replace all the PCs with a PC that has higher memory and processing power"
+      },
+      {
+        "label": "d",
+        "text": "replace the switch with a hub to create a large collision domain"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"d\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"c\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"a\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "d"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "c"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "a"
+        }
+      ]
+    },
+    "images": [
+      "2022-october-b-q04-figure1.webp",
+      "2022-october-b-q04-figure2.webp",
+      "2022-october-b-q04-figure3.webp",
+      "2022-october-b-q04-figure4.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2022A, FE, Subject-B, Q4)",
+    "source_pages": [
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q4. Read the following description of a network in an institute, and then answer Subquestions\n 1 and 2.\n\n A training institute V has a computer lab named Computer Lab 1. It has 8 PCs for trainees,\n a PC for a trainer, a file server, a printer, a 16-port manageable 10/100 switch, and a\n 10/100/1000 router.\n The institute has several public IP addresses that allow LAN users to access the Internet. A\n network administrator uses a private IP address 192.168.1.0/28 for configuring PCs, printers,\n and servers in Computer lab 1. The institute subscribes to SaaS for efficient training. The\n SaaS provides contents such as instructional videos for trainers, textbooks, material files for\n trainees, and online applications. Generally, there is no major issue with the total network\n system.\n Figure 1 shows the institute network and Table 1 shows some of the IP addresses.\n\n Figure 1 The institute network\n\nTable 1 Some of the IP addresses\n\n Location IP address (range) Comment\n Computer Lab 1 192.168.1.0/28 Private network (Used for local communication)\n Central Router 198.51.100.20 Used for NAPT\n SaaS Web Server1 203.0.113.55 A public Web server on the Internet\n\nThe central router uses public IP address 198.51.100.20 to enable LAN users to browse\nmaterials on the Internet. The network administrator configured Network Address Port\nTranslation (NAPT), also known as NAT overload, in the central router. The NAPT enables\ninside local IP addresses (private addresses on the LAN) to hide from the Internet and allows\nlocal users to access the Internet. When PCs on the LAN send requests/packets to SaaS Web\nserver1, the packets pass through the central router. The central router replaces the inside\nlocal IP addresses of the packets with the public IP address of the router. It also attaches\nindividual port numbers with each IP address to map the inside local IP address of the sender\nPC with the public IP address of the router. The router receives a response from the Internet\nalong with the same port number it attached when sending the request/packet. Using this\nport number, the router translates the public IP address back to the inside local IP address\nand delivers the responded message to the right destination on the LAN.\nFigure 2 shows the connection diagram and communication path. Table 2 shows port\nnumbers and IP addresses at a different stage of communication when the packet goes from\nPCs to SaaS Web Server1.\n\nInside local (private LAN) The Internet\n SaaS Web Server1\n Central the Internet\n Router\n\n 198.51.100.20 203.0.113.55 IP address range: 192.168.1.1 to\n 192.168.1.15\n\n Figure 2 Connection diagram and communication path\n\n Table 2 Port numbers and IP addresses at a different stage of communication\n\n Inside local (address:port) The Internet (address:port)\n Source Destination Source Destination\n 192.168.1.5:3312 203.0.113.55:80 198.51.100.20:5589 203.0.113.55:80\n 192.168.1.6:4524 203.0.113.55:80 198.51.100.20:3312 203.0.113.55:80\n 192.168.1.7:8923 203.0.113.55:80 198.51.100.20:8923 203.0.113.55:80\n 192.168.1.8:12870 203.0.113.55:80 198.51.100.20:8924 203.0.113.55:80\n 192.168.1.7:3312 203.0.113.55:80 198.51.100.20:3313 203.0.113.55:80\n\nWhen SaaS Web Server1 responds to a request of a PC on the LAN, the translation process\ngoes in reverse order. For example, when SaaS Web Server1 wants to send a response to one\nof a request in Table-2, it will create a packet with source and destination address along with\nport number as follows:\n\n Source address:port Destination address:port\n 203.0.113.55:80 198.51.100.20:3312\n\nIn this case, the packet will finally be received by the PC whose IP address is ___A___ .\n\n[Establishment of Computer Lab 2]\nTraining institute V has established Computer Lab 2 for a larger class. The network\nconfiguration of Computer Lab 2 will be the same as Computer Lab 1, except that there will\nbe 20 PCs for trainees. Figure 3 shows the new institute network.\n\n Figure 3 New institute network\n\nThe network administrator assigns the next assignable address block so that the new subnet\n accommodates the minimum number of IP addresses that can cover all network devices in\n Computer Lab 2.\n\n The network administrator assigns the IP addresses within the IP address block to the PCs,\n printer, server, and router in Computer Lab 2.\n The new subnet mask is ___B___ , and the IP address range is ___C___ . The network\n administrator uses the last assignable IP address of the second subnet as the default gateway\n address of that network. For Computer Lab 2, ___D___ is used as the default gateway.\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n\n Answer group for A\n a) 192.168.1.5 b) 192.168.1.6\n c) 192.168.1.7 d) 192.168.1.8\n\n Answer group for B\n a) 255.255.255.0 b) 255.255.255.128\n c) 255.255.255.192 d) 255.255.255.224\n e) 255.255.255.240\n\n Answer group for C\n a) 192.168.1.16 - 31/28 b) 192.168.1.16 - 47/27\n c) 192.168.1.32 - 63/27 d) 192.168.1.64 - 127/26\n e) 192.168.1.128 - 255/25\n\n Answer group for D\n a) 192.168.1.30 b) 192.168.1.31\n c) 192.168.1.62 d) 192.168.1.63\n e) 192.168.1.126 f) 192.168.1.127\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nThe contents and online applications provided by SaaS have recently been renewed, and the\ncurrent Internet connection 1Gbps does not have enough bandwidth to use the new contents.\nTherefore, the decision was made to upgrade the Internet connection and replace the\nswitches and routers.\n\nTable 3 shows the interface specifications of the devices before and after replacement.\n\n Table 3 Interface specifications of the devices\n\n Device Before replacement After replacement\n Central Router 1Gbps: 4 ports 10Gbps: 4 ports\n Central Switch 1Gbps: 2 ports 10Gbps: 16 ports\n 100Mbps: 16 ports\n Router 1, Router 2 1Gbps: 2 ports 10Gbps: 2 ports\n Switch 1, Switch 2 1Gbps: 2 ports 10Gbps: 2 ports\n 100Mbps: 24 ports 1Gbps: 24 ports\n PCs for trainees and trainer 100Mbps: 1 port 1Gbps: 1 port\n File server 1, File server 2 1Gbps: 1 port 1Gbps: 1 port\n Printer1, Printer 2 100Mbps: 1 port 100Mbps: 1 port\n\nAfter replacement, all the hosts are connected to the 1Gbps ports of the switches, and the\nswitches are connected to the routers via a 10Gbps port. All the devices are interconnected\nby UTP cat5 cables. No cables are shorter than 3 meters and longer than 20 meters.\nThere are some training classes where the trainers conduct classes on 3D modeling, video\nediting, and rendering using online applications or tools provided by the SaaS. If the training\nclass wants to work with those online applications in real time, they need at least 1Gbps even\nin some cases 3 to 4Gbps bandwidth between the classroom and the SaaS server farm. The\nperformance of the PCs is well capable of handling all the tasks. However, when the entire\nclass wants to follow the trainer using the online applications, the bandwidth significantly\ndrops and becomes insufficient for trainees to work smoothly. The network administrator\nchecks all the devices, connections, and configurations, and suggests to ___E___ to\nincrease the bandwidth per computer.\n\nAnswer group for E\n a) replace all the CAT-5 cables with CAT-6a cables\n b) replace all the crossover cables with straight-through cables\n c) replace all the PCs with a PC that has higher memory and processing power\n d) replace the switch with a hub to create a large collision domain",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q4. Read the following description of a network in an institute, and then answer Subquestions\n 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "A training institute V has a computer lab named Computer Lab 1. It has 8 PCs for trainees,\n a PC for a trainer, a file server, a printer, a 16-port manageable 10/100 switch, and a\n 10/100/1000 router.\n The institute has several public IP addresses that allow LAN users to access the Internet. A\n network administrator uses a private IP address 192.168.1.0/28 for configuring PCs, printers,\n and servers in Computer lab 1. The institute subscribes to SaaS for efficient training. The\n SaaS provides contents such as instructional videos for trainers, textbooks, material files for\n trainees, and online applications. Generally, there is no major issue with the total network\n system.\n Figure 1 shows the institute network and Table 1 shows some of the IP addresses.\n\nFigure 1 The institute network\n\nTable 1 Some of the IP addresses\n\nLocation IP address (range) Comment\n Computer Lab 1 192.168.1.0/28 Private network (Used for local communication)\n Central Router 198.51.100.20 Used for NAPT\n SaaS Web Server1 203.0.113.55 A public Web server on the Internet\n\nThe central router uses public IP address 198.51.100.20 to enable LAN users to browse\nmaterials on the Internet. The network administrator configured Network Address Port\nTranslation (NAPT), also known as NAT overload, in the central router. The NAPT enables\ninside local IP addresses (private addresses on the LAN) to hide from the Internet and allows\nlocal users to access the Internet. When PCs on the LAN send requests/packets to SaaS Web\nserver1, the packets pass through the central router. The central router replaces the inside\nlocal IP addresses of the packets with the public IP address of the router. It also attaches\nindividual port numbers with each IP address to map the inside local IP address of the sender\nPC with the public IP address of the router. The router receives a response from the Internet\nalong with the same port number it attached when sending the request/packet. Using this\nport number, the router translates the public IP address back to the inside local IP address\nand delivers the responded message to the right destination on the LAN.\nFigure 2 shows the connection diagram and communication path. Table 2 shows port\nnumbers and IP addresses at a different stage of communication when the packet goes from\nPCs to SaaS Web Server1.\n\nInside local (private LAN) The Internet\n SaaS Web Server1\n Central the Internet\n Router\n\n198.51.100.20 203.0.113.55 IP address range: 192.168.1.1 to\n 192.168.1.15\n\nFigure 2 Connection diagram and communication path\n\nTable 2 Port numbers and IP addresses at a different stage of communication\n\nInside local (address:port) The Internet (address:port)\n Source Destination Source Destination\n 192.168.1.5:3312 203.0.113.55:80 198.51.100.20:5589 203.0.113.55:80\n 192.168.1.6:4524 203.0.113.55:80 198.51.100.20:3312 203.0.113.55:80\n 192.168.1.7:8923 203.0.113.55:80 198.51.100.20:8923 203.0.113.55:80\n 192.168.1.8:12870 203.0.113.55:80 198.51.100.20:8924 203.0.113.55:80\n 192.168.1.7:3312 203.0.113.55:80 198.51.100.20:3313 203.0.113.55:80\n\nWhen SaaS Web Server1 responds to a request of a PC on the LAN, the translation process\ngoes in reverse order. For example, when SaaS Web Server1 wants to send a response to one\nof a request in Table-2, it will create a packet with source and destination address along with\nport number as follows:\n\nSource address:port Destination address:port\n 203.0.113.55:80 198.51.100.20:3312\n\nIn this case, the packet will finally be received by the PC whose IP address is ***A*** .\n\n[Establishment of Computer Lab 2]\nTraining institute V has established Computer Lab 2 for a larger class. The network\nconfiguration of Computer Lab 2 will be the same as Computer Lab 1, except that there will\nbe 20 PCs for trainees. Figure 3 shows the new institute network.\n\nFigure 3 New institute network\n\nThe network administrator assigns the next assignable address block so that the new subnet\n accommodates the minimum number of IP addresses that can cover all network devices in\n Computer Lab 2.\n\nThe network administrator assigns the IP addresses within the IP address block to the PCs,\n printer, server, and router in Computer Lab 2.\n The new subnet mask is ***B*** , and the IP address range is ***C*** . The network\n administrator uses the last assignable IP address of the second subnet as the default gateway\n address of that network. For Computer Lab 2, ***D*** is used as the default gateway.\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n\nAnswer group for A\n a) 192.168.1.5 b) 192.168.1.6\n c) 192.168.1.7 d) 192.168.1.8\n\nAnswer group for B\n a) 255.255.255.0 b) 255.255.255.128\n c) 255.255.255.192 d) 255.255.255.224\n e) 255.255.255.240\n\nAnswer group for C\n a) 192.168.1.16 - 31/28 b) 192.168.1.16 - 47/27\n c) 192.168.1.32 - 63/27 d) 192.168.1.64 - 127/26\n e) 192.168.1.128 - 255/25\n\nAnswer group for D\n a) 192.168.1.30 b) 192.168.1.31\n c) 192.168.1.62 d) 192.168.1.63\n e) 192.168.1.126 f) 192.168.1.127\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nThe contents and online applications provided by SaaS have recently been renewed, and the\ncurrent Internet connection 1Gbps does not have enough bandwidth to use the new contents.\nTherefore, the decision was made to upgrade the Internet connection and replace the\nswitches and routers.\n\nTable 3 shows the interface specifications of the devices before and after replacement.\n\nTable 3 Interface specifications of the devices\n\nDevice Before replacement After replacement\n Central Router 1Gbps: 4 ports 10Gbps: 4 ports\n Central Switch 1Gbps: 2 ports 10Gbps: 16 ports\n 100Mbps: 16 ports\n Router 1, Router 2 1Gbps: 2 ports 10Gbps: 2 ports\n Switch 1, Switch 2 1Gbps: 2 ports 10Gbps: 2 ports\n 100Mbps: 24 ports 1Gbps: 24 ports\n PCs for trainees and trainer 100Mbps: 1 port 1Gbps: 1 port\n File server 1, File server 2 1Gbps: 1 port 1Gbps: 1 port\n Printer1, Printer 2 100Mbps: 1 port 100Mbps: 1 port\n\nAfter replacement, all the hosts are connected to the 1Gbps ports of the switches, and the\nswitches are connected to the routers via a 10Gbps port. All the devices are interconnected\nby UTP cat5 cables. No cables are shorter than 3 meters and longer than 20 meters.\nThere are some training classes where the trainers conduct classes on 3D modeling, video\nediting, and rendering using online applications or tools provided by the SaaS. If the training\nclass wants to work with those online applications in real time, they need at least 1Gbps even\nin some cases 3 to 4Gbps bandwidth between the classroom and the SaaS server farm. The\nperformance of the PCs is well capable of handling all the tasks. However, when the entire\nclass wants to follow the trainer using the online applications, the bandwidth significantly\ndrops and becomes insufficient for trainees to work smoothly. The network administrator\nchecks all the devices, connections, and configurations, and suggests to ***E*** to\nincrease the bandwidth per computer."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2022-october/b/questions.pdf",
+        "pages": [
+          14,
+          15,
+          16,
+          17,
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2022-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_number": 5,
+    "question_text": "Q5. Read the following description of an asset management system, and then answer\n Subquestion.\n\nCompany W is a medium-sized company in the automotive industry. It produces and sells\n components of cars, such as sheet metals and axles.\n The accounting department is responsible for registering all assets of Company W. The\n accountants require up-to-date asset information to calculate asset depreciation to prepare\n company financial statements. Currently, there are many non-current assets, and they are\n long-term operating assets such as machinery and office equipment. In some cases, assets\n are damaged or moved to another department. However, the departments in charge of such\n assets did not inform the accounting department to update the information.\n\nIn the past, each asset had a sticker that indicated only the asset ID. The asset information\n was kept in spreadsheets. For updating asset information, the accounting department and the\n departments in charge of the assets must work together in finding, referencing, and verifying\n those assets. This was quite a time-consuming process.\n Therefore, the asset management system is developed for retrieving and verifying asset\n information. The system manages the history of asset information. Even if an asset\n disappears, the record of that asset is not deleted.\n\nFour main functions of the asset management system are shown below. To access these\n functions, an accountant or a staff logs in to the system by entering a user name and password.\n (1) Register assets\n An accountant registers newly-purchased assets.\n (i) After login to the system, the accountant creates asset records for the new assets.\n The attributes of the asset record include asset ID, asset description, purchase date,\n seller, depreciation, cost, asset condition, location, department, and checking flag.\n The asset condition is set to Normal and the checking flag is set to 0 (not checked)\n by the system.\n (ii) Based on the accountant’s request, the system generates QR code stickers for the\n assets. The accountant prints the QR code stickers and attaches them to the assets.\n (2) Check assets\n An accountant activates the asset checking event. Once a year, the accounting department\n asks staff in the departments in charge of the assets to check the assets.\n (i) After login to the system, the accountant activates the asset checking event.\n (ii) The system resets the checking flag of all assets to 0 (not checked).\n\n(3) Report assets\n Staff reports the result of asset checking. The staff in the department in charge of the\n assets checks and reports asset conditions using a mobile terminal.\n (i) After login to the system, the staff performs a) to d) for each asset.\n a) Scan the QR code and display the asset information on the screen.\n b) Select the asset condition: Normal, Need repair, or Discard.\n c) Select the location of the asset from the list displayed by the system.\n d) After finishing checking, set the checking flag of the asset to 1 (checked).\n(4) Update assets\n An accountant updates the asset records after the reporting deadline.\n (i) After login to the system, the accountant displays the list of assets whose checking\n flag is 1 (checked).\n (ii) The accountant confirms the check result of each asset and sets the checking flag to\n 2 (updated). If the asset information is incomplete, state the reason and set the\n checking flag to 0 (not checked).\n (iii) Finally, if there are assets whose checking flag is ***A*** , the accountant requests\n the concerned staff to check and report again for those assets.\n\nFigure 1 shows the use case diagram of the asset management system.\n\nAsset management system\n\nRegister Generate B assets sticker\n\nCheck Print sticker assets\n\nAccountant\n Update « include » C1 assets\n\nLogin C2\n\nStaff Report « include » C3 assets\n\nFigure 1 Use case diagram of the asset management system\n\nNote:\n « extend » X Y: Y is an additional (optional) function of X.\n « include » X Y: Y has X, i.e., X is included in Y.\n\nTable 1 shows the use case description of Register assets.\n\nTable 1 Use case description of Register assets\n\nUse case name Register assets\n Primary actor Accountant\n Secondary -\n actor\n Input asset description, purchase date, seller, depreciation, cost, ***D***\n Output The summary of asset information, QR code (optional)\n Trigger The accountant clicks the “Register assets” button on the screen\n Availability Always\n Pre-condition Successful login\n Post-condition The summary of asset information is displayed\n Basic flow Actor System\n 1. Displays the asset filling form.\n 2. Selects the asset type,\n department in charge, and\n location.\n 3 Fills in the asset description,\n purchase date, seller,\n depreciation, and cost.\n 4. Clicks the “Register” button.\n 5. Assigns the unique asset\n ID,sets ***E*** , then\n displays the summary\n information.\n 6. Clicks “Print QR and Logoff”\n or “Logoff”.\n 7. If “Print QR and Logoff” is\n clicked, calls functions\n Generate QR and Print QR.\n Then terminate the process.\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n Here, the answers to be inserted in C1, C2 and C3 should be selected as the correct\n combination from the answer group for C.\n\nAnswer group for A\n a) 0 b) 0 or 1 c) 0 or 2\n d) 1 e) 1 or 2 f) 2\n\nAnswer group for B\n\na) « extend » b) « extend »\n\nc) « include » d) « include »\n\nAnswer group for C\n\nC1 C2 C3\n a) Scan QR code View location View assets\n b) View assets Scan QR code View location\n c) View location View assets Scan QR code\n\nAnswer group for D\n a) asset ID, checking flag, department, location\n b) asset ID, department, location\n c) checking flag, department, location\n d) department, location",
+    "choices": [
+      {
+        "label": "a",
+        "text": "the asset condition to Normal"
+      },
+      {
+        "label": "b",
+        "text": "the asset condition to Normal and the checking flag to 0"
+      },
+      {
+        "label": "c",
+        "text": "the asset condition to Normal and the checking flag to 1"
+      },
+      {
+        "label": "d",
+        "text": "the checking flag to 0"
+      },
+      {
+        "label": "e",
+        "text": "the checking flag to 1"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 2, \"blank\": \"A\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"B\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"C\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"b\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 2,
+          "blank": "A",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "B",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "C",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "b"
+        }
+      ]
+    },
+    "images": [
+      "2022-october-b-q05-figure1.webp",
+      "2022-october-b-q05-figure2.webp",
+      "2022-october-b-q05-figure3.webp",
+      "2022-october-b-q05-figure4.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2022A, FE, Subject-B, Q5)",
+    "source_pages": [
+      19,
+      20,
+      21,
+      22
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q5. Read the following description of an asset management system, and then answer\n Subquestion.\n\n Company W is a medium-sized company in the automotive industry. It produces and sells\n components of cars, such as sheet metals and axles.\n The accounting department is responsible for registering all assets of Company W. The\n accountants require up-to-date asset information to calculate asset depreciation to prepare\n company financial statements. Currently, there are many non-current assets, and they are\n long-term operating assets such as machinery and office equipment. In some cases, assets\n are damaged or moved to another department. However, the departments in charge of such\n assets did not inform the accounting department to update the information.\n\n In the past, each asset had a sticker that indicated only the asset ID. The asset information\n was kept in spreadsheets. For updating asset information, the accounting department and the\n departments in charge of the assets must work together in finding, referencing, and verifying\n those assets. This was quite a time-consuming process.\n Therefore, the asset management system is developed for retrieving and verifying asset\n information. The system manages the history of asset information. Even if an asset\n disappears, the record of that asset is not deleted.\n\n Four main functions of the asset management system are shown below. To access these\n functions, an accountant or a staff logs in to the system by entering a user name and password.\n (1) Register assets\n An accountant registers newly-purchased assets.\n (i) After login to the system, the accountant creates asset records for the new assets.\n The attributes of the asset record include asset ID, asset description, purchase date,\n seller, depreciation, cost, asset condition, location, department, and checking flag.\n The asset condition is set to Normal and the checking flag is set to 0 (not checked)\n by the system.\n (ii) Based on the accountant’s request, the system generates QR code stickers for the\n assets. The accountant prints the QR code stickers and attaches them to the assets.\n (2) Check assets\n An accountant activates the asset checking event. Once a year, the accounting department\n asks staff in the departments in charge of the assets to check the assets.\n (i) After login to the system, the accountant activates the asset checking event.\n (ii) The system resets the checking flag of all assets to 0 (not checked).\n\n(3) Report assets\n Staff reports the result of asset checking. The staff in the department in charge of the\n assets checks and reports asset conditions using a mobile terminal.\n (i) After login to the system, the staff performs a) to d) for each asset.\n a) Scan the QR code and display the asset information on the screen.\n b) Select the asset condition: Normal, Need repair, or Discard.\n c) Select the location of the asset from the list displayed by the system.\n d) After finishing checking, set the checking flag of the asset to 1 (checked).\n(4) Update assets\n An accountant updates the asset records after the reporting deadline.\n (i) After login to the system, the accountant displays the list of assets whose checking\n flag is 1 (checked).\n (ii) The accountant confirms the check result of each asset and sets the checking flag to\n 2 (updated). If the asset information is incomplete, state the reason and set the\n checking flag to 0 (not checked).\n (iii) Finally, if there are assets whose checking flag is __A__ , the accountant requests\n the concerned staff to check and report again for those assets.\n\nFigure 1 shows the use case diagram of the asset management system.\n\n Asset management system\n\n Register Generate B assets sticker\n\n Check Print sticker assets\n\n Accountant\n Update « include » C1 assets\n\n Login C2\n\n Staff Report « include » C3 assets\n\n Figure 1 Use case diagram of the asset management system\n\nNote:\n « extend » X Y: Y is an additional (optional) function of X.\n « include » X Y: Y has X, i.e., X is included in Y.\n\nTable 1 shows the use case description of Register assets.\n\n Table 1 Use case description of Register assets\n\n Use case name Register assets\n Primary actor Accountant\n Secondary -\n actor\n Input asset description, purchase date, seller, depreciation, cost, ___D___\n Output The summary of asset information, QR code (optional)\n Trigger The accountant clicks the “Register assets” button on the screen\n Availability Always\n Pre-condition Successful login\n Post-condition The summary of asset information is displayed\n Basic flow Actor System\n 1. Displays the asset filling form.\n 2. Selects the asset type,\n department in charge, and\n location.\n 3 Fills in the asset description,\n purchase date, seller,\n depreciation, and cost.\n 4. Clicks the “Register” button.\n 5. Assigns the unique asset\n ID,sets ___E___ , then\n displays the summary\n information.\n 6. Clicks “Print QR and Logoff”\n or “Logoff”.\n 7. If “Print QR and Logoff” is\n clicked, calls functions\n Generate QR and Print QR.\n Then terminate the process.\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n Here, the answers to be inserted in C1, C2 and C3 should be selected as the correct\n combination from the answer group for C.\n\n Answer group for A\n a) 0 b) 0 or 1 c) 0 or 2\n d) 1 e) 1 or 2 f) 2\n\n Answer group for B\n\n a) « extend » b) « extend »\n\n c) « include » d) « include »\n\n Answer group for C\n\n C1 C2 C3\n a) Scan QR code View location View assets\n b) View assets Scan QR code View location\n c) View location View assets Scan QR code\n\n Answer group for D\n a) asset ID, checking flag, department, location\n b) asset ID, department, location\n c) checking flag, department, location\n d) department, location\n\n Answer group for E\n a) the asset condition to Normal\n b) the asset condition to Normal and the checking flag to 0\n c) the asset condition to Normal and the checking flag to 1\n d) the checking flag to 0\n e) the checking flag to 1",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q5. Read the following description of an asset management system, and then answer\n Subquestion."
+      },
+      {
+        "type": "context",
+        "text": "Company W is a medium-sized company in the automotive industry. It produces and sells\n components of cars, such as sheet metals and axles.\n The accounting department is responsible for registering all assets of Company W. The\n accountants require up-to-date asset information to calculate asset depreciation to prepare\n company financial statements. Currently, there are many non-current assets, and they are\n long-term operating assets such as machinery and office equipment. In some cases, assets\n are damaged or moved to another department. However, the departments in charge of such\n assets did not inform the accounting department to update the information.\n\nIn the past, each asset had a sticker that indicated only the asset ID. The asset information\n was kept in spreadsheets. For updating asset information, the accounting department and the\n departments in charge of the assets must work together in finding, referencing, and verifying\n those assets. This was quite a time-consuming process.\n Therefore, the asset management system is developed for retrieving and verifying asset\n information. The system manages the history of asset information. Even if an asset\n disappears, the record of that asset is not deleted.\n\nFour main functions of the asset management system are shown below. To access these\n functions, an accountant or a staff logs in to the system by entering a user name and password.\n (1) Register assets\n An accountant registers newly-purchased assets.\n (i) After login to the system, the accountant creates asset records for the new assets.\n The attributes of the asset record include asset ID, asset description, purchase date,\n seller, depreciation, cost, asset condition, location, department, and checking flag.\n The asset condition is set to Normal and the checking flag is set to 0 (not checked)\n by the system.\n (ii) Based on the accountant’s request, the system generates QR code stickers for the\n assets. The accountant prints the QR code stickers and attaches them to the assets.\n (2) Check assets\n An accountant activates the asset checking event. Once a year, the accounting department\n asks staff in the departments in charge of the assets to check the assets.\n (i) After login to the system, the accountant activates the asset checking event.\n (ii) The system resets the checking flag of all assets to 0 (not checked).\n\n(3) Report assets\n Staff reports the result of asset checking. The staff in the department in charge of the\n assets checks and reports asset conditions using a mobile terminal.\n (i) After login to the system, the staff performs a) to d) for each asset.\n a) Scan the QR code and display the asset information on the screen.\n b) Select the asset condition: Normal, Need repair, or Discard.\n c) Select the location of the asset from the list displayed by the system.\n d) After finishing checking, set the checking flag of the asset to 1 (checked).\n(4) Update assets\n An accountant updates the asset records after the reporting deadline.\n (i) After login to the system, the accountant displays the list of assets whose checking\n flag is 1 (checked).\n (ii) The accountant confirms the check result of each asset and sets the checking flag to\n 2 (updated). If the asset information is incomplete, state the reason and set the\n checking flag to 0 (not checked).\n (iii) Finally, if there are assets whose checking flag is ***A*** , the accountant requests\n the concerned staff to check and report again for those assets.\n\nFigure 1 shows the use case diagram of the asset management system.\n\nAsset management system\n\nRegister Generate B assets sticker\n\nCheck Print sticker assets\n\nAccountant\n Update « include » C1 assets\n\nLogin C2\n\nStaff Report « include » C3 assets\n\nFigure 1 Use case diagram of the asset management system\n\nNote:\n « extend » X Y: Y is an additional (optional) function of X.\n « include » X Y: Y has X, i.e., X is included in Y.\n\nTable 1 shows the use case description of Register assets.\n\nTable 1 Use case description of Register assets\n\nUse case name Register assets\n Primary actor Accountant\n Secondary -\n actor\n Input asset description, purchase date, seller, depreciation, cost, ***D***\n Output The summary of asset information, QR code (optional)\n Trigger The accountant clicks the “Register assets” button on the screen\n Availability Always\n Pre-condition Successful login\n Post-condition The summary of asset information is displayed\n Basic flow Actor System\n 1. Displays the asset filling form.\n 2. Selects the asset type,\n department in charge, and\n location.\n 3 Fills in the asset description,\n purchase date, seller,\n depreciation, and cost.\n 4. Clicks the “Register” button.\n 5. Assigns the unique asset\n ID,sets ***E*** , then\n displays the summary\n information.\n 6. Clicks “Print QR and Logoff”\n or “Logoff”.\n 7. If “Print QR and Logoff” is\n clicked, calls functions\n Generate QR and Print QR.\n Then terminate the process.\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n Here, the answers to be inserted in C1, C2 and C3 should be selected as the correct\n combination from the answer group for C.\n\nAnswer group for A\n a) 0 b) 0 or 1 c) 0 or 2\n d) 1 e) 1 or 2 f) 2\n\nAnswer group for B\n\na) « extend » b) « extend »\n\nc) « include » d) « include »\n\nAnswer group for C\n\nC1 C2 C3\n a) Scan QR code View location View assets\n b) View assets Scan QR code View location\n c) View location View assets Scan QR code\n\nAnswer group for D\n a) asset ID, checking flag, department, location\n b) asset ID, department, location\n c) checking flag, department, location\n d) department, location"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2022-october/b/questions.pdf",
+        "pages": [
+          19,
+          20,
+          21,
+          22
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2022-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_number": 6,
+    "question_text": "Q6. Read the following description of programs, and then answer Subquestions 1 and 2.\n\nCounting sort is one of the algorithms for sorting, and it is most suitable for sorting data\n where the data values exist within a narrow range of non-negative integers starting at 0, such\n as age and exam score.\n Counting sort proceeds as follows:\n Step 1: Count the number of occurrences of each data value in an input sequence.\n Step 2: Determine the starting position of each data value in an output sequence.\n Step 3: Copy each data in the input sequence to the output sequence.\n\n[Program Description]\n The program sorts exam scores of 10 students in ascending order.\n The input array StuNo contains the student numbers, and Score contains the corresponding\n exam scores. Exam scores range between 0 and 10.\n The sorted results are stored in the output arrays SortedStuNo and SortedScore.\n\nInput arrays:\n 0 1 2 3 4 5 6 7 8 9\n StuNo[] 11 12 13 14 15 16 17 18 19 20\n Score[] 7 8 5 9 8 4 8 6 9 7\n\nOutput arrays:\n 0 1 2 3 4 5 6 7 8 9\n SortedStuNo[] 16 13 18 11 20 12 15 17 14 19\n SortedScore[] 4 5 6 7 7 8 8 8 9 9",
+    "choices": [
+      {
+        "label": "a",
+        "text": "both method 1 and method 2 are stable"
+      },
+      {
+        "label": "b",
+        "text": "both method 1 and method 2 are unstable"
+      },
+      {
+        "label": "c",
+        "text": "method 1 is stable and method 2 is unstable"
+      },
+      {
+        "label": "d",
+        "text": "method 1 is unstable and method 2 is stable"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"d\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"E\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"F\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"G\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"H\", \"answer\": \"c\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "d"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "E",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "F",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "G",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "H",
+          "answer": "c"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2022A, FE, Subject-B, Q6)",
+    "source_pages": [
+      23,
+      24,
+      25,
+      26
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q6. Read the following description of programs, and then answer Subquestions 1 and 2.\n\n Counting sort is one of the algorithms for sorting, and it is most suitable for sorting data\n where the data values exist within a narrow range of non-negative integers starting at 0, such\n as age and exam score.\n Counting sort proceeds as follows:\n Step 1: Count the number of occurrences of each data value in an input sequence.\n Step 2: Determine the starting position of each data value in an output sequence.\n Step 3: Copy each data in the input sequence to the output sequence.\n\n [Program Description]\n The program sorts exam scores of 10 students in ascending order.\n The input array StuNo contains the student numbers, and Score contains the corresponding\n exam scores. Exam scores range between 0 and 10.\n The sorted results are stored in the output arrays SortedStuNo and SortedScore.\n\n Input arrays:\n 0 1 2 3 4 5 6 7 8 9\n StuNo[] 11 12 13 14 15 16 17 18 19 20\n Score[] 7 8 5 9 8 4 8 6 9 7\n\n Output arrays:\n 0 1 2 3 4 5 6 7 8 9\n SortedStuNo[] 16 13 18 11 20 12 15 17 14 19\n SortedScore[] 4 5 6 7 7 8 8 8 9 9\n\n [Program]\n\n FUNCTION: CountingSort() {\n\n INT: StuNo[10] {11,12,13,14,15,16,17,18,19,20},\n\n Score[10] { 7, 8, 5, 9, 8, 4, 8, 6, 9, 7},\n\n SortedStuNo[10],\n\n SortedScore[10],\n\n Count[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},\n\n Index[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}\n\n INT: i, n\n\n Execute the statements in [Program - Step 1]\n Execute the statements in [Program - Step 2]\n Execute the statements in [Program - Step 3]\n }\n\n[Program - Step 1]\n\n FOR (i 0; i < 10; i i + 1) {\n ___A___ ___A___ + 1;\n }\n\n[Description of Program - Step 1]\nIt counts the number of occurrences of each data value in the input array Score and stores\nthe result in the array Count as shown below. The index of the array Count represents the\ndata value.\n\n 0 1 2 3 4 5 6 7 8 9 10\n Count[] 0 0 0 0 1 1 1 2 3 2 0\n\n[Program - Step 2]\n\n n 0;\n FOR (i 0; i < 11; i i + 1) { /*** α ***/\n IF (Count[i] > 0) {\n Index[i] ___B___;\n n n + ___C___;\n }\n\n }\n\n[Description of Program - Step 2]\nIt calculates the lowest storing position of each data value in the output arrays and stores the\nresult in the array Index as shown below. The index of the array Index represents the data\nvalue.\n\n 0 1 2 3 4 5 6 7 8 9 10\n Index[] 0 0 0 0 0 1 2 3 5 8 0\n\n[Program - Step 3]\n\n FOR (i 0; i < 10; i i + 1) {\n n ___D___; /*** β ***/\n SortedStuNo[n] StuNo[i];\n\n SortedScore[n] Score[i];\n ___E___ ___E___ + 1;\n }\n\n[Description of Program - Step 3]\nIt moves the data in the input arrays to the output arrays.\n\n[Characteristics of the program]\n o The sort algorithm used in this program is stable. Sort algorithms are classified into two\n types: stable and unstable. A stable sort algorithm sorts the elements with the same value\n in the same order they appear in the input.\n o The calculation performance of the program is expressed as ___F___ in O-notation.\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above program and description.\n\n Answer group for A\n a) Count[i - 1] b) Count[i]\n c) Count[Score[i - 1]] d) Count[Score[i]]\n\n Answer group for B\n a) i b) i + Count[i - 1]\n c) n d) n + Count[i - 1]\n\n Answer group for C\n a) i b) Count[i]\n c) Index[i] d) Score[i]\n\n Answer group for D\n a) Index[i] b) Index[Score[i]]\n c) n + 1 d) Score[i]\n\n Answer group for E\n a) Index[i] b) Index[n]\n c) Index[Score[i]] d) Index[Score[n]]\n\n Answer group for F\n a) O (1) b) O (n)\n c) O (n log n) d) O (n2)\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n The program will be modified to sort the input data in descending order of exam scores. Two\n methods, method 1 and method 2, are considered.\n\n Method 1: In [Program - Step 2], replace the line marked /*** α ***/ with the following\n line.\n\n FOR (i 10; i >= 0; i i - 1) {\n\n Method 2: In [Program - Step 3], add the following line immediately after the line marked\n /*** β ***/.\n n ____G____;\n\n When the programs modified by method 1 and method 2 are executed, the output results will\n be either of the following. Concretely, ___H___ .\n\n Output arrays: Stable\n 0 1 2 3 4 5 6 7 8 9\n SortedStuNo[] 14 19 12 15 17 11 20 18 13 16\n SortedScore[] 9 9 8 8 8 7 7 6 5 4\n\n Output arrays: Unstable\n 0 1 2 3 4 5 6 7 8 9\n SortedStuNo[] 19 14 17 15 12 20 11 18 13 16\n SortedScore[] 9 9 8 8 8 7 7 6 5 4\n\n Answer group for G\n a) 9 - n b) 10 - n\n c) 11 - n d) i + 10 - n\n\n Answer group for H\n a) both method 1 and method 2 are stable\n b) both method 1 and method 2 are unstable\n c) method 1 is stable and method 2 is unstable\n d) method 1 is unstable and method 2 is stable",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q6. Read the following description of programs, and then answer Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "Counting sort is one of the algorithms for sorting, and it is most suitable for sorting data\n where the data values exist within a narrow range of non-negative integers starting at 0, such\n as age and exam score.\n Counting sort proceeds as follows:\n Step 1: Count the number of occurrences of each data value in an input sequence.\n Step 2: Determine the starting position of each data value in an output sequence.\n Step 3: Copy each data in the input sequence to the output sequence.\n\n[Program Description]\n The program sorts exam scores of 10 students in ascending order.\n The input array StuNo contains the student numbers, and Score contains the corresponding\n exam scores. Exam scores range between 0 and 10.\n The sorted results are stored in the output arrays SortedStuNo and SortedScore.\n\nInput arrays:\n 0 1 2 3 4 5 6 7 8 9\n StuNo[] 11 12 13 14 15 16 17 18 19 20\n Score[] 7 8 5 9 8 4 8 6 9 7\n\nOutput arrays:\n 0 1 2 3 4 5 6 7 8 9\n SortedStuNo[] 16 13 18 11 20 12 15 17 14 19\n SortedScore[] 4 5 6 7 7 8 8 8 9 9"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2022-october/b/questions.pdf",
+        "pages": [
+          23,
+          24,
+          25,
+          26
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2022-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_number": 7,
+    "question_text": "Q7. Read the following description of a C program, and then answer Subquestions 1 and 2.\n\nHeap is a data structure using a complete binary tree. The complete binary tree is a tree\n satisfying the following conditions:\n o Each node in the tree may have at most two child nodes.\n o The number of nodes at depth N is 2N except at the bottom of the tree.\n o The nodes at the bottom of the tree are filled from left to right.\n\nHeap satisfies the following condition in addition to the above:\n o Any parent node in a complete binary tree has a greater value than or equal to both of its\n child nodes have.\n\nFigure 1 shows an example of a heap.\n\nDepth 0 15\n\nDepth 1 10 8\n\nDepth 2 5 9 3\n\nFigure 1 Example of a heap\n\nA heap can be built onto an array by regarding i-th element of the array as the parent node\n of the (2×i + 1)-th and (2×i + 2)-th elements. Figure 2 shows how the heap in Figure 1 is\n built onto an array.\n\n0 1 2 3 4 5\n 15 10 8 5 9 3\n\nFigure 2 How the heap in Figure 1 is built onto an array\n\nHeap sort is a sorting technique based on the heap. The following steps show how elements\n in an array are sorted by heap sort.\n\n(1) For each element of a given array, apply (i) through (iii) to create the heap.\n (i) Include an element to the heap at the rightmost node at the bottom of the heap.\n (ii) Check if the element has a greater value than its parent has. If it does, swap them.\n (iii) Fix the heap by recursively applying (ii) upward while swapping occurs and the\n element is not the first of the array.\n(2) While the number of nodes in a heap is greater than 1, apply (i) through (iv).\n (i) Swap the root node with the rightmost node at the bottom of the heap.\n (ii) Exclude the rightmost node at the bottom of the heap from the heap.\n (iii) Check if the parent node has less value than either of the child nodes has. If it does,\n swap the root node with the child node with the greatest value.\n (iv) Fix the heap by recursively applying (iii) downward while swapping occurs and the\n node has a child node.\n\nAs a result of the steps above, the elements are sorted in ascending order within the array.\nFigure 3 shows how the heap sort is applied to the heap in Figure 2.\n\nswap\n\n15 10 8 5 9 3 3 10 8 5 9 15\n\nheap heap (fix needed) sorted\n\nswap\n\n10 9 8 5 3 15 3 9 8 5 10 15\n\nheap (fixed) heap (fix needed) sorted\n\nswap\n\n9 5 8 3 10 15 3 5 8 9 10 15\n\nheap (fixed) heap (fix needed) sorted\n\nswap\n\n8 5 3 9 10 15 3 5 8 9 10 15\n\nheap (fixed) heap (fix needed) sorted\n\nswap\n\n5 3 8 9 10 15 3 5 8 9 10 15\n\nheap (fixed) sorted (finish)\n\nFigure 3 How heap sort is applied to the heap in Figure 2\n\n[Program Description]\nThis program sorts students by their exam score using the heap sort. Each student is assigned\nan ID, a serial number starting at 0.\n\nThe program uses the user-defined data type, user-defined functions, and the compile-time\noperator.\n\nUser-defined data type:\n Name Description\n Data_t A user-defined data type represents the ID and value of the data.\n\nUser-defined functions:\n Name Description\n void swap(Data_t *a, Data_t *b) Swaps the values pointed by a and b.\n void heap_up(Data_t *data, Recursively fixes the heap. The processing\n int child) starts from the child and proceeds upward.\n Void heap_down(Data_t *data, Recursively fixes the heap. The processing\n int heap_size, starts from the parent and proceeds\n int parent) downward.\n void rank_by_score(Data_t *data, Sorts n elements of data in ascending order\n int n) using functions heap_up and heap_down.\n void print_data(Data_t *data, Prints n elements of data.\n\nint n)\n\nCompile-time operator:\n Name Description\n sizeof(data) During the compile-time, determines the size, in bytes, of data.\n\nWhen this program is executed, the following results will be printed out.\n\nStudents' scores (unsorted)\n\nID: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\n\nValue: 75, 80, 82, 68, 56, 97, 65, 80, 81, 92\n\n------------------\n\nStudents' scores (sorted)\n\nID: 4, 6, 3, 0, 1, 7, 8, 2, 9, 5\n\nValue: 56, 65, 68, 75, 80, 80, 81, 82, 92, 97\n\n------------------",
+    "choices": [
+      {
+        "label": "a",
+        "text": "0, 1, 3,"
+      },
+      {
+        "label": "b",
+        "text": "0, 3, 1,"
+      },
+      {
+        "label": "c",
+        "text": "1, 0, 3,"
+      },
+      {
+        "label": "d",
+        "text": "1, 3, 0,"
+      },
+      {
+        "label": "e",
+        "text": "3, 0, 1,"
+      },
+      {
+        "label": "f",
+        "text": "3, 1, 0,"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"E\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"F\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"G\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"H\", \"answer\": \"c\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "E",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "F",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "G",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "H",
+          "answer": "c"
+        }
+      ]
+    },
+    "images": [
+      "2022-october-b-q07-figure1.webp",
+      "2022-october-b-q07-figure2.webp",
+      "2022-october-b-q07-figure3.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2022A, FE, Subject-B, Q7)",
+    "source_pages": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q7. Read the following description of a C program, and then answer Subquestions 1 and 2.\n\n Heap is a data structure using a complete binary tree. The complete binary tree is a tree\n satisfying the following conditions:\n o Each node in the tree may have at most two child nodes.\n o The number of nodes at depth N is 2N except at the bottom of the tree.\n o The nodes at the bottom of the tree are filled from left to right.\n\n Heap satisfies the following condition in addition to the above:\n o Any parent node in a complete binary tree has a greater value than or equal to both of its\n child nodes have.\n\n Figure 1 shows an example of a heap.\n\n Depth 0 15\n\n Depth 1 10 8\n\n Depth 2 5 9 3\n\n Figure 1 Example of a heap\n\n A heap can be built onto an array by regarding i-th element of the array as the parent node\n of the (2×i + 1)-th and (2×i + 2)-th elements. Figure 2 shows how the heap in Figure 1 is\n built onto an array.\n\n 0 1 2 3 4 5\n 15 10 8 5 9 3\n\n Figure 2 How the heap in Figure 1 is built onto an array\n\n Heap sort is a sorting technique based on the heap. The following steps show how elements\n in an array are sorted by heap sort.\n\n(1) For each element of a given array, apply (i) through (iii) to create the heap.\n (i) Include an element to the heap at the rightmost node at the bottom of the heap.\n (ii) Check if the element has a greater value than its parent has. If it does, swap them.\n (iii) Fix the heap by recursively applying (ii) upward while swapping occurs and the\n element is not the first of the array.\n(2) While the number of nodes in a heap is greater than 1, apply (i) through (iv).\n (i) Swap the root node with the rightmost node at the bottom of the heap.\n (ii) Exclude the rightmost node at the bottom of the heap from the heap.\n (iii) Check if the parent node has less value than either of the child nodes has. If it does,\n swap the root node with the child node with the greatest value.\n (iv) Fix the heap by recursively applying (iii) downward while swapping occurs and the\n node has a child node.\n\nAs a result of the steps above, the elements are sorted in ascending order within the array.\nFigure 3 shows how the heap sort is applied to the heap in Figure 2.\n\n swap\n\n 15 10 8 5 9 3 3 10 8 5 9 15\n\n heap heap (fix needed) sorted\n\n swap\n\n 10 9 8 5 3 15 3 9 8 5 10 15\n\n heap (fixed) heap (fix needed) sorted\n\n swap\n\n 9 5 8 3 10 15 3 5 8 9 10 15\n\n heap (fixed) heap (fix needed) sorted\n\n swap\n\n 8 5 3 9 10 15 3 5 8 9 10 15\n\n heap (fixed) heap (fix needed) sorted\n\n swap\n\n 5 3 8 9 10 15 3 5 8 9 10 15\n\n heap (fixed) sorted (finish)\n\n Figure 3 How heap sort is applied to the heap in Figure 2\n\n[Program Description]\nThis program sorts students by their exam score using the heap sort. Each student is assigned\nan ID, a serial number starting at 0.\n\nThe program uses the user-defined data type, user-defined functions, and the compile-time\noperator.\n\nUser-defined data type:\n Name Description\n Data_t A user-defined data type represents the ID and value of the data.\n\nUser-defined functions:\n Name Description\n void swap(Data_t *a, Data_t *b) Swaps the values pointed by a and b.\n void heap_up(Data_t *data, Recursively fixes the heap. The processing\n int child) starts from the child and proceeds upward.\n Void heap_down(Data_t *data, Recursively fixes the heap. The processing\n int heap_size, starts from the parent and proceeds\n int parent) downward.\n void rank_by_score(Data_t *data, Sorts n elements of data in ascending order\n int n) using functions heap_up and heap_down.\n void print_data(Data_t *data, Prints n elements of data.\n\n int n)\n\nCompile-time operator:\n Name Description\n sizeof(data) During the compile-time, determines the size, in bytes, of data.\n\nWhen this program is executed, the following results will be printed out.\n\n Students' scores (unsorted)\n\n ID: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\n\n Value: 75, 80, 82, 68, 56, 97, 65, 80, 81, 92\n\n ------------------\n\n Students' scores (sorted)\n\n ID: 4, 6, 3, 0, 1, 7, 8, 2, 9, 5\n\n Value: 56, 65, 68, 75, 80, 80, 81, 82, 92, 97\n\n ------------------\n\n[Program]\n\n #include <stdio.h>\n\n typedef struct Data {\n\n int id;\n\n int value;\n\n } Data_t;\n\n void swap(Data_t *a, Data_t *b);\n\n void heap_up(Data_t *data, int child);\n\n void heap_down(Data_t *data, int heap_size, int parent);\n\n void rank_by_score(Data_t *data, int n);\n\n void print_data(Data_t *data, int n);\n\n void swap(Data_t *a, Data_t *b) {\n\n Data_t t = *a;\n\n *a = *b;\n ___A___;\n }\n\n void heap_up(Data_t *data, int child) {\n int parent = ___B___;\n if (data[child].value > data[parent].value) {\n\n swap(&data[child], &data[parent]);\n if ( ___C___ ) {\n heap_up(data, parent);\n\n }\n\n }\n\n }\n\n void heap_down(Data_t *data, int heap_size, int parent) {\n\n int l_child = parent * 2 + 1;\n\n int r_child = parent * 2 + 2;\n\n int child = l_child;\n if ( ___D___ ) {\n if (r_child < heap_size &&\n\n data[l_child].value < data[r_child].value) {\n\n child = r_child;\n\n }\n\n if (data[parent].value < data[child].value) {\n swap( ___E___ );\n heap_down(data, heap_size, child);\n\n }\n\n }\n\n }\n\nvoid rank_by_score(Data_t *data, int n) {\n\n int i, heap_size = 0;\n\n printf(\"Students' scores (unsorted)\");\n\n print_data(data, n);\n\n for (i = 0; i < n; i++) {\n\n heap_up(data, i);\n\n heap_size++;\n\n }\n\n for (i = n - 1; i > 0; i--) {\n\n swap(&data[0], &data[i]);\n\n heap_size--;\n heap_down(data, ___F___ );\n }\n\n printf(\"Students' scores (sorted)\");\n\n print_data(data, n);\n\n}\n\nvoid print_data(Data_t *data, int n) {\n\n int i;\n\n for (i = 0; i < n; i++) {\n\n if (i == 0)\n\n printf(\"\\nID: %d\", data[i].id);\n\n else\n\n printf(\",\\t%d\", data[i].id);\n\n }\n\n for (i = 0; i < n; i++) {\n\n if (i == 0)\n\n printf(\"\\nValue: %d\", data[i].value);\n\n else\n\n printf(\",\\t%d\", data[i].value);\n\n }\n\n printf(\"\\n------------------\\n\");\n\n}\n\nint main() {\n\n Data_t data[] = {\n\n {0, 75}, {1, 80}, {2, 82}, {3, 68}, {4, 56},\n\n {5, 97}, {6, 65}, {7, 80}, {8, 81}, {9, 92}\n\n };\n rank_by_score(data, ___G___ );\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the program.\n\n Answer group for A\n a) *a = t b) *b = *a c) *b = t\n d) t = *a e) t = *b\n\n Answer group for B\n a) (child + 1) / 2 b) (child - 1) / 2\n c) 0 d) child + 1 / 2\n e) child - 1 / 2\n\n Answer group for C\n a) parent == 0 b) parent == child\n c) parent > 0 d) parent > child\n\n Answer group for D\n a) l_child < heap_size b) l_child == 0\n c) l_child > 0 d) l_child > heap_size\n\n Answer group for E\n a) &data[l_child], &data[r_child]\n b) &data[parent], &data[child]\n c) &data[parent], &data[l_child]\n d) &data[parent], &data[r_child]\n\n Answer group for F\n a) heap_size, 0 b) heap_size, i c) heap_size, n - 1\n d) n, 0 e) n, i f) n, n - 1\n\n Answer group for G\n a) sizeof(data) b) sizeof(data) * sizeof(Data_t)\n c) sizeof(data) + sizeof(Data_t) d) sizeof(data) / sizeof(Data_t)\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in the blank\n ___H___ in the following description. It is assumed that the correct answer is inserted in\n blank ___G_)_.\n\n The definition of the function main is replaced with the following 6 lines.\n\n int main() {\n\n Data_t data[] = {\n\n {0, 84}, {1, 84}, {2, 96}, {3, 84}\n\n };\n rank_by_score(data, ___G___ );\n }\n\n When the replaced program is executed, it outputs the following result:\n\n Students' scores (unsorted)\n\n ID: 0, 1, 2, 3\n\n Value: 84, 84, 96, 84\n\n ------------------\n\n Students' scores (sorted)\n ID: _____H_____ 2\n Value: 84, 84, 84, 96\n\n ------------------\n\n Answer group for H\n a) 0, 1, 3,\n b) 0, 3, 1,\n c) 1, 0, 3,\n d) 1, 3, 0,\n e) 3, 0, 1,\n f) 3, 1, 0,",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q7. Read the following description of a C program, and then answer Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "Heap is a data structure using a complete binary tree. The complete binary tree is a tree\n satisfying the following conditions:\n o Each node in the tree may have at most two child nodes.\n o The number of nodes at depth N is 2N except at the bottom of the tree.\n o The nodes at the bottom of the tree are filled from left to right.\n\nHeap satisfies the following condition in addition to the above:\n o Any parent node in a complete binary tree has a greater value than or equal to both of its\n child nodes have.\n\nFigure 1 shows an example of a heap.\n\nDepth 0 15\n\nDepth 1 10 8\n\nDepth 2 5 9 3\n\nFigure 1 Example of a heap\n\nA heap can be built onto an array by regarding i-th element of the array as the parent node\n of the (2×i + 1)-th and (2×i + 2)-th elements. Figure 2 shows how the heap in Figure 1 is\n built onto an array.\n\n0 1 2 3 4 5\n 15 10 8 5 9 3\n\nFigure 2 How the heap in Figure 1 is built onto an array\n\nHeap sort is a sorting technique based on the heap. The following steps show how elements\n in an array are sorted by heap sort.\n\n(1) For each element of a given array, apply (i) through (iii) to create the heap.\n (i) Include an element to the heap at the rightmost node at the bottom of the heap.\n (ii) Check if the element has a greater value than its parent has. If it does, swap them.\n (iii) Fix the heap by recursively applying (ii) upward while swapping occurs and the\n element is not the first of the array.\n(2) While the number of nodes in a heap is greater than 1, apply (i) through (iv).\n (i) Swap the root node with the rightmost node at the bottom of the heap.\n (ii) Exclude the rightmost node at the bottom of the heap from the heap.\n (iii) Check if the parent node has less value than either of the child nodes has. If it does,\n swap the root node with the child node with the greatest value.\n (iv) Fix the heap by recursively applying (iii) downward while swapping occurs and the\n node has a child node.\n\nAs a result of the steps above, the elements are sorted in ascending order within the array.\nFigure 3 shows how the heap sort is applied to the heap in Figure 2.\n\nswap\n\n15 10 8 5 9 3 3 10 8 5 9 15\n\nheap heap (fix needed) sorted\n\nswap\n\n10 9 8 5 3 15 3 9 8 5 10 15\n\nheap (fixed) heap (fix needed) sorted\n\nswap\n\n9 5 8 3 10 15 3 5 8 9 10 15\n\nheap (fixed) heap (fix needed) sorted\n\nswap\n\n8 5 3 9 10 15 3 5 8 9 10 15\n\nheap (fixed) heap (fix needed) sorted\n\nswap\n\n5 3 8 9 10 15 3 5 8 9 10 15\n\nheap (fixed) sorted (finish)\n\nFigure 3 How heap sort is applied to the heap in Figure 2\n\n[Program Description]\nThis program sorts students by their exam score using the heap sort. Each student is assigned\nan ID, a serial number starting at 0.\n\nThe program uses the user-defined data type, user-defined functions, and the compile-time\noperator.\n\nUser-defined data type:\n Name Description\n Data_t A user-defined data type represents the ID and value of the data.\n\nUser-defined functions:\n Name Description\n void swap(Data_t *a, Data_t *b) Swaps the values pointed by a and b.\n void heap_up(Data_t *data, Recursively fixes the heap. The processing\n int child) starts from the child and proceeds upward.\n Void heap_down(Data_t *data, Recursively fixes the heap. The processing\n int heap_size, starts from the parent and proceeds\n int parent) downward.\n void rank_by_score(Data_t *data, Sorts n elements of data in ascending order\n int n) using functions heap_up and heap_down.\n void print_data(Data_t *data, Prints n elements of data.\n\nint n)\n\nCompile-time operator:\n Name Description\n sizeof(data) During the compile-time, determines the size, in bytes, of data.\n\nWhen this program is executed, the following results will be printed out.\n\nStudents' scores (unsorted)\n\nID: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\n\nValue: 75, 80, 82, 68, 56, 97, 65, 80, 81, 92\n\n------------------\n\nStudents' scores (sorted)\n\nID: 4, 6, 3, 0, 1, 7, 8, 2, 9, 5\n\nValue: 56, 65, 68, 75, 80, 80, 81, 82, 92, 97\n\n------------------"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2022-october/b/questions.pdf",
+        "pages": [
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2022-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2022-october",
+    "subject": "B",
+    "question_number": 8,
+    "question_text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2.\n\nThe program manages students, courses, and faculty in a university.\n During a term, the program manages the course results of students. At the end of a term, it\n calculates the average grade of cumulative course results up to the end of the term using total\n grades and total credit hours of attended courses.\n\n[Program Description]\n The class Course (Program 1) represents a course.\n The credit hours of each course are 3 hours. The capacity of each course is 35 students. A\n member of the faculty teaches each course.\n o The method addStudent registers the student to the course and returns true. If the student\n has already registered for the course, or reached the course capacity, it returns false\n without changing the internal state of the object.\n o The method submitGrade registers the grade of the student and returns true. If the student\n has not registered for the course, it returns false.\n\nThe class Faculty (Program 2) represents a member of the faculty such as a professor or an\n instructor. Each member of the faculty teaches up to 3 courses.\n o The method addCourse registers the member of the faculty to the course and returns true.\n If he/she has already registered to 3 courses, or he/she or another member of the faculty\n has already registered to the course, it returns false.\n o The method submitGrade registers the grade of the student and returns true. If the\n member of the faculty or the student has not registered to the course, it returns false.\n\nThe class Student (Program 3) represents a student. A student can register up to 6 courses.\n o The constructor has 4 arguments: the student name, student ID, cumulative credit hours up\n to the last term, and the average of cumulative grades up to the last term.\n o The method addCourse registers the student to the course and returns true. If the student\n has already registered to 6 courses, the course capacity has reached, or the student has\n already registered for the course, it returns false.\n o The method calculateCgpa calculates the average of cumulative grades up to this term\n and returns the value.\n\nThe class CourseManagement (Program 4) manages Course, Faculty, and Student.\n o The method assignCourse assigns the course to the member of the faculty and returns\n true. If the assignment fails, it returns false or throws an exception.\n\no The method takeCourse registers the student to the course and returns true. If the\n registration fails, it returns false or throws an exception.\no The method submitGrade registers the grade of the student who takes the course taught\n by the member of the faculty, and returns true. If the registration fails, it returns false\n or throws an exception.\no The method cgpa calculates the average of cumulative grades up to this term and returns\n the value.\no The method main is used for testing.\n\nExplanation of interface Map<K, V>\no The method put(k key, V value)\n Associates the specified value with the specified key in this map. It returns the previous\n value associated with the key, or null if there was no mapping for the key.\no The method putIfAbsent(k key, V value)\n If the specified key is not already associated with a value, associates it with the given\n value and returns null. Otherwise, returns the current value.\no The method replace(k key, V value)\n Replaces the entry for the specified key only if it is currently mapped to some value.\n Returns the previous value associated with the specified key, or null if there was no\n mapping for the key.\n\n[Program 1]\n\nimport java.util.Map;\n\nimport java.util.HashMap;\n\npublic class Course {\n\npublic static final int CREDIT_HOUR = 3;\n\nprivate static final int CAPACITY = 35;\n\nprivate final String title;\n\nprivate final String code;\n\nprivate String faculty;\n private final Map< ***A*** > gradeBook = new HashMap<>();\n\nCourse(String title, String code) {\n\nthis.title = title;\n\nthis.code = code;\n\n}\n\nString getCode() { return code; }\n\nString getFaculty() { return faculty; }\n\nvoid setFaculty(String fid) { this.faculty = fid; }\n\nboolean addStudent(String sid) {\n\nif (gradeBook.size() < CAPACITY) {\n return gradeBook.***B***;\n }\n\nreturn false;\n\n}\n\nboolean submitGrade(String sid, double grade) {\n return gradeBook.***C*** ;\n }\n\ndouble getGrade(String sid) { return gradeBook.get(sid); }\n\n}\n\n[Program 2]\n\nimport java.util.Map;\n\nimport java.util.HashMap;\n\npublic class Faculty {\n\nprivate static final int MAX_COURSES = 3;\n\nprivate final String name;\n\nprivate final String id;\n private final Map< ***D*** > courses = new HashMap<>();\n\nFaculty(String name, String id) {\n\nthis.name = name;\n\nthis.id = id;\n\n}\n\nString getName() { return name; }\n\nString getId() { return id; }\n\nboolean addCourse(Course course) {\n if (courses.size() < MAX_COURSES && ***E*** ) {\n courses.put(course.getCode(), course);\n\ncourse.setFaculty(id);\n\nreturn true;\n\n} else {\n\nreturn false;\n\n}\n\n}\n\nboolean submitGrade(String course, String student, double grade) {\n\nCourse c = courses.get(course);\n\nreturn c == null ? false : c.submitGrade(student, grade);\n\n}\n\n}\n\n[Program 3]\n\nimport java.util.Map;\n\nimport java.util.HashMap;\n\npublic class Student {\n\nprivate static final int MAX_COURSES = 6;\n\nprivate final String name;\n\nprivate final String id;\n\nprivate final int creditHours;\n\nprivate final double cgpa;\n private final Map< ***D*** > courses = new HashMap<>();\n\nStudent(String name, String id, int creditHours, double cgpa) {\n\nthis.name = name;\n\nthis.id = id;\n\nthis.creditHours = creditHours;\n\nthis.cgpa = cgpa;\n\n}\n\nboolean addCourse(Course course) {\n if (courses.size() < MAX_COURSES && ***F*** ) {\n return courses.put(course.getCode(), course) == null;\n\n}\n\nreturn false;\n\n}\n\ndouble calculateCgpa() {\n\ndouble sum = creditHours * cgpa;\n\ndouble totalCreditHours;\n\nfor (Course course : courses.values()) {\n\nsum += course.getGrade(id) * Course.CREDIT_HOUR;\n\n}\n\ntotalCreditHours =\n\ncreditHours + Course.CREDIT_HOUR * courses.size();\n\nreturn sum / totalCreditHours;\n\n}\n\n}\n\n[Program 4]\n\nimport java.util.Map;\n\nimport java.util.HashMap;\n\npublic class CourseManagement {\n\npublic static void main(String[] args) {\n\nCourseManagement cm = new CourseManagement();\n\nString c1 = cm.newCourse(\"Programming Language I\", \"C105\");\n\nString c2 = cm.newCourse(\"Programming Language II\", \"C205\");\n\nString c3 = cm.newCourse(\"Data Structures\", \"C215\");\n\nString s1 = cm.newStudent(\"Kamal Rahim\", \"17127\", 15, 2.0);\n\nString s2 = cm.newStudent(\"Tamara Iqbal\", \"16200\", 24, 3.0);\n\nString f1 = cm.newFaculty(\"Dr. Tasnim Khan\", \"F7980\");\n\nString f2 = cm.newFaculty(\"Dr. Zia Kabir\", \"F4589\");\n\ncm.assignCourse(f1, c1);\n\ncm.assignCourse(f2, c2);\n\ncm.assignCourse(f2, c3);\n\ncm.takeCourse(s1, c1);\n\ncm.takeCourse(s1, c2);\n\ncm.takeCourse(s2, c1);\n\ncm.takeCourse(s2, c2);\n\ncm.submitGrade(f1, c1, s1, 2.0);\n\ncm.submitGrade(f1, c1, s2, 3.0);\n\ncm.submitGrade(f2, c2, s2, 2.0);\n\nSystem.out.printf(\"Student: %s, CGPA: %3.2f%n\",\n\ns2, cm.cgpa(s2));\n\n}\n\npublic Map<String, Student> students = new HashMap<>();\n\npublic Map<String, Faculty> faculties = new HashMap<>();\n\npublic Map<String, Course> courses = new HashMap<>();\n\npublic String newStudent(String name, String id,\n\nint creditHours, double cgpa) {\n\nstudents.put(id, new Student(name, id, creditHours, cgpa));\n\nreturn id;\n\n}\n\npublic String newFaculty(String name, String id) {\n\nfaculties.put(id, new Faculty(name, id));\n\nreturn id;\n\n}\n\npublic String newCourse(String title, String code) {\n\ncourses.put(code, new Course(title, code));\n\nreturn code;\n\n}\n\npublic boolean assignCourse(String fid, String code) {\n return ***G***;\n }\n\npublic boolean takeCourse(String sid, String code) {\n\nreturn students.get(sid).addCourse(courses.get(code));\n\n}\n\npublic boolean submitGrade(String fid, String code, String sid,\n\ndouble grade) {\n\nreturn faculties.get(fid).submitGrade(code, sid, grade);\n\n}\n\npublic double cgpa(String sid) {\n\nreturn students.get(sid).calculateCgpa();\n\n}\n\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the programs.\n\nAnswer group for A\n a) Double\n b) double\n c) String\n d) String, Double\n e) String, double\n\nAnswer group for B\n a) put(sid, 0.0) != null\n b) put(sid, 0.0) == null\n c) putIfAbsent(sid, 0.0) != null\n d) putIfAbsent(sid, 0.0) == null\n e) replace(sid, 0.0) != null\n f) replace(sid, 0.0) == null\n\nAnswer group for C\n a) put(sid, grade) != null b) put(sid, grade) == null\n c) putIfAbsent(sid, grade) != null d) putIfAbsent(sid, grade) == null\n e) replace(sid, grade) != null f) replace(sid, grade) == null\n\nAnswer group for D\n a) Course b) String\n c) String, Course d) String, String\n\nAnswer group for E and F\n a) !course.addStudent(id)\n b) course.addStudent(id)\n c) course.getCode() != null\n d) course.getCode() == null\n e) course.getFaculty() != null\n f) course.getFaculty() == null\n g) courses.get(course.getCode()) != null\n h) courses.get(course.getCode()) == null\n\nAnswer group for G\n a) courses.get(code).setFaculty(faculties.get(fid))\n b) courses.get(code).setFaculty(fid)\n c) faculties.get(fid).addCourse(code)\n d) faculties.get(fid).addCourse(courses.get(code))\n\nSubquestion 2\n The class CourseManagement is executed.\n From the answer group below, select the correct output of the class CourseManagement.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Student: 16200, CGPA: 2.50"
+      },
+      {
+        "label": "b",
+        "text": "Student: 16200, CGPA: 2.58"
+      },
+      {
+        "label": "c",
+        "text": "Student: 16200, CGPA: 2.81"
+      },
+      {
+        "label": "d",
+        "text": "Student: 16200, CGPA: 2.90\n\n_ _\nCompany names and product names appearing in the test questions are trademarks or registered\ntrademarks of their respective companies. Note that the ® and ™ symbols are not used within the text."
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"d\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"d\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"e\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"E\", \"answer\": \"f\"}, {\"subquestion\": 1, \"blank\": \"F\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"G\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": null, \"answer\": \"d\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "d"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "d"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "e"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "E",
+          "answer": "f"
+        },
+        {
+          "subquestion": 1,
+          "blank": "F",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "G",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": null,
+          "answer": "d"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2022A, FE, Subject-B, Q8)",
+    "source_pages": [
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2.\n\n The program manages students, courses, and faculty in a university.\n During a term, the program manages the course results of students. At the end of a term, it\n calculates the average grade of cumulative course results up to the end of the term using total\n grades and total credit hours of attended courses.\n\n [Program Description]\n The class Course (Program 1) represents a course.\n The credit hours of each course are 3 hours. The capacity of each course is 35 students. A\n member of the faculty teaches each course.\n o The method addStudent registers the student to the course and returns true. If the student\n has already registered for the course, or reached the course capacity, it returns false\n without changing the internal state of the object.\n o The method submitGrade registers the grade of the student and returns true. If the student\n has not registered for the course, it returns false.\n\n The class Faculty (Program 2) represents a member of the faculty such as a professor or an\n instructor. Each member of the faculty teaches up to 3 courses.\n o The method addCourse registers the member of the faculty to the course and returns true.\n If he/she has already registered to 3 courses, or he/she or another member of the faculty\n has already registered to the course, it returns false.\n o The method submitGrade registers the grade of the student and returns true. If the\n member of the faculty or the student has not registered to the course, it returns false.\n\n The class Student (Program 3) represents a student. A student can register up to 6 courses.\n o The constructor has 4 arguments: the student name, student ID, cumulative credit hours up\n to the last term, and the average of cumulative grades up to the last term.\n o The method addCourse registers the student to the course and returns true. If the student\n has already registered to 6 courses, the course capacity has reached, or the student has\n already registered for the course, it returns false.\n o The method calculateCgpa calculates the average of cumulative grades up to this term\n and returns the value.\n\n The class CourseManagement (Program 4) manages Course, Faculty, and Student.\n o The method assignCourse assigns the course to the member of the faculty and returns\n true. If the assignment fails, it returns false or throws an exception.\n\no The method takeCourse registers the student to the course and returns true. If the\n registration fails, it returns false or throws an exception.\no The method submitGrade registers the grade of the student who takes the course taught\n by the member of the faculty, and returns true. If the registration fails, it returns false\n or throws an exception.\no The method cgpa calculates the average of cumulative grades up to this term and returns\n the value.\no The method main is used for testing.\n\nExplanation of interface Map<K, V>\no The method put(k key, V value)\n Associates the specified value with the specified key in this map. It returns the previous\n value associated with the key, or null if there was no mapping for the key.\no The method putIfAbsent(k key, V value)\n If the specified key is not already associated with a value, associates it with the given\n value and returns null. Otherwise, returns the current value.\no The method replace(k key, V value)\n Replaces the entry for the specified key only if it is currently mapped to some value.\n Returns the previous value associated with the specified key, or null if there was no\n mapping for the key.\n\n[Program 1]\n\n import java.util.Map;\n\n import java.util.HashMap;\n\n public class Course {\n\n public static final int CREDIT_HOUR = 3;\n\n private static final int CAPACITY = 35;\n\n private final String title;\n\n private final String code;\n\n private String faculty;\n private final Map< ___A___ > gradeBook = new HashMap<>();\n\n Course(String title, String code) {\n\n this.title = title;\n\n this.code = code;\n\n }\n\n String getCode() { return code; }\n\n String getFaculty() { return faculty; }\n\nvoid setFaculty(String fid) { this.faculty = fid; }\n\n boolean addStudent(String sid) {\n\n if (gradeBook.size() < CAPACITY) {\n return gradeBook.___B___;\n }\n\n return false;\n\n }\n\n boolean submitGrade(String sid, double grade) {\n return gradeBook.___C___ ;\n }\n\n double getGrade(String sid) { return gradeBook.get(sid); }\n\n }\n\n[Program 2]\n\n import java.util.Map;\n\n import java.util.HashMap;\n\n public class Faculty {\n\n private static final int MAX_COURSES = 3;\n\n private final String name;\n\n private final String id;\n private final Map< ___D___ > courses = new HashMap<>();\n\n Faculty(String name, String id) {\n\n this.name = name;\n\n this.id = id;\n\n }\n\n String getName() { return name; }\n\n String getId() { return id; }\n\n boolean addCourse(Course course) {\n if (courses.size() < MAX_COURSES && ___E___ ) {\n courses.put(course.getCode(), course);\n\n course.setFaculty(id);\n\n return true;\n\n } else {\n\n return false;\n\n }\n\n }\n\nboolean submitGrade(String course, String student, double grade) {\n\n Course c = courses.get(course);\n\n return c == null ? false : c.submitGrade(student, grade);\n\n }\n\n }\n\n[Program 3]\n\n import java.util.Map;\n\n import java.util.HashMap;\n\n public class Student {\n\n private static final int MAX_COURSES = 6;\n\n private final String name;\n\n private final String id;\n\n private final int creditHours;\n\n private final double cgpa;\n private final Map< ___D___ > courses = new HashMap<>();\n\n Student(String name, String id, int creditHours, double cgpa) {\n\n this.name = name;\n\n this.id = id;\n\n this.creditHours = creditHours;\n\n this.cgpa = cgpa;\n\n }\n\n boolean addCourse(Course course) {\n if (courses.size() < MAX_COURSES && ___F___ ) {\n return courses.put(course.getCode(), course) == null;\n\n }\n\n return false;\n\n }\n\n double calculateCgpa() {\n\n double sum = creditHours * cgpa;\n\n double totalCreditHours;\n\n for (Course course : courses.values()) {\n\n sum += course.getGrade(id) * Course.CREDIT_HOUR;\n\n }\n\n totalCreditHours =\n\n creditHours + Course.CREDIT_HOUR * courses.size();\n\n return sum / totalCreditHours;\n\n }\n\n }\n\n[Program 4]\n\n import java.util.Map;\n\n import java.util.HashMap;\n\n public class CourseManagement {\n\n public static void main(String[] args) {\n\n CourseManagement cm = new CourseManagement();\n\n String c1 = cm.newCourse(\"Programming Language I\", \"C105\");\n\n String c2 = cm.newCourse(\"Programming Language II\", \"C205\");\n\n String c3 = cm.newCourse(\"Data Structures\", \"C215\");\n\n String s1 = cm.newStudent(\"Kamal Rahim\", \"17127\", 15, 2.0);\n\n String s2 = cm.newStudent(\"Tamara Iqbal\", \"16200\", 24, 3.0);\n\n String f1 = cm.newFaculty(\"Dr. Tasnim Khan\", \"F7980\");\n\n String f2 = cm.newFaculty(\"Dr. Zia Kabir\", \"F4589\");\n\n cm.assignCourse(f1, c1);\n\n cm.assignCourse(f2, c2);\n\n cm.assignCourse(f2, c3);\n\n cm.takeCourse(s1, c1);\n\n cm.takeCourse(s1, c2);\n\n cm.takeCourse(s2, c1);\n\n cm.takeCourse(s2, c2);\n\n cm.submitGrade(f1, c1, s1, 2.0);\n\n cm.submitGrade(f1, c1, s2, 3.0);\n\n cm.submitGrade(f2, c2, s2, 2.0);\n\n System.out.printf(\"Student: %s, CGPA: %3.2f%n\",\n\n s2, cm.cgpa(s2));\n\n }\n\n public Map<String, Student> students = new HashMap<>();\n\n public Map<String, Faculty> faculties = new HashMap<>();\n\n public Map<String, Course> courses = new HashMap<>();\n\n public String newStudent(String name, String id,\n\n int creditHours, double cgpa) {\n\n students.put(id, new Student(name, id, creditHours, cgpa));\n\n return id;\n\n }\n\n public String newFaculty(String name, String id) {\n\n faculties.put(id, new Faculty(name, id));\n\n return id;\n\n }\n\npublic String newCourse(String title, String code) {\n\n courses.put(code, new Course(title, code));\n\n return code;\n\n }\n\n public boolean assignCourse(String fid, String code) {\n return ___G___;\n }\n\n public boolean takeCourse(String sid, String code) {\n\n return students.get(sid).addCourse(courses.get(code));\n\n }\n\n public boolean submitGrade(String fid, String code, String sid,\n\n double grade) {\n\n return faculties.get(fid).submitGrade(code, sid, grade);\n\n }\n\n public double cgpa(String sid) {\n\n return students.get(sid).calculateCgpa();\n\n }\n\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the programs.\n\n Answer group for A\n a) Double\n b) double\n c) String\n d) String, Double\n e) String, double\n\n Answer group for B\n a) put(sid, 0.0) != null\n b) put(sid, 0.0) == null\n c) putIfAbsent(sid, 0.0) != null\n d) putIfAbsent(sid, 0.0) == null\n e) replace(sid, 0.0) != null\n f) replace(sid, 0.0) == null\n\nAnswer group for C\n a) put(sid, grade) != null b) put(sid, grade) == null\n c) putIfAbsent(sid, grade) != null d) putIfAbsent(sid, grade) == null\n e) replace(sid, grade) != null f) replace(sid, grade) == null\n\n Answer group for D\n a) Course b) String\n c) String, Course d) String, String\n\n Answer group for E and F\n a) !course.addStudent(id)\n b) course.addStudent(id)\n c) course.getCode() != null\n d) course.getCode() == null\n e) course.getFaculty() != null\n f) course.getFaculty() == null\n g) courses.get(course.getCode()) != null\n h) courses.get(course.getCode()) == null\n\n Answer group for G\n a) courses.get(code).setFaculty(faculties.get(fid))\n b) courses.get(code).setFaculty(fid)\n c) faculties.get(fid).addCourse(code)\n d) faculties.get(fid).addCourse(courses.get(code))\n\nSubquestion 2\n The class CourseManagement is executed.\n From the answer group below, select the correct output of the class CourseManagement.\n\n Answer group\n a) Student: 16200, CGPA: 2.50\n b) Student: 16200, CGPA: 2.58\n c) Student: 16200, CGPA: 2.81\n d) Student: 16200, CGPA: 2.90\n\n_ _\nCompany names and product names appearing in the test questions are trademarks or registered\ntrademarks of their respective companies. Note that the ® and ™ symbols are not used within the text.",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "The program manages students, courses, and faculty in a university.\n During a term, the program manages the course results of students. At the end of a term, it\n calculates the average grade of cumulative course results up to the end of the term using total\n grades and total credit hours of attended courses.\n\n[Program Description]\n The class Course (Program 1) represents a course.\n The credit hours of each course are 3 hours. The capacity of each course is 35 students. A\n member of the faculty teaches each course.\n o The method addStudent registers the student to the course and returns true. If the student\n has already registered for the course, or reached the course capacity, it returns false\n without changing the internal state of the object.\n o The method submitGrade registers the grade of the student and returns true. If the student\n has not registered for the course, it returns false.\n\nThe class Faculty (Program 2) represents a member of the faculty such as a professor or an\n instructor. Each member of the faculty teaches up to 3 courses.\n o The method addCourse registers the member of the faculty to the course and returns true.\n If he/she has already registered to 3 courses, or he/she or another member of the faculty\n has already registered to the course, it returns false.\n o The method submitGrade registers the grade of the student and returns true. If the\n member of the faculty or the student has not registered to the course, it returns false.\n\nThe class Student (Program 3) represents a student. A student can register up to 6 courses.\n o The constructor has 4 arguments: the student name, student ID, cumulative credit hours up\n to the last term, and the average of cumulative grades up to the last term.\n o The method addCourse registers the student to the course and returns true. If the student\n has already registered to 6 courses, the course capacity has reached, or the student has\n already registered for the course, it returns false.\n o The method calculateCgpa calculates the average of cumulative grades up to this term\n and returns the value.\n\nThe class CourseManagement (Program 4) manages Course, Faculty, and Student.\n o The method assignCourse assigns the course to the member of the faculty and returns\n true. If the assignment fails, it returns false or throws an exception.\n\no The method takeCourse registers the student to the course and returns true. If the\n registration fails, it returns false or throws an exception.\no The method submitGrade registers the grade of the student who takes the course taught\n by the member of the faculty, and returns true. If the registration fails, it returns false\n or throws an exception.\no The method cgpa calculates the average of cumulative grades up to this term and returns\n the value.\no The method main is used for testing.\n\nExplanation of interface Map<K, V>\no The method put(k key, V value)\n Associates the specified value with the specified key in this map. It returns the previous\n value associated with the key, or null if there was no mapping for the key.\no The method putIfAbsent(k key, V value)\n If the specified key is not already associated with a value, associates it with the given\n value and returns null. Otherwise, returns the current value.\no The method replace(k key, V value)\n Replaces the entry for the specified key only if it is currently mapped to some value.\n Returns the previous value associated with the specified key, or null if there was no\n mapping for the key.\n\n[Program 1]\n\nimport java.util.Map;\n\nimport java.util.HashMap;\n\npublic class Course {\n\npublic static final int CREDIT_HOUR = 3;\n\nprivate static final int CAPACITY = 35;\n\nprivate final String title;\n\nprivate final String code;\n\nprivate String faculty;\n private final Map< ***A*** > gradeBook = new HashMap<>();\n\nCourse(String title, String code) {\n\nthis.title = title;\n\nthis.code = code;\n\n}\n\nString getCode() { return code; }\n\nString getFaculty() { return faculty; }\n\nvoid setFaculty(String fid) { this.faculty = fid; }\n\nboolean addStudent(String sid) {\n\nif (gradeBook.size() < CAPACITY) {\n return gradeBook.***B***;\n }\n\nreturn false;\n\n}\n\nboolean submitGrade(String sid, double grade) {\n return gradeBook.***C*** ;\n }\n\ndouble getGrade(String sid) { return gradeBook.get(sid); }\n\n}\n\n[Program 2]\n\nimport java.util.Map;\n\nimport java.util.HashMap;\n\npublic class Faculty {\n\nprivate static final int MAX_COURSES = 3;\n\nprivate final String name;\n\nprivate final String id;\n private final Map< ***D*** > courses = new HashMap<>();\n\nFaculty(String name, String id) {\n\nthis.name = name;\n\nthis.id = id;\n\n}\n\nString getName() { return name; }\n\nString getId() { return id; }\n\nboolean addCourse(Course course) {\n if (courses.size() < MAX_COURSES && ***E*** ) {\n courses.put(course.getCode(), course);\n\ncourse.setFaculty(id);\n\nreturn true;\n\n} else {\n\nreturn false;\n\n}\n\n}\n\nboolean submitGrade(String course, String student, double grade) {\n\nCourse c = courses.get(course);\n\nreturn c == null ? false : c.submitGrade(student, grade);\n\n}\n\n}\n\n[Program 3]\n\nimport java.util.Map;\n\nimport java.util.HashMap;\n\npublic class Student {\n\nprivate static final int MAX_COURSES = 6;\n\nprivate final String name;\n\nprivate final String id;\n\nprivate final int creditHours;\n\nprivate final double cgpa;\n private final Map< ***D*** > courses = new HashMap<>();\n\nStudent(String name, String id, int creditHours, double cgpa) {\n\nthis.name = name;\n\nthis.id = id;\n\nthis.creditHours = creditHours;\n\nthis.cgpa = cgpa;\n\n}\n\nboolean addCourse(Course course) {\n if (courses.size() < MAX_COURSES && ***F*** ) {\n return courses.put(course.getCode(), course) == null;\n\n}\n\nreturn false;\n\n}\n\ndouble calculateCgpa() {\n\ndouble sum = creditHours * cgpa;\n\ndouble totalCreditHours;\n\nfor (Course course : courses.values()) {\n\nsum += course.getGrade(id) * Course.CREDIT_HOUR;\n\n}\n\ntotalCreditHours =\n\ncreditHours + Course.CREDIT_HOUR * courses.size();\n\nreturn sum / totalCreditHours;\n\n}\n\n}\n\n[Program 4]\n\nimport java.util.Map;\n\nimport java.util.HashMap;\n\npublic class CourseManagement {\n\npublic static void main(String[] args) {\n\nCourseManagement cm = new CourseManagement();\n\nString c1 = cm.newCourse(\"Programming Language I\", \"C105\");\n\nString c2 = cm.newCourse(\"Programming Language II\", \"C205\");\n\nString c3 = cm.newCourse(\"Data Structures\", \"C215\");\n\nString s1 = cm.newStudent(\"Kamal Rahim\", \"17127\", 15, 2.0);\n\nString s2 = cm.newStudent(\"Tamara Iqbal\", \"16200\", 24, 3.0);\n\nString f1 = cm.newFaculty(\"Dr. Tasnim Khan\", \"F7980\");\n\nString f2 = cm.newFaculty(\"Dr. Zia Kabir\", \"F4589\");\n\ncm.assignCourse(f1, c1);\n\ncm.assignCourse(f2, c2);\n\ncm.assignCourse(f2, c3);\n\ncm.takeCourse(s1, c1);\n\ncm.takeCourse(s1, c2);\n\ncm.takeCourse(s2, c1);\n\ncm.takeCourse(s2, c2);\n\ncm.submitGrade(f1, c1, s1, 2.0);\n\ncm.submitGrade(f1, c1, s2, 3.0);\n\ncm.submitGrade(f2, c2, s2, 2.0);\n\nSystem.out.printf(\"Student: %s, CGPA: %3.2f%n\",\n\ns2, cm.cgpa(s2));\n\n}\n\npublic Map<String, Student> students = new HashMap<>();\n\npublic Map<String, Faculty> faculties = new HashMap<>();\n\npublic Map<String, Course> courses = new HashMap<>();\n\npublic String newStudent(String name, String id,\n\nint creditHours, double cgpa) {\n\nstudents.put(id, new Student(name, id, creditHours, cgpa));\n\nreturn id;\n\n}\n\npublic String newFaculty(String name, String id) {\n\nfaculties.put(id, new Faculty(name, id));\n\nreturn id;\n\n}\n\npublic String newCourse(String title, String code) {\n\ncourses.put(code, new Course(title, code));\n\nreturn code;\n\n}\n\npublic boolean assignCourse(String fid, String code) {\n return ***G***;\n }\n\npublic boolean takeCourse(String sid, String code) {\n\nreturn students.get(sid).addCourse(courses.get(code));\n\n}\n\npublic boolean submitGrade(String fid, String code, String sid,\n\ndouble grade) {\n\nreturn faculties.get(fid).submitGrade(code, sid, grade);\n\n}\n\npublic double cgpa(String sid) {\n\nreturn students.get(sid).calculateCgpa();\n\n}\n\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the programs.\n\nAnswer group for A\n a) Double\n b) double\n c) String\n d) String, Double\n e) String, double\n\nAnswer group for B\n a) put(sid, 0.0) != null\n b) put(sid, 0.0) == null\n c) putIfAbsent(sid, 0.0) != null\n d) putIfAbsent(sid, 0.0) == null\n e) replace(sid, 0.0) != null\n f) replace(sid, 0.0) == null\n\nAnswer group for C\n a) put(sid, grade) != null b) put(sid, grade) == null\n c) putIfAbsent(sid, grade) != null d) putIfAbsent(sid, grade) == null\n e) replace(sid, grade) != null f) replace(sid, grade) == null\n\nAnswer group for D\n a) Course b) String\n c) String, Course d) String, String\n\nAnswer group for E and F\n a) !course.addStudent(id)\n b) course.addStudent(id)\n c) course.getCode() != null\n d) course.getCode() == null\n e) course.getFaculty() != null\n f) course.getFaculty() == null\n g) courses.get(course.getCode()) != null\n h) courses.get(course.getCode()) == null\n\nAnswer group for G\n a) courses.get(code).setFaculty(faculties.get(fid))\n b) courses.get(code).setFaculty(fid)\n c) faculties.get(fid).addCourse(code)\n d) faculties.get(fid).addCourse(courses.get(code))\n\nSubquestion 2\n The class CourseManagement is executed.\n From the answer group below, select the correct output of the class CourseManagement."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2022-october/b/questions.pdf",
+        "pages": [
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2022-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  }
+]

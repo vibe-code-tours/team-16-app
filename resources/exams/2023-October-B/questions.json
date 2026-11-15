@@ -1,0 +1,939 @@
+[
+  {
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_number": 1,
+    "question_text": "Q1. Read the following description of an exchange of cryptographic keys, and then answer\n Subquestions 1 and 2.\n\nAs a method of exchanging cryptographic keys in an insecure network, the Diffie-Hellman\n algorithm allows two users to securely exchange a key that can be used for subsequent\n symmetric encryption of messages.\n\nThis algorithm uses modulo operations. The modulo operation “a mod b” calculates the\n remainder when integer a is divided by integer b. For example, 29 mod 5 is 4, and 21 mod\n 3 is 0.\n\nTo establish a shared secret key, the two users must first select two numbers: a prime number\n p and an integer g such that the value of g n mod p does not overlap in the range 1 ≤ n ≤ p -\n 1. In other words, each value of n (n = 1, 2, … , p - 1) appears in g n mod p. Table 1 shows an\n example of such an integer pair: p = 11 and g = 2. The bottom row shows the numbers 1, 2,\n … , 10.\n\nTable 1 An example of g n mod p with an integer pair: p = 11 and g = 2\n\nn 1 2 3 4 5 6 7 8 9 10\n 2n 2 4 8 16 32 64 128 256 512 1024\n 2n mod 11 2 4 8 5 10 9 7 3 6 1\n\nThe Diffie-Hellman algorithm is shown in Figure 1 and in the following steps:\n (1) Alice and Bob select a prime number p and an integer g, as explained above.\n (2) Alice selects a random number, x (1 ≤ x ≤ p - 1), and calculates R1 = g x mod p.\n (3) Bob selects another random number, y (1 ≤ y ≤ p - 1), and calculates R2 = g y mod p.\n (4) Alice sends R1 to Bob. Note that Alice does not send the value of x.\n (5) Bob sends R2 to Alice. Note that Bob does not send the value of y.\n (6) Alice calculates the shared secret key K = (R2) x mod p.\n (7) Bob calculates the shared secret key K = (R1) y mod p.\n\nThus, Alice and Bob obtain the shared secret key K for the session.\n\nAlice Bob\n\n(1) select p and g\n\n(2) select x, (3) select y,\n calculate R1 = g x mod p calculate R2 = g y mod p\n\n(4) send R1 to Bob (5) send R2 to Alice\n\n(6) calculate K = (R2) x mod p (7) calculate K = (R1) y mod p\n\nFigure 1 Diffie-Hellman key exchange algorithm\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nA shared secret key is being exchanged between Alice and Bob using the Diffie-Hellman\n algorithm. Assume that they agreed upon the prime number p = 11 and the integer g = 2.\n If Bob has received the public key R1 = 3 from Alice, the random number x Alice has selected\n is ***A***. Also, if Alice has received the public key R2 = 9 from Bob, the random\n number y Bob has selected is ***B***.\n In this case, i.e., R1 = 3 and R2 = 9, the shared secret key obtained by both Alice and Bob is\n ***C***, which they can use for subsequent symmetric encryption of messages.\n\nAnswer group\n a) 1 b) 2 c) 3 d) 4 e) 5\n f) 6 g) 7 h) 8 i) 9 j) 10\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nAlice and Bob decided to change the values of g, x, and y. Then, they exchanged the re-calculated R1 and R2, and finally obtained the shared secret key K.\n Assume that an attacker Eve knows the three non-secret values: p = 11, g = 7, and R1 = 3.\n Recently, Eve obtained the value y = 3 by illegal means. Then, it would be possible for Eve\n to determine the shared secret key K as ***D***.\n\nIn this case, p is sufficiently small in that it is possible to find x from R1 or y from R2 in a\n short time. However, since an efficient way to perform this calculation has not been\n discovered, finding x from R1 requires a brute-force search for x such that g x mod p = R1.\n Assuming that 2 90 attempts to search for x can be made in one year, it would take\n approximately ***E*** years to search for x if p of about 2 120 in size is used.\n For practical use, a prime number with a size of 2 2048 (≈ 3.2 × 10 616) or larger is used as p.\n\nAnswer group for D\n a) 1 b) 2 c) 3 d) 4 e) 5\n f) 6 g) 7 h) 8 i) 9 j) 10",
+    "choices": [
+      {
+        "label": "a",
+        "text": "2"
+      },
+      {
+        "label": "b",
+        "text": "5"
+      },
+      {
+        "label": "c",
+        "text": "10"
+      },
+      {
+        "label": "d",
+        "text": "100"
+      },
+      {
+        "label": "e",
+        "text": "1000"
+      },
+      {
+        "label": "f",
+        "text": "1 million"
+      },
+      {
+        "label": "g",
+        "text": "1 billion"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"h\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"f\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"c\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"e\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"g\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "h"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "f"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "c"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "e"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "g"
+        }
+      ]
+    },
+    "images": [
+      "2023-october-b-q01-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023A, FE, Subject-B, Q1)",
+    "source_pages": [
+      3,
+      4,
+      5
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q1. Read the following description of an exchange of cryptographic keys, and then answer\n Subquestions 1 and 2.\n\n As a method of exchanging cryptographic keys in an insecure network, the Diffie-Hellman\n algorithm allows two users to securely exchange a key that can be used for subsequent\n symmetric encryption of messages.\n\n This algorithm uses modulo operations. The modulo operation “a mod b” calculates the\n remainder when integer a is divided by integer b. For example, 29 mod 5 is 4, and 21 mod\n 3 is 0.\n\n To establish a shared secret key, the two users must first select two numbers: a prime number\n p and an integer g such that the value of g n mod p does not overlap in the range 1 ≤ n ≤ p -\n 1. In other words, each value of n (n = 1, 2, … , p - 1) appears in g n mod p. Table 1 shows an\n example of such an integer pair: p = 11 and g = 2. The bottom row shows the numbers 1, 2,\n … , 10.\n\n Table 1 An example of g n mod p with an integer pair: p = 11 and g = 2\n\n n 1 2 3 4 5 6 7 8 9 10\n 2n 2 4 8 16 32 64 128 256 512 1024\n 2n mod 11 2 4 8 5 10 9 7 3 6 1\n\n The Diffie-Hellman algorithm is shown in Figure 1 and in the following steps:\n (1) Alice and Bob select a prime number p and an integer g, as explained above.\n (2) Alice selects a random number, x (1 ≤ x ≤ p - 1), and calculates R1 = g x mod p.\n (3) Bob selects another random number, y (1 ≤ y ≤ p - 1), and calculates R2 = g y mod p.\n (4) Alice sends R1 to Bob. Note that Alice does not send the value of x.\n (5) Bob sends R2 to Alice. Note that Bob does not send the value of y.\n (6) Alice calculates the shared secret key K = (R2) x mod p.\n (7) Bob calculates the shared secret key K = (R1) y mod p.\n\n Thus, Alice and Bob obtain the shared secret key K for the session.\n\nAlice Bob\n\n (1) select p and g\n\n (2) select x, (3) select y,\n calculate R1 = g x mod p calculate R2 = g y mod p\n\n (4) send R1 to Bob (5) send R2 to Alice\n\n (6) calculate K = (R2) x mod p (7) calculate K = (R1) y mod p\n\n Figure 1 Diffie-Hellman key exchange algorithm\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n A shared secret key is being exchanged between Alice and Bob using the Diffie-Hellman\n algorithm. Assume that they agreed upon the prime number p = 11 and the integer g = 2.\n If Bob has received the public key R1 = 3 from Alice, the random number x Alice has selected\n is ___A___. Also, if Alice has received the public key R2 = 9 from Bob, the random\n number y Bob has selected is ___B___.\n In this case, i.e., R1 = 3 and R2 = 9, the shared secret key obtained by both Alice and Bob is\n ___C___, which they can use for subsequent symmetric encryption of messages.\n\n Answer group\n a) 1 b) 2 c) 3 d) 4 e) 5\n f) 6 g) 7 h) 8 i) 9 j) 10\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n Alice and Bob decided to change the values of g, x, and y. Then, they exchanged the re-calculated R1 and R2, and finally obtained the shared secret key K.\n Assume that an attacker Eve knows the three non-secret values: p = 11, g = 7, and R1 = 3.\n Recently, Eve obtained the value y = 3 by illegal means. Then, it would be possible for Eve\n to determine the shared secret key K as ___D___.\n\n In this case, p is sufficiently small in that it is possible to find x from R1 or y from R2 in a\n short time. However, since an efficient way to perform this calculation has not been\n discovered, finding x from R1 requires a brute-force search for x such that g x mod p = R1.\n Assuming that 2 90 attempts to search for x can be made in one year, it would take\n approximately ___E___ years to search for x if p of about 2 120 in size is used.\n For practical use, a prime number with a size of 2 2048 (≈ 3.2 × 10 616) or larger is used as p.\n\n Answer group for D\n a) 1 b) 2 c) 3 d) 4 e) 5\n f) 6 g) 7 h) 8 i) 9 j) 10\n\n Answer group for E\n a) 2 b) 5 c) 10 d) 100\n e) 1000 f) 1 million g) 1 billion",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q1. Read the following description of an exchange of cryptographic keys, and then answer\n Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "As a method of exchanging cryptographic keys in an insecure network, the Diffie-Hellman\n algorithm allows two users to securely exchange a key that can be used for subsequent\n symmetric encryption of messages.\n\nThis algorithm uses modulo operations. The modulo operation “a mod b” calculates the\n remainder when integer a is divided by integer b. For example, 29 mod 5 is 4, and 21 mod\n 3 is 0.\n\nTo establish a shared secret key, the two users must first select two numbers: a prime number\n p and an integer g such that the value of g n mod p does not overlap in the range 1 ≤ n ≤ p -\n 1. In other words, each value of n (n = 1, 2, … , p - 1) appears in g n mod p. Table 1 shows an\n example of such an integer pair: p = 11 and g = 2. The bottom row shows the numbers 1, 2,\n … , 10.\n\nTable 1 An example of g n mod p with an integer pair: p = 11 and g = 2\n\nn 1 2 3 4 5 6 7 8 9 10\n 2n 2 4 8 16 32 64 128 256 512 1024\n 2n mod 11 2 4 8 5 10 9 7 3 6 1\n\nThe Diffie-Hellman algorithm is shown in Figure 1 and in the following steps:\n (1) Alice and Bob select a prime number p and an integer g, as explained above.\n (2) Alice selects a random number, x (1 ≤ x ≤ p - 1), and calculates R1 = g x mod p.\n (3) Bob selects another random number, y (1 ≤ y ≤ p - 1), and calculates R2 = g y mod p.\n (4) Alice sends R1 to Bob. Note that Alice does not send the value of x.\n (5) Bob sends R2 to Alice. Note that Bob does not send the value of y.\n (6) Alice calculates the shared secret key K = (R2) x mod p.\n (7) Bob calculates the shared secret key K = (R1) y mod p.\n\nThus, Alice and Bob obtain the shared secret key K for the session.\n\nAlice Bob\n\n(1) select p and g\n\n(2) select x, (3) select y,\n calculate R1 = g x mod p calculate R2 = g y mod p\n\n(4) send R1 to Bob (5) send R2 to Alice\n\n(6) calculate K = (R2) x mod p (7) calculate K = (R1) y mod p\n\nFigure 1 Diffie-Hellman key exchange algorithm\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nA shared secret key is being exchanged between Alice and Bob using the Diffie-Hellman\n algorithm. Assume that they agreed upon the prime number p = 11 and the integer g = 2.\n If Bob has received the public key R1 = 3 from Alice, the random number x Alice has selected\n is ***A***. Also, if Alice has received the public key R2 = 9 from Bob, the random\n number y Bob has selected is ***B***.\n In this case, i.e., R1 = 3 and R2 = 9, the shared secret key obtained by both Alice and Bob is\n ***C***, which they can use for subsequent symmetric encryption of messages.\n\nAnswer group\n a) 1 b) 2 c) 3 d) 4 e) 5\n f) 6 g) 7 h) 8 i) 9 j) 10\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nAlice and Bob decided to change the values of g, x, and y. Then, they exchanged the re-calculated R1 and R2, and finally obtained the shared secret key K.\n Assume that an attacker Eve knows the three non-secret values: p = 11, g = 7, and R1 = 3.\n Recently, Eve obtained the value y = 3 by illegal means. Then, it would be possible for Eve\n to determine the shared secret key K as ***D***.\n\nIn this case, p is sufficiently small in that it is possible to find x from R1 or y from R2 in a\n short time. However, since an efficient way to perform this calculation has not been\n discovered, finding x from R1 requires a brute-force search for x such that g x mod p = R1.\n Assuming that 2 90 attempts to search for x can be made in one year, it would take\n approximately ***E*** years to search for x if p of about 2 120 in size is used.\n For practical use, a prime number with a size of 2 2048 (≈ 3.2 × 10 616) or larger is used as p.\n\nAnswer group for D\n a) 1 b) 2 c) 3 d) 4 e) 5\n f) 6 g) 7 h) 8 i) 9 j) 10"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-october/b/questions.pdf",
+        "pages": [
+          3,
+          4,
+          5
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_number": 2,
+    "question_text": "Q2. Read the following description of direct-mapped cache memory configuration, and then\n answer Subquestion.\n In this question, letters in italics, such as 001 and ttt indicate binary digits, and letters\n in Gothic, such as 0F and xx indicate hexadecimal digits.\n\nCache memory is placed between the CPU and the main memory. Cache memory is designed\n to provide fast access to selected data from the main memory. Since the size of cache\n memory is much smaller than the size of main memory, the large amount of data required\n for a process cannot be stored in cache memory simultaneously.\n\n[Direct-mapped cache]\n A mapping is required when copying data from main memory to cache memory. A block of\n main memory maps to only one predetermined location in cache memory in a direct-mapped\n cache method, which is one of the common types of mapping functions.\n\nConsider a simple memory model:\n Main memory: 256 bytes in size, addressed 0 to 255. Each address holds 1-byte data.\n Cache memory: 32 bytes (= 8 words) in size for data.\n Data transfer between main memory and cache memory: In the unit of words.\n In this model, a word is defined as 4 contiguous bytes in main memory starting at an address\n that is a multiple of 4.\n\nFigure 1 shows the relationship between main memory and cache memory.\n An 8-bit main memory address is divided into three parts: tag-bits (3 bits), line-bits (3 bits),\n and byte-bits (2 bits). Tag-bits ttt is used to identify the main memory address in the cache.\n Line-bits lll is used for mapping; a word in main memory whose address is aaa lll00 (a:\n any) is always mapped to the word at line position lll in the cache. Byte-bits bb indicate\n byte offset in a word.\n\nMain memory Cache memory\n address data line tag word\n ttt lll00 xx xx xx xx lll ttt xx xx xx xx.\n\nFigure 1 Relationship between main memory and cache memory\n\nWhen the CPU is going to read a byte at address ttt lll bb that is not loaded into the cache\nmemory, the processor transfers the word that contains the target byte from the main memory\nto the line location lll in the cache memory with the tag-bits ttt.\n\nFigure 2 shows the simple memory model explained above with sample data.\nFor example, when the CPU is going to read the byte 1B at address 18, ***A*** in the\ncache memory.\nThe processor can identify the main memory address of a word in the cache memory using\nthe line location lll and tag-bits ttt. For example, the word FF FF FF F6 on line 101 can\nbe identified in that it is loaded from the main memory addresses ***B***.\n\nWhenever the CPU needs data from the main memory, it immediately checks whether the\ndata is loaded into the cache memory. If the data exists in the cache memory, the state is\ncalled “cache hit”; otherwise, it is called “cache miss”.\nAssume that the main memory and cache memory hold the data as shown in Figure 2. When\nthe CPU reads the data successively from addresses 0, 32, 2, and 34, in this order, the\nsequence of occurrence of the state will be cache hit → cache miss → ***C***.\n\nMain memory Cache Memory\n address data line tag word\n 000 000 00 1B 00 41 10 000 000 1B 00 41 10\n 000 001 00 00 0A 1A 01 001 000 00 0A 1A 01\n 000 010 00 46 10 00 06 010 100 88 89 8A 8B\n 000 011 00 50 00 00 FC 011 100 8C 8D 8E 8F\n 000 100 00 0A 00 1B 00 100 001 00 00 00 0A\n 000 101 00 41 10 00 64 101 001 FF FF FF F6\n ⁝ ⁝ 110 111 00 00 13 BA\n 100 010 00 88 89 8A 8B 111 111 00 00 00 37\n 100 011 00 8C 8D 8E 8F\n ⁝ ⁝\n 111 110 00 00 00 13 BA [Legend]\n 111 111 00 00 00 00 37 Loaded\n ⁝ ⁝\n\nFigure 2 Simple memory model with sample data\n\nGenerally, when the main memory address is divided into three parts as follows:\n\ntag-bits line-bits byte-bits\n ← T bits → ← L bits →← B bits →\n\nthe specification of the direct-mapped cache memory configuration can be described as\nshown in Table 1. It is assumed that each main memory address holds 1-byte data.\n\nItem Value\n Address range of main memory 0 to ***D*** - 1\n Number of words in main memory 2T+L\n Number of line locations in cache memory 2L\n Cache memory size (for word data part) 2L+B bytes\n Cache memory size (for tag-bits part) ***E*** bits\n\nTable 1 Specification of direct-mapped cache memory configuration\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n\nAnswer group for A\n a) data transfer does not occur because the word that contains the target byte already\n exists\n b) the word 0A 00 1B 00 and tag-bits 000 are loaded into the line location 100\n c) the word 0A 00 1B 00 and tag-bits 100 are loaded into the line location 000\n d) the word 1B 00 41 10 and tag-bits 000 are loaded into the line location 100\n e) the word 1B 00 41 10 and tag-bits 100 are loaded into the line location 000\n\nAnswer group for B\n a) 52 to 55 (34 to 37) b) 60 to 63 (3C to 3F)\n c) 164 to 167 (A4 to A7) d) 204 to 207 (CC to CF)\n\nAnswer group for C\n a) cache hit → cache hit b) cache hit → cache miss\n c) cache miss → cache hit d) cache miss → cache miss",
+    "choices": [
+      {
+        "label": "a",
+        "text": "2L-1 × T"
+      },
+      {
+        "label": "b",
+        "text": "2T-1 × L"
+      },
+      {
+        "label": "c",
+        "text": "2L × T"
+      },
+      {
+        "label": "d",
+        "text": "2T × L"
+      },
+      {
+        "label": "e",
+        "text": "2T+L-1"
+      },
+      {
+        "label": "f",
+        "text": "2T+L"
+      },
+      {
+        "label": "g",
+        "text": "2T+L+B-1"
+      },
+      {
+        "label": "h",
+        "text": "2T+L+B"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 2, \"blank\": \"A\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"B\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"C\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"h\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"c\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 2,
+          "blank": "A",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "B",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "C",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "h"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "c"
+        }
+      ]
+    },
+    "images": [
+      "2023-october-b-q02-figure1.webp",
+      "2023-october-b-q02-figure2.webp",
+      "2023-october-b-q02-figure3.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023A, FE, Subject-B, Q2)",
+    "source_pages": [
+      6,
+      7,
+      8
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q2. Read the following description of direct-mapped cache memory configuration, and then\n answer Subquestion.\n In this question, letters in italics, such as 001 and ttt indicate binary digits, and letters\n in Gothic, such as 0F and xx indicate hexadecimal digits.\n\n Cache memory is placed between the CPU and the main memory. Cache memory is designed\n to provide fast access to selected data from the main memory. Since the size of cache\n memory is much smaller than the size of main memory, the large amount of data required\n for a process cannot be stored in cache memory simultaneously.\n\n [Direct-mapped cache]\n A mapping is required when copying data from main memory to cache memory. A block of\n main memory maps to only one predetermined location in cache memory in a direct-mapped\n cache method, which is one of the common types of mapping functions.\n\n Consider a simple memory model:\n Main memory: 256 bytes in size, addressed 0 to 255. Each address holds 1-byte data.\n Cache memory: 32 bytes (= 8 words) in size for data.\n Data transfer between main memory and cache memory: In the unit of words.\n In this model, a word is defined as 4 contiguous bytes in main memory starting at an address\n that is a multiple of 4.\n\n Figure 1 shows the relationship between main memory and cache memory.\n An 8-bit main memory address is divided into three parts: tag-bits (3 bits), line-bits (3 bits),\n and byte-bits (2 bits). Tag-bits ttt is used to identify the main memory address in the cache.\n Line-bits lll is used for mapping; a word in main memory whose address is aaa lll00 (a:\n any) is always mapped to the word at line position lll in the cache. Byte-bits bb indicate\n byte offset in a word.\n\n Main memory Cache memory\n address data line tag word\n ttt lll00 xx xx xx xx lll ttt xx xx xx xx.\n\n Figure 1 Relationship between main memory and cache memory\n\nWhen the CPU is going to read a byte at address ttt lll bb that is not loaded into the cache\nmemory, the processor transfers the word that contains the target byte from the main memory\nto the line location lll in the cache memory with the tag-bits ttt.\n\nFigure 2 shows the simple memory model explained above with sample data.\nFor example, when the CPU is going to read the byte 1B at address 18, ___A___ in the\ncache memory.\nThe processor can identify the main memory address of a word in the cache memory using\nthe line location lll and tag-bits ttt. For example, the word FF FF FF F6 on line 101 can\nbe identified in that it is loaded from the main memory addresses ___B___.\n\nWhenever the CPU needs data from the main memory, it immediately checks whether the\ndata is loaded into the cache memory. If the data exists in the cache memory, the state is\ncalled “cache hit”; otherwise, it is called “cache miss”.\nAssume that the main memory and cache memory hold the data as shown in Figure 2. When\nthe CPU reads the data successively from addresses 0, 32, 2, and 34, in this order, the\nsequence of occurrence of the state will be cache hit → cache miss → ___C___.\n\n Main memory Cache Memory\n address data line tag word\n 000 000 00 1B 00 41 10 000 000 1B 00 41 10\n 000 001 00 00 0A 1A 01 001 000 00 0A 1A 01\n 000 010 00 46 10 00 06 010 100 88 89 8A 8B\n 000 011 00 50 00 00 FC 011 100 8C 8D 8E 8F\n 000 100 00 0A 00 1B 00 100 001 00 00 00 0A\n 000 101 00 41 10 00 64 101 001 FF FF FF F6\n ⁝ ⁝ 110 111 00 00 13 BA\n 100 010 00 88 89 8A 8B 111 111 00 00 00 37\n 100 011 00 8C 8D 8E 8F\n ⁝ ⁝\n 111 110 00 00 00 13 BA [Legend]\n 111 111 00 00 00 00 37 Loaded\n ⁝ ⁝\n\n Figure 2 Simple memory model with sample data\n\nGenerally, when the main memory address is divided into three parts as follows:\n\n tag-bits line-bits byte-bits\n ← T bits → ← L bits →← B bits →\n\nthe specification of the direct-mapped cache memory configuration can be described as\nshown in Table 1. It is assumed that each main memory address holds 1-byte data.\n\nItem Value\n Address range of main memory 0 to ___D___ - 1\n Number of words in main memory 2T+L\n Number of line locations in cache memory 2L\n Cache memory size (for word data part) 2L+B bytes\n Cache memory size (for tag-bits part) ___E___ bits\n\n Table 1 Specification of direct-mapped cache memory configuration\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n\n Answer group for A\n a) data transfer does not occur because the word that contains the target byte already\n exists\n b) the word 0A 00 1B 00 and tag-bits 000 are loaded into the line location 100\n c) the word 0A 00 1B 00 and tag-bits 100 are loaded into the line location 000\n d) the word 1B 00 41 10 and tag-bits 000 are loaded into the line location 100\n e) the word 1B 00 41 10 and tag-bits 100 are loaded into the line location 000\n\n Answer group for B\n a) 52 to 55 (34 to 37) b) 60 to 63 (3C to 3F)\n c) 164 to 167 (A4 to A7) d) 204 to 207 (CC to CF)\n\n Answer group for C\n a) cache hit → cache hit b) cache hit → cache miss\n c) cache miss → cache hit d) cache miss → cache miss\n\n Answer group for D and E\n a) 2L-1 × T b) 2T-1 × L c) 2L × T d) 2T × L\n e) 2T+L-1 f) 2T+L g) 2T+L+B-1 h) 2T+L+B",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q2. Read the following description of direct-mapped cache memory configuration, and then\n answer Subquestion.\n In this question, letters in italics, such as 001 and ttt indicate binary digits, and letters\n in Gothic, such as 0F and xx indicate hexadecimal digits."
+      },
+      {
+        "type": "context",
+        "text": "Cache memory is placed between the CPU and the main memory. Cache memory is designed\n to provide fast access to selected data from the main memory. Since the size of cache\n memory is much smaller than the size of main memory, the large amount of data required\n for a process cannot be stored in cache memory simultaneously.\n\n[Direct-mapped cache]\n A mapping is required when copying data from main memory to cache memory. A block of\n main memory maps to only one predetermined location in cache memory in a direct-mapped\n cache method, which is one of the common types of mapping functions.\n\nConsider a simple memory model:\n Main memory: 256 bytes in size, addressed 0 to 255. Each address holds 1-byte data.\n Cache memory: 32 bytes (= 8 words) in size for data.\n Data transfer between main memory and cache memory: In the unit of words.\n In this model, a word is defined as 4 contiguous bytes in main memory starting at an address\n that is a multiple of 4.\n\nFigure 1 shows the relationship between main memory and cache memory.\n An 8-bit main memory address is divided into three parts: tag-bits (3 bits), line-bits (3 bits),\n and byte-bits (2 bits). Tag-bits ttt is used to identify the main memory address in the cache.\n Line-bits lll is used for mapping; a word in main memory whose address is aaa lll00 (a:\n any) is always mapped to the word at line position lll in the cache. Byte-bits bb indicate\n byte offset in a word.\n\nMain memory Cache memory\n address data line tag word\n ttt lll00 xx xx xx xx lll ttt xx xx xx xx.\n\nFigure 1 Relationship between main memory and cache memory\n\nWhen the CPU is going to read a byte at address ttt lll bb that is not loaded into the cache\nmemory, the processor transfers the word that contains the target byte from the main memory\nto the line location lll in the cache memory with the tag-bits ttt.\n\nFigure 2 shows the simple memory model explained above with sample data.\nFor example, when the CPU is going to read the byte 1B at address 18, ***A*** in the\ncache memory.\nThe processor can identify the main memory address of a word in the cache memory using\nthe line location lll and tag-bits ttt. For example, the word FF FF FF F6 on line 101 can\nbe identified in that it is loaded from the main memory addresses ***B***.\n\nWhenever the CPU needs data from the main memory, it immediately checks whether the\ndata is loaded into the cache memory. If the data exists in the cache memory, the state is\ncalled “cache hit”; otherwise, it is called “cache miss”.\nAssume that the main memory and cache memory hold the data as shown in Figure 2. When\nthe CPU reads the data successively from addresses 0, 32, 2, and 34, in this order, the\nsequence of occurrence of the state will be cache hit → cache miss → ***C***.\n\nMain memory Cache Memory\n address data line tag word\n 000 000 00 1B 00 41 10 000 000 1B 00 41 10\n 000 001 00 00 0A 1A 01 001 000 00 0A 1A 01\n 000 010 00 46 10 00 06 010 100 88 89 8A 8B\n 000 011 00 50 00 00 FC 011 100 8C 8D 8E 8F\n 000 100 00 0A 00 1B 00 100 001 00 00 00 0A\n 000 101 00 41 10 00 64 101 001 FF FF FF F6\n ⁝ ⁝ 110 111 00 00 13 BA\n 100 010 00 88 89 8A 8B 111 111 00 00 00 37\n 100 011 00 8C 8D 8E 8F\n ⁝ ⁝\n 111 110 00 00 00 13 BA [Legend]\n 111 111 00 00 00 00 37 Loaded\n ⁝ ⁝\n\nFigure 2 Simple memory model with sample data\n\nGenerally, when the main memory address is divided into three parts as follows:\n\ntag-bits line-bits byte-bits\n ← T bits → ← L bits →← B bits →\n\nthe specification of the direct-mapped cache memory configuration can be described as\nshown in Table 1. It is assumed that each main memory address holds 1-byte data.\n\nItem Value\n Address range of main memory 0 to ***D*** - 1\n Number of words in main memory 2T+L\n Number of line locations in cache memory 2L\n Cache memory size (for word data part) 2L+B bytes\n Cache memory size (for tag-bits part) ***E*** bits\n\nTable 1 Specification of direct-mapped cache memory configuration\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above description.\n\nAnswer group for A\n a) data transfer does not occur because the word that contains the target byte already\n exists\n b) the word 0A 00 1B 00 and tag-bits 000 are loaded into the line location 100\n c) the word 0A 00 1B 00 and tag-bits 100 are loaded into the line location 000\n d) the word 1B 00 41 10 and tag-bits 000 are loaded into the line location 100\n e) the word 1B 00 41 10 and tag-bits 100 are loaded into the line location 000\n\nAnswer group for B\n a) 52 to 55 (34 to 37) b) 60 to 63 (3C to 3F)\n c) 164 to 167 (A4 to A7) d) 204 to 207 (CC to CF)\n\nAnswer group for C\n a) cache hit → cache hit b) cache hit → cache miss\n c) cache miss → cache hit d) cache miss → cache miss"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-october/b/questions.pdf",
+        "pages": [
+          6,
+          7,
+          8
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_number": 3,
+    "question_text": "Q3. Read the following description of a thesis management system in a university, and then\n answer Subquestions 1 through 3.\n\nUniversity T has a variety of faculties. Each faculty has instructors and students.\n University T holds a thesis defense meeting and graduation ceremony once a year. There is\n a topic registration period when students register what they will do as their graduate thesis\n before the thesis defense meeting is held. Students must contact an instructor in their faculty\n who will instruct them in their theses. Each instructor can instruct at most 5 students. Each\n student must be instructed by one instructor. After contacting instructors, students need to\n consult their instructors to determine their thesis topics. Each student will choose one topic.\n It is possible for them to either working on their thesis by themselves or in groups of\n maximum 4 students. Once a student has selected a thesis topic, he/she has to register the\n topic to the department of education before the registration deadline.\n\nUniversity T would like to build a thesis management system that enables students to register\n their thesis topic online and checks their grade after defending their thesis. To build this\n system, university T has created a simplified E-R diagram shown in Figure 1.\n\nLegend: zero or one only one\n\nzero or many one or many\n\nStudent\n A\n Faculty Registration Topic\n B\n Instructor\n\nFigure 1 E-R diagram (simplified)\n\nThe table structures and examples of data storage are as follows:\n\nFaculty Table\n\nID FacultyName\n FIT Faculty of Information Technology\n FEE Faculty of Electronical Engineering\n\nStudent Table\n\nID StudentName FacultyID Email DefenseTerm\n S2101 Sarah FIT sarah@example.edu 2023\n S2102 Karina FIT karina@example.edu 2023\n S2103 Mike FIT mike@example.edu 2023\n S2104 Selena FEE selena@example.edu 2023\n S2105 Peter FEE peter@example.edu 2023\n S2201 Roger FEE roger@example.edu 2024\n\nInstructor Table\n\nID InstructorName Title FacultyID\n I01 Christopher Professor FIT\n I02 Lily Associate Professor FIT\n I03 Marie Professor FEE\n I04 Robert Lecturer FEE\n\nTopic Table\n\nID TopicName\n T01 Personal Area Networks using Zigbee Technology\n T02 Rich Internet Application for Weekly College Timetable Generation\n T03 General-purpose Online Ticket Reservation System\n T04 Fiber Optic Communication\n\nRegistration Table\n\nAt the time of registration, the Grade field is set to null.\n ID StudentID TopicID InstructorID Grade\n R01 S2101 T02 I02\n R02 S2102 T03 I01\n R03 S2103 T03 I01\n R04 S2105 T04 I03\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in Figure 1.\n\nAnswer group for A and B\n a) b) c)\n d) e) f)\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL1.\n\nThe defense meeting in 2023 will be held in December. The topic registration period has\n already started and the deadline for registration is getting close.\n The department of education is planning to send a reminder email to the students.\n The following SQL statement SQL1 outputs the students whose defense term is 2023 and\n who have not registered thesis topics.\n\n-- SQL1 --\n\nSELECT s.ID, s.StudentName, s.Email\n FROM Student s ***C*** Registration r\n\nON s.ID = r.StudentID\n WHERE s.DefenseTerm = 2023 AND ***D***\n\nWhen SQL1 is executed using the sample data shown in the table definitions, SQL1 outputs\n the following result:\n\nID StudentName Email\n S2104 Selena selena@example.edu\n\nNote:\n INNER JOIN returns the values on the matched rows from the left and right tables.\n LEFT OUTER JOIN returns the values on all rows from the left table and the matched rows\n from the right table. Columns of unmatched rows are set to NULL.\n RIGHT OUTER JOIN returns the values on all rows from the right table and the matched rows\n from the left table. Columns of unmatched rows are set to NULL.\n\nAnswer group for C\n a) INNER JOIN b) LEFT OUTER JOIN\n c) RIGHT OUTER JOIN\n\nAnswer group for D\n a) r.ID IS NOT NULL b) r.ID IS NULL\n c) s.ID IS NOT NULL d) s.ID IS NULL\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following description.\n\nAt the thesis defense meeting, committees assess and mark students’ theses. After the\n meeting, these grades are put into the Registration Table.\n The following table shows the current content of the Registration table. It is assumed that\n four tables other than the Registration Table remain unchanged.\n\nRegistration Table\n\nID StudentID TopicID InstructorID Grade\n R01 S2101 T02 I02 85\n R02 S2102 T03 I01 90\n R03 S2103 T03 I01 90\n R04 S2105 T04 I03 80\n R05 S2104 T01 I04 85\n\nUniversity T gives excellent thesis awards to the students at the graduation ceremony. The\n department of education determines the award receivers using the SQL statements SQL2\n (not shown) and SQL3.\n First, SQL2 (not shown) modifies the Registration Table by removing the ID, TopicID, and\n InstructorID columns, adding the StudentName and FacultyID columns, and sorting rows by\n StudentID. Then SQL2 outputs the result as the Result Table as follows:\n\nResult Table\n\nStudentID StudentName FacultyID Grade\n S2101 Sarah FIT 85\n S2102 Karina FIT 90\n S2103 Mike FIT 90\n S2104 Selena FEE 85\n S2105 Peter FEE 80\n\nNext, SQL3 determines the students who will receive the excellent thesis award from the\nResult Table created by SQL2 and Faculty Table.\n\n-- SQL3 --\n\nSELECT f.FacultyName, st.StudentID, st.StudentName, st.Grade\n\nFROM (SELECT r.FacultyID AS FacultyID,\n\nr.StudentID AS StudentID,\n\nr.StudentName AS StudentName,\n\nr.Grade AS Grade\n\nFROM Result r\n\nINNER JOIN (SELECT FacultyID, MAX(Grade) AS MaxGrade\n\nFROM Result\n\nGROUP BY Result.FacultyID\n\n) AS mg ON r.FacultyID = mg.FacultyID\n\nAND r.Grade = mg.MaxGrade\n\n) AS st\n\nINNER JOIN Faculty f ON f.ID = st.FacultyID\n\nWhen SQL3 is executed using the sample data shown above, SQL3 determines ***E***\nas the excellent thesis award receiver.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "one student whose student ID is S2102"
+      },
+      {
+        "label": "b",
+        "text": "two students whose student ID’s are S2102 and S2103"
+      },
+      {
+        "label": "c",
+        "text": "two students whose student ID’s are S2102 and S2104"
+      },
+      {
+        "label": "d",
+        "text": "three students whose student ID’s are S2102, S2103, and S2104"
+      },
+      {
+        "label": "e",
+        "text": "three students whose student ID’s are S2102, S2104, and S2105"
+      },
+      {
+        "label": "f",
+        "text": "four students whose student ID’s are S2102, S2103, S2104, and S2105"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"C\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"b\"}, {\"subquestion\": 3, \"blank\": \"E\", \"answer\": \"d\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "C",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "b"
+        },
+        {
+          "subquestion": 3,
+          "blank": "E",
+          "answer": "d"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023A, FE, Subject-B, Q3)",
+    "source_pages": [
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q3. Read the following description of a thesis management system in a university, and then\n answer Subquestions 1 through 3.\n\n University T has a variety of faculties. Each faculty has instructors and students.\n University T holds a thesis defense meeting and graduation ceremony once a year. There is\n a topic registration period when students register what they will do as their graduate thesis\n before the thesis defense meeting is held. Students must contact an instructor in their faculty\n who will instruct them in their theses. Each instructor can instruct at most 5 students. Each\n student must be instructed by one instructor. After contacting instructors, students need to\n consult their instructors to determine their thesis topics. Each student will choose one topic.\n It is possible for them to either working on their thesis by themselves or in groups of\n maximum 4 students. Once a student has selected a thesis topic, he/she has to register the\n topic to the department of education before the registration deadline.\n\n University T would like to build a thesis management system that enables students to register\n their thesis topic online and checks their grade after defending their thesis. To build this\n system, university T has created a simplified E-R diagram shown in Figure 1.\n\n Legend: zero or one only one\n\n zero or many one or many\n\n Student\n A\n Faculty Registration Topic\n B\n Instructor\n\n Figure 1 E-R diagram (simplified)\n\nThe table structures and examples of data storage are as follows:\n\nFaculty Table\n\n ID FacultyName\n FIT Faculty of Information Technology\n FEE Faculty of Electronical Engineering\n\nStudent Table\n\n ID StudentName FacultyID Email DefenseTerm\n S2101 Sarah FIT sarah@example.edu 2023\n S2102 Karina FIT karina@example.edu 2023\n S2103 Mike FIT mike@example.edu 2023\n S2104 Selena FEE selena@example.edu 2023\n S2105 Peter FEE peter@example.edu 2023\n S2201 Roger FEE roger@example.edu 2024\n\nInstructor Table\n\n ID InstructorName Title FacultyID\n I01 Christopher Professor FIT\n I02 Lily Associate Professor FIT\n I03 Marie Professor FEE\n I04 Robert Lecturer FEE\n\nTopic Table\n\n ID TopicName\n T01 Personal Area Networks using Zigbee Technology\n T02 Rich Internet Application for Weekly College Timetable Generation\n T03 General-purpose Online Ticket Reservation System\n T04 Fiber Optic Communication\n\nRegistration Table\n\nAt the time of registration, the Grade field is set to null.\n ID StudentID TopicID InstructorID Grade\n R01 S2101 T02 I02\n R02 S2102 T03 I01\n R03 S2103 T03 I01\n R04 S2105 T04 I03\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in Figure 1.\n\n Answer group for A and B\n a) b) c)\n d) e) f)\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL1.\n\n The defense meeting in 2023 will be held in December. The topic registration period has\n already started and the deadline for registration is getting close.\n The department of education is planning to send a reminder email to the students.\n The following SQL statement SQL1 outputs the students whose defense term is 2023 and\n who have not registered thesis topics.\n\n -- SQL1 --\n\n SELECT s.ID, s.StudentName, s.Email\n FROM Student s ___C___ Registration r\n\n ON s.ID = r.StudentID\n WHERE s.DefenseTerm = 2023 AND ___D___\n\n When SQL1 is executed using the sample data shown in the table definitions, SQL1 outputs\n the following result:\n\n ID StudentName Email\n S2104 Selena selena@example.edu\n\n Note:\n INNER JOIN returns the values on the matched rows from the left and right tables.\n LEFT OUTER JOIN returns the values on all rows from the left table and the matched rows\n from the right table. Columns of unmatched rows are set to NULL.\n RIGHT OUTER JOIN returns the values on all rows from the right table and the matched rows\n from the left table. Columns of unmatched rows are set to NULL.\n\nAnswer group for C\n a) INNER JOIN b) LEFT OUTER JOIN\n c) RIGHT OUTER JOIN\n\n Answer group for D\n a) r.ID IS NOT NULL b) r.ID IS NULL\n c) s.ID IS NOT NULL d) s.ID IS NULL\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following description.\n\n At the thesis defense meeting, committees assess and mark students’ theses. After the\n meeting, these grades are put into the Registration Table.\n The following table shows the current content of the Registration table. It is assumed that\n four tables other than the Registration Table remain unchanged.\n\n Registration Table\n\n ID StudentID TopicID InstructorID Grade\n R01 S2101 T02 I02 85\n R02 S2102 T03 I01 90\n R03 S2103 T03 I01 90\n R04 S2105 T04 I03 80\n R05 S2104 T01 I04 85\n\n University T gives excellent thesis awards to the students at the graduation ceremony. The\n department of education determines the award receivers using the SQL statements SQL2\n (not shown) and SQL3.\n First, SQL2 (not shown) modifies the Registration Table by removing the ID, TopicID, and\n InstructorID columns, adding the StudentName and FacultyID columns, and sorting rows by\n StudentID. Then SQL2 outputs the result as the Result Table as follows:\n\n Result Table\n\n StudentID StudentName FacultyID Grade\n S2101 Sarah FIT 85\n S2102 Karina FIT 90\n S2103 Mike FIT 90\n S2104 Selena FEE 85\n S2105 Peter FEE 80\n\nNext, SQL3 determines the students who will receive the excellent thesis award from the\nResult Table created by SQL2 and Faculty Table.\n\n -- SQL3 --\n\n SELECT f.FacultyName, st.StudentID, st.StudentName, st.Grade\n\n FROM (SELECT r.FacultyID AS FacultyID,\n\n r.StudentID AS StudentID,\n\n r.StudentName AS StudentName,\n\n r.Grade AS Grade\n\n FROM Result r\n\n INNER JOIN (SELECT FacultyID, MAX(Grade) AS MaxGrade\n\n FROM Result\n\n GROUP BY Result.FacultyID\n\n ) AS mg ON r.FacultyID = mg.FacultyID\n\n AND r.Grade = mg.MaxGrade\n\n ) AS st\n\n INNER JOIN Faculty f ON f.ID = st.FacultyID\n\nWhen SQL3 is executed using the sample data shown above, SQL3 determines ___E___\nas the excellent thesis award receiver.\n\nAnswer group for E\n a) one student whose student ID is S2102\n b) two students whose student ID’s are S2102 and S2103\n c) two students whose student ID’s are S2102 and S2104\n d) three students whose student ID’s are S2102, S2103, and S2104\n e) three students whose student ID’s are S2102, S2104, and S2105\n f) four students whose student ID’s are S2102, S2103, S2104, and S2105",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q3. Read the following description of a thesis management system in a university, and then\n answer Subquestions 1 through 3."
+      },
+      {
+        "type": "context",
+        "text": "University T has a variety of faculties. Each faculty has instructors and students.\n University T holds a thesis defense meeting and graduation ceremony once a year. There is\n a topic registration period when students register what they will do as their graduate thesis\n before the thesis defense meeting is held. Students must contact an instructor in their faculty\n who will instruct them in their theses. Each instructor can instruct at most 5 students. Each\n student must be instructed by one instructor. After contacting instructors, students need to\n consult their instructors to determine their thesis topics. Each student will choose one topic.\n It is possible for them to either working on their thesis by themselves or in groups of\n maximum 4 students. Once a student has selected a thesis topic, he/she has to register the\n topic to the department of education before the registration deadline.\n\nUniversity T would like to build a thesis management system that enables students to register\n their thesis topic online and checks their grade after defending their thesis. To build this\n system, university T has created a simplified E-R diagram shown in Figure 1.\n\nLegend: zero or one only one\n\nzero or many one or many\n\nStudent\n A\n Faculty Registration Topic\n B\n Instructor\n\nFigure 1 E-R diagram (simplified)\n\nThe table structures and examples of data storage are as follows:\n\nFaculty Table\n\nID FacultyName\n FIT Faculty of Information Technology\n FEE Faculty of Electronical Engineering\n\nStudent Table\n\nID StudentName FacultyID Email DefenseTerm\n S2101 Sarah FIT sarah@example.edu 2023\n S2102 Karina FIT karina@example.edu 2023\n S2103 Mike FIT mike@example.edu 2023\n S2104 Selena FEE selena@example.edu 2023\n S2105 Peter FEE peter@example.edu 2023\n S2201 Roger FEE roger@example.edu 2024\n\nInstructor Table\n\nID InstructorName Title FacultyID\n I01 Christopher Professor FIT\n I02 Lily Associate Professor FIT\n I03 Marie Professor FEE\n I04 Robert Lecturer FEE\n\nTopic Table\n\nID TopicName\n T01 Personal Area Networks using Zigbee Technology\n T02 Rich Internet Application for Weekly College Timetable Generation\n T03 General-purpose Online Ticket Reservation System\n T04 Fiber Optic Communication\n\nRegistration Table\n\nAt the time of registration, the Grade field is set to null.\n ID StudentID TopicID InstructorID Grade\n R01 S2101 T02 I02\n R02 S2102 T03 I01\n R03 S2103 T03 I01\n R04 S2105 T04 I03\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in Figure 1.\n\nAnswer group for A and B\n a) b) c)\n d) e) f)\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the SQL statement SQL1.\n\nThe defense meeting in 2023 will be held in December. The topic registration period has\n already started and the deadline for registration is getting close.\n The department of education is planning to send a reminder email to the students.\n The following SQL statement SQL1 outputs the students whose defense term is 2023 and\n who have not registered thesis topics.\n\n-- SQL1 --\n\nSELECT s.ID, s.StudentName, s.Email\n FROM Student s ***C*** Registration r\n\nON s.ID = r.StudentID\n WHERE s.DefenseTerm = 2023 AND ***D***\n\nWhen SQL1 is executed using the sample data shown in the table definitions, SQL1 outputs\n the following result:\n\nID StudentName Email\n S2104 Selena selena@example.edu\n\nNote:\n INNER JOIN returns the values on the matched rows from the left and right tables.\n LEFT OUTER JOIN returns the values on all rows from the left table and the matched rows\n from the right table. Columns of unmatched rows are set to NULL.\n RIGHT OUTER JOIN returns the values on all rows from the right table and the matched rows\n from the left table. Columns of unmatched rows are set to NULL.\n\nAnswer group for C\n a) INNER JOIN b) LEFT OUTER JOIN\n c) RIGHT OUTER JOIN\n\nAnswer group for D\n a) r.ID IS NOT NULL b) r.ID IS NULL\n c) s.ID IS NOT NULL d) s.ID IS NULL\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following description.\n\nAt the thesis defense meeting, committees assess and mark students’ theses. After the\n meeting, these grades are put into the Registration Table.\n The following table shows the current content of the Registration table. It is assumed that\n four tables other than the Registration Table remain unchanged.\n\nRegistration Table\n\nID StudentID TopicID InstructorID Grade\n R01 S2101 T02 I02 85\n R02 S2102 T03 I01 90\n R03 S2103 T03 I01 90\n R04 S2105 T04 I03 80\n R05 S2104 T01 I04 85\n\nUniversity T gives excellent thesis awards to the students at the graduation ceremony. The\n department of education determines the award receivers using the SQL statements SQL2\n (not shown) and SQL3.\n First, SQL2 (not shown) modifies the Registration Table by removing the ID, TopicID, and\n InstructorID columns, adding the StudentName and FacultyID columns, and sorting rows by\n StudentID. Then SQL2 outputs the result as the Result Table as follows:\n\nResult Table\n\nStudentID StudentName FacultyID Grade\n S2101 Sarah FIT 85\n S2102 Karina FIT 90\n S2103 Mike FIT 90\n S2104 Selena FEE 85\n S2105 Peter FEE 80\n\nNext, SQL3 determines the students who will receive the excellent thesis award from the\nResult Table created by SQL2 and Faculty Table.\n\n-- SQL3 --\n\nSELECT f.FacultyName, st.StudentID, st.StudentName, st.Grade\n\nFROM (SELECT r.FacultyID AS FacultyID,\n\nr.StudentID AS StudentID,\n\nr.StudentName AS StudentName,\n\nr.Grade AS Grade\n\nFROM Result r\n\nINNER JOIN (SELECT FacultyID, MAX(Grade) AS MaxGrade\n\nFROM Result\n\nGROUP BY Result.FacultyID\n\n) AS mg ON r.FacultyID = mg.FacultyID\n\nAND r.Grade = mg.MaxGrade\n\n) AS st\n\nINNER JOIN Faculty f ON f.ID = st.FacultyID\n\nWhen SQL3 is executed using the sample data shown above, SQL3 determines ***E***\nas the excellent thesis award receiver."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-october/b/questions.pdf",
+        "pages": [
+          9,
+          10,
+          11,
+          12,
+          13
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_number": 4,
+    "question_text": "Q4. Read the following description of an internal network of a company, and then answer\n Subquestions 1 and 2.\n\nCompany U is a small-sized travel agent. It has two departments: Sales and Support.\n Figure 1 shows the network topology of Company U’s internal network with two LANs.\n Sales department has a Sales LAN with 4 PCs (Sales1, Sales2, Sales3, Sales4) which are\n connected to the layer-2 switch L2SW#1. Support department has a Support LAN with 3\n PCs (Support1, Support2, Support3) which are connected to the layer-2 switch L2SW#2.\n\nR1\n 192.168.10.1 192.168.20.1\n G0 G1\n 5 4\n L2SW#1 L2SW#2\n\nPort 1 2 3 4 Port 1 2 3\n\nPC PC PC PC PC PC PC\n Sales1 Sales2 Sales3 Sales4 Support1 Support2 Support3\n Sales LAN Support LAN\n\nFigure 1 Network topology of Company U’s internal network with two LANs\n\n[MAC address table]\n A network switch has several ports where PCs may be connected. Each device connected to\n the switch identifies itself by the layer-2 address, which is the MAC address of the device.\n Hence, each switch keeps track of the devices connected to it using a mapping table known\n as the MAC address table. Table 1 shows a typical MAC address table of a switch.\n\nTable 1 Typical MAC address table of a switch\n\nPort MAC address\n 1 00:00:5E:00:53:A2\n 2 00:00:5E:00:53:3B\n\nThe MAC address table can be configured manually by the network administrator.\n Alternatively, a switch can dynamically learn the MAC addresses of the devices connected\n to its ports. In the case of dynamic learning, the MAC address table is empty at the beginning.\n The switch does not have any idea which device is connected to which of its ports. Therefore,\n if the switch receives any frame in port 1, the switch broadcasts / floods the frame to all other\n ports (except port 1) since it does not have any knowledge regarding the port number of the\n PC having the destination MAC address.\n\n[Address learning by a switch]\nWhen a frame is received by a switch, the source MAC address is used to populate the MAC\naddress table. For example, if Sales1 PC sends a frame to Sales4 PC, Sales1’s source MAC\naddress is mapped with port number 1 of L2SW#1. Thus, the switch’s MAC address table is\npopulated based on the source MAC address in a frame. When the destination MAC address\nof a frame is already learned by the switch, such frame is directed forwarded through the\ncorresponding port number of the switch. Thus, frame forwarding is done based on the MAC\naddress table of the switch.\n\n[ARP request / reply]\nWhen a PC wants to send a frame to another PC in the same LAN, it must produce a layer-2 frame. Figure 2 shows the format of a layer-2 frame.\nThe sender PC knows its own MAC address. However, the sender may not know the\ndestination MAC address, even though it knows the destination IP address. Therefore, the\nsender has to resolve the MAC address of the destination PC based on the destination IP\naddress using the ARP protocol.\n\nDestination MAC Address Source MAC address Payload\n\nFigure 2 Layer-2 frame format\n\nIn the ARP protocol, the source device sends a broadcast message, known as an ARP request\nmessage, to find out the MAC address of the destination device. All the devices other than\nthe destination machine ignore this ARP request since it is not intended for them. However,\nthe destination device replies to the source device with a unicast message known as an ARP\nreply. Thus, the source device obtains the MAC address of the destination device.\n\nIf the destination device is in the same LAN, the source device resolves the MAC address of\nthe destination device and sends the frame directly. However, if the destination device is\nlocated in another remote LAN, the source device first sends the frame to the default gateway\naddress (which is the interface IP address of the router). Once it is received by the gateway,\nit then forwards the frame to the next link in a similar fashion.\n\nTable 2 and Table 3 show the IP addresses and MAC addresses of the PCs in Sales-LAN and\nSupport LAN.\nThe default gateway address of the Sales LAN is 192.168.10.1, and the default gateway\naddress of the Support LAN is 192.168.20.1.\n\nTable 2 IP addresses and MAC addresses of PCs in Sales LAN\n\nPC name IP address MAC Address\n Sales1 192.168.10.2/24 00:00:5E:00:53:11\n Sales2 192.168.10.3/24 00:00:5E:00:53:22\n Sales3 192.168.10.4/24 00:00:5E:00:53:33\n Sales4 192.168.10.5/24 00:00:5E:00:53:44\n\nTable 3 IP addresses and MAC addresses of PCs in Support LAN\n\nPC name IP address MAC Address\n Support1 192.168.20.2/24 00:00:5E:00:53:55\n Support2 192.168.20.3/24 00:00:5E:00:53:66\n Support3 192.168.20.4/24 00:00:5E:00:53:77\n\nTable 4 shows the IP addresses and MAC addresses of the interfaces of the router R1.\n\nTable 4 IP addresses and MAC addresses of router R1\n\nDevice Name Interface IP address MAC Address\n R1 Gigabit 0 (G0) 192.168.10.1/24 00:00:5E:00:53:AA\n Gigabit 1 (G1) 192.168.20.1/24 00:00:5E:00:53:BB\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nAssume that the MAC address table of L2SW#1 is empty. When Sales1 sends a packet to\n Sales3, L2SW#1 forwards the ARP request to the port number(s) ***A***.\n\nWhen Sales1 wants to send a packet to Support2 for the first time, Sales1 first sends\n ***B*** to try to find out the ***C*** of the ***D*** because Sales1 and Support2\n are not in the same network.\n\nAnswer group for A\n a) 1, 2, 3, and 4 b) 1, 2, 3, 4, and 5 c) 2, 3, 4, and 5\n d) 3 only e) 5 only\n\nAnswer group for B\n a) Address learning b) ARP reply\n c) ARP request d) MAC address table\n\nAnswer group for C and D\n a) default gateway b) IP address c) L2SW#1\n d) L2SW#2 e) MAC address f) Sales1\n g) Support2\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description. Here, the answers to be inserted in E1 and E2 should\n be selected as the correct combination from the answer group for E. Also, the answers to be\n inserted in F1 and F2 should be selected as the correct combination from the answer group\n for F.\n\nAfter ARP resolution as performed in Subquestion 1, if Sales1 wants to send a packet to\n Support1, then the packet will be encapsulated at the data link layer of Sales1 as follows:\n\nFrame Header IP Header\n Source MAC Destination MAC Source IP Destination IP Data\n 00:00:5E:00:53:11 ___E1___ 192.168.10.2 ___E2___ Some data\n\nWhen Support1 receives the packet sent from Sales1, the packet at Support1 will look like\nas follows:\n\nFrame Header IP Header\n Source MAC Destination MAC Source IP Destination IP Data\n ___F1___ 00:00:5E:00:53:55 ___F2___ 192.168.20.2 Some data\n\nAnswer group for E\n\nE1 E2\n a) 00:00:5E:00:53:55 192.168.10.1\n b) 00:00:5E:00:53:55 192.168.20.1\n c) 00:00:5E:00:53:55 192.168.20.2\n d) 00:00:5E:00:53:AA 192.168.10.1\n e) 00:00:5E:00:53:AA 192.168.20.1\n f) 00:00:5E:00:53:AA 192.168.20.2\n g) 00:00:5E:00:53:BB 192.168.10.1\n h) 00:00:5E:00:53:BB 192.168.20.1\n i) 00:00:5E:00:53:BB 192.168.20.2",
+    "choices": [
+      {
+        "label": "a",
+        "text": "00:00:5E:00:53:11 192.168.10.1"
+      },
+      {
+        "label": "b",
+        "text": "00:00:5E:00:53:11 192.168.10.2"
+      },
+      {
+        "label": "c",
+        "text": "00:00:5E:00:53:11 192.168.20.1"
+      },
+      {
+        "label": "d",
+        "text": "00:00:5E:00:53:AA 192.168.10.1"
+      },
+      {
+        "label": "e",
+        "text": "00:00:5E:00:53:AA 192.168.10.2"
+      },
+      {
+        "label": "f",
+        "text": "00:00:5E:00:53:AA 192.168.20.1"
+      },
+      {
+        "label": "g",
+        "text": "00:00:5E:00:53:BB 192.168.10.1"
+      },
+      {
+        "label": "h",
+        "text": "00:00:5E:00:53:BB 192.168.10.2"
+      },
+      {
+        "label": "i",
+        "text": "00:00:5E:00:53:BB 192.168.20.1"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"e\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"f\"}, {\"subquestion\": 2, \"blank\": \"F\", \"answer\": \"h\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "e"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "f"
+        },
+        {
+          "subquestion": 2,
+          "blank": "F",
+          "answer": "h"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023A, FE, Subject-B, Q4)",
+    "source_pages": [
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q4. Read the following description of an internal network of a company, and then answer\n Subquestions 1 and 2.\n\n Company U is a small-sized travel agent. It has two departments: Sales and Support.\n Figure 1 shows the network topology of Company U’s internal network with two LANs.\n Sales department has a Sales LAN with 4 PCs (Sales1, Sales2, Sales3, Sales4) which are\n connected to the layer-2 switch L2SW#1. Support department has a Support LAN with 3\n PCs (Support1, Support2, Support3) which are connected to the layer-2 switch L2SW#2.\n\n R1\n 192.168.10.1 192.168.20.1\n G0 G1\n 5 4\n L2SW#1 L2SW#2\n\n Port 1 2 3 4 Port 1 2 3\n\n PC PC PC PC PC PC PC\n Sales1 Sales2 Sales3 Sales4 Support1 Support2 Support3\n Sales LAN Support LAN\n\n Figure 1 Network topology of Company U’s internal network with two LANs\n\n [MAC address table]\n A network switch has several ports where PCs may be connected. Each device connected to\n the switch identifies itself by the layer-2 address, which is the MAC address of the device.\n Hence, each switch keeps track of the devices connected to it using a mapping table known\n as the MAC address table. Table 1 shows a typical MAC address table of a switch.\n\n Table 1 Typical MAC address table of a switch\n\n Port MAC address\n 1 00:00:5E:00:53:A2\n 2 00:00:5E:00:53:3B\n\n The MAC address table can be configured manually by the network administrator.\n Alternatively, a switch can dynamically learn the MAC addresses of the devices connected\n to its ports. In the case of dynamic learning, the MAC address table is empty at the beginning.\n The switch does not have any idea which device is connected to which of its ports. Therefore,\n if the switch receives any frame in port 1, the switch broadcasts / floods the frame to all other\n ports (except port 1) since it does not have any knowledge regarding the port number of the\n PC having the destination MAC address.\n\n[Address learning by a switch]\nWhen a frame is received by a switch, the source MAC address is used to populate the MAC\naddress table. For example, if Sales1 PC sends a frame to Sales4 PC, Sales1’s source MAC\naddress is mapped with port number 1 of L2SW#1. Thus, the switch’s MAC address table is\npopulated based on the source MAC address in a frame. When the destination MAC address\nof a frame is already learned by the switch, such frame is directed forwarded through the\ncorresponding port number of the switch. Thus, frame forwarding is done based on the MAC\naddress table of the switch.\n\n[ARP request / reply]\nWhen a PC wants to send a frame to another PC in the same LAN, it must produce a layer-2 frame. Figure 2 shows the format of a layer-2 frame.\nThe sender PC knows its own MAC address. However, the sender may not know the\ndestination MAC address, even though it knows the destination IP address. Therefore, the\nsender has to resolve the MAC address of the destination PC based on the destination IP\naddress using the ARP protocol.\n\n Destination MAC Address Source MAC address Payload\n\n Figure 2 Layer-2 frame format\n\nIn the ARP protocol, the source device sends a broadcast message, known as an ARP request\nmessage, to find out the MAC address of the destination device. All the devices other than\nthe destination machine ignore this ARP request since it is not intended for them. However,\nthe destination device replies to the source device with a unicast message known as an ARP\nreply. Thus, the source device obtains the MAC address of the destination device.\n\nIf the destination device is in the same LAN, the source device resolves the MAC address of\nthe destination device and sends the frame directly. However, if the destination device is\nlocated in another remote LAN, the source device first sends the frame to the default gateway\naddress (which is the interface IP address of the router). Once it is received by the gateway,\nit then forwards the frame to the next link in a similar fashion.\n\nTable 2 and Table 3 show the IP addresses and MAC addresses of the PCs in Sales-LAN and\nSupport LAN.\nThe default gateway address of the Sales LAN is 192.168.10.1, and the default gateway\naddress of the Support LAN is 192.168.20.1.\n\nTable 2 IP addresses and MAC addresses of PCs in Sales LAN\n\n PC name IP address MAC Address\n Sales1 192.168.10.2/24 00:00:5E:00:53:11\n Sales2 192.168.10.3/24 00:00:5E:00:53:22\n Sales3 192.168.10.4/24 00:00:5E:00:53:33\n Sales4 192.168.10.5/24 00:00:5E:00:53:44\n\n Table 3 IP addresses and MAC addresses of PCs in Support LAN\n\n PC name IP address MAC Address\n Support1 192.168.20.2/24 00:00:5E:00:53:55\n Support2 192.168.20.3/24 00:00:5E:00:53:66\n Support3 192.168.20.4/24 00:00:5E:00:53:77\n\nTable 4 shows the IP addresses and MAC addresses of the interfaces of the router R1.\n\n Table 4 IP addresses and MAC addresses of router R1\n\n Device Name Interface IP address MAC Address\n R1 Gigabit 0 (G0) 192.168.10.1/24 00:00:5E:00:53:AA\n Gigabit 1 (G1) 192.168.20.1/24 00:00:5E:00:53:BB\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n Assume that the MAC address table of L2SW#1 is empty. When Sales1 sends a packet to\n Sales3, L2SW#1 forwards the ARP request to the port number(s) ___A___.\n\n When Sales1 wants to send a packet to Support2 for the first time, Sales1 first sends\n ___B___ to try to find out the ___C___ of the ___D___ because Sales1 and Support2\n are not in the same network.\n\n Answer group for A\n a) 1, 2, 3, and 4 b) 1, 2, 3, 4, and 5 c) 2, 3, 4, and 5\n d) 3 only e) 5 only\n\n Answer group for B\n a) Address learning b) ARP reply\n c) ARP request d) MAC address table\n\n Answer group for C and D\n a) default gateway b) IP address c) L2SW#1\n d) L2SW#2 e) MAC address f) Sales1\n g) Support2\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description. Here, the answers to be inserted in E1 and E2 should\n be selected as the correct combination from the answer group for E. Also, the answers to be\n inserted in F1 and F2 should be selected as the correct combination from the answer group\n for F.\n\n After ARP resolution as performed in Subquestion 1, if Sales1 wants to send a packet to\n Support1, then the packet will be encapsulated at the data link layer of Sales1 as follows:\n\nFrame Header IP Header\n Source MAC Destination MAC Source IP Destination IP Data\n 00:00:5E:00:53:11 ___E1___ 192.168.10.2 ___E2___ Some data\n\nWhen Support1 receives the packet sent from Sales1, the packet at Support1 will look like\nas follows:\n\n Frame Header IP Header\n Source MAC Destination MAC Source IP Destination IP Data\n ___F1___ 00:00:5E:00:53:55 ___F2___ 192.168.20.2 Some data\n\nAnswer group for E\n\n E1 E2\n a) 00:00:5E:00:53:55 192.168.10.1\n b) 00:00:5E:00:53:55 192.168.20.1\n c) 00:00:5E:00:53:55 192.168.20.2\n d) 00:00:5E:00:53:AA 192.168.10.1\n e) 00:00:5E:00:53:AA 192.168.20.1\n f) 00:00:5E:00:53:AA 192.168.20.2\n g) 00:00:5E:00:53:BB 192.168.10.1\n h) 00:00:5E:00:53:BB 192.168.20.1\n i) 00:00:5E:00:53:BB 192.168.20.2\n\nAnswer group for F\n\n F1 F2\n a) 00:00:5E:00:53:11 192.168.10.1\n b) 00:00:5E:00:53:11 192.168.10.2\n c) 00:00:5E:00:53:11 192.168.20.1\n d) 00:00:5E:00:53:AA 192.168.10.1\n e) 00:00:5E:00:53:AA 192.168.10.2\n f) 00:00:5E:00:53:AA 192.168.20.1\n g) 00:00:5E:00:53:BB 192.168.10.1\n h) 00:00:5E:00:53:BB 192.168.10.2\n i) 00:00:5E:00:53:BB 192.168.20.1",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q4. Read the following description of an internal network of a company, and then answer\n Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "Company U is a small-sized travel agent. It has two departments: Sales and Support.\n Figure 1 shows the network topology of Company U’s internal network with two LANs.\n Sales department has a Sales LAN with 4 PCs (Sales1, Sales2, Sales3, Sales4) which are\n connected to the layer-2 switch L2SW#1. Support department has a Support LAN with 3\n PCs (Support1, Support2, Support3) which are connected to the layer-2 switch L2SW#2.\n\nR1\n 192.168.10.1 192.168.20.1\n G0 G1\n 5 4\n L2SW#1 L2SW#2\n\nPort 1 2 3 4 Port 1 2 3\n\nPC PC PC PC PC PC PC\n Sales1 Sales2 Sales3 Sales4 Support1 Support2 Support3\n Sales LAN Support LAN\n\nFigure 1 Network topology of Company U’s internal network with two LANs\n\n[MAC address table]\n A network switch has several ports where PCs may be connected. Each device connected to\n the switch identifies itself by the layer-2 address, which is the MAC address of the device.\n Hence, each switch keeps track of the devices connected to it using a mapping table known\n as the MAC address table. Table 1 shows a typical MAC address table of a switch.\n\nTable 1 Typical MAC address table of a switch\n\nPort MAC address\n 1 00:00:5E:00:53:A2\n 2 00:00:5E:00:53:3B\n\nThe MAC address table can be configured manually by the network administrator.\n Alternatively, a switch can dynamically learn the MAC addresses of the devices connected\n to its ports. In the case of dynamic learning, the MAC address table is empty at the beginning.\n The switch does not have any idea which device is connected to which of its ports. Therefore,\n if the switch receives any frame in port 1, the switch broadcasts / floods the frame to all other\n ports (except port 1) since it does not have any knowledge regarding the port number of the\n PC having the destination MAC address.\n\n[Address learning by a switch]\nWhen a frame is received by a switch, the source MAC address is used to populate the MAC\naddress table. For example, if Sales1 PC sends a frame to Sales4 PC, Sales1’s source MAC\naddress is mapped with port number 1 of L2SW#1. Thus, the switch’s MAC address table is\npopulated based on the source MAC address in a frame. When the destination MAC address\nof a frame is already learned by the switch, such frame is directed forwarded through the\ncorresponding port number of the switch. Thus, frame forwarding is done based on the MAC\naddress table of the switch.\n\n[ARP request / reply]\nWhen a PC wants to send a frame to another PC in the same LAN, it must produce a layer-2 frame. Figure 2 shows the format of a layer-2 frame.\nThe sender PC knows its own MAC address. However, the sender may not know the\ndestination MAC address, even though it knows the destination IP address. Therefore, the\nsender has to resolve the MAC address of the destination PC based on the destination IP\naddress using the ARP protocol.\n\nDestination MAC Address Source MAC address Payload\n\nFigure 2 Layer-2 frame format\n\nIn the ARP protocol, the source device sends a broadcast message, known as an ARP request\nmessage, to find out the MAC address of the destination device. All the devices other than\nthe destination machine ignore this ARP request since it is not intended for them. However,\nthe destination device replies to the source device with a unicast message known as an ARP\nreply. Thus, the source device obtains the MAC address of the destination device.\n\nIf the destination device is in the same LAN, the source device resolves the MAC address of\nthe destination device and sends the frame directly. However, if the destination device is\nlocated in another remote LAN, the source device first sends the frame to the default gateway\naddress (which is the interface IP address of the router). Once it is received by the gateway,\nit then forwards the frame to the next link in a similar fashion.\n\nTable 2 and Table 3 show the IP addresses and MAC addresses of the PCs in Sales-LAN and\nSupport LAN.\nThe default gateway address of the Sales LAN is 192.168.10.1, and the default gateway\naddress of the Support LAN is 192.168.20.1.\n\nTable 2 IP addresses and MAC addresses of PCs in Sales LAN\n\nPC name IP address MAC Address\n Sales1 192.168.10.2/24 00:00:5E:00:53:11\n Sales2 192.168.10.3/24 00:00:5E:00:53:22\n Sales3 192.168.10.4/24 00:00:5E:00:53:33\n Sales4 192.168.10.5/24 00:00:5E:00:53:44\n\nTable 3 IP addresses and MAC addresses of PCs in Support LAN\n\nPC name IP address MAC Address\n Support1 192.168.20.2/24 00:00:5E:00:53:55\n Support2 192.168.20.3/24 00:00:5E:00:53:66\n Support3 192.168.20.4/24 00:00:5E:00:53:77\n\nTable 4 shows the IP addresses and MAC addresses of the interfaces of the router R1.\n\nTable 4 IP addresses and MAC addresses of router R1\n\nDevice Name Interface IP address MAC Address\n R1 Gigabit 0 (G0) 192.168.10.1/24 00:00:5E:00:53:AA\n Gigabit 1 (G1) 192.168.20.1/24 00:00:5E:00:53:BB\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nAssume that the MAC address table of L2SW#1 is empty. When Sales1 sends a packet to\n Sales3, L2SW#1 forwards the ARP request to the port number(s) ***A***.\n\nWhen Sales1 wants to send a packet to Support2 for the first time, Sales1 first sends\n ***B*** to try to find out the ***C*** of the ***D*** because Sales1 and Support2\n are not in the same network.\n\nAnswer group for A\n a) 1, 2, 3, and 4 b) 1, 2, 3, 4, and 5 c) 2, 3, 4, and 5\n d) 3 only e) 5 only\n\nAnswer group for B\n a) Address learning b) ARP reply\n c) ARP request d) MAC address table\n\nAnswer group for C and D\n a) default gateway b) IP address c) L2SW#1\n d) L2SW#2 e) MAC address f) Sales1\n g) Support2\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description. Here, the answers to be inserted in E1 and E2 should\n be selected as the correct combination from the answer group for E. Also, the answers to be\n inserted in F1 and F2 should be selected as the correct combination from the answer group\n for F.\n\nAfter ARP resolution as performed in Subquestion 1, if Sales1 wants to send a packet to\n Support1, then the packet will be encapsulated at the data link layer of Sales1 as follows:\n\nFrame Header IP Header\n Source MAC Destination MAC Source IP Destination IP Data\n 00:00:5E:00:53:11 ___E1___ 192.168.10.2 ___E2___ Some data\n\nWhen Support1 receives the packet sent from Sales1, the packet at Support1 will look like\nas follows:\n\nFrame Header IP Header\n Source MAC Destination MAC Source IP Destination IP Data\n ___F1___ 00:00:5E:00:53:55 ___F2___ 192.168.20.2 Some data\n\nAnswer group for E\n\nE1 E2\n a) 00:00:5E:00:53:55 192.168.10.1\n b) 00:00:5E:00:53:55 192.168.20.1\n c) 00:00:5E:00:53:55 192.168.20.2\n d) 00:00:5E:00:53:AA 192.168.10.1\n e) 00:00:5E:00:53:AA 192.168.20.1\n f) 00:00:5E:00:53:AA 192.168.20.2\n g) 00:00:5E:00:53:BB 192.168.10.1\n h) 00:00:5E:00:53:BB 192.168.20.1\n i) 00:00:5E:00:53:BB 192.168.20.2"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-october/b/questions.pdf",
+        "pages": [
+          14,
+          15,
+          16,
+          17,
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_number": 5,
+    "question_text": "Q5. Read the following description of the test design for software, and then answer\n Subquestions 1 through 3.\n\nCompany V, a software development company, is reviewing its testing method to reduce the\n number of bugs left uncorrected in the programs developed by the company.\n\n[Description of the testing method used in Company V]\n Company V primarily tests the programs developed by the company using control flow\n testing, which is a white box testing method.\n Control flow testing focuses on the smallest units that form a program, such as commands,\n paths, and decision conditions. Test cases and test data are prepared in accordance with the\n coverage criteria defined during test planning, and then the behavior of the developed\n programs is checked.\n The coverage criteria include statement coverage, where all the statements are executed at\n least once in the test, and decision condition coverage (hereinafter, branch coverage), where\n all the paths after all the branches are executed at least once.\n Company V uses branch coverage as its coverage criteria.\n\n[Description of the short-cut evaluation]\n A decision condition for a branch includes a single condition that evaluates only one\n condition and a multiple condition that evaluates two or more single conditions combined\n with “and” or “or”. The following example illustrates single conditions and a multiple\n condition.\n\n(a > b) and (b ≥ 0)\n Single Single Example: condition condition\n Multiple condition\n\nUsually, when a program is executed, short-cut evaluation is applied to a multiple condition.\n In short-cut evaluation, single conditions that constitute a multiple condition are evaluated\n in order of precedence. Once the result of the multiple condition is determined, the remaining\n single conditions are not evaluated. For example, in the case of a multiple condition in which\n two single conditions are combined with “and”, if the evaluation result of the first single\n condition is false, then the evaluation result of the multiple condition is false, regardless of\n the evaluation result of the second single condition. Therefore, in this case, it is not necessary\n to evaluate the second single condition.\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nFigure 1 shows a sample program to be tested, and Table 1 shows sample test cases for this\n program. When the program is tested with the test cases according to the testing method used\n in Company V, the test result reveals that ***A*** in test case 1 and ***B*** in test\n case 2. Here, the short-cut evaluation is applied to multiple conditions.\n\nFUNCTION func(INT: x, INT: a, INT: b, INT: c, INT: d) {\n IF (x > 10) {\n func1();\n IF ((a < 10) or (b < 20)) {\n func2();\n } ELSE {\n func3();\n }\n IF ((c > 10) and (d > 10)) {\n func4();\n } ELSE {\n func5();\n }\n }\n }\n\nFigure 1 Sample program to be tested\n\nTable 1 Sample test cases\n\nTest data\n Variable x a b c d\n Test case 1 11 9 19 10 10\n Test case 2 11 10 20 11 11\n\nAnswer group for A and B\n a) b < 20 is not evaluated\n b) b < 20 and c > 10 are not evaluated\n c) b < 20 and d > 10 are not evaluated\n d) c > 10 is not evaluated\n e) c > 10 and d > 10 are not evaluated\n f) d > 10 is not evaluated\n g) all single conditions are evaluated\n\nSubquestion 2\n The control structure of a program can be described with a control flow graph. In a control\n flow graph, processes are divided into serial instructions, iteration instructions, and branch\n instructions, and each of them is placed in a process block (hereinafter, a node) that is\n connected with a directed line segment (hereinafter, an edge) in the sequence of process\n execution. Here, a multiple condition is divided into the respective single conditions, and\n they are placed in the control flow graph.\n\nFigure 2 is prepared by assigning node numbers 1 through 10 to the sample program in\n Figure 1. Figure 3 shows the corresponding control flow graph. A circle indicates a node,\n and an arrow indicates an edge. The node numbers in Figure 3 correspond to the node\n numbers in Figure 2. Nodes S and E in Figure 3 are special nodes that indicate the entry and\n exit of the program, respectively, and there are no corresponding processes in the sample\n program.\n\nFrom the answer group below, select the appropriate node number to be inserted in each\n blank _______ in Figure 3.\n S\n\nFUNCTION func(INT: x, INT: a, INT: b,\n INT: c, INT: d) { 1.\n IF 1 (x > 10) {\n 2 func1(); 2.\n IF ( 3 (a < 10) or 4 (b < 20)) {\n 5 func2();\n } ELSE {\n 6 func3();\n }\n IF ( 7 (c > 10) and 8 (d > 10)) {\n C 9 func4();\n } ELSE {\n 10func5(); 7.\n }\n } D\n }\n\nFigure 2 Sample program with node numbers 9.\n\nE\n\nNote: Shaded parts are not shown.\n Figure 3 Control flow graph\n\nAnswer group for C and D\n a) 3 b) 4 c) 5.\n\nd) 6 e) 8 f) 10\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nFor the testing of the program shown in Figure 1, in the case of the branch coverage used by\n Company V, the minimum number of test cases required is ***E***.\n Furthermore, there is a method for making test cases by extracting paths from a control flow\n graph. The minimum number of paths (P) that cover all the edges and nodes of a control\n flow graph is determined with the following expression:\n\nP = Number of edges - Number of nodes + 2\n\nBy conducting a test for P test cases that correspond to the extracted paths, it is possible to\n assure higher coverage than branch coverage.\n With regard to the control flow graph in Figure 3, the value of P is ***F***. To reduce\n the number of bugs left uncorrected in its programs, Company V decides to test the programs\n with test cases based on control flow graphs.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "2"
+      },
+      {
+        "label": "b",
+        "text": "3"
+      },
+      {
+        "label": "c",
+        "text": "4"
+      },
+      {
+        "label": "d",
+        "text": "5"
+      },
+      {
+        "label": "e",
+        "text": "6"
+      },
+      {
+        "label": "f",
+        "text": "7"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"g\"}, {\"subquestion\": 2, \"blank\": \"C\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"e\"}, {\"subquestion\": 3, \"blank\": \"E\", \"answer\": \"b\"}, {\"subquestion\": 3, \"blank\": \"F\", \"answer\": \"e\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "g"
+        },
+        {
+          "subquestion": 2,
+          "blank": "C",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "e"
+        },
+        {
+          "subquestion": 3,
+          "blank": "E",
+          "answer": "b"
+        },
+        {
+          "subquestion": 3,
+          "blank": "F",
+          "answer": "e"
+        }
+      ]
+    },
+    "images": [
+      "2023-october-b-q05-figure1.webp",
+      "2023-october-b-q05-figure2.webp",
+      "2023-october-b-q05-figure3.webp",
+      "2023-october-b-q05-figure4.webp",
+      "2023-october-b-q05-figure5.webp",
+      "2023-october-b-q05-figure6.webp",
+      "2023-october-b-q05-figure7.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023A, FE, Subject-B, Q5)",
+    "source_pages": [
+      19,
+      20,
+      21,
+      22
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q5. Read the following description of the test design for software, and then answer\n Subquestions 1 through 3.\n\n Company V, a software development company, is reviewing its testing method to reduce the\n number of bugs left uncorrected in the programs developed by the company.\n\n [Description of the testing method used in Company V]\n Company V primarily tests the programs developed by the company using control flow\n testing, which is a white box testing method.\n Control flow testing focuses on the smallest units that form a program, such as commands,\n paths, and decision conditions. Test cases and test data are prepared in accordance with the\n coverage criteria defined during test planning, and then the behavior of the developed\n programs is checked.\n The coverage criteria include statement coverage, where all the statements are executed at\n least once in the test, and decision condition coverage (hereinafter, branch coverage), where\n all the paths after all the branches are executed at least once.\n Company V uses branch coverage as its coverage criteria.\n\n [Description of the short-cut evaluation]\n A decision condition for a branch includes a single condition that evaluates only one\n condition and a multiple condition that evaluates two or more single conditions combined\n with “and” or “or”. The following example illustrates single conditions and a multiple\n condition.\n\n (a > b) and (b ≥ 0)\n Single Single Example: condition condition\n Multiple condition\n\n Usually, when a program is executed, short-cut evaluation is applied to a multiple condition.\n In short-cut evaluation, single conditions that constitute a multiple condition are evaluated\n in order of precedence. Once the result of the multiple condition is determined, the remaining\n single conditions are not evaluated. For example, in the case of a multiple condition in which\n two single conditions are combined with “and”, if the evaluation result of the first single\n condition is false, then the evaluation result of the multiple condition is false, regardless of\n the evaluation result of the second single condition. Therefore, in this case, it is not necessary\n to evaluate the second single condition.\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n Figure 1 shows a sample program to be tested, and Table 1 shows sample test cases for this\n program. When the program is tested with the test cases according to the testing method used\n in Company V, the test result reveals that ___A___ in test case 1 and ___B___ in test\n case 2. Here, the short-cut evaluation is applied to multiple conditions.\n\n FUNCTION func(INT: x, INT: a, INT: b, INT: c, INT: d) {\n IF (x > 10) {\n func1();\n IF ((a < 10) or (b < 20)) {\n func2();\n } ELSE {\n func3();\n }\n IF ((c > 10) and (d > 10)) {\n func4();\n } ELSE {\n func5();\n }\n }\n }\n\n Figure 1 Sample program to be tested\n\n Table 1 Sample test cases\n\n Test data\n Variable x a b c d\n Test case 1 11 9 19 10 10\n Test case 2 11 10 20 11 11\n\n Answer group for A and B\n a) b < 20 is not evaluated\n b) b < 20 and c > 10 are not evaluated\n c) b < 20 and d > 10 are not evaluated\n d) c > 10 is not evaluated\n e) c > 10 and d > 10 are not evaluated\n f) d > 10 is not evaluated\n g) all single conditions are evaluated\n\nSubquestion 2\n The control structure of a program can be described with a control flow graph. In a control\n flow graph, processes are divided into serial instructions, iteration instructions, and branch\n instructions, and each of them is placed in a process block (hereinafter, a node) that is\n connected with a directed line segment (hereinafter, an edge) in the sequence of process\n execution. Here, a multiple condition is divided into the respective single conditions, and\n they are placed in the control flow graph.\n\n Figure 2 is prepared by assigning node numbers 1 through 10 to the sample program in\n Figure 1. Figure 3 shows the corresponding control flow graph. A circle indicates a node,\n and an arrow indicates an edge. The node numbers in Figure 3 correspond to the node\n numbers in Figure 2. Nodes S and E in Figure 3 are special nodes that indicate the entry and\n exit of the program, respectively, and there are no corresponding processes in the sample\n program.\n\n From the answer group below, select the appropriate node number to be inserted in each\n blank _______ in Figure 3.\n S\n\n FUNCTION func(INT: x, INT: a, INT: b,\n INT: c, INT: d) { 1.\n IF 1 (x > 10) {\n 2 func1(); 2.\n IF ( 3 (a < 10) or 4 (b < 20)) {\n 5 func2();\n } ELSE {\n 6 func3();\n }\n IF ( 7 (c > 10) and 8 (d > 10)) {\n C 9 func4();\n } ELSE {\n 10func5(); 7.\n }\n } D\n }\n\n Figure 2 Sample program with node numbers 9.\n\n E\n\n Note: Shaded parts are not shown.\n Figure 3 Control flow graph\n\nAnswer group for C and D\n a) 3 b) 4 c) 5.\n\n d) 6 e) 8 f) 10\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n For the testing of the program shown in Figure 1, in the case of the branch coverage used by\n Company V, the minimum number of test cases required is ___E___.\n Furthermore, there is a method for making test cases by extracting paths from a control flow\n graph. The minimum number of paths (P) that cover all the edges and nodes of a control\n flow graph is determined with the following expression:\n\n P = Number of edges - Number of nodes + 2\n\n By conducting a test for P test cases that correspond to the extracted paths, it is possible to\n assure higher coverage than branch coverage.\n With regard to the control flow graph in Figure 3, the value of P is ___F___. To reduce\n the number of bugs left uncorrected in its programs, Company V decides to test the programs\n with test cases based on control flow graphs.\n\nAnswer group for E and F\n a) 2 b) 3 c) 4\n d) 5 e) 6 f) 7",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q5. Read the following description of the test design for software, and then answer\n Subquestions 1 through 3."
+      },
+      {
+        "type": "context",
+        "text": "Company V, a software development company, is reviewing its testing method to reduce the\n number of bugs left uncorrected in the programs developed by the company.\n\n[Description of the testing method used in Company V]\n Company V primarily tests the programs developed by the company using control flow\n testing, which is a white box testing method.\n Control flow testing focuses on the smallest units that form a program, such as commands,\n paths, and decision conditions. Test cases and test data are prepared in accordance with the\n coverage criteria defined during test planning, and then the behavior of the developed\n programs is checked.\n The coverage criteria include statement coverage, where all the statements are executed at\n least once in the test, and decision condition coverage (hereinafter, branch coverage), where\n all the paths after all the branches are executed at least once.\n Company V uses branch coverage as its coverage criteria.\n\n[Description of the short-cut evaluation]\n A decision condition for a branch includes a single condition that evaluates only one\n condition and a multiple condition that evaluates two or more single conditions combined\n with “and” or “or”. The following example illustrates single conditions and a multiple\n condition.\n\n(a > b) and (b ≥ 0)\n Single Single Example: condition condition\n Multiple condition\n\nUsually, when a program is executed, short-cut evaluation is applied to a multiple condition.\n In short-cut evaluation, single conditions that constitute a multiple condition are evaluated\n in order of precedence. Once the result of the multiple condition is determined, the remaining\n single conditions are not evaluated. For example, in the case of a multiple condition in which\n two single conditions are combined with “and”, if the evaluation result of the first single\n condition is false, then the evaluation result of the multiple condition is false, regardless of\n the evaluation result of the second single condition. Therefore, in this case, it is not necessary\n to evaluate the second single condition.\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nFigure 1 shows a sample program to be tested, and Table 1 shows sample test cases for this\n program. When the program is tested with the test cases according to the testing method used\n in Company V, the test result reveals that ***A*** in test case 1 and ***B*** in test\n case 2. Here, the short-cut evaluation is applied to multiple conditions.\n\nFUNCTION func(INT: x, INT: a, INT: b, INT: c, INT: d) {\n IF (x > 10) {\n func1();\n IF ((a < 10) or (b < 20)) {\n func2();\n } ELSE {\n func3();\n }\n IF ((c > 10) and (d > 10)) {\n func4();\n } ELSE {\n func5();\n }\n }\n }\n\nFigure 1 Sample program to be tested\n\nTable 1 Sample test cases\n\nTest data\n Variable x a b c d\n Test case 1 11 9 19 10 10\n Test case 2 11 10 20 11 11\n\nAnswer group for A and B\n a) b < 20 is not evaluated\n b) b < 20 and c > 10 are not evaluated\n c) b < 20 and d > 10 are not evaluated\n d) c > 10 is not evaluated\n e) c > 10 and d > 10 are not evaluated\n f) d > 10 is not evaluated\n g) all single conditions are evaluated\n\nSubquestion 2\n The control structure of a program can be described with a control flow graph. In a control\n flow graph, processes are divided into serial instructions, iteration instructions, and branch\n instructions, and each of them is placed in a process block (hereinafter, a node) that is\n connected with a directed line segment (hereinafter, an edge) in the sequence of process\n execution. Here, a multiple condition is divided into the respective single conditions, and\n they are placed in the control flow graph.\n\nFigure 2 is prepared by assigning node numbers 1 through 10 to the sample program in\n Figure 1. Figure 3 shows the corresponding control flow graph. A circle indicates a node,\n and an arrow indicates an edge. The node numbers in Figure 3 correspond to the node\n numbers in Figure 2. Nodes S and E in Figure 3 are special nodes that indicate the entry and\n exit of the program, respectively, and there are no corresponding processes in the sample\n program.\n\nFrom the answer group below, select the appropriate node number to be inserted in each\n blank _______ in Figure 3.\n S\n\nFUNCTION func(INT: x, INT: a, INT: b,\n INT: c, INT: d) { 1.\n IF 1 (x > 10) {\n 2 func1(); 2.\n IF ( 3 (a < 10) or 4 (b < 20)) {\n 5 func2();\n } ELSE {\n 6 func3();\n }\n IF ( 7 (c > 10) and 8 (d > 10)) {\n C 9 func4();\n } ELSE {\n 10func5(); 7.\n }\n } D\n }\n\nFigure 2 Sample program with node numbers 9.\n\nE\n\nNote: Shaded parts are not shown.\n Figure 3 Control flow graph\n\nAnswer group for C and D\n a) 3 b) 4 c) 5.\n\nd) 6 e) 8 f) 10\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nFor the testing of the program shown in Figure 1, in the case of the branch coverage used by\n Company V, the minimum number of test cases required is ***E***.\n Furthermore, there is a method for making test cases by extracting paths from a control flow\n graph. The minimum number of paths (P) that cover all the edges and nodes of a control\n flow graph is determined with the following expression:\n\nP = Number of edges - Number of nodes + 2\n\nBy conducting a test for P test cases that correspond to the extracted paths, it is possible to\n assure higher coverage than branch coverage.\n With regard to the control flow graph in Figure 3, the value of P is ***F***. To reduce\n the number of bugs left uncorrected in its programs, Company V decides to test the programs\n with test cases based on control flow graphs."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-october/b/questions.pdf",
+        "pages": [
+          19,
+          20,
+          21,
+          22
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_number": 6,
+    "question_text": "Q6. Read the following description of programs that use the Bitap algorithm to search for a\n string, and then answer Subquestions 1 through 3.\n\n[Program Description]\n The function BitapMatch is a program that uses the Bitap algorithm to search for a string.\n The Bitap algorithm has the characteristic of using a bit sequence that is defined for each\n individual character in the comparison between a string that is to be searched (hereinafter,\n target string) and a search string.\n In this question, 16-bit Binary type constants in binary are noted with the leading zeroes\n omitted. For example, for the value 0000000000010101, the leading zeroes are omitted, and\n the value is noted as \"10101\"B.\n\n(1) The function BitapMatch uses two character arrays: Text[], which contains the target\n string and Pat[], which contains the search string. Both array indexes start at 1.\n The i-th character of Text[] is noted as Text[i] and the i-th character of Pat[] is\n noted as Pat[i]. The target and search strings are composed of upper-case Roman\n alphabets only, and both have a maximum length of 16 characters.\n Figure 1 shows an example of storage when the target string Text[] is\n “AACBBAACABABAB” and the search string Pat[] is “ACABAB”.\n\nElement number 1 2 3 4 5 6 7 8 9 10 11 12 13 14\n\nText[] A A C B B A A C A B A B A B\n\nElement number 1 2 3 4 5 6\n\nPat[] A C A B A B\n\nFigure 1 Example of storage of the target string and the search string\n\n(2) The function BitapMatch calls the function GenerateBitMask.\n For each character from “A” through “Z ”, the function GenerateBitMask generates a\n bit sequence (hereinafter, bit mask) according to the search string and stores it in the\n 16-bit Binary type array Mask[] with 26 elements.\n In Mask[1] it stores the bit mask that corresponds to the character “A”, in Mask[2] it\n stores the bit mask that corresponds to the character “B”, and so on. So, in Mask[1]\n through Mask[26], it stores the bit masks that correspond to the characters “A” through\n “Z ”.\n\nThe function GenerateBitMask first initializes each element of Mask[] to \"0\"B; then,\n for each i that is equal to or greater than 1 and equal to or less than the number of\n characters in Pat[], it sets 1 to the value of the i-th bit from the lowest position of the\n value stored in Mask[Index(Pat[i])], which is the element of Mask[] that\n corresponds to Pat[i].\n The function Index returns the integer n (1 ≦ n ≦ 26) when it is called with the n-th upper case letter in alphabetical order that has been specified in the argument.\n\n(3) In the example where Pat[] is “ACABAB” as shown in Figure 1, Mask[] becomes as\n shown in Figure 2 when the function GenerateBitMask is executed.\n\nMask[1] 0000000000010101 Bit mask that corresponds to “A”\n\nMask[2] ***A*** Bit mask that corresponds to “B”\n\nMask[3] 0000000000000010 Bit mask that corresponds to “C”\n\nMask[4] 0000000000000000 Bit mask that corresponds to “D”\n ⁝ ⁝\n\nMask[26] 0000000000000000 Bit mask that corresponds to “Z”\n\nFigure 2 Value of Mask[] that corresponds to Pat[] shown in Figure 1\n\n(4) The specifications of the arguments and the return value of the function\n GenerateBitMask are shown in Table 1.\n\nTable 1 Specifications of the arguments and return value of the function GenerateBitMask\n\nArguments / Data Input /\n Description\n return value type Output\n Pat[] CHAR Input One-dimensional array that stores the search string\n 16-bit One-dimensional array that stores the bit masks\n Mask[] Output\n Binary that correspond to the characters “A” through “Z”\n Return value INT Output Number of characters in the search string\n\n(5) In the programs, the following three operators “|”, “&”, and “<<” are used:\n a | b obtains the 16-bit logical sum (OR) for each pair of bits in the corresponding bit\n positions of two 16-bit binary data, a and b.\n a & b obtains the 16-bit logical product (AND) for each pair of bits in the\n corresponding bit positions of two 16-bit binary data, a and b.\n a << b executes a logical left shift of the 16-bit binary data a by b bits.\n\n[Program 1]\n\nFUNCTION: GenerateBitMask(CHAR: Pat[], 16-bit Binary: Mask[]) {\n\nINT: i, PatLen\n\nPatLen ← number of characters in Pat[];\n FOR (i ← 1; i ≤ 26; i ← i + 1) {\n Mask[i] ← ***B***; /* Initialize */\n\n}\n FOR (i ← 1; i ≤ PatLen; i ← i + 1) {\n Mask[Index(Pat[i])] ← ( ***C*** ) | Mask[Index(Pat[i])];\n\n}\n\nreturn (PatLen);\n\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the program description and Program 1.\n\nAnswer group for A\n a) 0000000000000101 b) 0000000000101000\n c) 0001010000000000 d) 1010000000000000\n\nAnswer group for B\n a) \"0\"B b) \"1\"B\n c) \"1\"B << (PatLen - 1) d) \"1\"B << PatLen\n e) \"1111111111111111\"B\n\nAnswer group for C\n a) \"1\"B b) \"1\"B << (PatLen - 1)\n c) \"1\"B << (i - 1) d) \"1\"B << PatLen\n e) \"1\"B << i\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n[Description of the Function BitapMatch]\n(1) The function receives Text[] and Pat[], and from the smallest element number of\n Text[], it searches for a string that matches Pat[]. If a match is found, it returns the\n element number of the Text[] element corresponding to the first character in the\n matching string. If no match is found, it returns -1.\n(2) In the example shown in Figure 1, the string between Text[7] and Text[12] matches\n Pat[], so it returns 7.\n(3) Table 2 shows the specifications of the arguments and the return value of the function\n BitapMatch.\n\nTable 2 Specifications of the arguments and return value of the function BitapMatch\n\nArguments / Data Input /\n Description\nreturn value type Output\nText[] CHAR Input One-dimensional array that stores the target string\nPat[] CHAR Input One-dimensional array that stores the search string\n If the search string is found in the target string, return\n the element number of the Text[] element that\nReturn value INT Output\n corresponds to the first character in the matching\n string. If the search string is not found, return -1.\n\n[Program 2]\n\nFUNCTION: BitapMatch(CHAR: Text[], CHAR: Pat[]) {\n\n16-bit Binary: Goal, Status, Mask[26]\n\nINT: i, TextLen, PatLen\n\nTextLen ← number of characters in Text[];\n PatLen ← GenerateBitMask(Pat[], Mask[]);\n Status ← \"0\"B;\n Goal ← \"1\"B << (PatLen - 1);\n FOR (i ← 1; i ≤ TextLen; i ← i + 1) {\n Status ← (Status << 1) | \"1\"B; /*** α ***/\n Status ← Status & Mask[Index(Text[i])]; /*** β ***/\n IF ((Status & Goal) ≠ \"0\"B) {\n\nreturn (i - PatLen + 1)\n\n}\n\n}\n\nreturn (-1)\n\n}\n\nThe function BitapMatch is executed. The values shown in Figure 1 are stored in Text[]\n and Pat[].\n Table 3 shows the transition in the values of i, Mask[Index(Text[i])], and Status\n immediately after the execution of the line commented /*** β ***/ (hereinafter, line β) in\n Program 2.\n\nFor example, the value of Status immediately after the execution of line β when i is 1 is\n \"1\"B, so the value of Status immediately after the execution of line α when i is 2 is \"11\"B,\n which is a bitwise logical sum of \"10\"B (the value obtained by a logical left shift of \"1\"B by\n 1 bit) and \"1\"B. Next, given the fact that the value of Mask[Index(Text[2])] is \"10101\"B,\n the value of Status immediately after the execution of line β when i is 2 is ***D***.\n\nIn the same way, given the fact that the value of Status immediately after the execution of\n line β when i is 8 is \"10\"B, the value of Mask[Index(Text[9])] immediately after the\n execution of line α when i is 9 is ***E***, so the value of Status immediately after the\n execution of line β is ***F***.\n\nTable 3 Transition in the values of i, Mask[Index(Text[i])], and Status immediately\n after the execution of line β in Program 2 for the example of storage in Figure 1\n\ni 1 2 … 8 9 …\n\nMask[Index(Text[i])] \"10101\"B \"10101\"B … \"10\"B ***E*** …\n\nStatus \"1\"B ***D*** … \"10\"B ***F*** …\n\nAnswer group for D through F\n a) \"0\"B b) \"1\"B c) \"10\"B d) \"11\"B\n e) \"100\"B f) \"101\"B g) \"10101\"B\n\nSubquestion 3\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description concerning the extension of the function\n GenerateBitMask. Here, assume that ***B*** in Program 3 contains the correct answer\n for ***B*** in Subquestion 1.\n\nIn order to enable the specification of regular expression, such as the expression shown in\nTable 4 in the search string, the function GenerateBitMask is extended to create the function\nGenerateBitMaskRegex.\n\nTable 4 Regular expression\n\nSymbol Description\n Represents a character that matches one of the characters noted in the\n []\n []. For example, “A[XYZ]B” represents “AXB”, “AYB”, and “AZB”.\n\n[Program 3]\n\nFUNCTION: GenerateBitMaskRegex(CHAR: Pat[], 16-bit Binary: Mask[]) {\n\nINT: i, OriginalPatLen, PatLen, Mode\n\nOriginalPatLen ← number of characters in Pat[];\n PatLen ← 0;\n Mode ← 0;\n FOR (i ← 1; i ≤ 26; i ← i + 1) {\n Mask[i] ← ***B*** ; /* Initialize */\n\n}\n FOR (i ← 1; i ≤ OriginalPatLen; i ← i + 1) {\n\nIF (Pat[i] = \"[\") {\n Mode ← 1;\n PatLen ← PatLen + 1;\n\n}\n\nELSE {\n\nIF (Pat[i] = \"]\") {\n Mode ← 0;\n\n}\n\nELSE {\n\nIF (Mode = 0) {\n PatLen ← PatLen + 1;\n\n}\n Mask[Index(Pat[i])] ← Mask[Index(Pat[i])] |\n\n(\"1\"B << (PatLen - 1));\n\n}\n\n}\n\n}\n\nreturn (PatLen);\n\n}\n\nAssume that “AC[BA]A[ABC]A” is stored in Pat[], and the function\nGenerateBitMaskRegex is called. In this situation, the bit mask Mask[1] that corresponds\nto “A” is \"111101\"B, and the return value of the function GenerateBitMaskRegex is\n***G***. Furthermore, nesting [] in the string that is stored in Pat[] is not possible, but\nif “AC[B[AB]AC]A” is mistakenly stored in Pat[] and the function GenerateBitMaskRegex\nis called, Mask[1] becomes ***H***.\n\nAnswer group for G\n a) 4 b) 6 c) 9 d) 13",
+    "choices": [
+      {
+        "label": "a",
+        "text": "\"1001101\"B"
+      },
+      {
+        "label": "b",
+        "text": "\"1010100001\"B"
+      },
+      {
+        "label": "c",
+        "text": "\"1011001\"B"
+      },
+      {
+        "label": "d",
+        "text": "\"101111\"B"
+      },
+      {
+        "label": "e",
+        "text": "\"110011\"B"
+      },
+      {
+        "label": "f",
+        "text": "\"111101\"B"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"c\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"g\"}, {\"subquestion\": 2, \"blank\": \"F\", \"answer\": \"f\"}, {\"subquestion\": 3, \"blank\": \"G\", \"answer\": \"b\"}, {\"subquestion\": 3, \"blank\": \"H\", \"answer\": \"c\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "c"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "g"
+        },
+        {
+          "subquestion": 2,
+          "blank": "F",
+          "answer": "f"
+        },
+        {
+          "subquestion": 3,
+          "blank": "G",
+          "answer": "b"
+        },
+        {
+          "subquestion": 3,
+          "blank": "H",
+          "answer": "c"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023A, FE, Subject-B, Q6)",
+    "source_pages": [
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q6. Read the following description of programs that use the Bitap algorithm to search for a\n string, and then answer Subquestions 1 through 3.\n\n [Program Description]\n The function BitapMatch is a program that uses the Bitap algorithm to search for a string.\n The Bitap algorithm has the characteristic of using a bit sequence that is defined for each\n individual character in the comparison between a string that is to be searched (hereinafter,\n target string) and a search string.\n In this question, 16-bit Binary type constants in binary are noted with the leading zeroes\n omitted. For example, for the value 0000000000010101, the leading zeroes are omitted, and\n the value is noted as \"10101\"B.\n\n (1) The function BitapMatch uses two character arrays: Text[], which contains the target\n string and Pat[], which contains the search string. Both array indexes start at 1.\n The i-th character of Text[] is noted as Text[i] and the i-th character of Pat[] is\n noted as Pat[i]. The target and search strings are composed of upper-case Roman\n alphabets only, and both have a maximum length of 16 characters.\n Figure 1 shows an example of storage when the target string Text[] is\n “AACBBAACABABAB” and the search string Pat[] is “ACABAB”.\n\n Element number 1 2 3 4 5 6 7 8 9 10 11 12 13 14\n\n Text[] A A C B B A A C A B A B A B\n\n Element number 1 2 3 4 5 6\n\n Pat[] A C A B A B\n\n Figure 1 Example of storage of the target string and the search string\n\n (2) The function BitapMatch calls the function GenerateBitMask.\n For each character from “A” through “Z ”, the function GenerateBitMask generates a\n bit sequence (hereinafter, bit mask) according to the search string and stores it in the\n 16-bit Binary type array Mask[] with 26 elements.\n In Mask[1] it stores the bit mask that corresponds to the character “A”, in Mask[2] it\n stores the bit mask that corresponds to the character “B”, and so on. So, in Mask[1]\n through Mask[26], it stores the bit masks that correspond to the characters “A” through\n “Z ”.\n\nThe function GenerateBitMask first initializes each element of Mask[] to \"0\"B; then,\n for each i that is equal to or greater than 1 and equal to or less than the number of\n characters in Pat[], it sets 1 to the value of the i-th bit from the lowest position of the\n value stored in Mask[Index(Pat[i])], which is the element of Mask[] that\n corresponds to Pat[i].\n The function Index returns the integer n (1 ≦ n ≦ 26) when it is called with the n-th upper case letter in alphabetical order that has been specified in the argument.\n\n (3) In the example where Pat[] is “ACABAB” as shown in Figure 1, Mask[] becomes as\n shown in Figure 2 when the function GenerateBitMask is executed.\n\n Mask[1] 0000000000010101 Bit mask that corresponds to “A”\n\n Mask[2] ____A____ Bit mask that corresponds to “B”\n\n Mask[3] 0000000000000010 Bit mask that corresponds to “C”\n\n Mask[4] 0000000000000000 Bit mask that corresponds to “D”\n ⁝ ⁝\n\n Mask[26] 0000000000000000 Bit mask that corresponds to “Z”\n\n Figure 2 Value of Mask[] that corresponds to Pat[] shown in Figure 1\n\n (4) The specifications of the arguments and the return value of the function\n GenerateBitMask are shown in Table 1.\n\nTable 1 Specifications of the arguments and return value of the function GenerateBitMask\n\n Arguments / Data Input /\n Description\n return value type Output\n Pat[] CHAR Input One-dimensional array that stores the search string\n 16-bit One-dimensional array that stores the bit masks\n Mask[] Output\n Binary that correspond to the characters “A” through “Z”\n Return value INT Output Number of characters in the search string\n\n (5) In the programs, the following three operators “|”, “&”, and “<<” are used:\n a | b obtains the 16-bit logical sum (OR) for each pair of bits in the corresponding bit\n positions of two 16-bit binary data, a and b.\n a & b obtains the 16-bit logical product (AND) for each pair of bits in the\n corresponding bit positions of two 16-bit binary data, a and b.\n a << b executes a logical left shift of the 16-bit binary data a by b bits.\n\n[Program 1]\n\n FUNCTION: GenerateBitMask(CHAR: Pat[], 16-bit Binary: Mask[]) {\n\n INT: i, PatLen\n\n PatLen ← number of characters in Pat[];\n FOR (i ← 1; i ≤ 26; i ← i + 1) {\n Mask[i] ← ___B___; /* Initialize */\n\n }\n FOR (i ← 1; i ≤ PatLen; i ← i + 1) {\n Mask[Index(Pat[i])] ← ( ___C___ ) | Mask[Index(Pat[i])];\n\n }\n\n return (PatLen);\n\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the program description and Program 1.\n\n Answer group for A\n a) 0000000000000101 b) 0000000000101000\n c) 0001010000000000 d) 1010000000000000\n\n Answer group for B\n a) \"0\"B b) \"1\"B\n c) \"1\"B << (PatLen - 1) d) \"1\"B << PatLen\n e) \"1111111111111111\"B\n\n Answer group for C\n a) \"1\"B b) \"1\"B << (PatLen - 1)\n c) \"1\"B << (i - 1) d) \"1\"B << PatLen\n e) \"1\"B << i\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n[Description of the Function BitapMatch]\n(1) The function receives Text[] and Pat[], and from the smallest element number of\n Text[], it searches for a string that matches Pat[]. If a match is found, it returns the\n element number of the Text[] element corresponding to the first character in the\n matching string. If no match is found, it returns -1.\n(2) In the example shown in Figure 1, the string between Text[7] and Text[12] matches\n Pat[], so it returns 7.\n(3) Table 2 shows the specifications of the arguments and the return value of the function\n BitapMatch.\n\n Table 2 Specifications of the arguments and return value of the function BitapMatch\n\nArguments / Data Input /\n Description\nreturn value type Output\nText[] CHAR Input One-dimensional array that stores the target string\nPat[] CHAR Input One-dimensional array that stores the search string\n If the search string is found in the target string, return\n the element number of the Text[] element that\nReturn value INT Output\n corresponds to the first character in the matching\n string. If the search string is not found, return -1.\n\n[Program 2]\n\n FUNCTION: BitapMatch(CHAR: Text[], CHAR: Pat[]) {\n\n 16-bit Binary: Goal, Status, Mask[26]\n\n INT: i, TextLen, PatLen\n\n TextLen ← number of characters in Text[];\n PatLen ← GenerateBitMask(Pat[], Mask[]);\n Status ← \"0\"B;\n Goal ← \"1\"B << (PatLen - 1);\n FOR (i ← 1; i ≤ TextLen; i ← i + 1) {\n Status ← (Status << 1) | \"1\"B; /*** α ***/\n Status ← Status & Mask[Index(Text[i])]; /*** β ***/\n IF ((Status & Goal) ≠ \"0\"B) {\n\n return (i - PatLen + 1)\n\n }\n\n }\n\n return (-1)\n\n }\n\nThe function BitapMatch is executed. The values shown in Figure 1 are stored in Text[]\n and Pat[].\n Table 3 shows the transition in the values of i, Mask[Index(Text[i])], and Status\n immediately after the execution of the line commented /*** β ***/ (hereinafter, line β) in\n Program 2.\n\n For example, the value of Status immediately after the execution of line β when i is 1 is\n \"1\"B, so the value of Status immediately after the execution of line α when i is 2 is \"11\"B,\n which is a bitwise logical sum of \"10\"B (the value obtained by a logical left shift of \"1\"B by\n 1 bit) and \"1\"B. Next, given the fact that the value of Mask[Index(Text[2])] is \"10101\"B,\n the value of Status immediately after the execution of line β when i is 2 is ___D___.\n\n In the same way, given the fact that the value of Status immediately after the execution of\n line β when i is 8 is \"10\"B, the value of Mask[Index(Text[9])] immediately after the\n execution of line α when i is 9 is ___E___, so the value of Status immediately after the\n execution of line β is ___F___.\n\n Table 3 Transition in the values of i, Mask[Index(Text[i])], and Status immediately\n after the execution of line β in Program 2 for the example of storage in Figure 1\n\n i 1 2 … 8 9 …\n\n Mask[Index(Text[i])] \"10101\"B \"10101\"B … \"10\"B ___E___ …\n\n Status \"1\"B ___D___ … \"10\"B ___F___ …\n\n Answer group for D through F\n a) \"0\"B b) \"1\"B c) \"10\"B d) \"11\"B\n e) \"100\"B f) \"101\"B g) \"10101\"B\n\nSubquestion 3\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description concerning the extension of the function\n GenerateBitMask. Here, assume that ___B___ in Program 3 contains the correct answer\n for ___B___ in Subquestion 1.\n\nIn order to enable the specification of regular expression, such as the expression shown in\nTable 4 in the search string, the function GenerateBitMask is extended to create the function\nGenerateBitMaskRegex.\n\n Table 4 Regular expression\n\n Symbol Description\n Represents a character that matches one of the characters noted in the\n []\n []. For example, “A[XYZ]B” represents “AXB”, “AYB”, and “AZB”.\n\n[Program 3]\n\n FUNCTION: GenerateBitMaskRegex(CHAR: Pat[], 16-bit Binary: Mask[]) {\n\n INT: i, OriginalPatLen, PatLen, Mode\n\n OriginalPatLen ← number of characters in Pat[];\n PatLen ← 0;\n Mode ← 0;\n FOR (i ← 1; i ≤ 26; i ← i + 1) {\n Mask[i] ← ___B___ ; /* Initialize */\n\n }\n FOR (i ← 1; i ≤ OriginalPatLen; i ← i + 1) {\n\n IF (Pat[i] = \"[\") {\n Mode ← 1;\n PatLen ← PatLen + 1;\n\n }\n\n ELSE {\n\n IF (Pat[i] = \"]\") {\n Mode ← 0;\n\n }\n\n ELSE {\n\n IF (Mode = 0) {\n PatLen ← PatLen + 1;\n\n }\n Mask[Index(Pat[i])] ← Mask[Index(Pat[i])] |\n\n (\"1\"B << (PatLen - 1));\n\n }\n\n }\n\n }\n\n return (PatLen);\n\n }\n\nAssume that “AC[BA]A[ABC]A” is stored in Pat[], and the function\nGenerateBitMaskRegex is called. In this situation, the bit mask Mask[1] that corresponds\nto “A” is \"111101\"B, and the return value of the function GenerateBitMaskRegex is\n___G___. Furthermore, nesting [] in the string that is stored in Pat[] is not possible, but\nif “AC[B[AB]AC]A” is mistakenly stored in Pat[] and the function GenerateBitMaskRegex\nis called, Mask[1] becomes ___H___.\n\nAnswer group for G\n a) 4 b) 6 c) 9 d) 13\n\nAnswer group for H\n a) \"1001101\"B b) \"1010100001\"B\n c) \"1011001\"B d) \"101111\"B\n e) \"110011\"B f) \"111101\"B",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q6. Read the following description of programs that use the Bitap algorithm to search for a\n string, and then answer Subquestions 1 through 3."
+      },
+      {
+        "type": "context",
+        "text": "[Program Description]\n The function BitapMatch is a program that uses the Bitap algorithm to search for a string.\n The Bitap algorithm has the characteristic of using a bit sequence that is defined for each\n individual character in the comparison between a string that is to be searched (hereinafter,\n target string) and a search string.\n In this question, 16-bit Binary type constants in binary are noted with the leading zeroes\n omitted. For example, for the value 0000000000010101, the leading zeroes are omitted, and\n the value is noted as \"10101\"B.\n\n(1) The function BitapMatch uses two character arrays: Text[], which contains the target\n string and Pat[], which contains the search string. Both array indexes start at 1.\n The i-th character of Text[] is noted as Text[i] and the i-th character of Pat[] is\n noted as Pat[i]. The target and search strings are composed of upper-case Roman\n alphabets only, and both have a maximum length of 16 characters.\n Figure 1 shows an example of storage when the target string Text[] is\n “AACBBAACABABAB” and the search string Pat[] is “ACABAB”.\n\nElement number 1 2 3 4 5 6 7 8 9 10 11 12 13 14\n\nText[] A A C B B A A C A B A B A B\n\nElement number 1 2 3 4 5 6\n\nPat[] A C A B A B\n\nFigure 1 Example of storage of the target string and the search string\n\n(2) The function BitapMatch calls the function GenerateBitMask.\n For each character from “A” through “Z ”, the function GenerateBitMask generates a\n bit sequence (hereinafter, bit mask) according to the search string and stores it in the\n 16-bit Binary type array Mask[] with 26 elements.\n In Mask[1] it stores the bit mask that corresponds to the character “A”, in Mask[2] it\n stores the bit mask that corresponds to the character “B”, and so on. So, in Mask[1]\n through Mask[26], it stores the bit masks that correspond to the characters “A” through\n “Z ”.\n\nThe function GenerateBitMask first initializes each element of Mask[] to \"0\"B; then,\n for each i that is equal to or greater than 1 and equal to or less than the number of\n characters in Pat[], it sets 1 to the value of the i-th bit from the lowest position of the\n value stored in Mask[Index(Pat[i])], which is the element of Mask[] that\n corresponds to Pat[i].\n The function Index returns the integer n (1 ≦ n ≦ 26) when it is called with the n-th upper case letter in alphabetical order that has been specified in the argument.\n\n(3) In the example where Pat[] is “ACABAB” as shown in Figure 1, Mask[] becomes as\n shown in Figure 2 when the function GenerateBitMask is executed.\n\nMask[1] 0000000000010101 Bit mask that corresponds to “A”\n\nMask[2] ***A*** Bit mask that corresponds to “B”\n\nMask[3] 0000000000000010 Bit mask that corresponds to “C”\n\nMask[4] 0000000000000000 Bit mask that corresponds to “D”\n ⁝ ⁝\n\nMask[26] 0000000000000000 Bit mask that corresponds to “Z”\n\nFigure 2 Value of Mask[] that corresponds to Pat[] shown in Figure 1\n\n(4) The specifications of the arguments and the return value of the function\n GenerateBitMask are shown in Table 1.\n\nTable 1 Specifications of the arguments and return value of the function GenerateBitMask\n\nArguments / Data Input /\n Description\n return value type Output\n Pat[] CHAR Input One-dimensional array that stores the search string\n 16-bit One-dimensional array that stores the bit masks\n Mask[] Output\n Binary that correspond to the characters “A” through “Z”\n Return value INT Output Number of characters in the search string\n\n(5) In the programs, the following three operators “|”, “&”, and “<<” are used:\n a | b obtains the 16-bit logical sum (OR) for each pair of bits in the corresponding bit\n positions of two 16-bit binary data, a and b.\n a & b obtains the 16-bit logical product (AND) for each pair of bits in the\n corresponding bit positions of two 16-bit binary data, a and b.\n a << b executes a logical left shift of the 16-bit binary data a by b bits.\n\n[Program 1]\n\nFUNCTION: GenerateBitMask(CHAR: Pat[], 16-bit Binary: Mask[]) {\n\nINT: i, PatLen\n\nPatLen ← number of characters in Pat[];\n FOR (i ← 1; i ≤ 26; i ← i + 1) {\n Mask[i] ← ***B***; /* Initialize */\n\n}\n FOR (i ← 1; i ≤ PatLen; i ← i + 1) {\n Mask[Index(Pat[i])] ← ( ***C*** ) | Mask[Index(Pat[i])];\n\n}\n\nreturn (PatLen);\n\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the program description and Program 1.\n\nAnswer group for A\n a) 0000000000000101 b) 0000000000101000\n c) 0001010000000000 d) 1010000000000000\n\nAnswer group for B\n a) \"0\"B b) \"1\"B\n c) \"1\"B << (PatLen - 1) d) \"1\"B << PatLen\n e) \"1111111111111111\"B\n\nAnswer group for C\n a) \"1\"B b) \"1\"B << (PatLen - 1)\n c) \"1\"B << (i - 1) d) \"1\"B << PatLen\n e) \"1\"B << i\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n[Description of the Function BitapMatch]\n(1) The function receives Text[] and Pat[], and from the smallest element number of\n Text[], it searches for a string that matches Pat[]. If a match is found, it returns the\n element number of the Text[] element corresponding to the first character in the\n matching string. If no match is found, it returns -1.\n(2) In the example shown in Figure 1, the string between Text[7] and Text[12] matches\n Pat[], so it returns 7.\n(3) Table 2 shows the specifications of the arguments and the return value of the function\n BitapMatch.\n\nTable 2 Specifications of the arguments and return value of the function BitapMatch\n\nArguments / Data Input /\n Description\nreturn value type Output\nText[] CHAR Input One-dimensional array that stores the target string\nPat[] CHAR Input One-dimensional array that stores the search string\n If the search string is found in the target string, return\n the element number of the Text[] element that\nReturn value INT Output\n corresponds to the first character in the matching\n string. If the search string is not found, return -1.\n\n[Program 2]\n\nFUNCTION: BitapMatch(CHAR: Text[], CHAR: Pat[]) {\n\n16-bit Binary: Goal, Status, Mask[26]\n\nINT: i, TextLen, PatLen\n\nTextLen ← number of characters in Text[];\n PatLen ← GenerateBitMask(Pat[], Mask[]);\n Status ← \"0\"B;\n Goal ← \"1\"B << (PatLen - 1);\n FOR (i ← 1; i ≤ TextLen; i ← i + 1) {\n Status ← (Status << 1) | \"1\"B; /*** α ***/\n Status ← Status & Mask[Index(Text[i])]; /*** β ***/\n IF ((Status & Goal) ≠ \"0\"B) {\n\nreturn (i - PatLen + 1)\n\n}\n\n}\n\nreturn (-1)\n\n}\n\nThe function BitapMatch is executed. The values shown in Figure 1 are stored in Text[]\n and Pat[].\n Table 3 shows the transition in the values of i, Mask[Index(Text[i])], and Status\n immediately after the execution of the line commented /*** β ***/ (hereinafter, line β) in\n Program 2.\n\nFor example, the value of Status immediately after the execution of line β when i is 1 is\n \"1\"B, so the value of Status immediately after the execution of line α when i is 2 is \"11\"B,\n which is a bitwise logical sum of \"10\"B (the value obtained by a logical left shift of \"1\"B by\n 1 bit) and \"1\"B. Next, given the fact that the value of Mask[Index(Text[2])] is \"10101\"B,\n the value of Status immediately after the execution of line β when i is 2 is ***D***.\n\nIn the same way, given the fact that the value of Status immediately after the execution of\n line β when i is 8 is \"10\"B, the value of Mask[Index(Text[9])] immediately after the\n execution of line α when i is 9 is ***E***, so the value of Status immediately after the\n execution of line β is ***F***.\n\nTable 3 Transition in the values of i, Mask[Index(Text[i])], and Status immediately\n after the execution of line β in Program 2 for the example of storage in Figure 1\n\ni 1 2 … 8 9 …\n\nMask[Index(Text[i])] \"10101\"B \"10101\"B … \"10\"B ***E*** …\n\nStatus \"1\"B ***D*** … \"10\"B ***F*** …\n\nAnswer group for D through F\n a) \"0\"B b) \"1\"B c) \"10\"B d) \"11\"B\n e) \"100\"B f) \"101\"B g) \"10101\"B\n\nSubquestion 3\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description concerning the extension of the function\n GenerateBitMask. Here, assume that ***B*** in Program 3 contains the correct answer\n for ***B*** in Subquestion 1.\n\nIn order to enable the specification of regular expression, such as the expression shown in\nTable 4 in the search string, the function GenerateBitMask is extended to create the function\nGenerateBitMaskRegex.\n\nTable 4 Regular expression\n\nSymbol Description\n Represents a character that matches one of the characters noted in the\n []\n []. For example, “A[XYZ]B” represents “AXB”, “AYB”, and “AZB”.\n\n[Program 3]\n\nFUNCTION: GenerateBitMaskRegex(CHAR: Pat[], 16-bit Binary: Mask[]) {\n\nINT: i, OriginalPatLen, PatLen, Mode\n\nOriginalPatLen ← number of characters in Pat[];\n PatLen ← 0;\n Mode ← 0;\n FOR (i ← 1; i ≤ 26; i ← i + 1) {\n Mask[i] ← ***B*** ; /* Initialize */\n\n}\n FOR (i ← 1; i ≤ OriginalPatLen; i ← i + 1) {\n\nIF (Pat[i] = \"[\") {\n Mode ← 1;\n PatLen ← PatLen + 1;\n\n}\n\nELSE {\n\nIF (Pat[i] = \"]\") {\n Mode ← 0;\n\n}\n\nELSE {\n\nIF (Mode = 0) {\n PatLen ← PatLen + 1;\n\n}\n Mask[Index(Pat[i])] ← Mask[Index(Pat[i])] |\n\n(\"1\"B << (PatLen - 1));\n\n}\n\n}\n\n}\n\nreturn (PatLen);\n\n}\n\nAssume that “AC[BA]A[ABC]A” is stored in Pat[], and the function\nGenerateBitMaskRegex is called. In this situation, the bit mask Mask[1] that corresponds\nto “A” is \"111101\"B, and the return value of the function GenerateBitMaskRegex is\n***G***. Furthermore, nesting [] in the string that is stored in Pat[] is not possible, but\nif “AC[B[AB]AC]A” is mistakenly stored in Pat[] and the function GenerateBitMaskRegex\nis called, Mask[1] becomes ***H***.\n\nAnswer group for G\n a) 4 b) 6 c) 9 d) 13"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-october/b/questions.pdf",
+        "pages": [
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_number": 7,
+    "question_text": "Q7. Read the following description of a C program, and then answer Subquestions 1 through\n 3.\n\nCombat sports usually have classification to avoid mismatches and for obvious safety\n reasons. For example, one of the men freestyle wrestling rules has six weight classes: 57, 65,\n 74, 86, 97, and 125 kg. A wrestler can participate in a weight class greater than or equal to\n his weight according to the rule. In this question, it is assumed that a wrestler participates in\n the lightest class of all the possible classes. For example, a wrestler weighing 58 kg is\n allowed to participate in all classes except for the 57 kg class, but he shall participate in the\n 65 kg class.\n\n[Program Description]\n This is a program that accepts the request from wrestlers for participating in a wrestling\n game, classifies the wrestlers according to their weight, and displays all the requests accepted.\n\n(1) The program receives the number of wrestlers and then the name and weight of the\n wrestlers from stdin. The number of wrestlers and the weight consist of decimal\n numbers of up to 3 digits, and the name consists of alphabets of up to 50 characters. It\n is assumed that all input data satisfy these specifications. Table 1 shows an example of\n information about four wrestlers.\n\nTable 1 An example of information about four wrestlers\n\nName Weight (kg)\n Anthony 85\n Bob 68\n Charles 77\n Daniel 103\n\n(2) The data structure for storing information about wrestlers is the array of linked lists\n named Entries. Here, Entries[0], Entries[1], …, Entries[5] correspond to the\n weight classes of 57, 65, …, 125 kg, respectively. Each element of Entries points to a\n linked list that holds information about all wrestlers participating in the corresponding\n weight class, or NULL if no wrestlers are in the class.\n Figure 1 illustrates the data structures for storing information about wrestlers.\n\nEntries\n\nnode1\n\nnode2 node3\n\nnode4\n\nindicates NULL pointer.\n\nFigure 1 The data structures for storing information about wrestlers\n\n(3) A node of the linked list represents a wrestler’s information, which is a struct named\n Wrestler consisting of three fields: name, weight, and next.\n\nstruct Wrestler {\n char name[51];\n int weight;\n struct Wrestler *next;\n };\n typedef struct Wrestler Wrestler_t;\n\nThe first two fields hold a wrestler’s name and his weight. The field next is the pointer\n to a node holding the next wrestler’s information, or NULL if no more wrestler is present\n in the class.\n\n(4) The program proceeds as follows:\n Step 1 Initialize Entries and take the number of wrestlers from stdin.\n Step 2 Repeat (i) through (iii) for each wrestler.\n (i) Take the wrestler’s name and weight from stdin.\n (ii) Create a node holding the wrestler’s information.\n (iii) Find the appropriate linked list for the node created in (ii) from Entries and insert\n the node at the end of the list. If no weight class is found, take another weight for\n the node and find the appropriate linked list again.\n Step 3 Output information in the linked list. If a weight class does not contain any nodes,\n output “<empty>” instead of wrestler’s information.\n\n(5) When the program is executed using the sample data in Table 1, the output is as follows:\n\nHow many wrestlers want to participate: 4\n Enter the name of the wrestler: Anthony\n Enter the weight for Anthony: 85\n Enter the name of the wrestler: Bob\n Enter the weight for Bob: 68\n Enter the name of the wrestler: Charles\n Enter the weight for Charles: 77\n Enter the name of the wrestler: Daniel\n Enter the weight for Daniel: 103\n Result:\n 57 kg class: <empty>\n 65 kg class: <empty>\n 74 kg class: [Bob 68]\n 86 kg class: [Anthony 85] [Charles 77]\n 97 kg class: <empty>\n 125 kg class: [Daniel 103]\n\n(6) Table 2 shows the functions used in the program.\n\nTable 2 Functions used in the program\n\nFunction Name Description\n void Initialize(void) Initializes Entries.\n Wrestler_t Accepts a participation entry from a wrestler.\n *AcceptEntry(void)\n int FindWeightClass(int) Finds appropriate weight class for a wrestler of\n a given weight. Returns -1 if not found.\n void Insert(Wrestler_t *, Inserts given node in the linked list specified by\n int) the given index.\n void Display(void) Displays all information of wrestlers registered\n in the linked list.\n void Deallocate(void) Cleans up dynamically allocated memories.\n void *malloc(size_t) (Standard library function) Dynamically\n allocates a given size of memory and returns a\n pointer that points to that memory.\n Void free(void *) (Standard library function) Deallocates memory\n allocated by malloc.\n\n(7) Table 3 shows the variables used in the program.\n\nTable 3 Variables used in the program\n\nVariable Name Description\n Wrestler_t An array of linked lists where each element\n *Entries[NUM_CLASSES] represents weight classes of 57, 65, 74, 86, 97,\n and 125 kg respectively.\n const int An array that stores the upper limit for each\n UpperLimits[NUM_CLASSES] weight class.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "2"
+      },
+      {
+        "label": "b",
+        "text": "3"
+      },
+      {
+        "label": "c",
+        "text": "4"
+      },
+      {
+        "label": "d",
+        "text": "5"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"d\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"E\", \"answer\": \"e\"}, {\"subquestion\": 1, \"blank\": \"F\", \"answer\": \"c\"}, {\"subquestion\": 2, \"blank\": \"G\", \"answer\": \"a\"}, {\"subquestion\": 3, \"blank\": \"H\", \"answer\": \"b\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "d"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "E",
+          "answer": "e"
+        },
+        {
+          "subquestion": 1,
+          "blank": "F",
+          "answer": "c"
+        },
+        {
+          "subquestion": 2,
+          "blank": "G",
+          "answer": "a"
+        },
+        {
+          "subquestion": 3,
+          "blank": "H",
+          "answer": "b"
+        }
+      ]
+    },
+    "images": [
+      "2023-october-b-q07-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023A, FE, Subject-B, Q7)",
+    "source_pages": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q7. Read the following description of a C program, and then answer Subquestions 1 through\n 3.\n\n Combat sports usually have classification to avoid mismatches and for obvious safety\n reasons. For example, one of the men freestyle wrestling rules has six weight classes: 57, 65,\n 74, 86, 97, and 125 kg. A wrestler can participate in a weight class greater than or equal to\n his weight according to the rule. In this question, it is assumed that a wrestler participates in\n the lightest class of all the possible classes. For example, a wrestler weighing 58 kg is\n allowed to participate in all classes except for the 57 kg class, but he shall participate in the\n 65 kg class.\n\n [Program Description]\n This is a program that accepts the request from wrestlers for participating in a wrestling\n game, classifies the wrestlers according to their weight, and displays all the requests accepted.\n\n (1) The program receives the number of wrestlers and then the name and weight of the\n wrestlers from stdin. The number of wrestlers and the weight consist of decimal\n numbers of up to 3 digits, and the name consists of alphabets of up to 50 characters. It\n is assumed that all input data satisfy these specifications. Table 1 shows an example of\n information about four wrestlers.\n\n Table 1 An example of information about four wrestlers\n\n Name Weight (kg)\n Anthony 85\n Bob 68\n Charles 77\n Daniel 103\n\n (2) The data structure for storing information about wrestlers is the array of linked lists\n named Entries. Here, Entries[0], Entries[1], …, Entries[5] correspond to the\n weight classes of 57, 65, …, 125 kg, respectively. Each element of Entries points to a\n linked list that holds information about all wrestlers participating in the corresponding\n weight class, or NULL if no wrestlers are in the class.\n Figure 1 illustrates the data structures for storing information about wrestlers.\n\nEntries\n\n node1\n\n node2 node3\n\n node4\n\n indicates NULL pointer.\n\n Figure 1 The data structures for storing information about wrestlers\n\n(3) A node of the linked list represents a wrestler’s information, which is a struct named\n Wrestler consisting of three fields: name, weight, and next.\n\n struct Wrestler {\n char name[51];\n int weight;\n struct Wrestler *next;\n };\n typedef struct Wrestler Wrestler_t;\n\n The first two fields hold a wrestler’s name and his weight. The field next is the pointer\n to a node holding the next wrestler’s information, or NULL if no more wrestler is present\n in the class.\n\n(4) The program proceeds as follows:\n Step 1 Initialize Entries and take the number of wrestlers from stdin.\n Step 2 Repeat (i) through (iii) for each wrestler.\n (i) Take the wrestler’s name and weight from stdin.\n (ii) Create a node holding the wrestler’s information.\n (iii) Find the appropriate linked list for the node created in (ii) from Entries and insert\n the node at the end of the list. If no weight class is found, take another weight for\n the node and find the appropriate linked list again.\n Step 3 Output information in the linked list. If a weight class does not contain any nodes,\n output “<empty>” instead of wrestler’s information.\n\n(5) When the program is executed using the sample data in Table 1, the output is as follows:\n\n How many wrestlers want to participate: 4\n Enter the name of the wrestler: Anthony\n Enter the weight for Anthony: 85\n Enter the name of the wrestler: Bob\n Enter the weight for Bob: 68\n Enter the name of the wrestler: Charles\n Enter the weight for Charles: 77\n Enter the name of the wrestler: Daniel\n Enter the weight for Daniel: 103\n Result:\n 57 kg class: <empty>\n 65 kg class: <empty>\n 74 kg class: [Bob 68]\n 86 kg class: [Anthony 85] [Charles 77]\n 97 kg class: <empty>\n 125 kg class: [Daniel 103]\n\n(6) Table 2 shows the functions used in the program.\n\n Table 2 Functions used in the program\n\n Function Name Description\n void Initialize(void) Initializes Entries.\n Wrestler_t Accepts a participation entry from a wrestler.\n *AcceptEntry(void)\n int FindWeightClass(int) Finds appropriate weight class for a wrestler of\n a given weight. Returns -1 if not found.\n void Insert(Wrestler_t *, Inserts given node in the linked list specified by\n int) the given index.\n void Display(void) Displays all information of wrestlers registered\n in the linked list.\n void Deallocate(void) Cleans up dynamically allocated memories.\n void *malloc(size_t) (Standard library function) Dynamically\n allocates a given size of memory and returns a\n pointer that points to that memory.\n Void free(void *) (Standard library function) Deallocates memory\n allocated by malloc.\n\n(7) Table 3 shows the variables used in the program.\n\nTable 3 Variables used in the program\n\n Variable Name Description\n Wrestler_t An array of linked lists where each element\n *Entries[NUM_CLASSES] represents weight classes of 57, 65, 74, 86, 97,\n and 125 kg respectively.\n const int An array that stores the upper limit for each\n UpperLimits[NUM_CLASSES] weight class.\n\n[Program]\n\n #include <stdio.h>\n #include <stdlib.h>\n #include <string.h>\n #define NUM_CLASSES 6\n\n struct Wrestler {\n char name[51];\n int weight;\n struct Wrestler *next;\n };\n typedef struct Wrestler Wrestler_t;\n\n Wrestler_t *Entries[NUM_CLASSES];\n const int UpperLimits[NUM_CLASSES] = {57, 65, 74, 86, 97, 125};\n\n void Initialize(void);\n Wrestler_t *AcceptEntry(void);\n int FindWeightClass(int);\n void Insert(Wrestler_t *, int);\n void Display(void);\n void Deallocate(void);\n\n int main() {\n Wrestler_t *wrestler;\n int n, i, index;\n\n Initialize();\n printf(\"How many wrestlers want to participate: \");\n scanf(\"%3d\", &n);\n\nfor (i = 0; i < n; i++) {\n wrestler = AcceptEntry();\n index = FindWeightClass(wrestler->weight);\n while (___A___) {\n printf(\"%s's weight exceeds %d kg. Re-enter the weight: \",\n wrestler->name, UpperLimits[NUM_CLASSES - 1]);\n scanf(\"%3d\", &wrestler->weight);\n index = FindWeightClass(wrestler->weight);\n }\n Insert(wrestler, index);\n }\n Display();\n Deallocate();\n return 0;\n}\n\nvoid Initialize(void) {\n int i;\n for (i = 0; i < NUM_CLASSES; i++) {\n Entries[i] = NULL;\n }\n}\n\nWrestler_t *AcceptEntry(void) {\n Wrestler_t *wrestler = (Wrestler_t *)malloc(___B___);\n printf(\"Enter the name of the wrestler: \");\n scanf(\"%50s\", wrestler->name);\n printf(\"Enter the weight for %s: \", wrestler->name);\n scanf(\"%3d\", &wrestler->weight);\n wrestler->next = NULL;\n return wrestler;\n}\n\nint FindWeightClass(int weight) {\n int i;\n for (i = 0; i < NUM_CLASSES; i++) {\n if (___C___ ) {\n return i;\n }\n }\n return -1;\n}\n\nvoid Insert(Wrestler_t *wrestler, int i) {\n Wrestler_t *curr = Entries[i];\n if (curr == NULL) { /*** α ***/\n ___D___ = wrestler;\n } else {\n while (curr->next != NULL) { /*** β ***/\n curr = curr->next;\n }\n ___E___ = wrestler; /*** γ ***/\n }\n}\n\nvoid Display(void) {\n Wrestler_t *curr;\n int i;\n printf(\"Result:\\n\");\n for (i = 0; i < NUM_CLASSES; i++) {\n curr = Entries[i];\n printf(\"%3d kg class:\", UpperLimits[i]);\n if (curr == NULL) {\n printf(\"<empty>\\n\");\n continue;\n }\n while (curr != NULL) {\n printf(\"[%s %d] \", curr->name, curr->weight);\n curr = curr->next;\n }\n printf(\"\\n\");\n }\n}\n\nvoid Deallocate(void) {\n int i;\n Wrestler_t ___F___;\n for (i = 0; i < NUM_CLASSES; i++) {\n curr = Entries[i];\n while (curr != NULL) {\n next = curr->next;\n free(curr);\n curr = next;\n }\n }\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above program.\n\n Answer group for A\n a) index != -1 b) index != 0\n c) index == -1 d) index == 0\n\n Answer group for B\n a) sizeof(Wrestler_t *) b) sizeof(Wrestler_t)\n c) Wrestler_t * d) Wrestler_t\n\n Answer group for C\n a) UpperLimits[i] < weight b) UpperLimits[i] <= weight\n c) UpperLimits[i] > weight d) UpperLimits[i] >= weight\n\n Answer group for D and E\n a) Entries[i + 1] b) Entries[i - 1]\n c) Entries[i] d) curr\n e) curr->next f) curr->next->next\n\n Answer group for F\n a) &curr, &next b) &curr, next\n c) *curr, *next d) *curr, next\n e) curr, next\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in the blank\n ___G___ in the following description.\n\n The program is modified as follows to order the nodes in each linked list in ascending order\n of weight instead of the order of registration.\n\n (1) Replace the line designated by /*** α ***/ with the following two lines.\n\n if (curr == NULL || curr->weight >= wrestler->weight) {\n wrestler->next = curr; /*** δ ***/\n\n(2) Replace the line designated by /*** β ***/ with the following two lines.\n\n while ((curr->next != NULL) &&\n (___G___ )) {\n\n (3) Insert the following line immediately before the line designated by /*** γ ***/.\n\n wrestler->next = curr->next;\n\n Answer group for G\n a) curr->next->weight < wrestler->weight\n b) curr->next->weight >= wrestler->weight\n c) curr->weight < wrestler->weight\n d) curr->weight >= wrestler->weight\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in the blank\n ___H___ in the following description.\n\n It is assumed that the program after modification in Subquestion 2 is executed, and it\n receives information about five wrestlers shown in Table 4. The line designated by /*** δ\n ***/ will be executed ___H___ times.\n\n Table 4 Information about five wrestlers\n\n Name Weight (kg)\n Eric 88\n Faraday 72\n Gregory 91\n Harold 97\n Issacs 68\n\n Answer group for H\n a) 2 b) 3 c) 4 d) 5",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q7. Read the following description of a C program, and then answer Subquestions 1 through\n 3."
+      },
+      {
+        "type": "context",
+        "text": "Combat sports usually have classification to avoid mismatches and for obvious safety\n reasons. For example, one of the men freestyle wrestling rules has six weight classes: 57, 65,\n 74, 86, 97, and 125 kg. A wrestler can participate in a weight class greater than or equal to\n his weight according to the rule. In this question, it is assumed that a wrestler participates in\n the lightest class of all the possible classes. For example, a wrestler weighing 58 kg is\n allowed to participate in all classes except for the 57 kg class, but he shall participate in the\n 65 kg class.\n\n[Program Description]\n This is a program that accepts the request from wrestlers for participating in a wrestling\n game, classifies the wrestlers according to their weight, and displays all the requests accepted.\n\n(1) The program receives the number of wrestlers and then the name and weight of the\n wrestlers from stdin. The number of wrestlers and the weight consist of decimal\n numbers of up to 3 digits, and the name consists of alphabets of up to 50 characters. It\n is assumed that all input data satisfy these specifications. Table 1 shows an example of\n information about four wrestlers.\n\nTable 1 An example of information about four wrestlers\n\nName Weight (kg)\n Anthony 85\n Bob 68\n Charles 77\n Daniel 103\n\n(2) The data structure for storing information about wrestlers is the array of linked lists\n named Entries. Here, Entries[0], Entries[1], …, Entries[5] correspond to the\n weight classes of 57, 65, …, 125 kg, respectively. Each element of Entries points to a\n linked list that holds information about all wrestlers participating in the corresponding\n weight class, or NULL if no wrestlers are in the class.\n Figure 1 illustrates the data structures for storing information about wrestlers.\n\nEntries\n\nnode1\n\nnode2 node3\n\nnode4\n\nindicates NULL pointer.\n\nFigure 1 The data structures for storing information about wrestlers\n\n(3) A node of the linked list represents a wrestler’s information, which is a struct named\n Wrestler consisting of three fields: name, weight, and next.\n\nstruct Wrestler {\n char name[51];\n int weight;\n struct Wrestler *next;\n };\n typedef struct Wrestler Wrestler_t;\n\nThe first two fields hold a wrestler’s name and his weight. The field next is the pointer\n to a node holding the next wrestler’s information, or NULL if no more wrestler is present\n in the class.\n\n(4) The program proceeds as follows:\n Step 1 Initialize Entries and take the number of wrestlers from stdin.\n Step 2 Repeat (i) through (iii) for each wrestler.\n (i) Take the wrestler’s name and weight from stdin.\n (ii) Create a node holding the wrestler’s information.\n (iii) Find the appropriate linked list for the node created in (ii) from Entries and insert\n the node at the end of the list. If no weight class is found, take another weight for\n the node and find the appropriate linked list again.\n Step 3 Output information in the linked list. If a weight class does not contain any nodes,\n output “<empty>” instead of wrestler’s information.\n\n(5) When the program is executed using the sample data in Table 1, the output is as follows:\n\nHow many wrestlers want to participate: 4\n Enter the name of the wrestler: Anthony\n Enter the weight for Anthony: 85\n Enter the name of the wrestler: Bob\n Enter the weight for Bob: 68\n Enter the name of the wrestler: Charles\n Enter the weight for Charles: 77\n Enter the name of the wrestler: Daniel\n Enter the weight for Daniel: 103\n Result:\n 57 kg class: <empty>\n 65 kg class: <empty>\n 74 kg class: [Bob 68]\n 86 kg class: [Anthony 85] [Charles 77]\n 97 kg class: <empty>\n 125 kg class: [Daniel 103]\n\n(6) Table 2 shows the functions used in the program.\n\nTable 2 Functions used in the program\n\nFunction Name Description\n void Initialize(void) Initializes Entries.\n Wrestler_t Accepts a participation entry from a wrestler.\n *AcceptEntry(void)\n int FindWeightClass(int) Finds appropriate weight class for a wrestler of\n a given weight. Returns -1 if not found.\n void Insert(Wrestler_t *, Inserts given node in the linked list specified by\n int) the given index.\n void Display(void) Displays all information of wrestlers registered\n in the linked list.\n void Deallocate(void) Cleans up dynamically allocated memories.\n void *malloc(size_t) (Standard library function) Dynamically\n allocates a given size of memory and returns a\n pointer that points to that memory.\n Void free(void *) (Standard library function) Deallocates memory\n allocated by malloc.\n\n(7) Table 3 shows the variables used in the program.\n\nTable 3 Variables used in the program\n\nVariable Name Description\n Wrestler_t An array of linked lists where each element\n *Entries[NUM_CLASSES] represents weight classes of 57, 65, 74, 86, 97,\n and 125 kg respectively.\n const int An array that stores the upper limit for each\n UpperLimits[NUM_CLASSES] weight class."
+      },
+      {
+        "type": "code",
+        "language": "itpec-pseudocode",
+        "text": "}\n}\n\nvoid Display(void) {\n    Wrestler_t *curr;\n    int i;\n    printf(\"Result:\\n\");\n    for (i = 0; i < NUM_CLASSES; i++) {\n        curr = Entries[i];\n        printf(\"%3d kg class:\", UpperLimits[i]);\n        if (curr == NULL) {\n            printf(\"<empty>\\n\");\n            continue;\n        }\n        while (curr != NULL) {\n            printf(\"[%s %d] \", curr->name, curr->weight);\n            curr = curr->next;\n        }\n        printf(\"\\n\");\n    }\n}\n\nvoid Deallocate(void) {\n    int i;"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-october/b/questions.pdf",
+        "pages": [
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-october",
+    "subject": "B",
+    "question_number": 8,
+    "question_text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2.\n See the end of this booklet for the explanation of the APIs used in the Java programs.\n\n[Program Description]\n The purpose of this program is to manage “what you need to do” (hereinafter, a ToDo).\n (1) The class ToDo represents a ToDo. The subject, the deadline, and the priority are\n specified by the constructor. The deadline is a character string that consists of either 8\n numeric characters that represent year, month, and date, or 12 numeric characters that\n represent year, month, date, hours, and minutes (hereinafter, date and time). For\n example, October 22, 2023 is represented by the string “20231022”, and October 22,\n 2023, 1:00 p.m. is represented by the string “202310221300”. Here, it is assumed that\n there is no error in date and time.\n This class has methods to get the subject, the deadline, and the priority, methods to set\n and get the state, and the field id that identifies the ToDo.\n The enumeration Priority represents the priority of the ToDo. The values are LOW,\n MIDDLE, and HIGH in ascending order of priority.\n The enumeration State represents the state of the ToDo. The values are\n NOT_YET_STARTED, STARTED, and DONE.\n (2) The class ToDoList holds a list of ToDos.\n This class guarantees that the list does not contain ToDo’s whose field id values are the\n same.\n This class has the method add to add a ToDo, the method update to update a ToDo,\n and the method select to return a list of ToDo’s that matches conditions.\n When a ToDo that has been held in the list is specified as the argument of the method\n add, and when a ToDo that is not held in the list is specified as the argument of the\n method update, these methods do nothing.\n Zero or more conditions can be specified as the argument of the method select. When\n one or more conditions are specified, the method returns the list of ToDo’s that satisfy\n all the conditions. When no condition is specified, the method returns the list of all\n ToDo’s that has been held.\n (3) The interface Condition is a functional interface that represents the conditions to select\n ToDo’s. The method test returns true when the condition is satisfied.\n (4) The class ToDoListTester is a class that is used for testing.\n\n[Program 1]\n\nimport java.util.UUID;\n\npublic class ToDo {\n public enum Priority { LOW, MIDDLE, HIGH }\n public enum State { NOT_YET_STARTED, STARTED, DONE }\n\n// Regular expression that matches a string of 8 or 12 numeric characters\n private static final String DEADLINE_PATTERN = \"\\\\d{8}|\\\\d{12}\";\n\nprivate final String id;\n private String subject;\n private String deadline;\n private Priority priority;\n private State state;\n\nprivate ToDo(String subject, String deadline, Priority priority,\n String id, State state) {\n if (!deadline.matches(DEADLINE_PATTERN)) {\n throw new IllegalArgumentException();\n }\n this.subject = subject;\n this.deadline = deadline;\n this.priority = priority;\n this.id = id;\n this.state = state;\n }\n\npublic ToDo(String subject, String deadline, Priority priority) {\n this(subject, deadline, priority,\n UUID.randomUUID().toString(), State.NOT_YET_STARTED);\n }\n\npublic ToDo(ToDo todo) {\n this(todo.subject, todo.deadline,\n todo.priority, todo.id, todo.state);\n }\n\npublic String getSubject() { return subject; }\n public String getDeadline() { return deadline; }\n public Priority getPriority() { return priority; }\n public State getState() { return state; }\n public void setState(State state) { this.state = state; }\n public int hashCode() { return id.hashCode(); }\n\npublic boolean equals(Object o) {\n return o instanceof ToDo && ***A***;\n }\n\npublic String toString() {\n return String.format(\n \"Subject: %s, Deadline: %s, Priority: %s, State: %s\",\n subject, deadline, priority, state);\n }\n }\n\n[Program 2]\n\nimport java.util.ArrayList;\n import java.util.List;\n import java.util.stream.Collectors;\n import java.util.stream.Stream;\n\npublic class ToDoList {\n private List<ToDo> todoList = new ArrayList<>();\n\npublic void add(ToDo todo) {\n if (***B*** ) {\n todoList.add(new ToDo(todo));\n }\n }\n\npublic void update(ToDo todo) {\n int index = todoList.indexOf(todo);\n if (index ***C***) {\n todoList.set(index, todo);\n }\n }\n\npublic List<ToDo> select(Condition... conditions) {\n return todoList.stream().\n filter(t -> Stream.of(conditions).***D***).\n // Generate a list from the stream\n collect(Collectors.toList());\n }\n }\n\n[Program 3]\n\nimport java.util.function.Predicate;\n\npublic interface Condition ***E*** Predicate<ToDo> {}\n\n[Program 4]\n\npublic class ToDoListTester {\n public static void main(String[] args) {\n ToDoList list = new ToDoList();\n list.add(new ToDo(\"Send the e-mail\",\n \"202310231500\", ToDo.Priority.HIGH));\n list.add(new ToDo(\"Reserve a hotel room\",\n \"20231025\", ToDo.Priority.LOW));\n list.add(new ToDo(\"Purchase tickets\",\n \"20231030\", ToDo.Priority.MIDDLE));\n list.add(new ToDo(\"Create the report\",\n \"20231028\", ToDo.Priority.HIGH));\n list.add(new ToDo(\"Set up the meeting\",\n \"202311201400\", ToDo.Priority.HIGH));\n list.update(new ToDo(\"Purchase a PC\",\n \"20231121\", ToDo.Priority.HIGH));\n list.select().forEach(todo -> {\n todo.setState(ToDo.State.STARTED);\n list.update(todo);\n });\n Condition condition1 =\n todo -> todo.getDeadline().compareTo(\"20231101\") < 0;\n Condition condition2 =\n todo -> todo.getPriority().equals(ToDo.Priority.HIGH);\n list.select(condition1, condition2).\n forEach(System.out::println);\n }\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above programs.\n\nAnswer group for A\n a) ((ToDo) o).id.equals(id) b) (ToDo) o.id.equals(id)\n c) id.equals(id) d) o.id.equals(id)\n\nAnswer group for B\n a) !todoList.contains(todo) b) !todoList.isEmpty()\n c) todoList.contains(todo) d) todoList.isEmpty()\n\nAnswer group for C\n a) != -1 b) < todoList.size()\n c) == -1 d) >= todoList.size()\n\nAnswer group for D\n a) allMatch(c -> c.test(t)) b) allMatch(c -> t.test(c))\n c) anyMatch(c -> c.test(t)) d) anyMatch(c -> t.test(c))\n\nAnswer group for E\n a) extends b) implements\n c) super d) throws\n\nSubquestion 2\n Figure 1 shows the execution result of Program 4. From the answer group below, select the\n correct answer to be inserted in each blank _______ in Figure 1.\n\n___GF____, State: STARTED\n ___FG____, State: STARTED\n\nFigure 1 Execution result of Program 4",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Subject: Create the report, Deadline: 20231028, Priority: HIGH"
+      },
+      {
+        "label": "b",
+        "text": "Subject: Purchase a PC, Deadline: 20231121, Priority: HIGH"
+      },
+      {
+        "label": "c",
+        "text": "Subject: Purchase tickets, Deadline: 20231030, Priority: MIDDLE"
+      },
+      {
+        "label": "d",
+        "text": "Subject: Reserve a hotel room, Deadline: 20231025, Priority: LOW"
+      },
+      {
+        "label": "e",
+        "text": "Subject: Send the e-mail, Deadline: 202310231500, Priority: HIGH"
+      },
+      {
+        "label": "f",
+        "text": "Subject: Set up the meeting, Deadline: 202311201400, Priority: HIGH\n\n■ Explanation of APIs used in the Java programs\n\n java.lang\n\n public final class String\n The String class represents character strings.\n Methods\n\n public boolean matches(String regex)\n Determines whether or not this string matches the specified regular expression.\n For example, the regular expression \"\\\\d{8}|\\\\d{12}\" matches a string of 8 or\n 12 numeric characters.\n Parameter: regex - The regular expression\n Return value: true if this string matches the specified regular expression\n Otherwise, false\n\n public int compareTo(String str)\n Compares this string and the specified string lexicographically.\n Parameter: str - The string\n Return value: 0 if this string is equal to the specified string\n A value less than 0 if this string is lexicographically less than the\n specified string\n A value greater than 0 if this string is lexicographically greater than\n the specified string\n\n java.util\n\n public final class UUID\n The UUID class represents a universally unique identifier (UUID), which is a 128-bit value.\n Method\n\n public static UUID randomUUID()\n Randomly generates a universally unique identifier.\n Return value: A randomly generated unique identifier\n\njava.util.function\n\n public interface Predicate<T>\n A functional interface that represents a predicate (Boolean-valued function) of one\n argument.\n Method\n\n public boolean test(T t)\n Evaluates this predicate on the given argument.\n Parameter: t - The input argument\n Return value: true if the input argument matches the predicate\n Otherwise, false\n\n java.util.stream\n\n public interface Stream<T>\n An interface that supports functional-style operations on streams of elements.\n Methods\n\n public boolean allMatch(Predicate<? super T> predicate)\n Returns whether all elements of this stream match the provided predicate.\n Parameter: predicate - The function\n Return value: true if all elements of the stream match the provided predicate\n Otherwise, false\n\n public boolean anyMatch(Predicate<? super T> predicate)\n Returns whether any elements of this stream match the provided predicate.\n Parameter: predicate - The function\n Return value: true if any elements of the stream match the provided predicate\n Otherwise, false\n\n public Stream filter(Predicate<? super T> predicate)\n Returns a stream consisting of the elements of this stream that match the given\n predicate.\n Parameter: predicate - The function\n Return value: A stream consisting of the elements that match the given predicate.\n\n_ _\nCompany names and product names appearing in the test questions are trademarks or registered\ntrademarks of their respective companies. Note that the ® and ™ symbols are not used within the text."
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"E\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"F\", \"answer\": \"e\"}, {\"subquestion\": 2, \"blank\": \"G\", \"answer\": \"a\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "E",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "F",
+          "answer": "e"
+        },
+        {
+          "subquestion": 2,
+          "blank": "G",
+          "answer": "a"
+        }
+      ]
+    },
+    "images": [
+      "2023-october-b-q08-figure1.webp",
+      "2023-october-b-q08-figure2.webp",
+      "2023-october-b-q08-figure3.webp",
+      "2023-october-b-q08-figure4.webp",
+      "2023-october-b-q08-figure5.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023A, FE, Subject-B, Q8)",
+    "source_pages": [
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2.\n See the end of this booklet for the explanation of the APIs used in the Java programs.\n\n [Program Description]\n The purpose of this program is to manage “what you need to do” (hereinafter, a ToDo).\n (1) The class ToDo represents a ToDo. The subject, the deadline, and the priority are\n specified by the constructor. The deadline is a character string that consists of either 8\n numeric characters that represent year, month, and date, or 12 numeric characters that\n represent year, month, date, hours, and minutes (hereinafter, date and time). For\n example, October 22, 2023 is represented by the string “20231022”, and October 22,\n 2023, 1:00 p.m. is represented by the string “202310221300”. Here, it is assumed that\n there is no error in date and time.\n This class has methods to get the subject, the deadline, and the priority, methods to set\n and get the state, and the field id that identifies the ToDo.\n The enumeration Priority represents the priority of the ToDo. The values are LOW,\n MIDDLE, and HIGH in ascending order of priority.\n The enumeration State represents the state of the ToDo. The values are\n NOT_YET_STARTED, STARTED, and DONE.\n (2) The class ToDoList holds a list of ToDos.\n This class guarantees that the list does not contain ToDo’s whose field id values are the\n same.\n This class has the method add to add a ToDo, the method update to update a ToDo,\n and the method select to return a list of ToDo’s that matches conditions.\n When a ToDo that has been held in the list is specified as the argument of the method\n add, and when a ToDo that is not held in the list is specified as the argument of the\n method update, these methods do nothing.\n Zero or more conditions can be specified as the argument of the method select. When\n one or more conditions are specified, the method returns the list of ToDo’s that satisfy\n all the conditions. When no condition is specified, the method returns the list of all\n ToDo’s that has been held.\n (3) The interface Condition is a functional interface that represents the conditions to select\n ToDo’s. The method test returns true when the condition is satisfied.\n (4) The class ToDoListTester is a class that is used for testing.\n\n[Program 1]\n\n import java.util.UUID;\n\n public class ToDo {\n public enum Priority { LOW, MIDDLE, HIGH }\n public enum State { NOT_YET_STARTED, STARTED, DONE }\n\n // Regular expression that matches a string of 8 or 12 numeric characters\n private static final String DEADLINE_PATTERN = \"\\\\d{8}|\\\\d{12}\";\n\n private final String id;\n private String subject;\n private String deadline;\n private Priority priority;\n private State state;\n\n private ToDo(String subject, String deadline, Priority priority,\n String id, State state) {\n if (!deadline.matches(DEADLINE_PATTERN)) {\n throw new IllegalArgumentException();\n }\n this.subject = subject;\n this.deadline = deadline;\n this.priority = priority;\n this.id = id;\n this.state = state;\n }\n\n public ToDo(String subject, String deadline, Priority priority) {\n this(subject, deadline, priority,\n UUID.randomUUID().toString(), State.NOT_YET_STARTED);\n }\n\n public ToDo(ToDo todo) {\n this(todo.subject, todo.deadline,\n todo.priority, todo.id, todo.state);\n }\n\n public String getSubject() { return subject; }\n public String getDeadline() { return deadline; }\n public Priority getPriority() { return priority; }\n public State getState() { return state; }\n public void setState(State state) { this.state = state; }\n public int hashCode() { return id.hashCode(); }\n\npublic boolean equals(Object o) {\n return o instanceof ToDo && ___A___;\n }\n\n public String toString() {\n return String.format(\n \"Subject: %s, Deadline: %s, Priority: %s, State: %s\",\n subject, deadline, priority, state);\n }\n }\n\n[Program 2]\n\n import java.util.ArrayList;\n import java.util.List;\n import java.util.stream.Collectors;\n import java.util.stream.Stream;\n\n public class ToDoList {\n private List<ToDo> todoList = new ArrayList<>();\n\n public void add(ToDo todo) {\n if (___B___ ) {\n todoList.add(new ToDo(todo));\n }\n }\n\n public void update(ToDo todo) {\n int index = todoList.indexOf(todo);\n if (index ___C___) {\n todoList.set(index, todo);\n }\n }\n\n public List<ToDo> select(Condition... conditions) {\n return todoList.stream().\n filter(t -> Stream.of(conditions).___D___).\n // Generate a list from the stream\n collect(Collectors.toList());\n }\n }\n\n[Program 3]\n\n import java.util.function.Predicate;\n\n public interface Condition ___E___ Predicate<ToDo> {}\n\n [Program 4]\n\n public class ToDoListTester {\n public static void main(String[] args) {\n ToDoList list = new ToDoList();\n list.add(new ToDo(\"Send the e-mail\",\n \"202310231500\", ToDo.Priority.HIGH));\n list.add(new ToDo(\"Reserve a hotel room\",\n \"20231025\", ToDo.Priority.LOW));\n list.add(new ToDo(\"Purchase tickets\",\n \"20231030\", ToDo.Priority.MIDDLE));\n list.add(new ToDo(\"Create the report\",\n \"20231028\", ToDo.Priority.HIGH));\n list.add(new ToDo(\"Set up the meeting\",\n \"202311201400\", ToDo.Priority.HIGH));\n list.update(new ToDo(\"Purchase a PC\",\n \"20231121\", ToDo.Priority.HIGH));\n list.select().forEach(todo -> {\n todo.setState(ToDo.State.STARTED);\n list.update(todo);\n });\n Condition condition1 =\n todo -> todo.getDeadline().compareTo(\"20231101\") < 0;\n Condition condition2 =\n todo -> todo.getPriority().equals(ToDo.Priority.HIGH);\n list.select(condition1, condition2).\n forEach(System.out::println);\n }\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above programs.\n\n Answer group for A\n a) ((ToDo) o).id.equals(id) b) (ToDo) o.id.equals(id)\n c) id.equals(id) d) o.id.equals(id)\n\nAnswer group for B\n a) !todoList.contains(todo) b) !todoList.isEmpty()\n c) todoList.contains(todo) d) todoList.isEmpty()\n\n Answer group for C\n a) != -1 b) < todoList.size()\n c) == -1 d) >= todoList.size()\n\n Answer group for D\n a) allMatch(c -> c.test(t)) b) allMatch(c -> t.test(c))\n c) anyMatch(c -> c.test(t)) d) anyMatch(c -> t.test(c))\n\n Answer group for E\n a) extends b) implements\n c) super d) throws\n\nSubquestion 2\n Figure 1 shows the execution result of Program 4. From the answer group below, select the\n correct answer to be inserted in each blank _______ in Figure 1.\n\n ___GF____, State: STARTED\n ___FG____, State: STARTED\n\n Figure 1 Execution result of Program 4\n\n Answer group for F and G\n a) Subject: Create the report, Deadline: 20231028, Priority: HIGH\n b) Subject: Purchase a PC, Deadline: 20231121, Priority: HIGH\n c) Subject: Purchase tickets, Deadline: 20231030, Priority: MIDDLE\n d) Subject: Reserve a hotel room, Deadline: 20231025, Priority: LOW\n e) Subject: Send the e-mail, Deadline: 202310231500, Priority: HIGH\n f) Subject: Set up the meeting, Deadline: 202311201400, Priority: HIGH\n\n■ Explanation of APIs used in the Java programs\n\n java.lang\n\n public final class String\n The String class represents character strings.\n Methods\n\n public boolean matches(String regex)\n Determines whether or not this string matches the specified regular expression.\n For example, the regular expression \"\\\\d{8}|\\\\d{12}\" matches a string of 8 or\n 12 numeric characters.\n Parameter: regex - The regular expression\n Return value: true if this string matches the specified regular expression\n Otherwise, false\n\n public int compareTo(String str)\n Compares this string and the specified string lexicographically.\n Parameter: str - The string\n Return value: 0 if this string is equal to the specified string\n A value less than 0 if this string is lexicographically less than the\n specified string\n A value greater than 0 if this string is lexicographically greater than\n the specified string\n\n java.util\n\n public final class UUID\n The UUID class represents a universally unique identifier (UUID), which is a 128-bit value.\n Method\n\n public static UUID randomUUID()\n Randomly generates a universally unique identifier.\n Return value: A randomly generated unique identifier\n\njava.util.function\n\n public interface Predicate<T>\n A functional interface that represents a predicate (Boolean-valued function) of one\n argument.\n Method\n\n public boolean test(T t)\n Evaluates this predicate on the given argument.\n Parameter: t - The input argument\n Return value: true if the input argument matches the predicate\n Otherwise, false\n\n java.util.stream\n\n public interface Stream<T>\n An interface that supports functional-style operations on streams of elements.\n Methods\n\n public boolean allMatch(Predicate<? super T> predicate)\n Returns whether all elements of this stream match the provided predicate.\n Parameter: predicate - The function\n Return value: true if all elements of the stream match the provided predicate\n Otherwise, false\n\n public boolean anyMatch(Predicate<? super T> predicate)\n Returns whether any elements of this stream match the provided predicate.\n Parameter: predicate - The function\n Return value: true if any elements of the stream match the provided predicate\n Otherwise, false\n\n public Stream filter(Predicate<? super T> predicate)\n Returns a stream consisting of the elements of this stream that match the given\n predicate.\n Parameter: predicate - The function\n Return value: A stream consisting of the elements that match the given predicate.\n\n_ _\nCompany names and product names appearing in the test questions are trademarks or registered\ntrademarks of their respective companies. Note that the ® and ™ symbols are not used within the text.",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2.\n See the end of this booklet for the explanation of the APIs used in the Java programs."
+      },
+      {
+        "type": "context",
+        "text": "[Program Description]\n The purpose of this program is to manage “what you need to do” (hereinafter, a ToDo).\n (1) The class ToDo represents a ToDo. The subject, the deadline, and the priority are\n specified by the constructor. The deadline is a character string that consists of either 8\n numeric characters that represent year, month, and date, or 12 numeric characters that\n represent year, month, date, hours, and minutes (hereinafter, date and time). For\n example, October 22, 2023 is represented by the string “20231022”, and October 22,\n 2023, 1:00 p.m. is represented by the string “202310221300”. Here, it is assumed that\n there is no error in date and time.\n This class has methods to get the subject, the deadline, and the priority, methods to set\n and get the state, and the field id that identifies the ToDo.\n The enumeration Priority represents the priority of the ToDo. The values are LOW,\n MIDDLE, and HIGH in ascending order of priority.\n The enumeration State represents the state of the ToDo. The values are\n NOT_YET_STARTED, STARTED, and DONE.\n (2) The class ToDoList holds a list of ToDos.\n This class guarantees that the list does not contain ToDo’s whose field id values are the\n same.\n This class has the method add to add a ToDo, the method update to update a ToDo,\n and the method select to return a list of ToDo’s that matches conditions.\n When a ToDo that has been held in the list is specified as the argument of the method\n add, and when a ToDo that is not held in the list is specified as the argument of the\n method update, these methods do nothing.\n Zero or more conditions can be specified as the argument of the method select. When\n one or more conditions are specified, the method returns the list of ToDo’s that satisfy\n all the conditions. When no condition is specified, the method returns the list of all\n ToDo’s that has been held.\n (3) The interface Condition is a functional interface that represents the conditions to select\n ToDo’s. The method test returns true when the condition is satisfied.\n (4) The class ToDoListTester is a class that is used for testing.\n\n[Program 1]\n\nimport java.util.UUID;\n\npublic class ToDo {\n public enum Priority { LOW, MIDDLE, HIGH }\n public enum State { NOT_YET_STARTED, STARTED, DONE }\n\n// Regular expression that matches a string of 8 or 12 numeric characters\n private static final String DEADLINE_PATTERN = \"\\\\d{8}|\\\\d{12}\";\n\nprivate final String id;\n private String subject;\n private String deadline;\n private Priority priority;\n private State state;\n\nprivate ToDo(String subject, String deadline, Priority priority,\n String id, State state) {\n if (!deadline.matches(DEADLINE_PATTERN)) {\n throw new IllegalArgumentException();\n }\n this.subject = subject;\n this.deadline = deadline;\n this.priority = priority;\n this.id = id;\n this.state = state;\n }\n\npublic ToDo(String subject, String deadline, Priority priority) {\n this(subject, deadline, priority,\n UUID.randomUUID().toString(), State.NOT_YET_STARTED);\n }\n\npublic ToDo(ToDo todo) {\n this(todo.subject, todo.deadline,\n todo.priority, todo.id, todo.state);\n }\n\npublic String getSubject() { return subject; }\n public String getDeadline() { return deadline; }\n public Priority getPriority() { return priority; }\n public State getState() { return state; }\n public void setState(State state) { this.state = state; }\n public int hashCode() { return id.hashCode(); }\n\npublic boolean equals(Object o) {\n return o instanceof ToDo && ***A***;\n }\n\npublic String toString() {\n return String.format(\n \"Subject: %s, Deadline: %s, Priority: %s, State: %s\",\n subject, deadline, priority, state);\n }\n }\n\n[Program 2]\n\nimport java.util.ArrayList;\n import java.util.List;\n import java.util.stream.Collectors;\n import java.util.stream.Stream;\n\npublic class ToDoList {\n private List<ToDo> todoList = new ArrayList<>();\n\npublic void add(ToDo todo) {\n if (***B*** ) {\n todoList.add(new ToDo(todo));\n }\n }\n\npublic void update(ToDo todo) {\n int index = todoList.indexOf(todo);\n if (index ***C***) {\n todoList.set(index, todo);\n }\n }\n\npublic List<ToDo> select(Condition... conditions) {\n return todoList.stream().\n filter(t -> Stream.of(conditions).***D***).\n // Generate a list from the stream\n collect(Collectors.toList());\n }\n }\n\n[Program 3]\n\nimport java.util.function.Predicate;\n\npublic interface Condition ***E*** Predicate<ToDo> {}\n\n[Program 4]\n\npublic class ToDoListTester {\n public static void main(String[] args) {\n ToDoList list = new ToDoList();\n list.add(new ToDo(\"Send the e-mail\",\n \"202310231500\", ToDo.Priority.HIGH));\n list.add(new ToDo(\"Reserve a hotel room\",\n \"20231025\", ToDo.Priority.LOW));\n list.add(new ToDo(\"Purchase tickets\",\n \"20231030\", ToDo.Priority.MIDDLE));\n list.add(new ToDo(\"Create the report\",\n \"20231028\", ToDo.Priority.HIGH));\n list.add(new ToDo(\"Set up the meeting\",\n \"202311201400\", ToDo.Priority.HIGH));\n list.update(new ToDo(\"Purchase a PC\",\n \"20231121\", ToDo.Priority.HIGH));\n list.select().forEach(todo -> {\n todo.setState(ToDo.State.STARTED);\n list.update(todo);\n });\n Condition condition1 =\n todo -> todo.getDeadline().compareTo(\"20231101\") < 0;\n Condition condition2 =\n todo -> todo.getPriority().equals(ToDo.Priority.HIGH);\n list.select(condition1, condition2).\n forEach(System.out::println);\n }\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above programs.\n\nAnswer group for A\n a) ((ToDo) o).id.equals(id) b) (ToDo) o.id.equals(id)\n c) id.equals(id) d) o.id.equals(id)\n\nAnswer group for B\n a) !todoList.contains(todo) b) !todoList.isEmpty()\n c) todoList.contains(todo) d) todoList.isEmpty()\n\nAnswer group for C\n a) != -1 b) < todoList.size()\n c) == -1 d) >= todoList.size()\n\nAnswer group for D\n a) allMatch(c -> c.test(t)) b) allMatch(c -> t.test(c))\n c) anyMatch(c -> c.test(t)) d) anyMatch(c -> t.test(c))\n\nAnswer group for E\n a) extends b) implements\n c) super d) throws\n\nSubquestion 2\n Figure 1 shows the execution result of Program 4. From the answer group below, select the\n correct answer to be inserted in each blank _______ in Figure 1.\n\n___GF____, State: STARTED\n ___FG____, State: STARTED\n\nFigure 1 Execution result of Program 4"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-october/b/questions.pdf",
+        "pages": [
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-october/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,904 @@
+[
+  {
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_number": 1,
+    "question_text": "Q1. Read the following description of TLS version 1.2 connection establishment process, and\n then answer Subquestion.\n\nHTTPS refers to the combination of HTTP and Secure Socket Layer (SSL) or Transport\n Layer Security (TLS). TLS is the successor to SSL and is considered the current standard. It\n is a cryptographic protocol that can be used to enable secure communication between a web\n browser and a web server by encapsulating HTTP data inside TLS packets. HTTPS allows\n the client, in this case, a web browser, to communicate confidentially with the web server\n and allow the server authentication. The identity of the web server is required to be verified\n beforehand by submitting the web server certificate to a trusted third-party certification\n authority (CA). The information submitted for verification include the fully qualified domain\n name (FQDN) of the web server and the public key that is linked to the private key pair\n installed on the web server itself. Then, the CA signed the web server certificate with its\n private key and set the validity period of the signed certificate. Subsequently, the signed\n certificate is returned to be installed on the web server. The standard format of this type of\n certificate is X.509.\n\nIn general, TLS aims to authenticate a server and start encryption between the client and the\n server. Therefore, various mechanisms can be used to ensure that both client and server have\n the same key for a particular session. This is called a session key (also called a shared key)\n which will be calculated and derived from pieces of information exchanged between the\n client and server. These take place during TLS connection establishment. A simplified\n process of TLS connection establishment is shown in Figure 1.\n\n[TLS connection establishment process]\n (1) ClientHello: The client sends a client hello message containing the information\n regarding its cryptographic capabilities, the highest TLS version understood by the\n client and other related information including a client-generated random number to be\n used for master secret generation to the server.\n\n(2) ServerHello: The server selects connection parameters, including the encryption and\n compression mechanism understood by both servers, generates another random number,\n and then sends them back to the client.\n\nClient Server\n\n(1) ClientHello.\n\n(2) ServerHello\n\n(3) Certificate\n\n(4) ServerKeyExchange\n\n(5) ServerHelloDone\n\n(6) ClientKeyExchange\n\n(7) ClientChangeCipherSpec\n\n(8) ClientFinished\n\n(9) ServerChangeCipherSpec\n\n(10) ServerFinished\n\nFigure 1 TLS connection establishment process\n\n(3) Certificate: This message usually carries the server’s X.509 certificate chain, including\n the server’s public key and other related information to the client. Then, the client can\n authenticate the server’s X.509 certificate with the corresponding CA. Since the server’s\n certificate was digitally signed with the ***A***, it can then be verified with the\n CA’s public key residing in the CA’s certificate. If the authentication fails, the client\n will warn the user that the certificate is invalid or cannot be verified and will ask whether\n the user wishes to proceed.\n\n(4) ServerKeyExchange: This message carries additional information required to generate\n the master secret depending on the selected cipher suite. It is optional and may not be\n sent if the key exchange used does not require additional information.\n\n(5) ServerHelloDone: This message indicates that the server has completed sending all\n intended information. Then, it will wait for the response from the client.\n\n(6) ClientKeyExchange: This message carries the client-contributed information required\n and sufficient to generate the master secret depending on the selected cipher suite.\n Compare to the server key exchange message, the client key exchange message is\n mandatory.\n\n(7) ClientChangeCipherSpec: The client sends this message to inform the server that the\n client has enough information to generate the encryption key, including all required\n parameters to start encryption. The client switches to encryption after this message.\n\n(8) ClientFinished: The client sends this message to indicate that the connection\n establishment is completed. It contains a hash of all messages sent and received mixed\n with the master secret, allowing the server to verify the integrity of the establishment\n process.\n\n(9) ServerChangeCipherSpec: The server sends this message to inform the client that the\n server has enough information to generate the encryption key, including all required\n parameters to start encryption. The server switch to encryption after this message.\n\n(10) ServerFinished: The server sends this message to indicate that the connection\n establishment on its side is completed. It contains a hash of all messages received and\n sent mixed with the master secret allowing the client to verify the integrity of the\n establishment process.\n\nTable 1 shows the summary of the above process.\n\nTable 1 Summary of the TLS connection establishment process\n\nSteps Description\n (not shown) Exchange capabilities and agree upon the desired connection\n parameters, which is completed at step ***B***.\n (not shown) Validate the certificate(s) or authenticate with other methods.\n (4), (5), (6), Agree on a shared master secret that will be used as ***C***\n (7) and (9) provided that the server will have enough information required to\n generate the master secret after receiving the message at step\n ***D***.\n (8) and (10) Start to send messages on the encrypted communication channel and\n verify the messages used during the process to ensure that they are not\n tampered with by a third party.\n\nHere, steps (3), (4), and (6) are considered as a single process called the key exchange. The\ngoal of the key exchange is to generate the premaster secret, which will then be used to\nconstruct the master secret later. One of the most well-known key exchange algorithms is\nthe RSA key exchange. The mechanism of RSA key exchange is explained below:\n\n[RSA key exchange]\nRSA is universally supported as the standard key exchange algorithm. In this case, the client\nis responsible for generating a premaster secret and encrypting it with ***E***. The result\nis sent in the ClientKeyExchange message to the server. The server will then decrypt the\npremaster secret and use it to generate the master secret later.\n\nThe strength of HTTPS comes from the fact that the master secret or the session key is newly\ngenerated for every new session, although the web server’s private and public key pair\nremains the same. Public key cryptography is used only at the beginning of the session for\nthe key exchange operation. All subsequent connections in such a session are performed\nusing a symmetric key. Therefore, even if the traffic data are captured and the key used for\nthat session is exposed, such a key is not applicable to any other session. However, if\n***F*** is leaked, all related sessions, both in the past and in the future, are vulnerable\nsince it is possible to derive session keys from the captured session traffic.\n\nOther superior key exchange mechanisms include the Diffie-Hellman ephemeral key\nexchange with RSA (DHE-RSA). This method allows a shared secret to be established over\nan insecure communication channel. Instead of public key cryptography, it uses a\nmathematical function that is easy to calculate in one direction but is difficult to reverse. In\nthis method, RSA is used only for signing the exchanged parameters, not for encryption, and\nthe shared secret to be established is chosen randomly for each session; thus, it is difficult to\ndecrypt the contents of that session even if a malicious person has the leaked ***F***.\nTherefore, these key-exchange mechanisms should also be considered as well in practical\nuse.\n\nSubquestion\nFrom the answer groups below, select the correct answer to be inserted in each blank\n_______ in the above description.\n\nAnswer group for A, C, E and F\n a) a random number b) CA’s private key\n c) CA’s public key d) the server’s private key\n e) the server’s public key f) the session key",
+    "choices": [
+      {
+        "label": "a",
+        "text": "(2) ServerHello"
+      },
+      {
+        "label": "b",
+        "text": "(3) Certificate"
+      },
+      {
+        "label": "c",
+        "text": "(4) ServerKeyExchange"
+      },
+      {
+        "label": "d",
+        "text": "(5) ServerHelloDone"
+      },
+      {
+        "label": "e",
+        "text": "(6) ClientKeyExchange"
+      },
+      {
+        "label": "f",
+        "text": "(7) ClientChangeCipherSpec"
+      },
+      {
+        "label": "g",
+        "text": "(8) ClientFinished"
+      },
+      {
+        "label": "h",
+        "text": "(10) ServerFinished"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": null, \"blank\": \"A\", \"answer\": \"b\"}, {\"subquestion\": null, \"blank\": \"B\", \"answer\": \"a\"}, {\"subquestion\": null, \"blank\": \"C\", \"answer\": \"f\"}, {\"subquestion\": null, \"blank\": \"D\", \"answer\": \"e\"}, {\"subquestion\": null, \"blank\": \"E\", \"answer\": \"e\"}, {\"subquestion\": null, \"blank\": \"F\", \"answer\": \"d\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": null,
+          "blank": "A",
+          "answer": "b"
+        },
+        {
+          "subquestion": null,
+          "blank": "B",
+          "answer": "a"
+        },
+        {
+          "subquestion": null,
+          "blank": "C",
+          "answer": "f"
+        },
+        {
+          "subquestion": null,
+          "blank": "D",
+          "answer": "e"
+        },
+        {
+          "subquestion": null,
+          "blank": "E",
+          "answer": "e"
+        },
+        {
+          "subquestion": null,
+          "blank": "F",
+          "answer": "d"
+        }
+      ]
+    },
+    "images": [
+      "2023-april-b-q01-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023S, FE, Subject-B, Q1)",
+    "source_pages": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q1. Read the following description of TLS version 1.2 connection establishment process, and\n then answer Subquestion.\n\n HTTPS refers to the combination of HTTP and Secure Socket Layer (SSL) or Transport\n Layer Security (TLS). TLS is the successor to SSL and is considered the current standard. It\n is a cryptographic protocol that can be used to enable secure communication between a web\n browser and a web server by encapsulating HTTP data inside TLS packets. HTTPS allows\n the client, in this case, a web browser, to communicate confidentially with the web server\n and allow the server authentication. The identity of the web server is required to be verified\n beforehand by submitting the web server certificate to a trusted third-party certification\n authority (CA). The information submitted for verification include the fully qualified domain\n name (FQDN) of the web server and the public key that is linked to the private key pair\n installed on the web server itself. Then, the CA signed the web server certificate with its\n private key and set the validity period of the signed certificate. Subsequently, the signed\n certificate is returned to be installed on the web server. The standard format of this type of\n certificate is X.509.\n\n In general, TLS aims to authenticate a server and start encryption between the client and the\n server. Therefore, various mechanisms can be used to ensure that both client and server have\n the same key for a particular session. This is called a session key (also called a shared key)\n which will be calculated and derived from pieces of information exchanged between the\n client and server. These take place during TLS connection establishment. A simplified\n process of TLS connection establishment is shown in Figure 1.\n\n [TLS connection establishment process]\n (1) ClientHello: The client sends a client hello message containing the information\n regarding its cryptographic capabilities, the highest TLS version understood by the\n client and other related information including a client-generated random number to be\n used for master secret generation to the server.\n\n (2) ServerHello: The server selects connection parameters, including the encryption and\n compression mechanism understood by both servers, generates another random number,\n and then sends them back to the client.\n\nClient Server\n\n (1) ClientHello.\n\n (2) ServerHello\n\n (3) Certificate\n\n (4) ServerKeyExchange\n\n (5) ServerHelloDone\n\n (6) ClientKeyExchange\n\n (7) ClientChangeCipherSpec\n\n (8) ClientFinished\n\n (9) ServerChangeCipherSpec\n\n (10) ServerFinished\n\n Figure 1 TLS connection establishment process\n\n(3) Certificate: This message usually carries the server’s X.509 certificate chain, including\n the server’s public key and other related information to the client. Then, the client can\n authenticate the server’s X.509 certificate with the corresponding CA. Since the server’s\n certificate was digitally signed with the ___A___, it can then be verified with the\n CA’s public key residing in the CA’s certificate. If the authentication fails, the client\n will warn the user that the certificate is invalid or cannot be verified and will ask whether\n the user wishes to proceed.\n\n(4) ServerKeyExchange: This message carries additional information required to generate\n the master secret depending on the selected cipher suite. It is optional and may not be\n sent if the key exchange used does not require additional information.\n\n(5) ServerHelloDone: This message indicates that the server has completed sending all\n intended information. Then, it will wait for the response from the client.\n\n(6) ClientKeyExchange: This message carries the client-contributed information required\n and sufficient to generate the master secret depending on the selected cipher suite.\n Compare to the server key exchange message, the client key exchange message is\n mandatory.\n\n(7) ClientChangeCipherSpec: The client sends this message to inform the server that the\n client has enough information to generate the encryption key, including all required\n parameters to start encryption. The client switches to encryption after this message.\n\n(8) ClientFinished: The client sends this message to indicate that the connection\n establishment is completed. It contains a hash of all messages sent and received mixed\n with the master secret, allowing the server to verify the integrity of the establishment\n process.\n\n(9) ServerChangeCipherSpec: The server sends this message to inform the client that the\n server has enough information to generate the encryption key, including all required\n parameters to start encryption. The server switch to encryption after this message.\n\n(10) ServerFinished: The server sends this message to indicate that the connection\n establishment on its side is completed. It contains a hash of all messages received and\n sent mixed with the master secret allowing the client to verify the integrity of the\n establishment process.\n\nTable 1 shows the summary of the above process.\n\n Table 1 Summary of the TLS connection establishment process\n\n Steps Description\n (not shown) Exchange capabilities and agree upon the desired connection\n parameters, which is completed at step ___B___.\n (not shown) Validate the certificate(s) or authenticate with other methods.\n (4), (5), (6), Agree on a shared master secret that will be used as ___C___\n (7) and (9) provided that the server will have enough information required to\n generate the master secret after receiving the message at step\n ___D___.\n (8) and (10) Start to send messages on the encrypted communication channel and\n verify the messages used during the process to ensure that they are not\n tampered with by a third party.\n\nHere, steps (3), (4), and (6) are considered as a single process called the key exchange. The\ngoal of the key exchange is to generate the premaster secret, which will then be used to\nconstruct the master secret later. One of the most well-known key exchange algorithms is\nthe RSA key exchange. The mechanism of RSA key exchange is explained below:\n\n[RSA key exchange]\nRSA is universally supported as the standard key exchange algorithm. In this case, the client\nis responsible for generating a premaster secret and encrypting it with ___E___. The result\nis sent in the ClientKeyExchange message to the server. The server will then decrypt the\npremaster secret and use it to generate the master secret later.\n\nThe strength of HTTPS comes from the fact that the master secret or the session key is newly\ngenerated for every new session, although the web server’s private and public key pair\nremains the same. Public key cryptography is used only at the beginning of the session for\nthe key exchange operation. All subsequent connections in such a session are performed\nusing a symmetric key. Therefore, even if the traffic data are captured and the key used for\nthat session is exposed, such a key is not applicable to any other session. However, if\n___F___ is leaked, all related sessions, both in the past and in the future, are vulnerable\nsince it is possible to derive session keys from the captured session traffic.\n\nOther superior key exchange mechanisms include the Diffie-Hellman ephemeral key\nexchange with RSA (DHE-RSA). This method allows a shared secret to be established over\nan insecure communication channel. Instead of public key cryptography, it uses a\nmathematical function that is easy to calculate in one direction but is difficult to reverse. In\nthis method, RSA is used only for signing the exchanged parameters, not for encryption, and\nthe shared secret to be established is chosen randomly for each session; thus, it is difficult to\ndecrypt the contents of that session even if a malicious person has the leaked ___F___.\nTherefore, these key-exchange mechanisms should also be considered as well in practical\nuse.\n\nSubquestion\nFrom the answer groups below, select the correct answer to be inserted in each blank\n_______ in the above description.\n\nAnswer group for A, C, E and F\n a) a random number b) CA’s private key\n c) CA’s public key d) the server’s private key\n e) the server’s public key f) the session key\n\nAnswer group for B and D\n a) (2) ServerHello b) (3) Certificate\n c) (4) ServerKeyExchange d) (5) ServerHelloDone\n e) (6) ClientKeyExchange f) (7) ClientChangeCipherSpec\n g) (8) ClientFinished h) (10) ServerFinished",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q1. Read the following description of TLS version 1.2 connection establishment process, and\n then answer Subquestion."
+      },
+      {
+        "type": "context",
+        "text": "HTTPS refers to the combination of HTTP and Secure Socket Layer (SSL) or Transport\n Layer Security (TLS). TLS is the successor to SSL and is considered the current standard. It\n is a cryptographic protocol that can be used to enable secure communication between a web\n browser and a web server by encapsulating HTTP data inside TLS packets. HTTPS allows\n the client, in this case, a web browser, to communicate confidentially with the web server\n and allow the server authentication. The identity of the web server is required to be verified\n beforehand by submitting the web server certificate to a trusted third-party certification\n authority (CA). The information submitted for verification include the fully qualified domain\n name (FQDN) of the web server and the public key that is linked to the private key pair\n installed on the web server itself. Then, the CA signed the web server certificate with its\n private key and set the validity period of the signed certificate. Subsequently, the signed\n certificate is returned to be installed on the web server. The standard format of this type of\n certificate is X.509.\n\nIn general, TLS aims to authenticate a server and start encryption between the client and the\n server. Therefore, various mechanisms can be used to ensure that both client and server have\n the same key for a particular session. This is called a session key (also called a shared key)\n which will be calculated and derived from pieces of information exchanged between the\n client and server. These take place during TLS connection establishment. A simplified\n process of TLS connection establishment is shown in Figure 1.\n\n[TLS connection establishment process]\n (1) ClientHello: The client sends a client hello message containing the information\n regarding its cryptographic capabilities, the highest TLS version understood by the\n client and other related information including a client-generated random number to be\n used for master secret generation to the server.\n\n(2) ServerHello: The server selects connection parameters, including the encryption and\n compression mechanism understood by both servers, generates another random number,\n and then sends them back to the client.\n\nClient Server\n\n(1) ClientHello.\n\n(2) ServerHello\n\n(3) Certificate\n\n(4) ServerKeyExchange\n\n(5) ServerHelloDone\n\n(6) ClientKeyExchange\n\n(7) ClientChangeCipherSpec\n\n(8) ClientFinished\n\n(9) ServerChangeCipherSpec\n\n(10) ServerFinished\n\nFigure 1 TLS connection establishment process\n\n(3) Certificate: This message usually carries the server’s X.509 certificate chain, including\n the server’s public key and other related information to the client. Then, the client can\n authenticate the server’s X.509 certificate with the corresponding CA. Since the server’s\n certificate was digitally signed with the ***A***, it can then be verified with the\n CA’s public key residing in the CA’s certificate. If the authentication fails, the client\n will warn the user that the certificate is invalid or cannot be verified and will ask whether\n the user wishes to proceed.\n\n(4) ServerKeyExchange: This message carries additional information required to generate\n the master secret depending on the selected cipher suite. It is optional and may not be\n sent if the key exchange used does not require additional information.\n\n(5) ServerHelloDone: This message indicates that the server has completed sending all\n intended information. Then, it will wait for the response from the client.\n\n(6) ClientKeyExchange: This message carries the client-contributed information required\n and sufficient to generate the master secret depending on the selected cipher suite.\n Compare to the server key exchange message, the client key exchange message is\n mandatory.\n\n(7) ClientChangeCipherSpec: The client sends this message to inform the server that the\n client has enough information to generate the encryption key, including all required\n parameters to start encryption. The client switches to encryption after this message.\n\n(8) ClientFinished: The client sends this message to indicate that the connection\n establishment is completed. It contains a hash of all messages sent and received mixed\n with the master secret, allowing the server to verify the integrity of the establishment\n process.\n\n(9) ServerChangeCipherSpec: The server sends this message to inform the client that the\n server has enough information to generate the encryption key, including all required\n parameters to start encryption. The server switch to encryption after this message.\n\n(10) ServerFinished: The server sends this message to indicate that the connection\n establishment on its side is completed. It contains a hash of all messages received and\n sent mixed with the master secret allowing the client to verify the integrity of the\n establishment process.\n\nTable 1 shows the summary of the above process.\n\nTable 1 Summary of the TLS connection establishment process\n\nSteps Description\n (not shown) Exchange capabilities and agree upon the desired connection\n parameters, which is completed at step ***B***.\n (not shown) Validate the certificate(s) or authenticate with other methods.\n (4), (5), (6), Agree on a shared master secret that will be used as ***C***\n (7) and (9) provided that the server will have enough information required to\n generate the master secret after receiving the message at step\n ***D***.\n (8) and (10) Start to send messages on the encrypted communication channel and\n verify the messages used during the process to ensure that they are not\n tampered with by a third party.\n\nHere, steps (3), (4), and (6) are considered as a single process called the key exchange. The\ngoal of the key exchange is to generate the premaster secret, which will then be used to\nconstruct the master secret later. One of the most well-known key exchange algorithms is\nthe RSA key exchange. The mechanism of RSA key exchange is explained below:\n\n[RSA key exchange]\nRSA is universally supported as the standard key exchange algorithm. In this case, the client\nis responsible for generating a premaster secret and encrypting it with ***E***. The result\nis sent in the ClientKeyExchange message to the server. The server will then decrypt the\npremaster secret and use it to generate the master secret later.\n\nThe strength of HTTPS comes from the fact that the master secret or the session key is newly\ngenerated for every new session, although the web server’s private and public key pair\nremains the same. Public key cryptography is used only at the beginning of the session for\nthe key exchange operation. All subsequent connections in such a session are performed\nusing a symmetric key. Therefore, even if the traffic data are captured and the key used for\nthat session is exposed, such a key is not applicable to any other session. However, if\n***F*** is leaked, all related sessions, both in the past and in the future, are vulnerable\nsince it is possible to derive session keys from the captured session traffic.\n\nOther superior key exchange mechanisms include the Diffie-Hellman ephemeral key\nexchange with RSA (DHE-RSA). This method allows a shared secret to be established over\nan insecure communication channel. Instead of public key cryptography, it uses a\nmathematical function that is easy to calculate in one direction but is difficult to reverse. In\nthis method, RSA is used only for signing the exchanged parameters, not for encryption, and\nthe shared secret to be established is chosen randomly for each session; thus, it is difficult to\ndecrypt the contents of that session even if a malicious person has the leaked ***F***.\nTherefore, these key-exchange mechanisms should also be considered as well in practical\nuse.\n\nSubquestion\nFrom the answer groups below, select the correct answer to be inserted in each blank\n_______ in the above description.\n\nAnswer group for A, C, E and F\n a) a random number b) CA’s private key\n c) CA’s public key d) the server’s private key\n e) the server’s public key f) the session key"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-april/b/questions.pdf",
+        "pages": [
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-april/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_number": 2,
+    "question_text": "Q2. Read the following description of file systems, and then answer Subquestions 1 and 2.\n Note: In this question, one kilobyte (1 kB) is 1024 bytes.\n\nFiles and directories stored on a storage device can be arranged and managed differently\n depending on file systems.\n A storage device is normally formatted into blocks of the same size, and all files and\n directories are placed into free blocks on the storage device. However, if the file is larger\n than the size of the block, it will be divided into multiple pieces and placed into available\n blocks. For example, in a file system with 4 kB blocks, 10 kB data of a file is divided into\n three pieces and placed into three blocks.\n\n[Linked allocation method]\n In the linked allocation method, the list of the files is stored in a table called a directory,\n where each entry contains the file name and other information, including the block number,\n indicating the first block of the file.\n Apart from the data, each block contains the next block number in the chain containing the\n next part of the file and continues until the last block, where the end of file (EOF) value is\n stored instead of the block number.\n Figure 1 shows an example of a file system using the linked allocation method. It is assumed\n that the directory is located at block number 0.\n\nfile name first block 0 directory\n readme 149\n\n149 data 953\n\n708 data EOF\n\n953 data 708\n\nn-1\n\nNote: Shaded parts are not shown, and n is the number of blocks on the storage device.\n\nFigure 1 Example of a file system using the linked allocation method\n\nIn Figure 1, the upper-left part represents a directory entry for the file named readme, and\nthe right part represents the blocks on the storage device. The arrows represent the links from\nthe block number information to the actual block on the storage device. The file readme is\nstored in block numbers 149, 953, and 708 in that order.\nThis allocation method is simple and easy to implement. However, this scheme has a\ndisadvantage because ***A***.\n\n[Indexed allocation method]\nIn the indexed allocation method, each file is associated with an index block. The index\nblock maintains a list of block numbers of the data related to the associated file.\nFigure 2 shows an example of a file system using the indexed allocation method.\n\nfile name index block 0 directory\n readme 101\n 101 149, 953, 708\n\n149 data\n\n149\n 708 data 953\n\n953 data 708\n\nn-1\n Note: Shaded parts are not shown, and n is the number of blocks on the storage device.\n\nFigure 2 Example of a file system using the indexed allocation method\n\nIn Figure 2, the upper-left part represents a directory entry for the file readme. It indicates\nthat the index block of the file readme is stored in block number 101. Block number 101\nshows that the data of the file readme is stored in blocks 149, 953, and 708 in that order.\nTherefore, after reading the index block, it is easy to find the block number of each part of\nthe data. However, this scheme also has a disadvantage because ***B***.\n\n[Calculation of the required number of blocks]\nIn the linked allocation method, each block holds an index value (the next block number).\nIn the indexed allocation method, an index block is needed separately instead of having an\nindex value in each block.\nConsider the case where a file contains 40 kB data. On the assumption that the size of a block\nis 4 kB and the size of an index value is 4 bytes, ___C1___ blocks are required to store\nthe file in the linked allocation method, and ___C2___ blocks are required in the indexed\nallocation method. Here, the block for the directory entry is ignored.\n\nSubquestion 1\n From the answer group below, select the most appropriate answer to be inserted in each\n blank _______ in the above description. Here, the answers to be inserted in C1 and C2\n should be selected as the correct combination from the answer group for C.\n\nAnswer group for A and B\n a) it cannot store a sequential file when the required number of continuous free blocks\n is unavailable.\n b) it is ineffective against a direct-access file since it must start at the beginning of the\n file and continue through each block to find the specific part of the file.\n c) it usually has greater wasted space than the other method especially in the system\n with a large number of small files.\n d) the content of the file cannot be stored in consecutive blocks due to the limitation of\n the referencing mechanism, resulting in lower overall performance.\n\nAnswer group for C\n\nC1 C2\n a) 10 10\n b) 10 11\n c) 11 10\n d) 11 11\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n[Inode allocation method]\n The inode allocation method is used in UNIX-based systems.\n The inode allocation method combines the linked and indexed allocation methods into one.\n Instead of using a table to look up a file, an entity called inode is used to store the information\n about a file, similar to the working of the index block in Figure 2. It is an indexed allocation\n method with the advantage of flexible indexing by chaining up to four index nodes.\n\nThe concept of inode used in UNIX-based systems is shown in Figure 3.\nThere are 15 pointers in an inode. The first 12 pointers directly point to data blocks; thus,\nany part of the file can be directly accessed if it occupies less than or equal to 12 blocks. For\na larger file, the single indirect, double indirect, and triple indirect pointers will be used based\non the file size. The single indirect pointer points to a block containing direct pointers, while\nthe double indirect pointer points to a block containing pointers to another single indirect\npointer.\n\ninode\n data\n\ndata\n ..\n ..\n size data\n * data *\n direct blocks * ⁝\n ⁝ * data * data\n ⁝ * * ⁝ * data data\n single indirect * * *\n ⁝\n data double indirect * * data *\n ⁝ triple indirect *\n * data\n block count *\n ⁝\n * * data (Legend) * ⁝ ⁝ * data * * * ⁝\n ⁝ data the box * indicates * * ⁝ a block containing\n * data direct pointers.\n Note: Shaded parts are not shown, and an “*” indicates a pointer to a block.\n\nFigure 3 Concept of inode allocation method in UNIX-based systems\n\nTable 1 shows the largest accessible data size by pointer level. Here, the block size is 4096\nbytes (4 kB) and the pointer size is 4 bytes, i.e., a block holds 1024 pointers.\n\nTable 1 Largest accessible data size by pointer level\n\nPointer level Number of pointers Largest accessible data size\n direct blocks 12 48 kB\n single indirect 1024 4 MB\n double indirect 1024 × 1024 4 GB\n triple indirect 1024 × 1024 × 1024 4 TB\n\nConsider the case where a file contains 1 MB of data. On the assumption that the size of a\nblock is 4 kB and the size of a pointer is 4 bytes, ***D*** blocks are required to store the\nfile in the inode allocation method. Here, the block for the inode is ignored. Use 1MB ÷ 4\nkB = 256.\n\nIt is possible to specify a different block size other than 4 kB while formatting a file system.\nA smaller block size helps reduce occupied storage size per file for smaller files, while a\nlarger block size helps reduce the number of blocks per file for larger files.\nChange of the block size affects the maximum accessible file size by two factors: the number\nof bytes per data block and the number of pointers per index block. For example, if the size\nof a block is 1 kB and the size of a pointer is 4 bytes, the maximum accessible file size will\nbe approximately ***E*** in the inode allocation method.\n\nAnswer group for D\n a) 256 b) 257 c) 258 d) 259",
+    "choices": [
+      {
+        "label": "a",
+        "text": "16 GB"
+      },
+      {
+        "label": "b",
+        "text": "32 GB"
+      },
+      {
+        "label": "c",
+        "text": "64 GB"
+      },
+      {
+        "label": "d",
+        "text": "128 GB"
+      },
+      {
+        "label": "e",
+        "text": "256 GB"
+      },
+      {
+        "label": "f",
+        "text": "512 GB"
+      },
+      {
+        "label": "g",
+        "text": "1 TB"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"b\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"a\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "b"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "a"
+        }
+      ]
+    },
+    "images": [
+      "2023-april-b-q02-figure1.webp",
+      "2023-april-b-q02-figure2.webp",
+      "2023-april-b-q02-figure3.webp",
+      "2023-april-b-q02-figure4.webp",
+      "2023-april-b-q02-figure5.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023S, FE, Subject-B, Q2)",
+    "source_pages": [
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q2. Read the following description of file systems, and then answer Subquestions 1 and 2.\n Note: In this question, one kilobyte (1 kB) is 1024 bytes.\n\n Files and directories stored on a storage device can be arranged and managed differently\n depending on file systems.\n A storage device is normally formatted into blocks of the same size, and all files and\n directories are placed into free blocks on the storage device. However, if the file is larger\n than the size of the block, it will be divided into multiple pieces and placed into available\n blocks. For example, in a file system with 4 kB blocks, 10 kB data of a file is divided into\n three pieces and placed into three blocks.\n\n [Linked allocation method]\n In the linked allocation method, the list of the files is stored in a table called a directory,\n where each entry contains the file name and other information, including the block number,\n indicating the first block of the file.\n Apart from the data, each block contains the next block number in the chain containing the\n next part of the file and continues until the last block, where the end of file (EOF) value is\n stored instead of the block number.\n Figure 1 shows an example of a file system using the linked allocation method. It is assumed\n that the directory is located at block number 0.\n\n file name first block 0 directory\n readme 149\n\n 149 data 953\n\n 708 data EOF\n\n 953 data 708\n\n n-1\n\n Note: Shaded parts are not shown, and n is the number of blocks on the storage device.\n\n Figure 1 Example of a file system using the linked allocation method\n\nIn Figure 1, the upper-left part represents a directory entry for the file named readme, and\nthe right part represents the blocks on the storage device. The arrows represent the links from\nthe block number information to the actual block on the storage device. The file readme is\nstored in block numbers 149, 953, and 708 in that order.\nThis allocation method is simple and easy to implement. However, this scheme has a\ndisadvantage because ___A___.\n\n[Indexed allocation method]\nIn the indexed allocation method, each file is associated with an index block. The index\nblock maintains a list of block numbers of the data related to the associated file.\nFigure 2 shows an example of a file system using the indexed allocation method.\n\n file name index block 0 directory\n readme 101\n 101 149, 953, 708\n\n 149 data\n\n 149\n 708 data 953\n\n 953 data 708\n\n n-1\n Note: Shaded parts are not shown, and n is the number of blocks on the storage device.\n\n Figure 2 Example of a file system using the indexed allocation method\n\nIn Figure 2, the upper-left part represents a directory entry for the file readme. It indicates\nthat the index block of the file readme is stored in block number 101. Block number 101\nshows that the data of the file readme is stored in blocks 149, 953, and 708 in that order.\nTherefore, after reading the index block, it is easy to find the block number of each part of\nthe data. However, this scheme also has a disadvantage because ___B___.\n\n[Calculation of the required number of blocks]\nIn the linked allocation method, each block holds an index value (the next block number).\nIn the indexed allocation method, an index block is needed separately instead of having an\nindex value in each block.\nConsider the case where a file contains 40 kB data. On the assumption that the size of a block\nis 4 kB and the size of an index value is 4 bytes, ___C1___ blocks are required to store\nthe file in the linked allocation method, and ___C2___ blocks are required in the indexed\nallocation method. Here, the block for the directory entry is ignored.\n\nSubquestion 1\n From the answer group below, select the most appropriate answer to be inserted in each\n blank _______ in the above description. Here, the answers to be inserted in C1 and C2\n should be selected as the correct combination from the answer group for C.\n\n Answer group for A and B\n a) it cannot store a sequential file when the required number of continuous free blocks\n is unavailable.\n b) it is ineffective against a direct-access file since it must start at the beginning of the\n file and continue through each block to find the specific part of the file.\n c) it usually has greater wasted space than the other method especially in the system\n with a large number of small files.\n d) the content of the file cannot be stored in consecutive blocks due to the limitation of\n the referencing mechanism, resulting in lower overall performance.\n\n Answer group for C\n\n C1 C2\n a) 10 10\n b) 10 11\n c) 11 10\n d) 11 11\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n [Inode allocation method]\n The inode allocation method is used in UNIX-based systems.\n The inode allocation method combines the linked and indexed allocation methods into one.\n Instead of using a table to look up a file, an entity called inode is used to store the information\n about a file, similar to the working of the index block in Figure 2. It is an indexed allocation\n method with the advantage of flexible indexing by chaining up to four index nodes.\n\nThe concept of inode used in UNIX-based systems is shown in Figure 3.\nThere are 15 pointers in an inode. The first 12 pointers directly point to data blocks; thus,\nany part of the file can be directly accessed if it occupies less than or equal to 12 blocks. For\na larger file, the single indirect, double indirect, and triple indirect pointers will be used based\non the file size. The single indirect pointer points to a block containing direct pointers, while\nthe double indirect pointer points to a block containing pointers to another single indirect\npointer.\n\n inode\n data\n\n data\n ..\n ..\n size data\n * data *\n direct blocks * ⁝\n ⁝ * data * data\n ⁝ * * ⁝ * data data\n single indirect * * *\n ⁝\n data double indirect * * data *\n ⁝ triple indirect *\n * data\n block count *\n ⁝\n * * data (Legend) * ⁝ ⁝ * data * * * ⁝\n ⁝ data the box * indicates * * ⁝ a block containing\n * data direct pointers.\n Note: Shaded parts are not shown, and an “*” indicates a pointer to a block.\n\n Figure 3 Concept of inode allocation method in UNIX-based systems\n\nTable 1 shows the largest accessible data size by pointer level. Here, the block size is 4096\nbytes (4 kB) and the pointer size is 4 bytes, i.e., a block holds 1024 pointers.\n\n Table 1 Largest accessible data size by pointer level\n\n Pointer level Number of pointers Largest accessible data size\n direct blocks 12 48 kB\n single indirect 1024 4 MB\n double indirect 1024 × 1024 4 GB\n triple indirect 1024 × 1024 × 1024 4 TB\n\nConsider the case where a file contains 1 MB of data. On the assumption that the size of a\nblock is 4 kB and the size of a pointer is 4 bytes, ___D___ blocks are required to store the\nfile in the inode allocation method. Here, the block for the inode is ignored. Use 1MB ÷ 4\nkB = 256.\n\nIt is possible to specify a different block size other than 4 kB while formatting a file system.\nA smaller block size helps reduce occupied storage size per file for smaller files, while a\nlarger block size helps reduce the number of blocks per file for larger files.\nChange of the block size affects the maximum accessible file size by two factors: the number\nof bytes per data block and the number of pointers per index block. For example, if the size\nof a block is 1 kB and the size of a pointer is 4 bytes, the maximum accessible file size will\nbe approximately ___E___ in the inode allocation method.\n\nAnswer group for D\n a) 256 b) 257 c) 258 d) 259\n\nAnswer group for E\n a) 16 GB b) 32 GB c) 64 GB d) 128 GB\n e) 256 GB f) 512 GB g) 1 TB",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q2. Read the following description of file systems, and then answer Subquestions 1 and 2.\n Note: In this question, one kilobyte (1 kB) is 1024 bytes."
+      },
+      {
+        "type": "context",
+        "text": "Files and directories stored on a storage device can be arranged and managed differently\n depending on file systems.\n A storage device is normally formatted into blocks of the same size, and all files and\n directories are placed into free blocks on the storage device. However, if the file is larger\n than the size of the block, it will be divided into multiple pieces and placed into available\n blocks. For example, in a file system with 4 kB blocks, 10 kB data of a file is divided into\n three pieces and placed into three blocks.\n\n[Linked allocation method]\n In the linked allocation method, the list of the files is stored in a table called a directory,\n where each entry contains the file name and other information, including the block number,\n indicating the first block of the file.\n Apart from the data, each block contains the next block number in the chain containing the\n next part of the file and continues until the last block, where the end of file (EOF) value is\n stored instead of the block number.\n Figure 1 shows an example of a file system using the linked allocation method. It is assumed\n that the directory is located at block number 0.\n\nfile name first block 0 directory\n readme 149\n\n149 data 953\n\n708 data EOF\n\n953 data 708\n\nn-1\n\nNote: Shaded parts are not shown, and n is the number of blocks on the storage device.\n\nFigure 1 Example of a file system using the linked allocation method\n\nIn Figure 1, the upper-left part represents a directory entry for the file named readme, and\nthe right part represents the blocks on the storage device. The arrows represent the links from\nthe block number information to the actual block on the storage device. The file readme is\nstored in block numbers 149, 953, and 708 in that order.\nThis allocation method is simple and easy to implement. However, this scheme has a\ndisadvantage because ***A***.\n\n[Indexed allocation method]\nIn the indexed allocation method, each file is associated with an index block. The index\nblock maintains a list of block numbers of the data related to the associated file.\nFigure 2 shows an example of a file system using the indexed allocation method.\n\nfile name index block 0 directory\n readme 101\n 101 149, 953, 708\n\n149 data\n\n149\n 708 data 953\n\n953 data 708\n\nn-1\n Note: Shaded parts are not shown, and n is the number of blocks on the storage device.\n\nFigure 2 Example of a file system using the indexed allocation method\n\nIn Figure 2, the upper-left part represents a directory entry for the file readme. It indicates\nthat the index block of the file readme is stored in block number 101. Block number 101\nshows that the data of the file readme is stored in blocks 149, 953, and 708 in that order.\nTherefore, after reading the index block, it is easy to find the block number of each part of\nthe data. However, this scheme also has a disadvantage because ***B***.\n\n[Calculation of the required number of blocks]\nIn the linked allocation method, each block holds an index value (the next block number).\nIn the indexed allocation method, an index block is needed separately instead of having an\nindex value in each block.\nConsider the case where a file contains 40 kB data. On the assumption that the size of a block\nis 4 kB and the size of an index value is 4 bytes, ___C1___ blocks are required to store\nthe file in the linked allocation method, and ___C2___ blocks are required in the indexed\nallocation method. Here, the block for the directory entry is ignored.\n\nSubquestion 1\n From the answer group below, select the most appropriate answer to be inserted in each\n blank _______ in the above description. Here, the answers to be inserted in C1 and C2\n should be selected as the correct combination from the answer group for C.\n\nAnswer group for A and B\n a) it cannot store a sequential file when the required number of continuous free blocks\n is unavailable.\n b) it is ineffective against a direct-access file since it must start at the beginning of the\n file and continue through each block to find the specific part of the file.\n c) it usually has greater wasted space than the other method especially in the system\n with a large number of small files.\n d) the content of the file cannot be stored in consecutive blocks due to the limitation of\n the referencing mechanism, resulting in lower overall performance.\n\nAnswer group for C\n\nC1 C2\n a) 10 10\n b) 10 11\n c) 11 10\n d) 11 11\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n[Inode allocation method]\n The inode allocation method is used in UNIX-based systems.\n The inode allocation method combines the linked and indexed allocation methods into one.\n Instead of using a table to look up a file, an entity called inode is used to store the information\n about a file, similar to the working of the index block in Figure 2. It is an indexed allocation\n method with the advantage of flexible indexing by chaining up to four index nodes.\n\nThe concept of inode used in UNIX-based systems is shown in Figure 3.\nThere are 15 pointers in an inode. The first 12 pointers directly point to data blocks; thus,\nany part of the file can be directly accessed if it occupies less than or equal to 12 blocks. For\na larger file, the single indirect, double indirect, and triple indirect pointers will be used based\non the file size. The single indirect pointer points to a block containing direct pointers, while\nthe double indirect pointer points to a block containing pointers to another single indirect\npointer.\n\ninode\n data\n\ndata\n ..\n ..\n size data\n * data *\n direct blocks * ⁝\n ⁝ * data * data\n ⁝ * * ⁝ * data data\n single indirect * * *\n ⁝\n data double indirect * * data *\n ⁝ triple indirect *\n * data\n block count *\n ⁝\n * * data (Legend) * ⁝ ⁝ * data * * * ⁝\n ⁝ data the box * indicates * * ⁝ a block containing\n * data direct pointers.\n Note: Shaded parts are not shown, and an “*” indicates a pointer to a block.\n\nFigure 3 Concept of inode allocation method in UNIX-based systems\n\nTable 1 shows the largest accessible data size by pointer level. Here, the block size is 4096\nbytes (4 kB) and the pointer size is 4 bytes, i.e., a block holds 1024 pointers.\n\nTable 1 Largest accessible data size by pointer level\n\nPointer level Number of pointers Largest accessible data size\n direct blocks 12 48 kB\n single indirect 1024 4 MB\n double indirect 1024 × 1024 4 GB\n triple indirect 1024 × 1024 × 1024 4 TB\n\nConsider the case where a file contains 1 MB of data. On the assumption that the size of a\nblock is 4 kB and the size of a pointer is 4 bytes, ***D*** blocks are required to store the\nfile in the inode allocation method. Here, the block for the inode is ignored. Use 1MB ÷ 4\nkB = 256.\n\nIt is possible to specify a different block size other than 4 kB while formatting a file system.\nA smaller block size helps reduce occupied storage size per file for smaller files, while a\nlarger block size helps reduce the number of blocks per file for larger files.\nChange of the block size affects the maximum accessible file size by two factors: the number\nof bytes per data block and the number of pointers per index block. For example, if the size\nof a block is 1 kB and the size of a pointer is 4 bytes, the maximum accessible file size will\nbe approximately ***E*** in the inode allocation method.\n\nAnswer group for D\n a) 256 b) 257 c) 258 d) 259"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-april/b/questions.pdf",
+        "pages": [
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-april/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_number": 3,
+    "question_text": "Q3. Read the following description of a relational database for a DVD shop, and then answer\n Subquestions 1 through 3.\n\nDVD shop U provides services of delivering, renting, and buying DVD films to its customers.\n The accounting division of DVD shop U utilizes a database for payment management. The\n database consists of four tables: Customer, Store, Staff, and Payment.\n The table structures and examples of data storage are as follows:\n\nCustomer table\n\nCustomerID FirstName LastName Email City\n C001 Bill Smith billsmith@example.net South lake\n C002 Baelfire Grehn baelfiregrehn@example.net East wood\n C003 Bill Gretan billgretan@example.net West hill\n C004 Brendon Green brendongreen@example.net East wood\n C005 John Doe johndoe@example.net North coast\n\nStore table\n\nStoreID StoreName ManagerStaffID\n 10 South-west shop S001\n 20 North-east shop S002\n\nStaff table\n\nStaffID FirstName LastName Email StoreID\n S001 Mike Hillyer Mike.Hillyer@example.com 10\n S002 Jon Stephens Jon.Stephens@example.com 20\n\nPayment table\n\nPaymentID CustomerID StaffID Amount PayDate\n P001 C002 S002 2.99 2023-04-05\n P002 C003 S001 0.99 2023-04-08\n P003 C001 S001 5.99 2023-04-14\n P004 C003 S001 4.99 2023-04-15\n P005 C005 S002 9.99 2023-04-21\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following SQL statement.\n\nThe following SQL statement SQL1 outputs how much sales amount, in dollars, each store\n brought in. The output records are ordered from higher to lower sales amounts.\n\n-- SQL1 --\n SELECT st.StoreID, st.StoreName, ***A*** AS Sales\n FROM ***B***\n\nINNER JOIN Staff s ON s.StaffID = p.StaffID\n\nINNER JOIN Store st ON st.StoreID = s.StoreID\n\nGROUP BY st.StoreID, st.StoreName\n ORDER BY ***C***\n\nThe INNER JOIN keyword in this statement selects all rows from both tables in case there is\n a match between the columns.\n From the sample data shown in the table definitions, SQL1 outputs the following result:\n\nStoreID StoreName Sales\n 20 North-east shop 12.98\n 10 South-west shop 11.97\n\nAnswer group for A through C\n a) Amount b) Payment\n c) Payment p d) Sales\n e) Sales ASC f) Sales DESC\n g) SUM(Amount)\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following SQL statement.\n\nOne day, a store staff found that a customer had left his/her PC in the store. On the PC, there\n was a name sticker. Unfortunately, the characters were blurred and the staff could not clearly\n read the owner’s name. Finally, the staff identified that:\n o the first character of the first name was “B”.\n o the last name consists of five characters; the first three characters were “Gre”, and the last\n character was “n”.\n The following SQL statement SQL2 extracts customers whose names are closest to the name\n on the PC.\n\n-- SQL2 --\n\nSELECT CustomerID, FirstName, LastName, Email\n\nFROM Customer\n WHERE ***D***\n\nTwo wildcard characters often used in a search pattern in pattern matching are as follows:\n '%' (percent sign) … represents any string of zero or more characters\n '_' (underscore) … represents any single character\n From the sample data shown in the table definitions, SQL2 outputs the following result:\n\nCustomerID FirstName LastName Email\n C002 Baelfire Grehn baelfiregrehn@example.net\n C004 Brendon Green brendongreen@example.net\n\nAnswer group for D\n a) (FirstName LIKE 'B%') AND (LastName LIKE 'Gre%n')\n b) (FirstName LIKE 'B%') AND (LastName LIKE 'Gre_n')\n c) (FirstName LIKE 'B_') AND (LastName LIKE 'Gre%n')\n d) (FirstName LIKE 'B_') AND (LastName LIKE 'Gre_n')\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following SQL statement.\n\nDVD shop U is planning a discount campaign for repeaters. The following SQL statement\n SQL3 extracts customers who paid twice or more from April 1 to April 15, 2023.\n\n-- SQL3 --\n\nSELECT c.CustomerID, c.LastName, COUNT(*) AS PayCount\n\nFROM Customer c, Payment p\n\nWHERE c.CustomerID = p.CustomerID\n ***E***\n\nFrom the sample data shown in the table definitions, SQL3 outputs the following result:\n\nCustomerID LastName PayCount\n C003 Gretan 2",
+    "choices": [
+      {
+        "label": "a",
+        "text": "AND p.PayDate >= '2023-04-01' AND p.PayDate <= '2023-04-15'\n AND COUNT(*) >= 2"
+      },
+      {
+        "label": "b",
+        "text": "AND p.PayDate BETWEEN '2023-04-01' AND '2023-04-15'\n GROUP BY c.CustomerID, c.LastName\n HAVING COUNT(*) >= 2"
+      },
+      {
+        "label": "c",
+        "text": "GROUP BY c.CustomerID, c.LastName, p.PayDate\n HAVING p.PayDate >= '2023-04-01' AND p.PayDate <= '2023-04-15'\n AND COUNT(*) >= 2"
+      },
+      {
+        "label": "d",
+        "text": "HAVING p.PayDate BETWEEN '2023-04-01' AND '2023-04-15'\n AND COUNT(*) >= 2"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"g\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"f\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"b\"}, {\"subquestion\": 3, \"blank\": \"E\", \"answer\": \"b\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "g"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "f"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "b"
+        },
+        {
+          "subquestion": 3,
+          "blank": "E",
+          "answer": "b"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023S, FE, Subject-B, Q3)",
+    "source_pages": [
+      12,
+      13,
+      14,
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q3. Read the following description of a relational database for a DVD shop, and then answer\n Subquestions 1 through 3.\n\n DVD shop U provides services of delivering, renting, and buying DVD films to its customers.\n The accounting division of DVD shop U utilizes a database for payment management. The\n database consists of four tables: Customer, Store, Staff, and Payment.\n The table structures and examples of data storage are as follows:\n\n Customer table\n\n CustomerID FirstName LastName Email City\n C001 Bill Smith billsmith@example.net South lake\n C002 Baelfire Grehn baelfiregrehn@example.net East wood\n C003 Bill Gretan billgretan@example.net West hill\n C004 Brendon Green brendongreen@example.net East wood\n C005 John Doe johndoe@example.net North coast\n\n Store table\n\n StoreID StoreName ManagerStaffID\n 10 South-west shop S001\n 20 North-east shop S002\n\n Staff table\n\n StaffID FirstName LastName Email StoreID\n S001 Mike Hillyer Mike.Hillyer@example.com 10\n S002 Jon Stephens Jon.Stephens@example.com 20\n\n Payment table\n\n PaymentID CustomerID StaffID Amount PayDate\n P001 C002 S002 2.99 2023-04-05\n P002 C003 S001 0.99 2023-04-08\n P003 C001 S001 5.99 2023-04-14\n P004 C003 S001 4.99 2023-04-15\n P005 C005 S002 9.99 2023-04-21\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following SQL statement.\n\n The following SQL statement SQL1 outputs how much sales amount, in dollars, each store\n brought in. The output records are ordered from higher to lower sales amounts.\n\n -- SQL1 --\n SELECT st.StoreID, st.StoreName, ___A___ AS Sales\n FROM ___B___\n\n INNER JOIN Staff s ON s.StaffID = p.StaffID\n\n INNER JOIN Store st ON st.StoreID = s.StoreID\n\n GROUP BY st.StoreID, st.StoreName\n ORDER BY ___C___\n\n The INNER JOIN keyword in this statement selects all rows from both tables in case there is\n a match between the columns.\n From the sample data shown in the table definitions, SQL1 outputs the following result:\n\n StoreID StoreName Sales\n 20 North-east shop 12.98\n 10 South-west shop 11.97\n\n Answer group for A through C\n a) Amount b) Payment\n c) Payment p d) Sales\n e) Sales ASC f) Sales DESC\n g) SUM(Amount)\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following SQL statement.\n\n One day, a store staff found that a customer had left his/her PC in the store. On the PC, there\n was a name sticker. Unfortunately, the characters were blurred and the staff could not clearly\n read the owner’s name. Finally, the staff identified that:\n o the first character of the first name was “B”.\n o the last name consists of five characters; the first three characters were “Gre”, and the last\n character was “n”.\n The following SQL statement SQL2 extracts customers whose names are closest to the name\n on the PC.\n\n -- SQL2 --\n\n SELECT CustomerID, FirstName, LastName, Email\n\n FROM Customer\n WHERE ___D___\n\n Two wildcard characters often used in a search pattern in pattern matching are as follows:\n '%' (percent sign) … represents any string of zero or more characters\n '_' (underscore) … represents any single character\n From the sample data shown in the table definitions, SQL2 outputs the following result:\n\n CustomerID FirstName LastName Email\n C002 Baelfire Grehn baelfiregrehn@example.net\n C004 Brendon Green brendongreen@example.net\n\n Answer group for D\n a) (FirstName LIKE 'B%') AND (LastName LIKE 'Gre%n')\n b) (FirstName LIKE 'B%') AND (LastName LIKE 'Gre_n')\n c) (FirstName LIKE 'B_') AND (LastName LIKE 'Gre%n')\n d) (FirstName LIKE 'B_') AND (LastName LIKE 'Gre_n')\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following SQL statement.\n\n DVD shop U is planning a discount campaign for repeaters. The following SQL statement\n SQL3 extracts customers who paid twice or more from April 1 to April 15, 2023.\n\n -- SQL3 --\n\n SELECT c.CustomerID, c.LastName, COUNT(*) AS PayCount\n\n FROM Customer c, Payment p\n\n WHERE c.CustomerID = p.CustomerID\n ___E___\n\n From the sample data shown in the table definitions, SQL3 outputs the following result:\n\n CustomerID LastName PayCount\n C003 Gretan 2\n\n Answer group for E\n a) AND p.PayDate >= '2023-04-01' AND p.PayDate <= '2023-04-15'\n AND COUNT(*) >= 2\n\n b) AND p.PayDate BETWEEN '2023-04-01' AND '2023-04-15'\n GROUP BY c.CustomerID, c.LastName\n HAVING COUNT(*) >= 2\n\n c) GROUP BY c.CustomerID, c.LastName, p.PayDate\n HAVING p.PayDate >= '2023-04-01' AND p.PayDate <= '2023-04-15'\n AND COUNT(*) >= 2\n\n d) HAVING p.PayDate BETWEEN '2023-04-01' AND '2023-04-15'\n AND COUNT(*) >= 2",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q3. Read the following description of a relational database for a DVD shop, and then answer\n Subquestions 1 through 3."
+      },
+      {
+        "type": "context",
+        "text": "DVD shop U provides services of delivering, renting, and buying DVD films to its customers.\n The accounting division of DVD shop U utilizes a database for payment management. The\n database consists of four tables: Customer, Store, Staff, and Payment.\n The table structures and examples of data storage are as follows:\n\nCustomer table\n\nCustomerID FirstName LastName Email City\n C001 Bill Smith billsmith@example.net South lake\n C002 Baelfire Grehn baelfiregrehn@example.net East wood\n C003 Bill Gretan billgretan@example.net West hill\n C004 Brendon Green brendongreen@example.net East wood\n C005 John Doe johndoe@example.net North coast\n\nStore table\n\nStoreID StoreName ManagerStaffID\n 10 South-west shop S001\n 20 North-east shop S002\n\nStaff table\n\nStaffID FirstName LastName Email StoreID\n S001 Mike Hillyer Mike.Hillyer@example.com 10\n S002 Jon Stephens Jon.Stephens@example.com 20\n\nPayment table\n\nPaymentID CustomerID StaffID Amount PayDate\n P001 C002 S002 2.99 2023-04-05\n P002 C003 S001 0.99 2023-04-08\n P003 C001 S001 5.99 2023-04-14\n P004 C003 S001 4.99 2023-04-15\n P005 C005 S002 9.99 2023-04-21\n\nSubquestion 1\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following SQL statement.\n\nThe following SQL statement SQL1 outputs how much sales amount, in dollars, each store\n brought in. The output records are ordered from higher to lower sales amounts.\n\n-- SQL1 --\n SELECT st.StoreID, st.StoreName, ***A*** AS Sales\n FROM ***B***\n\nINNER JOIN Staff s ON s.StaffID = p.StaffID\n\nINNER JOIN Store st ON st.StoreID = s.StoreID\n\nGROUP BY st.StoreID, st.StoreName\n ORDER BY ***C***\n\nThe INNER JOIN keyword in this statement selects all rows from both tables in case there is\n a match between the columns.\n From the sample data shown in the table definitions, SQL1 outputs the following result:\n\nStoreID StoreName Sales\n 20 North-east shop 12.98\n 10 South-west shop 11.97\n\nAnswer group for A through C\n a) Amount b) Payment\n c) Payment p d) Sales\n e) Sales ASC f) Sales DESC\n g) SUM(Amount)\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following SQL statement.\n\nOne day, a store staff found that a customer had left his/her PC in the store. On the PC, there\n was a name sticker. Unfortunately, the characters were blurred and the staff could not clearly\n read the owner’s name. Finally, the staff identified that:\n o the first character of the first name was “B”.\n o the last name consists of five characters; the first three characters were “Gre”, and the last\n character was “n”.\n The following SQL statement SQL2 extracts customers whose names are closest to the name\n on the PC.\n\n-- SQL2 --\n\nSELECT CustomerID, FirstName, LastName, Email\n\nFROM Customer\n WHERE ***D***\n\nTwo wildcard characters often used in a search pattern in pattern matching are as follows:\n '%' (percent sign) … represents any string of zero or more characters\n '_' (underscore) … represents any single character\n From the sample data shown in the table definitions, SQL2 outputs the following result:\n\nCustomerID FirstName LastName Email\n C002 Baelfire Grehn baelfiregrehn@example.net\n C004 Brendon Green brendongreen@example.net\n\nAnswer group for D\n a) (FirstName LIKE 'B%') AND (LastName LIKE 'Gre%n')\n b) (FirstName LIKE 'B%') AND (LastName LIKE 'Gre_n')\n c) (FirstName LIKE 'B_') AND (LastName LIKE 'Gre%n')\n d) (FirstName LIKE 'B_') AND (LastName LIKE 'Gre_n')\n\nSubquestion 3\n From the answer group below, select the correct answer to be inserted in the blank _______\n in the following SQL statement.\n\nDVD shop U is planning a discount campaign for repeaters. The following SQL statement\n SQL3 extracts customers who paid twice or more from April 1 to April 15, 2023.\n\n-- SQL3 --\n\nSELECT c.CustomerID, c.LastName, COUNT(*) AS PayCount\n\nFROM Customer c, Payment p\n\nWHERE c.CustomerID = p.CustomerID\n ***E***\n\nFrom the sample data shown in the table definitions, SQL3 outputs the following result:\n\nCustomerID LastName PayCount\n C003 Gretan 2"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-april/b/questions.pdf",
+        "pages": [
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-april/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_number": 4,
+    "question_text": "Q4. Read the following description of redesign of a company network, and then answer\n Subquestions 1 and 2.\n\nCompany V is a service integrator company. It currently operates with 100 staff.\n A director of Company V plans to extend the services by increasing the number of staff and\n improving the security controls in each department. A network administrator plans to\n redesign the existing internal network infrastructure by introducing a variable-length subnet\n mask network address scheme (different segments of networks) using private IP addresses\n (172.16.10.0/24). The network segments are connected using a Core Router (CR) and\n Firewall (FW).\n Figure 1 shows the design of the network configuration of company V.\n\nDMZ the Internet\n 172.16.10.242\n x.y.z.101 Web server\n WAN：x.y.z.100/30 web.example.com\n LAN：172.16.10.0/24\n x.y.z.102 f01 172.16.10.243\n f02\n FW Mail server\n f03 mail.example.com\n f04\n 172.16.10.244\n DNS server\n ns.example.com Link A\n Server farm\n 172.16.10.250\n f01 Finance server\n CR fs.example.com\n f02 f05\n f03 f04\n\nSW #1 SW #2 SW #3 SW #4\n\nPC … PC PC … PC PC … PC PC … PC\n 90 hosts 30 hosts 26 hosts 10 hosts\n\nTechnology Dept Sales Dept Solutions Dept Finance Dept\n Note: example.com is the domain name of Company V.\n Figure 1: Network configuration of Company V\n\nThe Network Address Translation function is placed at FW to access the Internet from the\n internal network. A Mail server, a DNS server, and a Web server are in the DMZ. FW blocks\n all incoming communication from the Internet to the internal network including the DMZ,\n except for explicitly allowed communication. IP addresses (x.y.z.100/30) are used for a wide\n area network (WAN) between the Internet and FW.\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description and Table 1.\n\nTo design a variable length subnet mask network address scheme (different segments of\n networks), the network administrator uses the following scheme:\n o The network segments are designed per the requirements of the number of hosts in each\n network, starting from the largest LAN to the smallest LAN. Note that the number of\n hosts includes not only servers and PCs but also the interfaces of network devices\n connected to the segment.\n o After determining the addresses for all the LAN subnets, the first available address is\n assigned to the interface of FW and the second to the interface of CR for Link A.\n o The first available IP address is used as the gateway of each network segment and\n assigned at the router interfaces. However, for the DMZ and Server farm, the gateway of\n the network segment is assigned at the interface of FW. The gateway of the DMZ servers\n is ***A***.\n o Table 1 shows the required different segments of networks as per specific hosts of each\n network.\n\nTable 1 Variable length subnet mask network address scheme\n\nRequired number\n Number Network name Network mask\n of hosts\n 1 Technology department 92 172.16.10.0/25\n 2 Sales department 32 ***B***\n 3 Solutions department 28 ***C***\n 4 Finance department 12 172.16.10.224/28\n 5 DMZ 4 172.16.10.240/29\n 6 Server farm 2 172.16.10.248/30\n 7 Link A 2 172.16.10.252/30\n\nAnswer group for A\n a) 172.16.10.1 b) 172.16.10.240 c) 172.16.10.241\n d) 172.16.10.248 e) 172.16.10.249\n\nAnswer group for B and C\n a) 172.16.10.0/26 b) 172.16.10.0/27 c) 172.16.10.127/26\n d) 172.16.10.128/26 e) 172.16.10.128/27 f) 172.16.10.160/27\n g) 172.16.10.191/26 h) 172.16.10.191/27 i) 172.16.10.192/26\n j) 172.16.10.192/27\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in Table 2.\n\nAfter designing the different network segments, the network administrator configured the\n routing protocol on the CR and FW. As a result, the routing function is working properly and\n all hosts on the LANs can connect with each other and access to the Internet.\n To improve the security of servers located in DMZ and the Finance server, the network\n administrator implemented several zone-based security policies on FW according to the\n following rules:\n (1) Secure web services (HTTPS) on the external IP address of FW will be mapped to the\n Web server in DMZ.\n (2) Mail transferring services (SMTP) and receiving services (IMAPS) on the external IP\n address of FW will be mapped to the Mail server in DMZ.\n (3) Allow access from DMZ to the Internet via NAT (IP address translation), which is\n necessary for the correct functionality of the mapped service.\n (4) Allow access only from the Finance department to the Finance server with a secure web\n service to access financial information from the server.\n (5) Other hosts from LANs and external users cannot access the Finance server.\n (6) Allow other traffic from LANs to DMZ, allowing access to multiple resources at the\n servers from local users.\n\nTable 2 shows the configured traffic rule table on FW. Each incoming packet is inspected\n according to the rules on FW as follows:\n\n(1) First, the source, destination, and destination service of the packet are compared with\n those in rule number 1.\n (i) If it matches, the specified action is executed. If the translation is specified, it will\n also be applied. Once the action is executed, subsequent rules are not checked.\n (ii) If it does not match, proceed to the next rule.\n (2) Repeat step (1) until the end of the rule table reaches.\n (3) Deny the packet if no action is executed in the rule table.\n\nTable 2 Traffic rule table on FW (other settings are not shown)\n\nRule No. Source Destination Destination Service Action Translation\n 1 the Internet x.y.z.102 HTTPS Allow MAP: 172.1.10.242\n 2 the Internet x.y.z.102 SMTP/IMAPS Allow MAP: 172.1.10.243\n 3 DMZ ***D*** ANY Allow NAT\n 4 ***E*** 172.16.10.250 HTTPS Allow\n 5 ***F*** 172.16.10.250 ANY Deny\n 6 LANs DMZ ANY Allow\n ⁝ ⁝ ⁝ ⁝ ⁝\n\nNote DMZ: A perimeter network that protects private networks from untrusted traffic.\n It is a subnetwork that sits between the Internet and private networks.\n the Internet: Untrusted or public network.\n FW is needed to protect private networks from untrusted traffic.\n LANs: Trusted or private network that can access any trusted traffic to DMZ and\n the Internet.\n ANY: All networks.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "172.16.10.0/24"
+      },
+      {
+        "label": "b",
+        "text": "172.16.10.64/26"
+      },
+      {
+        "label": "c",
+        "text": "172.16.10.128/26"
+      },
+      {
+        "label": "d",
+        "text": "172.16.10.224/28"
+      },
+      {
+        "label": "e",
+        "text": "172.16.10.240/29"
+      },
+      {
+        "label": "f",
+        "text": "ANY"
+      },
+      {
+        "label": "g",
+        "text": "DMZ"
+      },
+      {
+        "label": "h",
+        "text": "the Internet"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"d\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"j\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"h\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"F\", \"answer\": \"f\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "d"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "j"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "h"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "F",
+          "answer": "f"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023S, FE, Subject-B, Q4)",
+    "source_pages": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q4. Read the following description of redesign of a company network, and then answer\n Subquestions 1 and 2.\n\n Company V is a service integrator company. It currently operates with 100 staff.\n A director of Company V plans to extend the services by increasing the number of staff and\n improving the security controls in each department. A network administrator plans to\n redesign the existing internal network infrastructure by introducing a variable-length subnet\n mask network address scheme (different segments of networks) using private IP addresses\n (172.16.10.0/24). The network segments are connected using a Core Router (CR) and\n Firewall (FW).\n Figure 1 shows the design of the network configuration of company V.\n\n DMZ the Internet\n 172.16.10.242\n x.y.z.101 Web server\n WAN：x.y.z.100/30 web.example.com\n LAN：172.16.10.0/24\n x.y.z.102 f01 172.16.10.243\n f02\n FW Mail server\n f03 mail.example.com\n f04\n 172.16.10.244\n DNS server\n ns.example.com Link A\n Server farm\n 172.16.10.250\n f01 Finance server\n CR fs.example.com\n f02 f05\n f03 f04\n\n SW #1 SW #2 SW #3 SW #4\n\n PC … PC PC … PC PC … PC PC … PC\n 90 hosts 30 hosts 26 hosts 10 hosts\n\n Technology Dept Sales Dept Solutions Dept Finance Dept\n Note: example.com is the domain name of Company V.\n Figure 1: Network configuration of Company V\n\nThe Network Address Translation function is placed at FW to access the Internet from the\n internal network. A Mail server, a DNS server, and a Web server are in the DMZ. FW blocks\n all incoming communication from the Internet to the internal network including the DMZ,\n except for explicitly allowed communication. IP addresses (x.y.z.100/30) are used for a wide\n area network (WAN) between the Internet and FW.\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description and Table 1.\n\n To design a variable length subnet mask network address scheme (different segments of\n networks), the network administrator uses the following scheme:\n o The network segments are designed per the requirements of the number of hosts in each\n network, starting from the largest LAN to the smallest LAN. Note that the number of\n hosts includes not only servers and PCs but also the interfaces of network devices\n connected to the segment.\n o After determining the addresses for all the LAN subnets, the first available address is\n assigned to the interface of FW and the second to the interface of CR for Link A.\n o The first available IP address is used as the gateway of each network segment and\n assigned at the router interfaces. However, for the DMZ and Server farm, the gateway of\n the network segment is assigned at the interface of FW. The gateway of the DMZ servers\n is ___A___.\n o Table 1 shows the required different segments of networks as per specific hosts of each\n network.\n\n Table 1 Variable length subnet mask network address scheme\n\n Required number\n Number Network name Network mask\n of hosts\n 1 Technology department 92 172.16.10.0/25\n 2 Sales department 32 ___B___\n 3 Solutions department 28 ___C___\n 4 Finance department 12 172.16.10.224/28\n 5 DMZ 4 172.16.10.240/29\n 6 Server farm 2 172.16.10.248/30\n 7 Link A 2 172.16.10.252/30\n\nAnswer group for A\n a) 172.16.10.1 b) 172.16.10.240 c) 172.16.10.241\n d) 172.16.10.248 e) 172.16.10.249\n\n Answer group for B and C\n a) 172.16.10.0/26 b) 172.16.10.0/27 c) 172.16.10.127/26\n d) 172.16.10.128/26 e) 172.16.10.128/27 f) 172.16.10.160/27\n g) 172.16.10.191/26 h) 172.16.10.191/27 i) 172.16.10.192/26\n j) 172.16.10.192/27\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in Table 2.\n\n After designing the different network segments, the network administrator configured the\n routing protocol on the CR and FW. As a result, the routing function is working properly and\n all hosts on the LANs can connect with each other and access to the Internet.\n To improve the security of servers located in DMZ and the Finance server, the network\n administrator implemented several zone-based security policies on FW according to the\n following rules:\n (1) Secure web services (HTTPS) on the external IP address of FW will be mapped to the\n Web server in DMZ.\n (2) Mail transferring services (SMTP) and receiving services (IMAPS) on the external IP\n address of FW will be mapped to the Mail server in DMZ.\n (3) Allow access from DMZ to the Internet via NAT (IP address translation), which is\n necessary for the correct functionality of the mapped service.\n (4) Allow access only from the Finance department to the Finance server with a secure web\n service to access financial information from the server.\n (5) Other hosts from LANs and external users cannot access the Finance server.\n (6) Allow other traffic from LANs to DMZ, allowing access to multiple resources at the\n servers from local users.\n\n Table 2 shows the configured traffic rule table on FW. Each incoming packet is inspected\n according to the rules on FW as follows:\n\n(1) First, the source, destination, and destination service of the packet are compared with\n those in rule number 1.\n (i) If it matches, the specified action is executed. If the translation is specified, it will\n also be applied. Once the action is executed, subsequent rules are not checked.\n (ii) If it does not match, proceed to the next rule.\n (2) Repeat step (1) until the end of the rule table reaches.\n (3) Deny the packet if no action is executed in the rule table.\n\n Table 2 Traffic rule table on FW (other settings are not shown)\n\nRule No. Source Destination Destination Service Action Translation\n 1 the Internet x.y.z.102 HTTPS Allow MAP: 172.1.10.242\n 2 the Internet x.y.z.102 SMTP/IMAPS Allow MAP: 172.1.10.243\n 3 DMZ ___D___ ANY Allow NAT\n 4 ___E___ 172.16.10.250 HTTPS Allow\n 5 ___F___ 172.16.10.250 ANY Deny\n 6 LANs DMZ ANY Allow\n ⁝ ⁝ ⁝ ⁝ ⁝\n\n Note DMZ: A perimeter network that protects private networks from untrusted traffic.\n It is a subnetwork that sits between the Internet and private networks.\n the Internet: Untrusted or public network.\n FW is needed to protect private networks from untrusted traffic.\n LANs: Trusted or private network that can access any trusted traffic to DMZ and\n the Internet.\n ANY: All networks.\n\n Answer group for D through F\n a) 172.16.10.0/24 b) 172.16.10.64/26 c) 172.16.10.128/26\n d) 172.16.10.224/28 e) 172.16.10.240/29 f) ANY\n g) DMZ h) the Internet",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q4. Read the following description of redesign of a company network, and then answer\n Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "Company V is a service integrator company. It currently operates with 100 staff.\n A director of Company V plans to extend the services by increasing the number of staff and\n improving the security controls in each department. A network administrator plans to\n redesign the existing internal network infrastructure by introducing a variable-length subnet\n mask network address scheme (different segments of networks) using private IP addresses\n (172.16.10.0/24). The network segments are connected using a Core Router (CR) and\n Firewall (FW).\n Figure 1 shows the design of the network configuration of company V.\n\nDMZ the Internet\n 172.16.10.242\n x.y.z.101 Web server\n WAN：x.y.z.100/30 web.example.com\n LAN：172.16.10.0/24\n x.y.z.102 f01 172.16.10.243\n f02\n FW Mail server\n f03 mail.example.com\n f04\n 172.16.10.244\n DNS server\n ns.example.com Link A\n Server farm\n 172.16.10.250\n f01 Finance server\n CR fs.example.com\n f02 f05\n f03 f04\n\nSW #1 SW #2 SW #3 SW #4\n\nPC … PC PC … PC PC … PC PC … PC\n 90 hosts 30 hosts 26 hosts 10 hosts\n\nTechnology Dept Sales Dept Solutions Dept Finance Dept\n Note: example.com is the domain name of Company V.\n Figure 1: Network configuration of Company V\n\nThe Network Address Translation function is placed at FW to access the Internet from the\n internal network. A Mail server, a DNS server, and a Web server are in the DMZ. FW blocks\n all incoming communication from the Internet to the internal network including the DMZ,\n except for explicitly allowed communication. IP addresses (x.y.z.100/30) are used for a wide\n area network (WAN) between the Internet and FW.\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description and Table 1.\n\nTo design a variable length subnet mask network address scheme (different segments of\n networks), the network administrator uses the following scheme:\n o The network segments are designed per the requirements of the number of hosts in each\n network, starting from the largest LAN to the smallest LAN. Note that the number of\n hosts includes not only servers and PCs but also the interfaces of network devices\n connected to the segment.\n o After determining the addresses for all the LAN subnets, the first available address is\n assigned to the interface of FW and the second to the interface of CR for Link A.\n o The first available IP address is used as the gateway of each network segment and\n assigned at the router interfaces. However, for the DMZ and Server farm, the gateway of\n the network segment is assigned at the interface of FW. The gateway of the DMZ servers\n is ***A***.\n o Table 1 shows the required different segments of networks as per specific hosts of each\n network.\n\nTable 1 Variable length subnet mask network address scheme\n\nRequired number\n Number Network name Network mask\n of hosts\n 1 Technology department 92 172.16.10.0/25\n 2 Sales department 32 ***B***\n 3 Solutions department 28 ***C***\n 4 Finance department 12 172.16.10.224/28\n 5 DMZ 4 172.16.10.240/29\n 6 Server farm 2 172.16.10.248/30\n 7 Link A 2 172.16.10.252/30\n\nAnswer group for A\n a) 172.16.10.1 b) 172.16.10.240 c) 172.16.10.241\n d) 172.16.10.248 e) 172.16.10.249\n\nAnswer group for B and C\n a) 172.16.10.0/26 b) 172.16.10.0/27 c) 172.16.10.127/26\n d) 172.16.10.128/26 e) 172.16.10.128/27 f) 172.16.10.160/27\n g) 172.16.10.191/26 h) 172.16.10.191/27 i) 172.16.10.192/26\n j) 172.16.10.192/27\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in Table 2.\n\nAfter designing the different network segments, the network administrator configured the\n routing protocol on the CR and FW. As a result, the routing function is working properly and\n all hosts on the LANs can connect with each other and access to the Internet.\n To improve the security of servers located in DMZ and the Finance server, the network\n administrator implemented several zone-based security policies on FW according to the\n following rules:\n (1) Secure web services (HTTPS) on the external IP address of FW will be mapped to the\n Web server in DMZ.\n (2) Mail transferring services (SMTP) and receiving services (IMAPS) on the external IP\n address of FW will be mapped to the Mail server in DMZ.\n (3) Allow access from DMZ to the Internet via NAT (IP address translation), which is\n necessary for the correct functionality of the mapped service.\n (4) Allow access only from the Finance department to the Finance server with a secure web\n service to access financial information from the server.\n (5) Other hosts from LANs and external users cannot access the Finance server.\n (6) Allow other traffic from LANs to DMZ, allowing access to multiple resources at the\n servers from local users.\n\nTable 2 shows the configured traffic rule table on FW. Each incoming packet is inspected\n according to the rules on FW as follows:\n\n(1) First, the source, destination, and destination service of the packet are compared with\n those in rule number 1.\n (i) If it matches, the specified action is executed. If the translation is specified, it will\n also be applied. Once the action is executed, subsequent rules are not checked.\n (ii) If it does not match, proceed to the next rule.\n (2) Repeat step (1) until the end of the rule table reaches.\n (3) Deny the packet if no action is executed in the rule table.\n\nTable 2 Traffic rule table on FW (other settings are not shown)\n\nRule No. Source Destination Destination Service Action Translation\n 1 the Internet x.y.z.102 HTTPS Allow MAP: 172.1.10.242\n 2 the Internet x.y.z.102 SMTP/IMAPS Allow MAP: 172.1.10.243\n 3 DMZ ***D*** ANY Allow NAT\n 4 ***E*** 172.16.10.250 HTTPS Allow\n 5 ***F*** 172.16.10.250 ANY Deny\n 6 LANs DMZ ANY Allow\n ⁝ ⁝ ⁝ ⁝ ⁝\n\nNote DMZ: A perimeter network that protects private networks from untrusted traffic.\n It is a subnetwork that sits between the Internet and private networks.\n the Internet: Untrusted or public network.\n FW is needed to protect private networks from untrusted traffic.\n LANs: Trusted or private network that can access any trusted traffic to DMZ and\n the Internet.\n ANY: All networks."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-april/b/questions.pdf",
+        "pages": [
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-april/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_number": 5,
+    "question_text": "Q5. Read the following description of program development and testing, and then answer\n Subquestion.\n\nState S consists of four cities: East, North, South, and West. The State Statistics Bureau\n (SSB) maintains a statistic file containing the information shown in Table 1.\n\nTable 1 Contents of the statistic file\n City name Total population Adult population Employed Unemployed\n East 124,000 104,000 90,000 10,000\n North 252,000 208,000 176,000 24,000\n South 132,000 106,000 86,000 14,000\n West 260,000 212,000 168,000 32,000\n\nSSB has developed a program that outputs a statistic report from the statistic file. The\n program is almost complete, and SSB is now preparing test cases.\n\n[Program Description]\n (1) The program reads the statistic file and outputs a statistic report.\n (2) For each record of the statistic file, the program calculates and outputs the labor force\n rate and unemployment rate using the following formulas:\n\nLabor force rate (%) = 100 × (Employed + Unemployed) ÷ Adult population\n Unemployment rate (%) = 100 × Unemployed ÷ (Employed + Unemployed)\n\n(3) When all the records are processed, the program outputs the total of the total population,\n adult population, employed, and unemployed, and the statewide labor force rate and\n unemployment rate. After that, the program outputs the highest and lowest\n unemployment rates with the city names.\n (4) The following is an example of a statistic report:\n\nCity TotalPop AdultPop Employ Unemploy Labor% Unemp%\n ----- -------- -------- -------- -------- ------ ------\n East 124,000 104,000 90,000 10,000 96.2 10.0\n North 252,000 208,000 176,000 24,000 96.2 12.0\n South 132,000 106,000 86,000 14,000 94.3 14.0\n West 260,000 212,000 168,000 32,000 94.3 16.0\n ----- -------- -------- -------- -------- ------ ------\n TOTAL 768,000 630,000 520,000 80,000 95.2 13.3\n\nHighest Unemp%: 16.0, City: West\n Lowest Unemp%: 10.0, City: East",
+    "choices": [
+      {
+        "label": "a",
+        "text": "-0.1"
+      },
+      {
+        "label": "b",
+        "text": "0.1"
+      },
+      {
+        "label": "c",
+        "text": "99.9"
+      },
+      {
+        "label": "d",
+        "text": "100.1"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 2, \"blank\": \"A\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"B\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"C\", \"answer\": \"e\"}, {\"subquestion\": 2, \"blank\": \"D\", \"answer\": \"c\"}, {\"subquestion\": 2, \"blank\": \"E\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"F\", \"answer\": \"d\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 2,
+          "blank": "A",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "B",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "C",
+          "answer": "e"
+        },
+        {
+          "subquestion": 2,
+          "blank": "D",
+          "answer": "c"
+        },
+        {
+          "subquestion": 2,
+          "blank": "E",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "F",
+          "answer": "d"
+        }
+      ]
+    },
+    "images": [
+      "2023-april-b-q05-figure1.webp",
+      "2023-april-b-q05-figure2.webp",
+      "2023-april-b-q05-figure3.webp",
+      "2023-april-b-q05-figure4.webp",
+      "2023-april-b-q05-figure5.webp",
+      "2023-april-b-q05-figure6.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023S, FE, Subject-B, Q5)",
+    "source_pages": [
+      20,
+      21,
+      22,
+      23
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q5. Read the following description of program development and testing, and then answer\n Subquestion.\n\n State S consists of four cities: East, North, South, and West. The State Statistics Bureau\n (SSB) maintains a statistic file containing the information shown in Table 1.\n\n Table 1 Contents of the statistic file\n City name Total population Adult population Employed Unemployed\n East 124,000 104,000 90,000 10,000\n North 252,000 208,000 176,000 24,000\n South 132,000 106,000 86,000 14,000\n West 260,000 212,000 168,000 32,000\n\n SSB has developed a program that outputs a statistic report from the statistic file. The\n program is almost complete, and SSB is now preparing test cases.\n\n [Program Description]\n (1) The program reads the statistic file and outputs a statistic report.\n (2) For each record of the statistic file, the program calculates and outputs the labor force\n rate and unemployment rate using the following formulas:\n\n Labor force rate (%) = 100 × (Employed + Unemployed) ÷ Adult population\n Unemployment rate (%) = 100 × Unemployed ÷ (Employed + Unemployed)\n\n (3) When all the records are processed, the program outputs the total of the total population,\n adult population, employed, and unemployed, and the statewide labor force rate and\n unemployment rate. After that, the program outputs the highest and lowest\n unemployment rates with the city names.\n (4) The following is an example of a statistic report:\n\n City TotalPop AdultPop Employ Unemploy Labor% Unemp%\n ----- -------- -------- -------- -------- ------ ------\n East 124,000 104,000 90,000 10,000 96.2 10.0\n North 252,000 208,000 176,000 24,000 96.2 12.0\n South 132,000 106,000 86,000 14,000 94.3 14.0\n West 260,000 212,000 168,000 32,000 94.3 16.0\n ----- -------- -------- -------- -------- ------ ------\n TOTAL 768,000 630,000 520,000 80,000 95.2 13.3\n\n Highest Unemp%: 16.0, City: West\n Lowest Unemp%: 10.0, City: East\n\n[Program]\n STRING: City, CityHigh ← \"????\", CityLow ← \"????\"\n INT: TotalPop, AdultPop, Employ, Unemploy\n INT: TotalTotalPop ← 0, TotalAdultPop ← 0,\n TotalEmploy ← 0, TotalUnemploy ← 0\n REAL: LaborRate, UnempRate\nX  REAL: UnempRateHigh ← 0.0, UnempRateLow ← 100.0\n\n OpenFile(\"statistic\"); /* Open the statistic file */\n Print(\"City TotalPop AdultPop Employ Unemploy Labor% Unemp%\");\n Print(\"----- -------- -------- -------- -------- ------ ------\");\n ReadRecord(City, TotalPop, AdultPop, Employ, Unemploy);\n WHILE (not end-of-file) { /* Loop until the statistic file reaches the end-of-file */\n LaborRate ← 100.0 × (Employ + Unemploy) ÷ AdultPop;\n UnempRate ← 100.0 × Unemploy ÷ (Employ + Unemploy);\nY  IF (UnempRate > UnempRateHigh) {\n CityHigh ← City;\n UnempRateHigh ← UnempRate;\n }\nZ  IF (UnempRate < UnempRateLow) {\n CityLow ← City;\n UnempRateLow ← UnempRate;\n }\n TotalTotalPop ← TotalTotalPop + TotalPop;\n TotalAdultPop ← TotalAdultPop + AdultPop;\n TotalEmploy ← TotalEmploy + Employ;\n TotalUnemploy ← TotalUnemploy + Unemploy;\n Print(City, TotalPop, AdultPop,\n Employ, Unemploy, LaborRate, UnempRate);\n ReadRecord(City, TotalPop, AdultPop, Employ, Unemploy);\n }\n Print(\"----- -------- -------- -------- -------- ------ ------\");\n LaborRate ← 100.0 × (TotalEmploy + TotalUnemploy) ÷ TotalAdultPop;\n UnempRate ← 100.0 × TotalUnemploy ÷ (TotalEmploy + TotalUnemploy);\n Print(\"TOTAL\", TotalTotalPop, TotalAdultPop,\n TotalEmploy, TotalUnemploy, LaborRate, UnempRate);\n Print(); /* Print a blank line */\n Print(\"Highest Unemp%:\", UnempRateHigh, \", City:\", CityHigh);\n Print(\"Lowest Unemp%:\", UnempRateLow, \", City:\", CityLow );\n CloseFile(\"statistic\"); /* Close the statistic file */\n\n Note: The function ReadRecord(v1, v2, …) reads the next record from the statistic file,\n and stores the values into variables v1, v2, … .\n The function Print(p1, p2, …) prints arguments p1, p2, … in one line. Assuming\n that spaces between arguments are adjusted automatically.\n\nSubquestion\n From the answer groups below, select the correct answer to be inserted into each blank\n _______ in the following description.\n Note that the shaded parts _______ are not shown.\n\n The program development is now in a test phase, and testing is performed using various test\n cases. Four test cases and their test results are shown below:\n\n [Test case 1]\n This is the case where two cities have the same unemployment rate for both the highest and\n lowest rates. In this case, the program outputs the following report:\n\n City TotalPop AdultPop Employ Unemploy Labor% Unemp%\n ----- -------- -------- -------- -------- ------ ------\n East 120,000 104,000 90,000 10,000 96.2 10.0\n North 120,000 105,000 90,000 10,000 95.2 10.0\n South 120,000 106,000 85,000 15,000 94.3 15.0\n West 120,000 107,000 85,000 15,000 93.5 15.0\n ----- -------- -------- -------- -------- ------ ------\n TOTAL 480,000 422,000 350,000 50,000 94.8 12.5\n\n Highest Unemp%: 15.0, City: ___A___\n Lowest Unemp%: 10.0, City: ___A___\n\n [Test case 2]\n This is the case where all the cities have a 0% unemployment rate. According to the program\n logic, the city names shown on the last two lines are as follows:\n\n City TotalPop AdultPop Employ Unemploy Labor% Unemp%\n ----- -------- -------- -------- -------- ------ ------\n East 120,000 104,000 90,000 0 86.5 0.0\n North 120,000 105,000 90,000 0 85.7 0.0\n South 120,000 106,000 85,000 0 80.2 0.0\n West 120,000 107,000 85,000 0 79.4 0.0\n ----- -------- -------- -------- -------- ------ ------\n TOTAL 480,000 422,000 350,000 0 82.9 0.0\n\n Highest Unemp%: 0.0, City: ___B___\n Lowest Unemp%: 0.0, City: ___B___\n\n[Test case 3]\nThe phenomenon mentioned in test case 2 can be resolved by changing the operator “>” to\n“≥” on line Y and changing the operator “<” to “≤” on line Z .\nAfter these changes, another case where all the cities have a 100% unemployment rate is\ntested. This time, the program outputs the following report:\n\n City TotalPop AdultPop Employ Unemploy Labor% Unemp%\n ----- -------- -------- -------- -------- ------ ------\n East 120,000 104,000 0 90,000 86.5 100.0\n North 120,000 105,000 0 90,000 85.7 100.0\n South 120,000 106,000 0 85,000 80.2 100.0\n West 120,000 107,000 0 85,000 79.4 100.0\n ----- -------- -------- -------- -------- ------ ------\n TOTAL 480,000 422,000 0 350,000 82.9 100.0\n\n Highest Unemp%:100.0, City: ___C___\n Lowest Unemp%:100.0, City: ___C___\n\n[Test case 4]\nAfter the changes mentioned in test case 3, test case 1 is tested again. Because the program\nlogic is changed, the program outputs the following report:\n\n City TotalPop AdultPop Employ Unemploy Labor% Unemp%\n ----- -------- -------- -------- -------- ------ ------\n East 120,000 104,000 90,000 10,000 96.2 10.0\n North 120,000 105,000 90,000 10,000 95.2 10.0\n South 120,000 106,000 85,000 15,000 94.3 15.0\n West 120,000 107,000 85,000 15,000 93.5 15.0\n ----- -------- -------- -------- -------- ------ ------\n TOTAL 480,000 422,000 350,000 50,000 94.8 12.5\n\n Highest Unemp%: 15.0, City: ___D___\n Lowest Unemp%: 10.0, City: ___D___\n\nIncidentally, the phenomenon mentioned above can be resolved differently by replacing the\ninitial values on line X with, for example, the following values:\n\n REAL: UnempRateHigh ← ___E___, UnempRateLow ← ___F___\n\nAnswer group for A through D\n a) ???? b) East c) North\n d) South e) West\n\nAnswer group for E and F\n a) -0.1 b) 0.1 c) 99.9 d) 100.1",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q5. Read the following description of program development and testing, and then answer\n Subquestion."
+      },
+      {
+        "type": "context",
+        "text": "State S consists of four cities: East, North, South, and West. The State Statistics Bureau\n (SSB) maintains a statistic file containing the information shown in Table 1.\n\nTable 1 Contents of the statistic file\n City name Total population Adult population Employed Unemployed\n East 124,000 104,000 90,000 10,000\n North 252,000 208,000 176,000 24,000\n South 132,000 106,000 86,000 14,000\n West 260,000 212,000 168,000 32,000\n\nSSB has developed a program that outputs a statistic report from the statistic file. The\n program is almost complete, and SSB is now preparing test cases.\n\n[Program Description]\n (1) The program reads the statistic file and outputs a statistic report.\n (2) For each record of the statistic file, the program calculates and outputs the labor force\n rate and unemployment rate using the following formulas:\n\nLabor force rate (%) = 100 × (Employed + Unemployed) ÷ Adult population\n Unemployment rate (%) = 100 × Unemployed ÷ (Employed + Unemployed)\n\n(3) When all the records are processed, the program outputs the total of the total population,\n adult population, employed, and unemployed, and the statewide labor force rate and\n unemployment rate. After that, the program outputs the highest and lowest\n unemployment rates with the city names.\n (4) The following is an example of a statistic report:\n\nCity TotalPop AdultPop Employ Unemploy Labor% Unemp%\n ----- -------- -------- -------- -------- ------ ------\n East 124,000 104,000 90,000 10,000 96.2 10.0\n North 252,000 208,000 176,000 24,000 96.2 12.0\n South 132,000 106,000 86,000 14,000 94.3 14.0\n West 260,000 212,000 168,000 32,000 94.3 16.0\n ----- -------- -------- -------- -------- ------ ------\n TOTAL 768,000 630,000 520,000 80,000 95.2 13.3\n\nHighest Unemp%: 16.0, City: West\n Lowest Unemp%: 10.0, City: East"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-april/b/questions.pdf",
+        "pages": [
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-april/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_number": 6,
+    "question_text": "Q6. Read the following description of programs, and then answer Subquestions 1 and 2.\n\nAn operating system needs to manage the dynamic assignment of memory for processes.\n Figure 1 shows an example of memory allocation status. There are 32 contiguous memory\n blocks numbered 0 to 31. For example, memory blocks 0 to 3 are allocated to process R, and\n memory blocks 4 to 6 are free. In the Figures, ___ indicates free memory blocks.\n\n0 3 4 6 7 10 11 15 16 19 20 24 25 27 28 31\n R S T U V\n\nFigure 1 Example of memory allocation status\n\nOne way to track the memory allocation status is to maintain a linked list. The linked list in\n Figure 2 represents the memory allocation status presented in Figure 1. The nodes are kept\n sorted by starting memory block number.\n In Figure 2, sentinels (dotted nodes) are placed at both ends such that any actual node can\n be handled as an intermediate node, even if it is the first or the last node. The shaded parts\n are unchangeable by its nature, and “wall” indicates the states of the sentinels are “allocated”.\n\nnext ____●__→__●__→__●__ →__●__ →__●__ →__●__ →__●__→__●__→__●__ → ┤\n prev __ ├ ← ● ← ● ← ● ← ● ← ● ← ● ← ● ← ● ←__●__\n state __ wall R - S T - U V - wall\n start __ -1 0 4 7 11 16 20 25 28 32\n size __ 1 4 3 4 5 4 5 3 4 1\n\nFigure 2 Linked list that represents the memory allocation status in Figure 1\n\n[Program Description]\n The program manages the memory shown in Figure 1 with the linked list shown in Figure 2.\n The program performs the following two kinds of operations:\n (i) When a new process starts, allocate the requested size of contiguous memory blocks,\n (ii) When an executing process terminates, release the occupied memory blocks.\n\nTo handle the nodes, the data type Node is introduced as:\n\nNode: node {Node: next, // next node\n Node: prev, // previous node\n STRING: state, // process name (allocated) or \"-\" (free)\n INT: start, // starting memory block number\n INT: size // size of memory blocks\n\n}\n\nThe program uses four functions: createNode, removeNode, allocate, and release.\nThe linked list is maintained by two major functions allocate and release. The functions\ncreateNode and removeNode are called from allocate and release respectively.\n\n(1) FUNCTION: createNode()\n Function createNode creates a new node and returns it.\n The following statements create a new node and name it new.\n\nNode: new\n new ← createNode();\n\nAfter creating the new node, the program must insert it into the linked list by setting the\n node pointers of concerned nodes.\n\n(2) FUNCTION: removeNode(Node: remove)\n Function removeNode removes the node remove given by the argument.\n The following statements remove the node named garbage.\n\nNode: garbage\n\nremoveNode(garbage);\n\nBefore removing the node, the program must cut off the linkage to / from it by setting the\n node pointers of concerned nodes.\n\n(3) FUNCTION: allocate(Node: free, STRING: procName, INT: reqSize)\n Function allocate allocates memory blocks of size reqSize to the process procName\n from the free memory blocks held by node free.\n When this function is called, it is ensured that the following conditions are satisfied:\n (i) The state of node free is “free”. Namely, free.state = \"-\".\n (ii) Node free holds enough free memory blocks. Namely, free.size ≥ reqSize.\n\nIn this function, two cases (cases (a) and (b) in Figure 3) should be considered.\n Case (a): free.size = reqSize.\n The entire memory blocks held by the node free are allocated to the process. The\n number of nodes in the linked list remains unchanged.\n Case (b): free.size > reqSize.\n The node free must be divided into two nodes. Consequently, the number of nodes\n increases by 1.\n\nprN prN\n (a) L M (b) L M\n 10 ↓ 13 10 ↓ 13 14 15\n L N M L N M\n prN (new node) prN\n\nFigure 3 Two cases where the function is called as allocate(prN, \"N\", 4);\n\n[Program allocate]\n\nFUNCTION: allocate(Node: free, STRING: procName, INT: reqSize) {\n Node: last, new\n\nIF (free.size = reqSize) {\n ***A***;\n }\n ELSE { /* free.size > reqSize */\n new ← createNode();\n last ← free.prev;\n\nlast.next ← new;\n new.next ← free;\n ***B***;\n ***C***;\n\nnew.state ← procName;\n new.start ← free.start;\n new.size ← reqSize;\n free.start ← free.start + reqSize;\n free.size ← ***D***;\n }\n }\n\n(4) FUNCTION: release(Node: proc)\n Function release releases the memory blocks held by node proc. The memory blocks\n occupied by the process in node proc become free memory blocks.\n When this function is called, the following condition is satisfied:\n The state of node proc is “allocated”. Namely, proc.state ≠ \"-\".\n In this function, four cases (cases (a) to (d) in Figure 4) should be considered.\n Case (a): The states of previous and next nodes are “allocated”. After changing node proc\n to “free”, the number of nodes in the linked list remains unchanged.\n Cases (b) and (c): The state of the previous node is “allocated” and the state of the next\n node is “free”, or vice versa. After changing node proc to “free”, two consecutive\n “free” nodes must be combined into a single “free” node. Therefore, the number of\n nodes reduces by 1.\n\nCase (d): The states of previous and next nodes are “free”. After changing node proc to\n “free”, three consecutive “free” nodes must be combined into a single “free” node.\n Therefore, the number of nodes reduces by 2.\n\nprX prX\n (a) V W X Y Z (b) V W X Z\n ↓ ↓\n V W Y Z V W Z\n prX prX\n\nprX prX\n (c) V X Y Z (d) V X Z\n ↓ ↓\n V Y Z V Z\n prX prX\n\nFigure 4 Four cases where the function is called as release(prX);\n\n[Program release]\n\nFUNCTION: release(Node: proc) {\n\nNode: next1, next2, prev1, prev2\n\nproc.state ← \"-\";\n next1 ← proc.next;\n IF (next1.state = \"-\") { /* Combine two consecutive \"free\" nodes */\n next2 ← next1.next;\n proc.next ← next2;\n next2.prev ← proc;\n proc.size ← proc.size + next1.size;\n removeNode(next1);\n }\n prev1 ← proc.prev;\n IF (prev1.state = \"-\") { /* Combine two consecutive \"free\" nodes */\n prev2 ← prev1.prev;\n ***E***;\n ***F*** ;\n proc.start ← prev1.start;\n proc.size ← ***G*** ;\n removeNode(prev1);\n }\n\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above programs.\n\nAnswer group for A\n a) /* Do nothing */ b) free.start ← free.start + reqSize\n c) free.state ← \"-\" d) free.state ← procName\n\nAnswer group for B and C\n a) free.prev ← last b) free.prev ← new\n c) last.prev ← free d) last.prev ← new\n e) new.prev ← free f) new.prev ← last\n\nAnswer group for D\n a) free.size - reqSize b) free.size - reqSize - 1\n c) reqSize d) reqSize - 1\n\nAnswer group for E and F\n a) prev1.next ← proc b) prev1.prev ← prev2\n c) prev2.next ← prev1 d) prev2.next ← proc\n e) proc.prev ← prev1 f) proc.prev ← prev2\n\nAnswer group for G\n a) prev1.size b) prev1.size + next1.size\n c) prev2.size d) prev2.size + next1.size\n e) proc.size + prev1.size f) proc.size + prev2.size\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nFigure 5 shows the current memory allocation status, and the linked list in Figure 6\n represents the memory allocation status presented in Figure 5. It is assumed that the first\n three nodes in Figure 6 can be referred to by node names n0, n1, and n2.\n\n0 3 4 7 8 11 12 15 16 31\n X Y\n\nFigure 5 Current memory allocation status\n\nnode n0 n1 n2\n next ____●__ →__●__→__●__→__●__→__●__ →__●__ → ┤\n prev __ ├ ← ● ← ● ← ● ← ● ← ● ←__●__\n state __ wall - X - Y - wall\n start __ -1 0 4 8 12 16 32\n size __ 1 4 4 4 4 16 1\n\nFigure 6 Linked list that represents the memory allocation status in Figure 5\n\nAmong the following three cases:\n Case 1: Function allocate is called as allocate(n1, \"Z\", 2);\n Case 2: Function allocate is called as allocate(n1, \"Z\", 4);\n Case 3: Function release is called as release(n2);\n the case(s) that update(s) the contents of n0.next is(are) ***H***.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "case 1 only"
+      },
+      {
+        "label": "b",
+        "text": "case 2 only"
+      },
+      {
+        "label": "c",
+        "text": "case 3 only"
+      },
+      {
+        "label": "d",
+        "text": "case 1 and case 2"
+      },
+      {
+        "label": "e",
+        "text": "case 1 and case 3"
+      },
+      {
+        "label": "f",
+        "text": "case 2 and case 3"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"d\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"G\", \"answer\": \"e\"}, {\"subquestion\": 2, \"blank\": \"H\", \"answer\": \"e\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "d"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "G",
+          "answer": "e"
+        },
+        {
+          "subquestion": 2,
+          "blank": "H",
+          "answer": "e"
+        }
+      ]
+    },
+    "images": [
+      "2023-april-b-q06-figure1.webp",
+      "2023-april-b-q06-figure2.webp",
+      "2023-april-b-q06-figure3.webp",
+      "2023-april-b-q06-figure4.webp",
+      "2023-april-b-q06-figure5.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023S, FE, Subject-B, Q6)",
+    "source_pages": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q6. Read the following description of programs, and then answer Subquestions 1 and 2.\n\n An operating system needs to manage the dynamic assignment of memory for processes.\n Figure 1 shows an example of memory allocation status. There are 32 contiguous memory\n blocks numbered 0 to 31. For example, memory blocks 0 to 3 are allocated to process R, and\n memory blocks 4 to 6 are free. In the Figures, ___ indicates free memory blocks.\n\n 0 3 4 6 7 10 11 15 16 19 20 24 25 27 28 31\n R S T U V\n\n Figure 1 Example of memory allocation status\n\n One way to track the memory allocation status is to maintain a linked list. The linked list in\n Figure 2 represents the memory allocation status presented in Figure 1. The nodes are kept\n sorted by starting memory block number.\n In Figure 2, sentinels (dotted nodes) are placed at both ends such that any actual node can\n be handled as an intermediate node, even if it is the first or the last node. The shaded parts\n are unchangeable by its nature, and “wall” indicates the states of the sentinels are “allocated”.\n\n next ____●__→__●__→__●__ →__●__ →__●__ →__●__ →__●__→__●__→__●__ → ┤\n prev __ ├ ← ● ← ● ← ● ← ● ← ● ← ● ← ● ← ● ←__●__\n state __ wall R - S T - U V - wall\n start __ -1 0 4 7 11 16 20 25 28 32\n size __ 1 4 3 4 5 4 5 3 4 1\n\n Figure 2 Linked list that represents the memory allocation status in Figure 1\n\n [Program Description]\n The program manages the memory shown in Figure 1 with the linked list shown in Figure 2.\n The program performs the following two kinds of operations:\n (i) When a new process starts, allocate the requested size of contiguous memory blocks,\n (ii) When an executing process terminates, release the occupied memory blocks.\n\n To handle the nodes, the data type Node is introduced as:\n\n Node: node {Node: next, // next node\n Node: prev, // previous node\n STRING: state, // process name (allocated) or \"-\" (free)\n INT: start, // starting memory block number\n INT: size // size of memory blocks\n\n }\n\nThe program uses four functions: createNode, removeNode, allocate, and release.\nThe linked list is maintained by two major functions allocate and release. The functions\ncreateNode and removeNode are called from allocate and release respectively.\n\n(1) FUNCTION: createNode()\n Function createNode creates a new node and returns it.\n The following statements create a new node and name it new.\n\n Node: new\n new ← createNode();\n\n After creating the new node, the program must insert it into the linked list by setting the\n node pointers of concerned nodes.\n\n(2) FUNCTION: removeNode(Node: remove)\n Function removeNode removes the node remove given by the argument.\n The following statements remove the node named garbage.\n\n Node: garbage\n\n removeNode(garbage);\n\n Before removing the node, the program must cut off the linkage to / from it by setting the\n node pointers of concerned nodes.\n\n(3) FUNCTION: allocate(Node: free, STRING: procName, INT: reqSize)\n Function allocate allocates memory blocks of size reqSize to the process procName\n from the free memory blocks held by node free.\n When this function is called, it is ensured that the following conditions are satisfied:\n (i) The state of node free is “free”. Namely, free.state = \"-\".\n (ii) Node free holds enough free memory blocks. Namely, free.size ≥ reqSize.\n\n In this function, two cases (cases (a) and (b) in Figure 3) should be considered.\n Case (a): free.size = reqSize.\n The entire memory blocks held by the node free are allocated to the process. The\n number of nodes in the linked list remains unchanged.\n Case (b): free.size > reqSize.\n The node free must be divided into two nodes. Consequently, the number of nodes\n increases by 1.\n\nprN prN\n (a) L M (b) L M\n 10 ↓ 13 10 ↓ 13 14 15\n L N M L N M\n prN (new node) prN\n\n Figure 3 Two cases where the function is called as allocate(prN, \"N\", 4);\n\n[Program allocate]\n\n FUNCTION: allocate(Node: free, STRING: procName, INT: reqSize) {\n Node: last, new\n\n IF (free.size = reqSize) {\n ___A___;\n }\n ELSE { /* free.size > reqSize */\n new ← createNode();\n last ← free.prev;\n\n last.next ← new;\n new.next ← free;\n ___B___;\n ___C___;\n\n new.state ← procName;\n new.start ← free.start;\n new.size ← reqSize;\n free.start ← free.start + reqSize;\n free.size ← ___D___;\n }\n }\n\n(4) FUNCTION: release(Node: proc)\n Function release releases the memory blocks held by node proc. The memory blocks\n occupied by the process in node proc become free memory blocks.\n When this function is called, the following condition is satisfied:\n The state of node proc is “allocated”. Namely, proc.state ≠ \"-\".\n In this function, four cases (cases (a) to (d) in Figure 4) should be considered.\n Case (a): The states of previous and next nodes are “allocated”. After changing node proc\n to “free”, the number of nodes in the linked list remains unchanged.\n Cases (b) and (c): The state of the previous node is “allocated” and the state of the next\n node is “free”, or vice versa. After changing node proc to “free”, two consecutive\n “free” nodes must be combined into a single “free” node. Therefore, the number of\n nodes reduces by 1.\n\nCase (d): The states of previous and next nodes are “free”. After changing node proc to\n “free”, three consecutive “free” nodes must be combined into a single “free” node.\n Therefore, the number of nodes reduces by 2.\n\n prX prX\n (a) V W X Y Z (b) V W X Z\n ↓ ↓\n V W Y Z V W Z\n prX prX\n\n prX prX\n (c) V X Y Z (d) V X Z\n ↓ ↓\n V Y Z V Z\n prX prX\n\n Figure 4 Four cases where the function is called as release(prX);\n\n[Program release]\n\n FUNCTION: release(Node: proc) {\n\n Node: next1, next2, prev1, prev2\n\n proc.state ← \"-\";\n next1 ← proc.next;\n IF (next1.state = \"-\") { /* Combine two consecutive \"free\" nodes */\n next2 ← next1.next;\n proc.next ← next2;\n next2.prev ← proc;\n proc.size ← proc.size + next1.size;\n removeNode(next1);\n }\n prev1 ← proc.prev;\n IF (prev1.state = \"-\") { /* Combine two consecutive \"free\" nodes */\n prev2 ← prev1.prev;\n ___E___;\n ___F___ ;\n proc.start ← prev1.start;\n proc.size ← ___G___ ;\n removeNode(prev1);\n }\n\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above programs.\n\n Answer group for A\n a) /* Do nothing */ b) free.start ← free.start + reqSize\n c) free.state ← \"-\" d) free.state ← procName\n\n Answer group for B and C\n a) free.prev ← last b) free.prev ← new\n c) last.prev ← free d) last.prev ← new\n e) new.prev ← free f) new.prev ← last\n\n Answer group for D\n a) free.size - reqSize b) free.size - reqSize - 1\n c) reqSize d) reqSize - 1\n\n Answer group for E and F\n a) prev1.next ← proc b) prev1.prev ← prev2\n c) prev2.next ← prev1 d) prev2.next ← proc\n e) proc.prev ← prev1 f) proc.prev ← prev2\n\n Answer group for G\n a) prev1.size b) prev1.size + next1.size\n c) prev2.size d) prev2.size + next1.size\n e) proc.size + prev1.size f) proc.size + prev2.size\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\n Figure 5 shows the current memory allocation status, and the linked list in Figure 6\n represents the memory allocation status presented in Figure 5. It is assumed that the first\n three nodes in Figure 6 can be referred to by node names n0, n1, and n2.\n\n 0 3 4 7 8 11 12 15 16 31\n X Y\n\n Figure 5 Current memory allocation status\n\n node n0 n1 n2\n next ____●__ →__●__→__●__→__●__→__●__ →__●__ → ┤\n prev __ ├ ← ● ← ● ← ● ← ● ← ● ←__●__\n state __ wall - X - Y - wall\n start __ -1 0 4 8 12 16 32\n size __ 1 4 4 4 4 16 1\n\n Figure 6 Linked list that represents the memory allocation status in Figure 5\n\n Among the following three cases:\n Case 1: Function allocate is called as allocate(n1, \"Z\", 2);\n Case 2: Function allocate is called as allocate(n1, \"Z\", 4);\n Case 3: Function release is called as release(n2);\n the case(s) that update(s) the contents of n0.next is(are) ___H___.\n\n Answer group for H\n a) case 1 only b) case 2 only c) case 3 only\n d) case 1 and case 2 e) case 1 and case 3 f) case 2 and case 3",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q6. Read the following description of programs, and then answer Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "An operating system needs to manage the dynamic assignment of memory for processes.\n Figure 1 shows an example of memory allocation status. There are 32 contiguous memory\n blocks numbered 0 to 31. For example, memory blocks 0 to 3 are allocated to process R, and\n memory blocks 4 to 6 are free. In the Figures, ___ indicates free memory blocks.\n\n0 3 4 6 7 10 11 15 16 19 20 24 25 27 28 31\n R S T U V\n\nFigure 1 Example of memory allocation status\n\nOne way to track the memory allocation status is to maintain a linked list. The linked list in\n Figure 2 represents the memory allocation status presented in Figure 1. The nodes are kept\n sorted by starting memory block number.\n In Figure 2, sentinels (dotted nodes) are placed at both ends such that any actual node can\n be handled as an intermediate node, even if it is the first or the last node. The shaded parts\n are unchangeable by its nature, and “wall” indicates the states of the sentinels are “allocated”.\n\nnext ____●__→__●__→__●__ →__●__ →__●__ →__●__ →__●__→__●__→__●__ → ┤\n prev __ ├ ← ● ← ● ← ● ← ● ← ● ← ● ← ● ← ● ←__●__\n state __ wall R - S T - U V - wall\n start __ -1 0 4 7 11 16 20 25 28 32\n size __ 1 4 3 4 5 4 5 3 4 1\n\nFigure 2 Linked list that represents the memory allocation status in Figure 1\n\n[Program Description]\n The program manages the memory shown in Figure 1 with the linked list shown in Figure 2.\n The program performs the following two kinds of operations:\n (i) When a new process starts, allocate the requested size of contiguous memory blocks,\n (ii) When an executing process terminates, release the occupied memory blocks.\n\nTo handle the nodes, the data type Node is introduced as:\n\nNode: node {Node: next, // next node\n Node: prev, // previous node\n STRING: state, // process name (allocated) or \"-\" (free)\n INT: start, // starting memory block number\n INT: size // size of memory blocks\n\n}\n\nThe program uses four functions: createNode, removeNode, allocate, and release.\nThe linked list is maintained by two major functions allocate and release. The functions\ncreateNode and removeNode are called from allocate and release respectively.\n\n(1) FUNCTION: createNode()\n Function createNode creates a new node and returns it.\n The following statements create a new node and name it new.\n\nNode: new\n new ← createNode();\n\nAfter creating the new node, the program must insert it into the linked list by setting the\n node pointers of concerned nodes.\n\n(2) FUNCTION: removeNode(Node: remove)\n Function removeNode removes the node remove given by the argument.\n The following statements remove the node named garbage.\n\nNode: garbage\n\nremoveNode(garbage);\n\nBefore removing the node, the program must cut off the linkage to / from it by setting the\n node pointers of concerned nodes.\n\n(3) FUNCTION: allocate(Node: free, STRING: procName, INT: reqSize)\n Function allocate allocates memory blocks of size reqSize to the process procName\n from the free memory blocks held by node free.\n When this function is called, it is ensured that the following conditions are satisfied:\n (i) The state of node free is “free”. Namely, free.state = \"-\".\n (ii) Node free holds enough free memory blocks. Namely, free.size ≥ reqSize.\n\nIn this function, two cases (cases (a) and (b) in Figure 3) should be considered.\n Case (a): free.size = reqSize.\n The entire memory blocks held by the node free are allocated to the process. The\n number of nodes in the linked list remains unchanged.\n Case (b): free.size > reqSize.\n The node free must be divided into two nodes. Consequently, the number of nodes\n increases by 1.\n\nprN prN\n (a) L M (b) L M\n 10 ↓ 13 10 ↓ 13 14 15\n L N M L N M\n prN (new node) prN\n\nFigure 3 Two cases where the function is called as allocate(prN, \"N\", 4);\n\n[Program allocate]\n\nFUNCTION: allocate(Node: free, STRING: procName, INT: reqSize) {\n Node: last, new\n\nIF (free.size = reqSize) {\n ***A***;\n }\n ELSE { /* free.size > reqSize */\n new ← createNode();\n last ← free.prev;\n\nlast.next ← new;\n new.next ← free;\n ***B***;\n ***C***;\n\nnew.state ← procName;\n new.start ← free.start;\n new.size ← reqSize;\n free.start ← free.start + reqSize;\n free.size ← ***D***;\n }\n }\n\n(4) FUNCTION: release(Node: proc)\n Function release releases the memory blocks held by node proc. The memory blocks\n occupied by the process in node proc become free memory blocks.\n When this function is called, the following condition is satisfied:\n The state of node proc is “allocated”. Namely, proc.state ≠ \"-\".\n In this function, four cases (cases (a) to (d) in Figure 4) should be considered.\n Case (a): The states of previous and next nodes are “allocated”. After changing node proc\n to “free”, the number of nodes in the linked list remains unchanged.\n Cases (b) and (c): The state of the previous node is “allocated” and the state of the next\n node is “free”, or vice versa. After changing node proc to “free”, two consecutive\n “free” nodes must be combined into a single “free” node. Therefore, the number of\n nodes reduces by 1.\n\nCase (d): The states of previous and next nodes are “free”. After changing node proc to\n “free”, three consecutive “free” nodes must be combined into a single “free” node.\n Therefore, the number of nodes reduces by 2.\n\nprX prX\n (a) V W X Y Z (b) V W X Z\n ↓ ↓\n V W Y Z V W Z\n prX prX\n\nprX prX\n (c) V X Y Z (d) V X Z\n ↓ ↓\n V Y Z V Z\n prX prX\n\nFigure 4 Four cases where the function is called as release(prX);\n\n[Program release]\n\nFUNCTION: release(Node: proc) {\n\nNode: next1, next2, prev1, prev2\n\nproc.state ← \"-\";\n next1 ← proc.next;\n IF (next1.state = \"-\") { /* Combine two consecutive \"free\" nodes */\n next2 ← next1.next;\n proc.next ← next2;\n next2.prev ← proc;\n proc.size ← proc.size + next1.size;\n removeNode(next1);\n }\n prev1 ← proc.prev;\n IF (prev1.state = \"-\") { /* Combine two consecutive \"free\" nodes */\n prev2 ← prev1.prev;\n ***E***;\n ***F*** ;\n proc.start ← prev1.start;\n proc.size ← ***G*** ;\n removeNode(prev1);\n }\n\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the above programs.\n\nAnswer group for A\n a) /* Do nothing */ b) free.start ← free.start + reqSize\n c) free.state ← \"-\" d) free.state ← procName\n\nAnswer group for B and C\n a) free.prev ← last b) free.prev ← new\n c) last.prev ← free d) last.prev ← new\n e) new.prev ← free f) new.prev ← last\n\nAnswer group for D\n a) free.size - reqSize b) free.size - reqSize - 1\n c) reqSize d) reqSize - 1\n\nAnswer group for E and F\n a) prev1.next ← proc b) prev1.prev ← prev2\n c) prev2.next ← prev1 d) prev2.next ← proc\n e) proc.prev ← prev1 f) proc.prev ← prev2\n\nAnswer group for G\n a) prev1.size b) prev1.size + next1.size\n c) prev2.size d) prev2.size + next1.size\n e) proc.size + prev1.size f) proc.size + prev2.size\n\nSubquestion 2\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in the following description.\n\nFigure 5 shows the current memory allocation status, and the linked list in Figure 6\n represents the memory allocation status presented in Figure 5. It is assumed that the first\n three nodes in Figure 6 can be referred to by node names n0, n1, and n2.\n\n0 3 4 7 8 11 12 15 16 31\n X Y\n\nFigure 5 Current memory allocation status\n\nnode n0 n1 n2\n next ____●__ →__●__→__●__→__●__→__●__ →__●__ → ┤\n prev __ ├ ← ● ← ● ← ● ← ● ← ● ←__●__\n state __ wall - X - Y - wall\n start __ -1 0 4 8 12 16 32\n size __ 1 4 4 4 4 16 1\n\nFigure 6 Linked list that represents the memory allocation status in Figure 5\n\nAmong the following three cases:\n Case 1: Function allocate is called as allocate(n1, \"Z\", 2);\n Case 2: Function allocate is called as allocate(n1, \"Z\", 4);\n Case 3: Function release is called as release(n2);\n the case(s) that update(s) the contents of n0.next is(are) ***H***."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-april/b/questions.pdf",
+        "pages": [
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-april/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_number": 7,
+    "question_text": "Q7. Read the following description of a C program, and then answer Subquestions 1 and 2.\n\nA palindrome is a word or other sequence of characters that read the same backward as\n forward, such as anna, madam, or stats.\n There are also numeric palindromes that can read the same forward and backward, such as\n 353, 787, and 2332, including numbers with the same digits, such as 22, 555, and 8888. In\n most cases, a natural number becomes a palindrome number when the “reverse and add”\n process is continuously applied. The process is called the “Lychrel process”. For example,\n 13 becomes a palindrome number when 31, which is the reverse of 13, is added. Similarly,\n 754 becomes a palindrome number when the Lychrel process is applied twice: 754 + 457 =\n 1211; 1211 + 1121 = 2332; and 255 becomes a palindrome number when the Lychrel process\n is applied three times: 255 + 552 = 807; 807 + 708 = 1515; 1515 + 5151 = 6666. However,\n it is unknown for some numbers how many steps will be taken to become a palindrome\n number with the Lychrel process. These numbers are 196, 295, and so on.\n\n[Program Description]\n The program reads a non-negative number of less than or equal to 10 digits and tries to make\n a palindrome from the number. Finally, the program outputs a message that tells whether the\n number is originally a palindrome or becomes a palindrome with the Lychrel process within\n the specified number of attempts.\n\nThe program uses a character string to represent a number. The string has enough size for\n applying at most 20 times reverse-and-add process to the given number. Each element of the\n string stores a numerical character corresponding to a digit. The first element stores the\n highest digit of the number and the last element stores the NUL character ('\\0'). Figure 1\n shows how the number 2023 is represented in a character string.\n\nIndex 0 1 2 3 4\n Character string '2' '0' '2' '3' '\\0'\n\nFigure 1 Representation of the number 2023 in a character string\n\nThe program consists of the following six functions:\n\n(1) int isNumber(char *str)\n Returns 1 if the string consists of numerical characters only; otherwise, returns 0.\n\n(2) void reverse(char *rev, const char *str)\n Reverses the contents of the string str and stores the result into the string rev. For\n example, calling reverse(x, y), where y is the string \"12345\", results in x being\n \"54321\" with y kept unchanged. Both arguments shall not overlap.\n\n(3) int isPalindrome(const char *str)\n (The explanation is omitted.)\n\n(4) void add(char *addend, const char *adder)\n Adds two numbers represented by the strings. For example, adding \"12345\" and\n \"98765\" results in \"111110\". Both arguments shall be strings of the same length. The\n result of the addition is stored back to the string addend.\n\n(5) int doLychrelProcess(char *strNum, int maxAttempts)\n Calculates the number of attempts until the number takes to get to a palindrome number\n using reverse-and-add process. The argument strNum holds the number represented by\n a character string, and maxAttempts holds the maximum count of attempts. Returns the\n actual count of attempts it made, or returns -1 if it cannot determine whether the number\n becomes a palindrome under the maximum count of attempts.\n\n(6) int main()\n (The explanation is omitted.)\n\nThe program uses the following standard library function.\n\n(0)size_t strlen(const char *str)\n Returns the length of the string str. The length does not contain the terminating NUL\n character ('\\0').\n\nThe example outputs of the program are as follows.\n\n(Example 1)\n\nEnter a number: 97\n [1] 97 + 79 = 176\n [2] 176 + 671 = 847\n [3] 847 + 748 = 1595\n [4] 1595 + 5951 = 7546\n [5] 7546 + 6457 = 14003\n [6] 14003 + 30041 = 44044\n The number becomes a palindrome within 6 steps.\n\n(Example 2)\n\nEnter a number: 98\n [1] 98 + 89 = 187\n [2] 187 + 781 = 968\n [3] 968 + 869 = 1837\n [4] 1837 + 7381 = 9218\n [5] 9218 + 8129 = 17347\n [6] 17347 + 74371 = 91718\n ⁝ (omitted)\n\n[15] 664272356 + 653272466 = 1317544822\n [16] 1317544822 + 2284457131 = 3602001953\n [17] 3602001953 + 3591002063 = 7193004016\n [18] 7193004016 + 6104003917 = 13297007933\n [19] 13297007933 + 33970079231 = 47267087164\n [20] 47267087164 + 46178076274 = 93445163438\n The number does not become a palindrome within 20 steps.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "skipLeadingZeros(strNum), strNum, strlen(strNum)"
+      },
+      {
+        "label": "b",
+        "text": "skipLeadingZeros(strNum), strNum, strlen(strNum) + 1"
+      },
+      {
+        "label": "c",
+        "text": "strNum, skipLeadingZeros(strNum), strlen(skipLeadingZeros(strNum))"
+      },
+      {
+        "label": "d",
+        "text": "strNum, skipLeadingZeros(strNum), strlen(skipLeadingZeros(strNum)) + 1"
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"a\"}, {\"subquestion\": 1, \"blank\": \"E\", \"answer\": \"d\"}, {\"subquestion\": 1, \"blank\": \"F\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"G\", \"answer\": \"c\"}, {\"subquestion\": 2, \"blank\": \"H\", \"answer\": \"d\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "a"
+        },
+        {
+          "subquestion": 1,
+          "blank": "E",
+          "answer": "d"
+        },
+        {
+          "subquestion": 1,
+          "blank": "F",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "G",
+          "answer": "c"
+        },
+        {
+          "subquestion": 2,
+          "blank": "H",
+          "answer": "d"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023S, FE, Subject-B, Q7)",
+    "source_pages": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q7. Read the following description of a C program, and then answer Subquestions 1 and 2.\n\n A palindrome is a word or other sequence of characters that read the same backward as\n forward, such as anna, madam, or stats.\n There are also numeric palindromes that can read the same forward and backward, such as\n 353, 787, and 2332, including numbers with the same digits, such as 22, 555, and 8888. In\n most cases, a natural number becomes a palindrome number when the “reverse and add”\n process is continuously applied. The process is called the “Lychrel process”. For example,\n 13 becomes a palindrome number when 31, which is the reverse of 13, is added. Similarly,\n 754 becomes a palindrome number when the Lychrel process is applied twice: 754 + 457 =\n 1211; 1211 + 1121 = 2332; and 255 becomes a palindrome number when the Lychrel process\n is applied three times: 255 + 552 = 807; 807 + 708 = 1515; 1515 + 5151 = 6666. However,\n it is unknown for some numbers how many steps will be taken to become a palindrome\n number with the Lychrel process. These numbers are 196, 295, and so on.\n\n [Program Description]\n The program reads a non-negative number of less than or equal to 10 digits and tries to make\n a palindrome from the number. Finally, the program outputs a message that tells whether the\n number is originally a palindrome or becomes a palindrome with the Lychrel process within\n the specified number of attempts.\n\n The program uses a character string to represent a number. The string has enough size for\n applying at most 20 times reverse-and-add process to the given number. Each element of the\n string stores a numerical character corresponding to a digit. The first element stores the\n highest digit of the number and the last element stores the NUL character ('\\0'). Figure 1\n shows how the number 2023 is represented in a character string.\n\n Index 0 1 2 3 4\n Character string '2' '0' '2' '3' '\\0'\n\n Figure 1 Representation of the number 2023 in a character string\n\n The program consists of the following six functions:\n\n (1) int isNumber(char *str)\n Returns 1 if the string consists of numerical characters only; otherwise, returns 0.\n\n(2) void reverse(char *rev, const char *str)\n Reverses the contents of the string str and stores the result into the string rev. For\n example, calling reverse(x, y), where y is the string \"12345\", results in x being\n \"54321\" with y kept unchanged. Both arguments shall not overlap.\n\n(3) int isPalindrome(const char *str)\n (The explanation is omitted.)\n\n(4) void add(char *addend, const char *adder)\n Adds two numbers represented by the strings. For example, adding \"12345\" and\n \"98765\" results in \"111110\". Both arguments shall be strings of the same length. The\n result of the addition is stored back to the string addend.\n\n(5) int doLychrelProcess(char *strNum, int maxAttempts)\n Calculates the number of attempts until the number takes to get to a palindrome number\n using reverse-and-add process. The argument strNum holds the number represented by\n a character string, and maxAttempts holds the maximum count of attempts. Returns the\n actual count of attempts it made, or returns -1 if it cannot determine whether the number\n becomes a palindrome under the maximum count of attempts.\n\n(6) int main()\n (The explanation is omitted.)\n\nThe program uses the following standard library function.\n\n(0)size_t strlen(const char *str)\n Returns the length of the string str. The length does not contain the terminating NUL\n character ('\\0').\n\nThe example outputs of the program are as follows.\n\n(Example 1)\n\n Enter a number: 97\n [1] 97 + 79 = 176\n [2] 176 + 671 = 847\n [3] 847 + 748 = 1595\n [4] 1595 + 5951 = 7546\n [5] 7546 + 6457 = 14003\n [6] 14003 + 30041 = 44044\n The number becomes a palindrome within 6 steps.\n\n(Example 2)\n\n Enter a number: 98\n [1] 98 + 89 = 187\n [2] 187 + 781 = 968\n [3] 968 + 869 = 1837\n [4] 1837 + 7381 = 9218\n [5] 9218 + 8129 = 17347\n [6] 17347 + 74371 = 91718\n ⁝ (omitted)\n\n [15] 664272356 + 653272466 = 1317544822\n [16] 1317544822 + 2284457131 = 3602001953\n [17] 3602001953 + 3591002063 = 7193004016\n [18] 7193004016 + 6104003917 = 13297007933\n [19] 13297007933 + 33970079231 = 47267087164\n [20] 47267087164 + 46178076274 = 93445163438\n The number does not become a palindrome within 20 steps.\n\n[Program]\n\n #include <stdio.h>\n #include <stdlib.h>\n #include <string.h>\n\n #define MAX_ATTEMPTS 20\n #define MAX_STRLEN (MAX_ATTEMPTS+11)\n\n int isNumber(char *);\n void reverse(char *, const char *);\n int isPalindrome(const char *);\n void add(char *, const char *);\n int doLychrelProcess(char *, int);\n /*** α ***/\n int isNumber(char *str) {\n int i;\n int len = strlen(str);\n for (i = 0; i < len; i++) {\n if (___A___ ) {\n return 0;\n }\n }\n return len != 0;\n }\n\nvoid reverse(char *rev, const char *str) {\n int i, j;\n int len = strlen(str);\n for (___B___ ) {\n rev[j] = str[i];\n }\n rev[j] = '\\0';\n}\n\nint isPalindrome(const char *str) {\n int i;\n int len = strlen(str);\n for (i = 0; i < len / 2; i++) {\n if (str[i] != ___C___ ) {\n return 0;\n }\n }\n return len != 0;\n}\n\nvoid add(char *addend, const char *adder) {\n int i, digit;\n int carry = 0;\n int len = strlen(addend);\n for (i = len - 1; i >= 0; i--) {\n digit = addend[i] - '0' + adder[i] - '0' + carry;\n addend[i] = ___D___ + '0';\n carry = ___E___;\n }\n if (carry) {\n for (i = len + 1; i > 0; i--) {\n addend[i] = addend[i - 1];\n }\n addend[0] = carry + '0';\n }\n}\n /*** β ***/\n\nint doLychrelProcess(char *strNum, int maxAttempts) {\n int numAttempts = 0;\n char strRev[MAX_STRLEN];\n while (!isPalindrome(strNum) && ++numAttempts <= maxAttempts) {\n reverse(strRev, strNum);\n printf(\"[%d] %s + %s = \",\n numAttempts, strNum, strRev); /*** γ ***/\n add(strNum, strRev);\n printf(\"%s\\n\", strNum);\n }\n if (numAttempts <= maxAttempts) {\n return numAttempts;\n }\n return -1;\n}\n\nint main() {\n char strNum[MAX_STRLEN];\n int steps = 0;\n printf(\"Enter a number: \");\n scanf(\"%10s\", strNum);\n if (!isNumber(strNum)) {\n printf(\"Please input a non-negative integer.\\n\");\n return 0;\n }\n /*** δ ***/\n steps = doLychrelProcess(strNum, MAX_ATTEMPTS);\n if (steps == ___F___) {\n printf(\"The number does not become a palindrome within \"\n \"%d steps.\\n\", MAX_ATTEMPTS);\n }\n else if (steps == 0) {\n printf(\"The number is a palindrome number.\\n\");\n }\n else {\n printf(\"The number becomes a palindrome within \"\n \"%d steps.\\n\", steps);\n }\n return 0;\n}\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the program.\n\n Answer group for A\n a) str[i] < '0' && str[i] > '9'\n b) str[i] < '0' || str[i] > '9'\n c) str[i] > '0' && str[i] < '9'\n d) str[i] > '0' || str[i] < '9'\n\n Answer group for B\n a) i = 0, j = len; i < len - 1; i++, j--\n b) i = 0, j = len; i < len; i++, j--\n c) i = len - 1, j = 0; i >= 0; i--, j++\n d) i = len, j = 0; i >= 0; i--, j++\n\n Answer group for C\n a) str[i / 2] b) str[len - 1 - i]\n c) str[len - 1] d) str[len - i]\n e) str[len]\n\n Answer group for D and E\n a) digit % 10 b) digit & 1\n c) digit * 10 d) digit / 10\n e) digit >> 1\n\n Answer group for F\n a) -1 b) 0\n c) 1 d) MAX_ATTEMPTS\n\nSubquestion 2\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in the following description. Here, it is assumed that the correct answers are\n inserted in the blanks ___A___ to ___F___ in the program.\n\n The program handles the number with leading zeros differently than the same number\n without leading zeros. For example, the program output for input 0097 differs from the\n output for 97.\n\n Enter a number: 0097\n [1] 0097 + 7900 = 7997\n The number becomes a palindrome within 1 steps.\n\n A new function named skipLeadingZeros is added to the program according to the\n following instructions such that the output for a number is unique even if there are leading\n zeros or not.\n\n (1) Insert the following line at the line indicated by /*** α ***/.\n\n const char *skipLeadingZeros(const char *);\n\n (2) Insert the following 9 lines at the line indicated by /*** β ***/.\n\n const char *skipLeadingZeros(const char *str) {\n while (*str == '0') {\n str++;\n }\n if (*str == '\\0') {\n return ___G___;\n }\n return str;\n }\n\n This function returns the pointer to the character that is the first occurrence of non-zero\n character. If str consists of zeros only, returns the pointer to the last zero character.\n\n (3) Replace the line indicated by /*** γ ***/ with the following line.\n\n numAttempts, strNum, skipLeadingZeros(strRev));\n\n(4) Insert the following line at the line indicated by /*** δ ***/.\n\n memmove(___H___ );\n\n Here, memmove is the standard library function defined as follows:\n\n void *memmove(void *dest, void *src, size_t len)\n\n This function copies the character string of length len from src to dest, where src and\n dest may overlap each other.\n\nAnswer group for G\n a) *str b) str + 1\n c) str - 1 d) NULL\n\nAnswer group for H\n a) skipLeadingZeros(strNum), strNum, strlen(strNum)\n b) skipLeadingZeros(strNum), strNum, strlen(strNum) + 1\n c) strNum, skipLeadingZeros(strNum), strlen(skipLeadingZeros(strNum))\n d) strNum, skipLeadingZeros(strNum), strlen(skipLeadingZeros(strNum)) + 1",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q7. Read the following description of a C program, and then answer Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "A palindrome is a word or other sequence of characters that read the same backward as\n forward, such as anna, madam, or stats.\n There are also numeric palindromes that can read the same forward and backward, such as\n 353, 787, and 2332, including numbers with the same digits, such as 22, 555, and 8888. In\n most cases, a natural number becomes a palindrome number when the “reverse and add”\n process is continuously applied. The process is called the “Lychrel process”. For example,\n 13 becomes a palindrome number when 31, which is the reverse of 13, is added. Similarly,\n 754 becomes a palindrome number when the Lychrel process is applied twice: 754 + 457 =\n 1211; 1211 + 1121 = 2332; and 255 becomes a palindrome number when the Lychrel process\n is applied three times: 255 + 552 = 807; 807 + 708 = 1515; 1515 + 5151 = 6666. However,\n it is unknown for some numbers how many steps will be taken to become a palindrome\n number with the Lychrel process. These numbers are 196, 295, and so on.\n\n[Program Description]\n The program reads a non-negative number of less than or equal to 10 digits and tries to make\n a palindrome from the number. Finally, the program outputs a message that tells whether the\n number is originally a palindrome or becomes a palindrome with the Lychrel process within\n the specified number of attempts.\n\nThe program uses a character string to represent a number. The string has enough size for\n applying at most 20 times reverse-and-add process to the given number. Each element of the\n string stores a numerical character corresponding to a digit. The first element stores the\n highest digit of the number and the last element stores the NUL character ('\\0'). Figure 1\n shows how the number 2023 is represented in a character string.\n\nIndex 0 1 2 3 4\n Character string '2' '0' '2' '3' '\\0'\n\nFigure 1 Representation of the number 2023 in a character string\n\nThe program consists of the following six functions:\n\n(1) int isNumber(char *str)\n Returns 1 if the string consists of numerical characters only; otherwise, returns 0.\n\n(2) void reverse(char *rev, const char *str)\n Reverses the contents of the string str and stores the result into the string rev. For\n example, calling reverse(x, y), where y is the string \"12345\", results in x being\n \"54321\" with y kept unchanged. Both arguments shall not overlap.\n\n(3) int isPalindrome(const char *str)\n (The explanation is omitted.)\n\n(4) void add(char *addend, const char *adder)\n Adds two numbers represented by the strings. For example, adding \"12345\" and\n \"98765\" results in \"111110\". Both arguments shall be strings of the same length. The\n result of the addition is stored back to the string addend.\n\n(5) int doLychrelProcess(char *strNum, int maxAttempts)\n Calculates the number of attempts until the number takes to get to a palindrome number\n using reverse-and-add process. The argument strNum holds the number represented by\n a character string, and maxAttempts holds the maximum count of attempts. Returns the\n actual count of attempts it made, or returns -1 if it cannot determine whether the number\n becomes a palindrome under the maximum count of attempts.\n\n(6) int main()\n (The explanation is omitted.)\n\nThe program uses the following standard library function.\n\n(0)size_t strlen(const char *str)\n Returns the length of the string str. The length does not contain the terminating NUL\n character ('\\0').\n\nThe example outputs of the program are as follows.\n\n(Example 1)\n\nEnter a number: 97\n [1] 97 + 79 = 176\n [2] 176 + 671 = 847\n [3] 847 + 748 = 1595\n [4] 1595 + 5951 = 7546\n [5] 7546 + 6457 = 14003\n [6] 14003 + 30041 = 44044\n The number becomes a palindrome within 6 steps.\n\n(Example 2)\n\nEnter a number: 98\n [1] 98 + 89 = 187\n [2] 187 + 781 = 968\n [3] 968 + 869 = 1837\n [4] 1837 + 7381 = 9218\n [5] 9218 + 8129 = 17347\n [6] 17347 + 74371 = 91718\n ⁝ (omitted)\n\n[15] 664272356 + 653272466 = 1317544822\n [16] 1317544822 + 2284457131 = 3602001953\n [17] 3602001953 + 3591002063 = 7193004016\n [18] 7193004016 + 6104003917 = 13297007933\n [19] 13297007933 + 33970079231 = 47267087164\n [20] 47267087164 + 46178076274 = 93445163438\n The number does not become a palindrome within 20 steps."
+      },
+      {
+        "type": "code",
+        "language": "itpec-pseudocode",
+        "text": "int doLychrelProcess(char *strNum, int maxAttempts) {\n    int numAttempts = 0;\n    char strRev[MAX_STRLEN];\n    while (!isPalindrome(strNum) && ++numAttempts <= maxAttempts) {\n        reverse(strRev, strNum);\n        printf(\"[%d] %s + %s = \",\n               numAttempts, strNum, strRev);              /*** γ ***/\n        add(strNum, strRev);\n        printf(\"%s\\n\", strNum);\n    }\n    if (numAttempts <= maxAttempts) {\n        return numAttempts;\n    }\n    return -1;\n}\n\nint main() {\n    char strNum[MAX_STRLEN];\n    int steps = 0;\n    printf(\"Enter a number: \");\n    scanf(\"%10s\", strNum);\n    if (!isNumber(strNum)) {\n        printf(\"Please input a non-negative integer.\\n\");\n        return 0;\n    }\n                                                          /*** δ ***/\n    steps = doLychrelProcess(strNum, MAX_ATTEMPTS);\nprintf(\"The number does not become a palindrome within \"\n               \"%d steps.\\n\", MAX_ATTEMPTS);\n    }\n    else if (steps == 0) {\n        printf(\"The number is a palindrome number.\\n\");\n    }\n    else {\n        printf(\"The number becomes a palindrome within \"\n               \"%d steps.\\n\", steps);\n    }\n    return 0;\n}\nconst char *skipLeadingZeros(const char *str) {\n        while (*str == '0') {\n            str++;\n        }\n        if (*str == '\\0') {"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-april/b/questions.pdf",
+        "pages": [
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-april/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2023-april",
+    "subject": "B",
+    "question_number": 8,
+    "question_text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2.\n\n[Program Description]\n A bag is a finite collection of objects in no particular order. A bag can contain duplicate items.\n A data structure bag can perform the following tasks:\n i) Get the number of items currently in the bag\n ii) Add a given item in the bag\n iii) Count the number of times a certain item occurs in the bag\n iv) Check whether the bag is full\n v) Check whether the bag is empty\n Consider a bag data structure implemented by the interface Bag.\n Table 1 summarizes the descriptions of the five methods.\n\nTable 1 Descriptions of the five methods\n\nMethod Description\n int size() Get and return the number of items currently in the bag.\n boolean add(T entry) Add an entry to the bag. Return true if the entry is\n successfully added; otherwise, return false.\n int count(T entry) Count and return the number of occurrences of the\n specified entry among the elements in the bag.\n boolean isFull() Check whether the bag is full. Return true if the bag is\n full; otherwise, return false.\n boolean isEmpty() Check whether the bag is empty. Return true if the bag is\n empty; otherwise, return false.\n\nProgram 1 represents the interface Bag. T is a generic type.\n Program 2 represents the class ArrayBag that implements the interface Bag. There are two\n constructors: (1) initialized with a default capacity of 25 and (2) initialized with the passing\n capacity. The methods presented in Table 1 are implemented in Program 2.\n\n[Program 1]\n\npublic interface Bag<T> {\n public int size();\n public boolean add(T entry);\n public int count(T entry);\n public boolean isFull();\n public boolean isEmpty();\n }\n\n[Program 2]\n public class ***A*** implements Bag<T> {\n private final ***B*** bag;\n private int numberOfEntries = 0;\n private static final int DEFAULT_CAPACITY = 25;\n\npublic ArrayBag() {\n this(DEFAULT_CAPACITY);\n }\n\npublic ArrayBag(int desiredCapacity) {\n @SuppressWarnings(\"unchecked\")\n T[] tempBag = (T[])new Object[desiredCapacity];\n bag = tempBag;\n }\n\npublic int size() {\n return ***C***;\n }\n\npublic boolean add(T entry) {\n if (entry == null) {\n throw new NullPointerException();\n }\n boolean result = true;\n if (isFull()) {\n result = false;\n } else {\n bag[***D***] = entry;\n }\n return result;\n }\n\npublic int count(T entry) {\n int counter = 0;\n for (T item : bag) {\n if (entry.equals(item)) {\n counter++;\n }\n }\n return counter;\n }\n\npublic boolean isFull() {\n return ***C*** >= ***E*** ;\n }\n\npublic boolean isEmpty() {\n return ***C*** == ***F***;\n }\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in Program 2.\n\nAnswer group for A and B\n a) ArrayBag b) ArrayBag<T> c) ArrayBag<T[]>\n d) Bag e) Bag<T> f) Bag<T[]>\n g) T h) T[]\n\nAnswer group for C through F\n a) 0 b) 1\n c) bag.length d) bag.length - 1\n e) bag.length++ f) numberOfEntries\n g) numberOfEntries++ h) numberOfEntries--\n\nSubquestion 2\n Four more methods are added to the class ArrayBag.\n Table 2 summarizes the descriptions of the additional four methods.\n\nTable 2 Descriptions of the additional four methods\n\nMethod Description\n int indexOf(T entry) Find and return the first index of the specified entry in\n the bag. If the entry does not exist, return -1.\n T get(int index) Return the element at the position specified by the\n argument.\n T remove(int index) Remove the element at the position specified by the\n argument. If the element is successfully removed, return\n the removed value. Otherwise, return null.\n If the removed element is not the last element in the bag,\n move the last element to the removed position and set the\n last element to null.\n boolean removeEntry(T Find and remove the first occurrence of the entry and\n entry) return true. Otherwise, return null.\n If the removed element is not the last element in the bag,\n move the last element to the removed position and set the\n last element to null.\n\nProgram 3 represents the added four methods in the class ArrayBag.\n\n[Program 3]\n\npublic int indexOf(T entry) {\n for (int i = 0; i < numberOfEntries; i++) {\n if (entry.equals(bag[i])) {\n return i;\n }\n }\n return -1;\n }\n\npublic T get(int index) {\n if (index < 0 || index >= numberOfEntries) {\n throw new ArrayIndexOutOfBoundsException();\n }\n return bag[index];\n }\n\npublic T remove(int index) {\n T result = null;\n if (index >= 0 && index < numberOfEntries) {\n result = ***G***;\n ***G*** = ***H***;\n ***H*** = null;\n numberOfEntries--;\n }\n return result;\n }\n\npublic boolean removeEntry(T entry) {\n T result = remove(indexOf(entry));\n return entry.equals(result);\n }\n\nFrom the answer group below, select the correct answer to be inserted in each blank\n _______ in Program 3.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "bag[bag.length - 1]"
+      },
+      {
+        "label": "b",
+        "text": "bag[bag.length]"
+      },
+      {
+        "label": "c",
+        "text": "bag[index - 1]"
+      },
+      {
+        "label": "d",
+        "text": "bag[index]"
+      },
+      {
+        "label": "e",
+        "text": "bag[numberOfEntries - 1]"
+      },
+      {
+        "label": "f",
+        "text": "bag[numberOfEntries]\n\n_ _\nCompany names and product names appearing in the test questions are trademarks or registered\ntrademarks of their respective companies. Note that the ® and ™ symbols are not used within the text."
+      }
+    ],
+    "correct_answer": "[{\"subquestion\": 1, \"blank\": \"A\", \"answer\": \"b\"}, {\"subquestion\": 1, \"blank\": \"B\", \"answer\": \"h\"}, {\"subquestion\": 1, \"blank\": \"C\", \"answer\": \"f\"}, {\"subquestion\": 1, \"blank\": \"D\", \"answer\": \"g\"}, {\"subquestion\": 1, \"blank\": \"E\", \"answer\": \"c\"}, {\"subquestion\": 1, \"blank\": \"F\", \"answer\": \"a\"}, {\"subquestion\": 2, \"blank\": \"G\", \"answer\": \"d\"}, {\"subquestion\": 2, \"blank\": \"H\", \"answer\": \"e\"}]",
+    "answer_key": {
+      "parts": [
+        {
+          "subquestion": 1,
+          "blank": "A",
+          "answer": "b"
+        },
+        {
+          "subquestion": 1,
+          "blank": "B",
+          "answer": "h"
+        },
+        {
+          "subquestion": 1,
+          "blank": "C",
+          "answer": "f"
+        },
+        {
+          "subquestion": 1,
+          "blank": "D",
+          "answer": "g"
+        },
+        {
+          "subquestion": 1,
+          "blank": "E",
+          "answer": "c"
+        },
+        {
+          "subquestion": 1,
+          "blank": "F",
+          "answer": "a"
+        },
+        {
+          "subquestion": 2,
+          "blank": "G",
+          "answer": "d"
+        },
+        {
+          "subquestion": 2,
+          "blank": "H",
+          "answer": "e"
+        }
+      ]
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2023S, FE, Subject-B, Q8)",
+    "source_pages": [
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2.\n\n [Program Description]\n A bag is a finite collection of objects in no particular order. A bag can contain duplicate items.\n A data structure bag can perform the following tasks:\n i) Get the number of items currently in the bag\n ii) Add a given item in the bag\n iii) Count the number of times a certain item occurs in the bag\n iv) Check whether the bag is full\n v) Check whether the bag is empty\n Consider a bag data structure implemented by the interface Bag.\n Table 1 summarizes the descriptions of the five methods.\n\n Table 1 Descriptions of the five methods\n\n Method Description\n int size() Get and return the number of items currently in the bag.\n boolean add(T entry) Add an entry to the bag. Return true if the entry is\n successfully added; otherwise, return false.\n int count(T entry) Count and return the number of occurrences of the\n specified entry among the elements in the bag.\n boolean isFull() Check whether the bag is full. Return true if the bag is\n full; otherwise, return false.\n boolean isEmpty() Check whether the bag is empty. Return true if the bag is\n empty; otherwise, return false.\n\n Program 1 represents the interface Bag. T is a generic type.\n Program 2 represents the class ArrayBag that implements the interface Bag. There are two\n constructors: (1) initialized with a default capacity of 25 and (2) initialized with the passing\n capacity. The methods presented in Table 1 are implemented in Program 2.\n\n [Program 1]\n\n public interface Bag<T> {\n public int size();\n public boolean add(T entry);\n public int count(T entry);\n public boolean isFull();\n public boolean isEmpty();\n }\n\n[Program 2]\n public class ___A___ implements Bag<T> {\n private final ___B___ bag;\n private int numberOfEntries = 0;\n private static final int DEFAULT_CAPACITY = 25;\n\n public ArrayBag() {\n this(DEFAULT_CAPACITY);\n }\n\n public ArrayBag(int desiredCapacity) {\n @SuppressWarnings(\"unchecked\")\n T[] tempBag = (T[])new Object[desiredCapacity];\n bag = tempBag;\n }\n\n public int size() {\n return ___C___;\n }\n\n public boolean add(T entry) {\n if (entry == null) {\n throw new NullPointerException();\n }\n boolean result = true;\n if (isFull()) {\n result = false;\n } else {\n bag[___D___] = entry;\n }\n return result;\n }\n\n public int count(T entry) {\n int counter = 0;\n for (T item : bag) {\n if (entry.equals(item)) {\n counter++;\n }\n }\n return counter;\n }\n\npublic boolean isFull() {\n return ___C___ >= ___E___ ;\n }\n\n public boolean isEmpty() {\n return ___C___ == ___F___;\n }\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in Program 2.\n\n Answer group for A and B\n a) ArrayBag b) ArrayBag<T> c) ArrayBag<T[]>\n d) Bag e) Bag<T> f) Bag<T[]>\n g) T h) T[]\n\n Answer group for C through F\n a) 0 b) 1\n c) bag.length d) bag.length - 1\n e) bag.length++ f) numberOfEntries\n g) numberOfEntries++ h) numberOfEntries--\n\nSubquestion 2\n Four more methods are added to the class ArrayBag.\n Table 2 summarizes the descriptions of the additional four methods.\n\n Table 2 Descriptions of the additional four methods\n\n Method Description\n int indexOf(T entry) Find and return the first index of the specified entry in\n the bag. If the entry does not exist, return -1.\n T get(int index) Return the element at the position specified by the\n argument.\n T remove(int index) Remove the element at the position specified by the\n argument. If the element is successfully removed, return\n the removed value. Otherwise, return null.\n If the removed element is not the last element in the bag,\n move the last element to the removed position and set the\n last element to null.\n boolean removeEntry(T Find and remove the first occurrence of the entry and\n entry) return true. Otherwise, return null.\n If the removed element is not the last element in the bag,\n move the last element to the removed position and set the\n last element to null.\n\n Program 3 represents the added four methods in the class ArrayBag.\n\n [Program 3]\n\n public int indexOf(T entry) {\n for (int i = 0; i < numberOfEntries; i++) {\n if (entry.equals(bag[i])) {\n return i;\n }\n }\n return -1;\n }\n\n public T get(int index) {\n if (index < 0 || index >= numberOfEntries) {\n throw new ArrayIndexOutOfBoundsException();\n }\n return bag[index];\n }\n\npublic T remove(int index) {\n T result = null;\n if (index >= 0 && index < numberOfEntries) {\n result = ___G___;\n ___G___ = ___H___;\n ___H___ = null;\n numberOfEntries--;\n }\n return result;\n }\n\n public boolean removeEntry(T entry) {\n T result = remove(indexOf(entry));\n return entry.equals(result);\n }\n\n From the answer group below, select the correct answer to be inserted in each blank\n _______ in Program 3.\n\n Answer group for G and H\n a) bag[bag.length - 1] b) bag[bag.length]\n c) bag[index - 1] d) bag[index]\n e) bag[numberOfEntries - 1] f) bag[numberOfEntries]\n\n_ _\nCompany names and product names appearing in the test questions are trademarks or registered\ntrademarks of their respective companies. Note that the ® and ™ symbols are not used within the text.",
+    "content_blocks": [
+      {
+        "type": "prompt",
+        "text": "Q8. Read the following description of Java programs, and then answer Subquestions 1 and 2."
+      },
+      {
+        "type": "context",
+        "text": "[Program Description]\n A bag is a finite collection of objects in no particular order. A bag can contain duplicate items.\n A data structure bag can perform the following tasks:\n i) Get the number of items currently in the bag\n ii) Add a given item in the bag\n iii) Count the number of times a certain item occurs in the bag\n iv) Check whether the bag is full\n v) Check whether the bag is empty\n Consider a bag data structure implemented by the interface Bag.\n Table 1 summarizes the descriptions of the five methods.\n\nTable 1 Descriptions of the five methods\n\nMethod Description\n int size() Get and return the number of items currently in the bag.\n boolean add(T entry) Add an entry to the bag. Return true if the entry is\n successfully added; otherwise, return false.\n int count(T entry) Count and return the number of occurrences of the\n specified entry among the elements in the bag.\n boolean isFull() Check whether the bag is full. Return true if the bag is\n full; otherwise, return false.\n boolean isEmpty() Check whether the bag is empty. Return true if the bag is\n empty; otherwise, return false.\n\nProgram 1 represents the interface Bag. T is a generic type.\n Program 2 represents the class ArrayBag that implements the interface Bag. There are two\n constructors: (1) initialized with a default capacity of 25 and (2) initialized with the passing\n capacity. The methods presented in Table 1 are implemented in Program 2.\n\n[Program 1]\n\npublic interface Bag<T> {\n public int size();\n public boolean add(T entry);\n public int count(T entry);\n public boolean isFull();\n public boolean isEmpty();\n }\n\n[Program 2]\n public class ***A*** implements Bag<T> {\n private final ***B*** bag;\n private int numberOfEntries = 0;\n private static final int DEFAULT_CAPACITY = 25;\n\npublic ArrayBag() {\n this(DEFAULT_CAPACITY);\n }\n\npublic ArrayBag(int desiredCapacity) {\n @SuppressWarnings(\"unchecked\")\n T[] tempBag = (T[])new Object[desiredCapacity];\n bag = tempBag;\n }\n\npublic int size() {\n return ***C***;\n }\n\npublic boolean add(T entry) {\n if (entry == null) {\n throw new NullPointerException();\n }\n boolean result = true;\n if (isFull()) {\n result = false;\n } else {\n bag[***D***] = entry;\n }\n return result;\n }\n\npublic int count(T entry) {\n int counter = 0;\n for (T item : bag) {\n if (entry.equals(item)) {\n counter++;\n }\n }\n return counter;\n }\n\npublic boolean isFull() {\n return ***C*** >= ***E*** ;\n }\n\npublic boolean isEmpty() {\n return ***C*** == ***F***;\n }\n }\n\nSubquestion 1\n From the answer groups below, select the correct answer to be inserted in each blank\n _______ in Program 2.\n\nAnswer group for A and B\n a) ArrayBag b) ArrayBag<T> c) ArrayBag<T[]>\n d) Bag e) Bag<T> f) Bag<T[]>\n g) T h) T[]\n\nAnswer group for C through F\n a) 0 b) 1\n c) bag.length d) bag.length - 1\n e) bag.length++ f) numberOfEntries\n g) numberOfEntries++ h) numberOfEntries--\n\nSubquestion 2\n Four more methods are added to the class ArrayBag.\n Table 2 summarizes the descriptions of the additional four methods.\n\nTable 2 Descriptions of the additional four methods\n\nMethod Description\n int indexOf(T entry) Find and return the first index of the specified entry in\n the bag. If the entry does not exist, return -1.\n T get(int index) Return the element at the position specified by the\n argument.\n T remove(int index) Remove the element at the position specified by the\n argument. If the element is successfully removed, return\n the removed value. Otherwise, return null.\n If the removed element is not the last element in the bag,\n move the last element to the removed position and set the\n last element to null.\n boolean removeEntry(T Find and remove the first occurrence of the entry and\n entry) return true. Otherwise, return null.\n If the removed element is not the last element in the bag,\n move the last element to the removed position and set the\n last element to null.\n\nProgram 3 represents the added four methods in the class ArrayBag.\n\n[Program 3]\n\npublic int indexOf(T entry) {\n for (int i = 0; i < numberOfEntries; i++) {\n if (entry.equals(bag[i])) {\n return i;\n }\n }\n return -1;\n }\n\npublic T get(int index) {\n if (index < 0 || index >= numberOfEntries) {\n throw new ArrayIndexOutOfBoundsException();\n }\n return bag[index];\n }\n\npublic T remove(int index) {\n T result = null;\n if (index >= 0 && index < numberOfEntries) {\n result = ***G***;\n ***G*** = ***H***;\n ***H*** = null;\n numberOfEntries--;\n }\n return result;\n }\n\npublic boolean removeEntry(T entry) {\n T result = remove(indexOf(entry));\n return entry.equals(result);\n }\n\nFrom the answer group below, select the correct answer to be inserted in each blank\n _______ in Program 3."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2023-april/b/questions.pdf",
+        "pages": [
+          38,
+          39,
+          40,
+          41,
+          42
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2023-april/b/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  }
+]

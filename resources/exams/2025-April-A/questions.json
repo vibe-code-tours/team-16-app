@@ -1,0 +1,5994 @@
+[
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 1,
+    "question_text": "Q1. For an 8-bit binary integer, which of the following is the operation that extracts the most\n significant 4-bits while making the other bits zero?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Bitwise AND operation with 11110000."
+      },
+      {
+        "label": "b",
+        "text": "Bitwise NAND operation with 11110000."
+      },
+      {
+        "label": "c",
+        "text": "Bitwise OR operation with 00001111."
+      },
+      {
+        "label": "d",
+        "text": "Bitwise XOR operation with 00001111."
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q1)",
+    "source_pages": [
+      4
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q1. For an 8-bit binary integer, which of the following is the operation that extracts the most\n significant 4-bits while making the other bits zero?\n\n a) Bitwise AND operation with 11110000.\n b) Bitwise NAND operation with 11110000.\n c) Bitwise OR operation with 00001111.\n d) Bitwise XOR operation with 00001111.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          65.22,
+          67.74,
+          523.79,
+          81.19
+        ],
+        "text": "Q1.  For an 8-bit binary integer, which of the following is the operation that extracts the most"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          85.62,
+          85.85,
+          332.87,
+          99.13
+        ],
+        "text": "significant 4-bits while making the other bits zero?"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          65.22,
+          122.93,
+          306.13,
+          208.21
+        ],
+        "text": "a) Bitwise AND operation with 11110000.\nb) Bitwise NAND operation with 11110000.\nc) Bitwise OR operation with 00001111.\nd) Bitwise XOR operation with 00001111."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 2,
+    "question_text": "Q2. Which of the following is the binary fraction that is the nearest equivalent to the decimal\n fraction 23.375?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "10111.011"
+      },
+      {
+        "label": "b",
+        "text": "10111.110"
+      },
+      {
+        "label": "c",
+        "text": "11101.011"
+      },
+      {
+        "label": "d",
+        "text": "11101.110"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q2)",
+    "source_pages": [
+      4
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q2. Which of the following is the binary fraction that is the nearest equivalent to the decimal\n fraction 23.375?\n\n a) 10111.011 b) 10111.110 c) 11101.011 d) 11101.110",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          65.22,
+          212.93,
+          525.19,
+          243.19
+        ],
+        "text": "Q2.  Which of the following is the binary fraction that is the nearest equivalent to the decimal"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          85.62,
+          247.85,
+          167.29,
+          261.13
+        ],
+        "text": "fraction 23.375?"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          65.22,
+          284.93,
+          501.96,
+          316.21
+        ],
+        "text": "a) 10111.011\nb) 10111.110\nc) 11101.011\nd) 11101.110"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 3,
+    "question_text": "Q3. Which of the following is the most appropriate description of machine learning in AI?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "It is a technology that enters specialized knowledge in a particular field into a computer,\n and has the computer infer by using the knowledge entered."
+      },
+      {
+        "label": "b",
+        "text": "It is a technology that gives computers the ability to learn in the same way humans\n naturally learn, such as finding specific patterns from memorized data."
+      },
+      {
+        "label": "c",
+        "text": "It is a technology that reproduces vital phenomena or evolutionary processes by using\n computers and machines."
+      },
+      {
+        "label": "d",
+        "text": "It is a technology to give computers the ability to manage learning materials and learning\n by using a web system or other information technology so that people can learn\n interactively."
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q3)",
+    "source_pages": [
+      4
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q3. Which of the following is the most appropriate description of machine learning in AI?\n\n a) It is a technology that enters specialized knowledge in a particular field into a computer,\n and has the computer infer by using the knowledge entered.\n b) It is a technology that gives computers the ability to learn in the same way humans\n naturally learn, such as finding specific patterns from memorized data.\n c) It is a technology that reproduces vital phenomena or evolutionary processes by using\n computers and machines.\n d) It is a technology to give computers the ability to manage learning materials and learning\n by using a web system or other information technology so that people can learn\n interactively.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          65.22,
+          320.93,
+          512.48,
+          351.19
+        ],
+        "text": "Q3.  Which of the following is the most appropriate description of machine learning in AI?"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          84.12,
+          376.91,
+          528.7,
+          390.19
+        ],
+        "text": "a) It is a technology that enters specialized knowledge in a particular field into a computer,"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          84.12,
+          394.91,
+          501.99,
+          426.19
+        ],
+        "text": "and has the computer infer by using the knowledge entered.\nb) It is a technology that gives computers the ability to learn in the same way humans"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          84.12,
+          430.91,
+          517.0,
+          462.19
+        ],
+        "text": "naturally learn, such as finding specific patterns from memorized data.\nc) It is a technology that reproduces vital phenomena or evolutionary processes by using"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          84.12,
+          466.91,
+          533.01,
+          498.19
+        ],
+        "text": "computers and machines.\nd) It is a technology to give computers the ability to manage learning materials and learning"
+      },
+      {
+        "type": "text",
+        "page": 4,
+        "bbox": [
+          102.12,
+          502.91,
+          486.93,
+          534.19
+        ],
+        "text": "by using a web system or other information technology so that people can learn\ninteractively."
+      },
+      {
+        "type": "code",
+        "page": 4,
+        "bbox": [
+          65.22,
+          794.63,
+          311.58,
+          807.97
+        ],
+        "text": "– 4 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 4,
+    "question_text": "Q4. A vehicle travels along a circular path as shown in the figure below. Two sensors, L and\n R, whose revolution speeds are independently controlled, are attached to the left and right\n rear wheels. Sensors L and R are photo-reflective sensors, and their values change according\n to the ratio of black and white regions they pass over. If the ratio increases, the sensor value\n decreases, and if the ratio decreases, the sensor value increases. Which of the following is\n an appropriate control to ensure that the vehicle travels along the black outline of the circle?\n Here, if the values of the two sensors are equal, the motor revolution speeds return to the\n initial values.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Sensor L value > Sensor R value: Motor L revolution speed Decrease, Motor R revolution speed Increase; Sensor L value < Sensor R value: Motor L revolution speed Decrease, Motor R revolution speed Increase"
+      },
+      {
+        "label": "b",
+        "text": "Sensor L value > Sensor R value: Motor L revolution speed Decrease, Motor R revolution speed Increase; Sensor L value < Sensor R value: Motor L revolution speed Increase, Motor R revolution speed Decrease"
+      },
+      {
+        "label": "c",
+        "text": "Sensor L value > Sensor R value: Motor L revolution speed Increase, Motor R revolution speed Decrease; Sensor L value < Sensor R value: Motor L revolution speed Decrease, Motor R revolution speed Increase"
+      },
+      {
+        "label": "d",
+        "text": "Sensor L value > Sensor R value: Motor L revolution speed Increase, Motor R revolution speed Decrease; Sensor L value < Sensor R value: Motor L revolution speed Increase, Motor R revolution speed Decrease"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [
+      "2025-april-a-q04-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q4)",
+    "source_pages": [
+      5
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q4. A vehicle travels along a circular path as shown in the figure below. Two sensors, L and\n R, whose revolution speeds are independently controlled, are attached to the left and right\n rear wheels. Sensors L and R are photo-reflective sensors, and their values change according\n to the ratio of black and white regions they pass over. If the ratio increases, the sensor value\n decreases, and if the ratio decreases, the sensor value increases. Which of the following is\n an appropriate control to ensure that the vehicle travels along the black outline of the circle?\n Here, if the values of the two sensors are equal, the motor revolution speeds return to the\n initial values.\n\n Moving\n direction\n Sensor L Sensor R\n Front wheel\n Control\n unit Rear wheels\n\n Motor L Motor R\n\n Circle\n\n Sensor L value > Sensor R value Sensor L value < Sensor R value\n Motor L Motor R Motor L Motor R\n Revolution speed Revolution speed Revolution speed Revolution speed\n a) Decrease Increase Decrease Increase\n b) Decrease Increase Increase Decrease\n c) Increase Decrease Decrease Increase\n d) Increase Decrease Increase Decrease",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q4. A vehicle travels along a circular path as shown in the figure below. Two sensors, L and\n R, whose revolution speeds are independently controlled, are attached to the left and right\n rear wheels. Sensors L and R are photo-reflective sensors, and their values change according\n to the ratio of black and white regions they pass over. If the ratio increases, the sensor value\n decreases, and if the ratio decreases, the sensor value increases. Which of the following is\n an appropriate control to ensure that the vehicle travels along the black outline of the circle?\n Here, if the values of the two sensors are equal, the motor revolution speeds return to the\n initial values."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 5,
+    "question_text": "Q5. Among the four tree traversal techniques—breadth-first, in-order, post-order, and pre-order—which of the following is the appropriate combination to ensure that the last two\n nodes visited are the same in the tree shown below, when the left child is explored first?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Breadth-First Post-order"
+      },
+      {
+        "label": "b",
+        "text": "Breadth-First Pre-order"
+      },
+      {
+        "label": "c",
+        "text": "In-order Post-order"
+      },
+      {
+        "label": "d",
+        "text": "In-order Pre-order"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [
+      "2025-april-a-q05-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q5)",
+    "source_pages": [
+      6
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q5. Among the four tree traversal techniques—breadth-first, in-order, post-order, and pre-order—which of the following is the appropriate combination to ensure that the last two\n nodes visited are the same in the tree shown below, when the left child is explored first?\n\n 18\n\n 5 20\n\n 3 22\n\n a) Breadth-First Post-order\n b) Breadth-First Pre-order\n c) In-order Post-order\n d) In-order Pre-order",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q5. Among the four tree traversal techniques—breadth-first, in-order, post-order, and pre-order—which of the following is the appropriate combination to ensure that the last two\n nodes visited are the same in the tree shown below, when the left child is explored first?"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 6,
+    "question_text": "Q6. In the graph shown below, which of the following is the output of a depth-first traversal\n starting from vertex A, and visiting all vertices in ascending character order?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A B C D E F"
+      },
+      {
+        "label": "b",
+        "text": "A B C D F E"
+      },
+      {
+        "label": "c",
+        "text": "A B D E F C"
+      },
+      {
+        "label": "d",
+        "text": "A B D F E C"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [
+      "2025-april-a-q06-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q6)",
+    "source_pages": [
+      6
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q6. In the graph shown below, which of the following is the output of a depth-first traversal\n starting from vertex A, and visiting all vertices in ascending character order?\n\n A D E\n\n B C F\n\n a) A B C D E F b) A B C D F E\n c) A B D E F C d) A B D F E C",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q6. In the graph shown below, which of the following is the output of a depth-first traversal\n starting from vertex A, and visiting all vertices in ascending character order?"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 7,
+    "question_text": "Q7. A hash table of size 11 uses open addressing with hash function h(k)=k mod 11, and linear\n probing. The table shown below is created after inserting 4 values into an initially empty\n hash table. Which of the following is the sequence that represents a possible order in\n which the key values were inserted into the table?\n\n 0\n 1\n 2 79\n 3 14\n 4 35\n 5 92\n 6\n 7\n 8\n 9\n 10",
+    "choices": [
+      {
+        "label": "a",
+        "text": "14, 79, 35, 92"
+      },
+      {
+        "label": "b",
+        "text": "79, 14, 92, 35"
+      },
+      {
+        "label": "c",
+        "text": "79, 92, 35, 14"
+      },
+      {
+        "label": "d",
+        "text": "92, 79, 14, 35"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q7)",
+    "source_pages": [
+      7
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q7. A hash table of size 11 uses open addressing with hash function h(k)=k mod 11, and linear\n probing. The table shown below is created after inserting 4 values into an initially empty\n hash table. Which of the following is the sequence that represents a possible order in\n which the key values were inserted into the table?\n\n 0\n 1\n 2 79\n 3 14\n 4 35\n 5 92\n 6\n 7\n 8\n 9\n 10\n\n a) 14, 79, 35, 92 b) 79, 14, 92, 35 c) 79, 92, 35, 14 d) 92, 79, 14, 35",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          65.22,
+          67.74,
+          530.34,
+          81.19
+        ],
+        "text": "Q7. A hash table of size 11 uses open addressing with hash function h(k)=k mod 11, and linear"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          85.62,
+          85.85,
+          518.07,
+          135.13
+        ],
+        "text": "probing. The table shown below is created after inserting 4 values into an initially empty\nhash table. Which of the following is the sequence that represents a possible order in\nwhich the key values were inserted into the table?"
+      },
+      {
+        "type": "table",
+        "page": 7,
+        "bbox": [
+          150.3,
+          156.93,
+          228.3,
+          313.78
+        ],
+        "rows": [
+          [
+            "",
+            "0",
+            "",
+            "",
+            null,
+            null
+          ],
+          [
+            "",
+            "1",
+            "",
+            "",
+            null,
+            null
+          ],
+          [
+            "",
+            "2",
+            "",
+            "",
+            "79",
+            ""
+          ],
+          [
+            "",
+            "3",
+            "",
+            "",
+            "14",
+            ""
+          ],
+          [
+            "",
+            "4",
+            "",
+            "",
+            "35",
+            ""
+          ],
+          [
+            "",
+            "5",
+            "",
+            "",
+            "92",
+            ""
+          ],
+          [
+            "",
+            "6",
+            "",
+            "",
+            null,
+            null
+          ],
+          [
+            "",
+            "7",
+            "",
+            "",
+            null,
+            null
+          ],
+          [
+            "",
+            "8",
+            "",
+            "",
+            null,
+            null
+          ],
+          [
+            "",
+            "9",
+            "",
+            "",
+            null,
+            null
+          ],
+          [
+            "",
+            "10",
+            "",
+            "",
+            null,
+            null
+          ]
+        ]
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          65.22,
+          158.88,
+          516.96,
+          364.03
+        ],
+        "text": "0\n\n1\n\n2\n79\n3\n14\n4\n35\n5\n92\n6\n\n7\n\n8\n\n9\n\n10\n\n\na) 14, 79, 35, 92\nb) 79, 14, 92, 35\nc) 79, 92, 35, 14\nd) 92, 79, 14, 35"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 8,
+    "question_text": "Q8. For a CPU with a clock frequency of 800 MHz, where one instruction is executed in an\n average time of 4 clock cycles, what is the CPU performance in MIPS?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "0.2"
+      },
+      {
+        "label": "b",
+        "text": "20"
+      },
+      {
+        "label": "c",
+        "text": "200"
+      },
+      {
+        "label": "d",
+        "text": "3,200"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q8)",
+    "source_pages": [
+      7
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q8. For a CPU with a clock frequency of 800 MHz, where one instruction is executed in an\n average time of 4 clock cycles, what is the CPU performance in MIPS?\n\n a) 0.2 b) 20 c) 200 d) 3,200",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          65.22,
+          368.64,
+          512.91,
+          400.09
+        ],
+        "text": "Q8. For a CPU with a clock frequency of 800 MHz, where one instruction is executed in an"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          85.62,
+          404.75,
+          430.71,
+          418.03
+        ],
+        "text": "average time of 4 clock cycles, what is the CPU performance in MIPS?"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          84.12,
+          423.83,
+          477.96,
+          473.11
+        ],
+        "text": "a) 0.2\nb) 20\nc) 200\nd) 3,200"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 9,
+    "question_text": "Q9. When a CPU has a special register used in push and pop instructions, which of the\n following is an appropriate term for this register?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Instruction register"
+      },
+      {
+        "label": "b",
+        "text": "Program counter"
+      },
+      {
+        "label": "c",
+        "text": "Stack pointer"
+      },
+      {
+        "label": "d",
+        "text": "Status register"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q9)",
+    "source_pages": [
+      7
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q9. When a CPU has a special register used in push and pop instructions, which of the\n following is an appropriate term for this register?\n\n a) Instruction register b) Program counter\n c) Stack pointer d) Status register",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          65.22,
+          477.83,
+          494.73,
+          508.09
+        ],
+        "text": "Q9.  When a CPU has a special register used in push and pop instructions, which of the"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          85.62,
+          512.75,
+          330.94,
+          526.03
+        ],
+        "text": "following is an appropriate term for this register?"
+      },
+      {
+        "type": "text",
+        "page": 7,
+        "bbox": [
+          65.22,
+          549.83,
+          410.85,
+          634.03
+        ],
+        "text": "a) Instruction register\nb) Program counter\nc) Stack pointer\nd) Status register"
+      },
+      {
+        "type": "code",
+        "page": 7,
+        "bbox": [
+          65.22,
+          794.63,
+          311.58,
+          807.97
+        ],
+        "text": "– 7 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 10,
+    "question_text": "Q10. The table below shows the access times for the cache memory and main memory in\n systems A and B. Which of the following is the approximate hit ratio of the cache memory,\n when the effective access time and the cache memory hit ratio are the same for systems A\n and B?\n\n System A System B\n\n Cache memory 14 ns 12 ns\n\n Main memory 80 ns 90 ns",
+    "choices": [
+      {
+        "label": "a",
+        "text": "0.17"
+      },
+      {
+        "label": "b",
+        "text": "0.20"
+      },
+      {
+        "label": "c",
+        "text": "0.83"
+      },
+      {
+        "label": "d",
+        "text": "1.00"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q10)",
+    "source_pages": [
+      8
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q10. The table below shows the access times for the cache memory and main memory in\n systems A and B. Which of the following is the approximate hit ratio of the cache memory,\n when the effective access time and the cache memory hit ratio are the same for systems A\n and B?\n\n System A System B\n\n Cache memory 14 ns 12 ns\n\n Main memory 80 ns 90 ns\n\n a) 0.17 b) 0.20 c) 0.83 d) 1.00",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          65.22,
+          67.74,
+          524.32,
+          135.13
+        ],
+        "text": "Q10.\nThe table below shows the access times for the cache memory and main memory in\nsystems A and B. Which of the following is the approximate hit ratio of the cache memory,\nwhen the effective access time and the cache memory hit ratio are the same for systems A\nand B?"
+      },
+      {
+        "type": "table",
+        "page": 8,
+        "bbox": [
+          129.0,
+          155.46,
+          411.42,
+          216.84
+        ],
+        "rows": [
+          [
+            null,
+            "System A",
+            "System B"
+          ],
+          [
+            "Cache memory",
+            "14 ns",
+            "12 ns"
+          ],
+          [
+            "Main memory",
+            "80 ns",
+            "90 ns"
+          ]
+        ]
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          185.58,
+          159.41,
+          394.92,
+          172.69
+        ],
+        "text": "System A\nSystem B"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          149.1,
+          180.11,
+          384.97,
+          193.39
+        ],
+        "text": "Cache memory\n14 ns\n12 ns"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          151.44,
+          200.81,
+          384.97,
+          214.09
+        ],
+        "text": "Main memory\n80 ns\n90 ns"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          238.79,
+          471.96,
+          252.07
+        ],
+        "text": "a) 0.17\nb) 0.20\nc) 0.83\nd) 1.00"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 11,
+    "question_text": "Q11. Which of the following is a merit of migrating an internal business system to a cloud\n service?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "If an internal business system that requires a very high level of availability is to be\n migrated to IaaS, all service providers guarantee high availability, so the migration is\n easy."
+      },
+      {
+        "label": "b",
+        "text": "If an internal on-premises business system with company-specific functions is to be\n migrated to a system provided by SaaS, the migration of the company-specific functions\n also becomes easier."
+      },
+      {
+        "label": "c",
+        "text": "If PaaS is to be used, platform management and OS updates are performed by the service\n provider, so the burden of installation and operation can be reduced."
+      },
+      {
+        "label": "d",
+        "text": "If SaaS is to be used temporarily for the development or evaluation of an internal\n business system, a highly flexible development environment can be provided."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q11)",
+    "source_pages": [
+      8
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q11. Which of the following is a merit of migrating an internal business system to a cloud\n service?\n\n a) If an internal business system that requires a very high level of availability is to be\n migrated to IaaS, all service providers guarantee high availability, so the migration is\n easy.\n b) If an internal on-premises business system with company-specific functions is to be\n migrated to a system provided by SaaS, the migration of the company-specific functions\n also becomes easier.\n c) If PaaS is to be used, platform management and OS updates are performed by the service\n provider, so the burden of installation and operation can be reduced.\n d) If SaaS is to be used temporarily for the development or evaluation of an internal\n business system, a highly flexible development environment can be provided.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          65.22,
+          291.6,
+          517.18,
+          322.99
+        ],
+        "text": "Q11.\nWhich of the following is a merit of migrating an internal business system to a cloud\nservice?"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          328.79,
+          500.74,
+          360.07
+        ],
+        "text": "a) If an internal business system that requires a very high level of availability is to be"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          364.79,
+          513.65,
+          414.07
+        ],
+        "text": "migrated to IaaS, all service providers guarantee high availability, so the migration is\neasy.\nb) If an internal on-premises business system with company-specific functions is to be"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          418.79,
+          533.03,
+          468.07
+        ],
+        "text": "migrated to a system provided by SaaS, the migration of the company-specific functions\nalso becomes easier.\nc) If PaaS is to be used, platform management and OS updates are performed by the service"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          472.79,
+          494.37,
+          504.07
+        ],
+        "text": "provider, so the burden of installation and operation can be reduced.\nd) If SaaS is to be used temporarily for the development or evaluation of an internal"
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          65.22,
+          508.79,
+          478.03,
+          540.01
+        ],
+        "text": "business system, a highly flexible development environment can be provided."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 12,
+    "question_text": "Q12. In a system that is composed of two processing devices, what is the difference in\n availability between the two conditions below? Here, the availability of each processing\n device is 0.9, and no other factors besides the processing devices are considered.\n\n [Conditions]\n (1) The system is available if at least one of the processing devices is running normally.\n (2) The system is available only if both of the processing devices are running normally.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "0.09"
+      },
+      {
+        "label": "b",
+        "text": "0.10"
+      },
+      {
+        "label": "c",
+        "text": "0.18"
+      },
+      {
+        "label": "d",
+        "text": "0.19"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q12)",
+    "source_pages": [
+      8
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q12. In a system that is composed of two processing devices, what is the difference in\n availability between the two conditions below? Here, the availability of each processing\n device is 0.9, and no other factors besides the processing devices are considered.\n\n [Conditions]\n (1) The system is available if at least one of the processing devices is running normally.\n (2) The system is available only if both of the processing devices are running normally.\n\n a) 0.09 b) 0.10 c) 0.18 d) 0.19",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          65.22,
+          544.62,
+          511.22,
+          610.99
+        ],
+        "text": "Q12.\nIn a system that is composed of two processing devices, what is the difference in\navailability between the two conditions below? Here, the availability of each processing\ndevice is 0.9, and no other factors besides the processing devices are considered."
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          86.22,
+          633.71,
+          513.87,
+          682.99
+        ],
+        "text": "[Conditions]\n(1) The system is available if at least one of the processing devices is running normally.\n(2) The system is available only if both of the processing devices are running normally."
+      },
+      {
+        "type": "text",
+        "page": 8,
+        "bbox": [
+          84.12,
+          688.79,
+          471.96,
+          720.07
+        ],
+        "text": "a) 0.09\nb) 0.10\nc) 0.18\nd) 0.19"
+      },
+      {
+        "type": "code",
+        "page": 8,
+        "bbox": [
+          65.22,
+          794.63,
+          311.58,
+          807.97
+        ],
+        "text": "– 8 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 13,
+    "question_text": "Q13. The relation between virtual address and physical address is shown below. Each virtual\n page and page frame starts at a multiple of 4096 and ends 4095 addresses higher. Virtual\n address space 4K-8K corresponds to 4096-8191 and 8K to 12K corresponds to 8192-12287.\n Which of the following is the physical address corresponding to the virtual address\n numbered 8300?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "8192"
+      },
+      {
+        "label": "b",
+        "text": "8300"
+      },
+      {
+        "label": "c",
+        "text": "24576"
+      },
+      {
+        "label": "d",
+        "text": "24684"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [
+      "2025-april-a-q13-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q13)",
+    "source_pages": [
+      9
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q13. The relation between virtual address and physical address is shown below. Each virtual\n page and page frame starts at a multiple of 4096 and ends 4095 addresses higher. Virtual\n address space 4K-8K corresponds to 4096-8191 and 8K to 12K corresponds to 8192-12287.\n Which of the following is the physical address corresponding to the virtual address\n numbered 8300?\n\n Virtual\n address\n\n 60K-64K X\n 56K-60K X Virtual page\n 52K-56K X\n 48K-52K X\n 44K-48K 7\n 40K-44K X\n 36K-40K 5 Physical\n 32K-36K X address\n 28K-32K X 28K-32K\n 24K-28K X 24K-28K\n 20K-24K 3 20K-24K\n 16K-20K 4 16K-20K\n 12K-16K 0 12K-16K\n 8K-12K 6 8K-12K\n 4K-8K 1 4K-8K\n 0K-4K 2 0K-4K\n\n Page frame\n\n a) 8192 b) 8300 c) 24576 d) 24684",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q13. The relation between virtual address and physical address is shown below. Each virtual\n page and page frame starts at a multiple of 4096 and ends 4095 addresses higher. Virtual\n address space 4K-8K corresponds to 4096-8191 and 8K to 12K corresponds to 8192-12287.\n Which of the following is the physical address corresponding to the virtual address\n numbered 8300?"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 14,
+    "question_text": "Q14. In a system with preemptive priority scheduling, where the smallest priority number is\n considered as the highest priority, there are four processes, P1, P2, P3, and P4. Their arrival\n times, CPU-burst times, and priorities are shown in the table below. Which of the following\n is the average waiting time (in ms) for the processes to be executed?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "2.75"
+      },
+      {
+        "label": "b",
+        "text": "3"
+      },
+      {
+        "label": "c",
+        "text": "3.25"
+      },
+      {
+        "label": "d",
+        "text": "3.5"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [
+      "2025-april-a-q14-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q14)",
+    "source_pages": [
+      9
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q14. In a system with preemptive priority scheduling, where the smallest priority number is\n considered as the highest priority, there are four processes, P1, P2, P3, and P4. Their arrival\n times, CPU-burst times, and priorities are shown in the table below. Which of the following\n is the average waiting time (in ms) for the processes to be executed?\n\n Process Arrival time CPU-burst time Priority\n (in ms)\n P1 0 8 2\n P2 2 1 1\n P3 4 2 3\n P4 6 3 4\n\n a) 2.75 b) 3 c) 3.25 d) 3.5",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q14. In a system with preemptive priority scheduling, where the smallest priority number is\n considered as the highest priority, there are four processes, P1, P2, P3, and P4. Their arrival\n times, CPU-burst times, and priorities are shown in the table below. Which of the following\n is the average waiting time (in ms) for the processes to be executed?"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 15,
+    "question_text": "Q15. When it takes 10 ns to copy a byte, which of the following is the approximate time (in\n ms) to copy the data for a 1024 × 768-pixel graphics screen with 24-bit color? Here, any\n overhead time for copying can be ignored.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "22"
+      },
+      {
+        "label": "b",
+        "text": "23"
+      },
+      {
+        "label": "c",
+        "text": "24"
+      },
+      {
+        "label": "d",
+        "text": "25"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q15)",
+    "source_pages": [
+      10
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q15. When it takes 10 ns to copy a byte, which of the following is the approximate time (in\n ms) to copy the data for a 1024 × 768-pixel graphics screen with 24-bit color? Here, any\n overhead time for copying can be ignored.\n\n a) 22 b) 23 c) 24 d) 25",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          65.22,
+          67.74,
+          523.52,
+          117.13
+        ],
+        "text": "Q15.\nWhen it takes 10 ns to copy a byte, which of the following is the approximate time (in\nms) to copy the data for a 1024 × 768-pixel graphics screen with 24-bit color? Here, any\noverhead time for copying can be ignored."
+      },
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          84.12,
+          140.93,
+          462.96,
+          172.21
+        ],
+        "text": "a) 22\nb) 23\nc) 24\nd) 25"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 16,
+    "question_text": "Q16. Which of the following is an appropriate explanation of an actuator?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "It amplifies weak electrical signals sent from microphones, sensors, and similar devices."
+      },
+      {
+        "label": "b",
+        "text": "It compares a given target value with a controlled value obtained from a sensor, and\n outputs an operation amount to match the controlled value with the target value."
+      },
+      {
+        "label": "c",
+        "text": "It converts power from an energy source into rotation, translational motion, or other\n movements based on control signals."
+      },
+      {
+        "label": "d",
+        "text": "It detects position, angle, velocity, acceleration, force, temperature, and similar\n parameters, and converts them into electrical information."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q16)",
+    "source_pages": [
+      10
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q16. Which of the following is an appropriate explanation of an actuator?\n\n a) It amplifies weak electrical signals sent from microphones, sensors, and similar devices.\n b) It compares a given target value with a controlled value obtained from a sensor, and\n outputs an operation amount to match the controlled value with the target value.\n c) It converts power from an energy source into rotation, translational motion, or other\n movements based on control signals.\n d) It detects position, angle, velocity, acceleration, force, temperature, and similar\n parameters, and converts them into electrical information.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          65.22,
+          176.93,
+          438.76,
+          207.19
+        ],
+        "text": "Q16.\nWhich of the following is an appropriate explanation of an actuator?"
+      },
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          84.12,
+          232.91,
+          528.27,
+          264.19
+        ],
+        "text": "a) It amplifies weak electrical signals sent from microphones, sensors, and similar devices.\nb) It compares a given target value with a controlled value obtained from a sensor, and"
+      },
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          84.12,
+          268.91,
+          507.82,
+          300.19
+        ],
+        "text": "outputs an operation amount to match the controlled value with the target value.\nc) It converts power from an energy source into rotation, translational motion, or other"
+      },
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          84.12,
+          304.91,
+          484.66,
+          336.19
+        ],
+        "text": "movements based on control signals.\nd) It detects position, angle, velocity, acceleration, force, temperature, and similar"
+      },
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          102.12,
+          340.91,
+          382.99,
+          354.19
+        ],
+        "text": "parameters, and converts them into electrical information."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 17,
+    "question_text": "Q17. When ordering data is entered in the format shown below, which of the following is the\n appropriate method for checking whether the order date is a business day that is the same as\n or prior to the entering date?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Duplication check"
+      },
+      {
+        "label": "b",
+        "text": "Format check"
+      },
+      {
+        "label": "c",
+        "text": "Logical check"
+      },
+      {
+        "label": "d",
+        "text": "Sequence check"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [
+      "2025-april-a-q17-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q17)",
+    "source_pages": [
+      10
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q17. When ordering data is entered in the format shown below, which of the following is the\n appropriate method for checking whether the order date is a business day that is the same as\n or prior to the entering date?\n\n Ordering data\n\n Form number Order date Product code Quantity Customer code\n (Characters) (Characters) (Characters) (Number) (Characters)\n\n a) Duplication check b) Format check\n c) Logical check d) Sequence check",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q17. When ordering data is entered in the format shown below, which of the following is the\n appropriate method for checking whether the order date is a business day that is the same as\n or prior to the entering date?"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 18,
+    "question_text": "Q18. Of the functions provided by a DBMS, which of the following is a means for achieving\n protection for data confidentiality?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Checking referential constraints when the data is updated"
+      },
+      {
+        "label": "b",
+        "text": "Managing a transaction that combines a series of processes as a logical unit"
+      },
+      {
+        "label": "c",
+        "text": "Managing the data access rights of users"
+      },
+      {
+        "label": "d",
+        "text": "Placing an exclusive lock to data before updates"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q18)",
+    "source_pages": [
+      10
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q18. Of the functions provided by a DBMS, which of the following is a means for achieving\n protection for data confidentiality?\n\n a) Checking referential constraints when the data is updated\n b) Managing a transaction that combines a series of processes as a logical unit\n c) Managing the data access rights of users\n d) Placing an exclusive lock to data before updates",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          65.22,
+          601.74,
+          533.12,
+          632.17
+        ],
+        "text": "Q18. Of the functions provided by a DBMS, which of the following is a means for achieving"
+      },
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          85.74,
+          636.66,
+          256.0,
+          650.11
+        ],
+        "text": "protection for data confidentiality?"
+      },
+      {
+        "type": "text",
+        "page": 10,
+        "bbox": [
+          84.12,
+          675.89,
+          480.34,
+          743.17
+        ],
+        "text": "a) Checking referential constraints when the data is updated\nb) Managing a transaction that combines a series of processes as a logical unit\nc) Managing the data access rights of users\nd) Placing an exclusive lock to data before updates"
+      },
+      {
+        "type": "code",
+        "page": 10,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 10 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 19,
+    "question_text": "Q19. Which of the following is the primary goal of conceptual database design?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "To create a physical data model of the database"
+      },
+      {
+        "label": "b",
+        "text": "To define the logical structure of the database"
+      },
+      {
+        "label": "c",
+        "text": "To determine the exact data types for every database attribute"
+      },
+      {
+        "label": "d",
+        "text": "To implement database security measures"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q19)",
+    "source_pages": [
+      11
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q19. Which of the following is the primary goal of conceptual database design?\n\n a) To create a physical data model of the database\n b) To define the logical structure of the database\n c) To determine the exact data types for every database attribute\n d) To implement database security measures",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          65.22,
+          68.76,
+          458.41,
+          100.15
+        ],
+        "text": "Q19. Which of the following is the primary goal of conceptual database design?"
+      },
+      {
+        "type": "text",
+        "page": 11,
+        "bbox": [
+          65.22,
+          104.93,
+          394.89,
+          190.15
+        ],
+        "text": "a) To create a physical data model of the database\nb) To define the logical structure of the database\nc) To determine the exact data types for every database attribute\nd) To implement database security measures"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 20,
+    "question_text": "Q20. In the UML data model shown in the figure below, which of the following is a\n multiplicity that should be inserted in blanks I and II?\n\n [Conditions]\n (1) One or more employees belong to a department.\n (2) An employee belongs to any one department.\n (3) The history of the departments to which an employee has belonged is recorded as\n the assignment history.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "I: 0..*, II: 0..*"
+      },
+      {
+        "label": "b",
+        "text": "I: 0..*, II: 1..*"
+      },
+      {
+        "label": "c",
+        "text": "I: 1..*, II: 0..*"
+      },
+      {
+        "label": "d",
+        "text": "I: 1..*, II: 1..*"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [
+      "2025-april-a-q20-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q20)",
+    "source_pages": [
+      11
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q20. In the UML data model shown in the figure below, which of the following is a\n multiplicity that should be inserted in blanks I and II?\n\n [Conditions]\n (1) One or more employees belong to a department.\n (2) An employee belongs to any one department.\n (3) The history of the departments to which an employee has belonged is recorded as\n the assignment history.\n\n I II\n a) 0..* 0..*\n b) 0..* 1..*\n c) 1..* 0..*\n d) 1..* 1..*",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q20. In the UML data model shown in the figure below, which of the following is a\n multiplicity that should be inserted in blanks I and II?\n\n [Conditions]\n (1) One or more employees belong to a department.\n (2) An employee belongs to any one department.\n (3) The history of the departments to which an employee has belonged is recorded as\n the assignment history."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 21,
+    "question_text": "Q21. Which of the following is the clause that should be inserted into blank ___A___ of\n the SQL statement below in order to display the total sales data for each product that sold\n for at least $5,000 from the table OrderDetails?\n\n OrderDetails (OrderID, ProductID, UnitPrice, Quantity)\n\n [SQL statement]\n\n SELECT ProductID, SUM(UnitPrice * Quantity)\n\n FROM OrderDetails\n\n ___A___",
+    "choices": [
+      {
+        "label": "a",
+        "text": "GROUP BY ProductID HAVING SUM(UnitPrice * Quantity) >= 5000;"
+      },
+      {
+        "label": "b",
+        "text": "HAVING SUM(UnitPrice * Quantity) >= 5000;"
+      },
+      {
+        "label": "c",
+        "text": "HAVING SUM(UnitPrice * Quantity) >= 5000 GROUP BY ProductI;"
+      },
+      {
+        "label": "d",
+        "text": "WHERE SUM(UnitPrice * Quantity) >= 5000;"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q21)",
+    "source_pages": [
+      12
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q21. Which of the following is the clause that should be inserted into blank ___A___ of\n the SQL statement below in order to display the total sales data for each product that sold\n for at least $5,000 from the table OrderDetails?\n\n OrderDetails (OrderID, ProductID, UnitPrice, Quantity)\n\n [SQL statement]\n\n SELECT ProductID, SUM(UnitPrice * Quantity)\n\n FROM OrderDetails\n\n ___A___\n\n a) GROUP BY ProductID HAVING SUM(UnitPrice * Quantity) >= 5000;\n b) HAVING SUM(UnitPrice * Quantity) >= 5000;\n c) HAVING SUM(UnitPrice * Quantity) >= 5000 GROUP BY ProductI;\n d) WHERE SUM(UnitPrice * Quantity) >= 5000;",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          67.26,
+          516.45,
+          80.71
+        ],
+        "text": "Q21.\nWhich of the following is the clause that should be inserted into blank ___A___ of"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          85.62,
+          85.85,
+          517.47,
+          117.13
+        ],
+        "text": "the SQL statement below in order to display the total sales data for each product that sold\nfor at least $5,000 from the table OrderDetails?"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          133.85,
+          358.71,
+          147.13
+        ],
+        "text": "OrderDetails (OrderID, ProductID, UnitPrice, Quantity)"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          163.85,
+          168.86,
+          177.13
+        ],
+        "text": "[SQL statement]"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          137.22,
+          183.25,
+          402.5,
+          193.27
+        ],
+        "text": "SELECT ProductID, SUM(UnitPrice * Quantity)"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          137.22,
+          199.68,
+          251.86,
+          211.68
+        ],
+        "text": "FROM OrderDetails"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          138.72,
+          217.43,
+          193.92,
+          230.71
+        ],
+        "text": "___A___"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          84.12,
+          254.93,
+          466.56,
+          322.21
+        ],
+        "text": "a) GROUP BY ProductID HAVING SUM(UnitPrice * Quantity) >= 5000;\nb) HAVING SUM(UnitPrice * Quantity) >= 5000;\nc) HAVING SUM(UnitPrice * Quantity) >= 5000 GROUP BY ProductI;\nd) WHERE SUM(UnitPrice * Quantity) >= 5000;"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 22,
+    "question_text": "Q22. Which of the following is an appropriate explanation of the granularity of locks?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "When large granularity is set for a large number of transactions to update the same data,\n the number of transactions that can be executed simultaneously increases."
+      },
+      {
+        "label": "b",
+        "text": "When large granularity is set for all data in a table to be referenced, data referenced from\n other transactions can remain undisturbed."
+      },
+      {
+        "label": "c",
+        "text": "When large granularity is set for data to be updated, the waiting times for other\n transactions increase, and the total throughput declines."
+      },
+      {
+        "label": "d",
+        "text": "When large granularity is set, the number of data items included increases, and the\n number of locks that one transaction makes increases."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q22)",
+    "source_pages": [
+      12
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q22. Which of the following is an appropriate explanation of the granularity of locks?\n\n a) When large granularity is set for a large number of transactions to update the same data,\n the number of transactions that can be executed simultaneously increases.\n b) When large granularity is set for all data in a table to be referenced, data referenced from\n other transactions can remain undisturbed.\n c) When large granularity is set for data to be updated, the waiting times for other\n transactions increase, and the total throughput declines.\n d) When large granularity is set, the number of data items included increases, and the\n number of locks that one transaction makes increases.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          361.74,
+          497.41,
+          375.19
+        ],
+        "text": "Q22.\nWhich of the following is an appropriate explanation of the granularity of locks?"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          84.12,
+          400.91,
+          527.57,
+          414.19
+        ],
+        "text": "a) When large granularity is set for a large number of transactions to update the same data,"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          84.12,
+          418.91,
+          531.93,
+          450.19
+        ],
+        "text": "the number of transactions that can be executed simultaneously increases.\nb) When large granularity is set for all data in a table to be referenced, data referenced from"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          84.12,
+          454.91,
+          484.72,
+          486.19
+        ],
+        "text": "other transactions can remain undisturbed.\nc) When large granularity is set for data to be updated, the waiting times for other"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          102.12,
+          490.91,
+          370.99,
+          504.19
+        ],
+        "text": "transactions increase, and the total throughput declines."
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          84.12,
+          508.91,
+          501.36,
+          522.19
+        ],
+        "text": "d) When large granularity is set, the number of data items included increases, and the"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          526.91,
+          363.69,
+          558.13
+        ],
+        "text": "number of locks that one transaction makes increases."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 23,
+    "question_text": "Q23. Which of the following is the most appropriate information for a router to determine the\n destination of an incoming packet?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Destination IP address"
+      },
+      {
+        "label": "b",
+        "text": "Destination MAC address"
+      },
+      {
+        "label": "c",
+        "text": "Source IP address"
+      },
+      {
+        "label": "d",
+        "text": "Source MAC address"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q23)",
+    "source_pages": [
+      12
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q23. Which of the following is the most appropriate information for a router to determine the\n destination of an incoming packet?\n\n a) Destination IP address b) Destination MAC address\n c) Source IP address d) Source MAC address",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          562.74,
+          532.77,
+          611.11
+        ],
+        "text": "Q23.\nWhich of the following is the most appropriate information for a router to determine the\ndestination of an incoming packet?"
+      },
+      {
+        "type": "text",
+        "page": 12,
+        "bbox": [
+          65.22,
+          616.91,
+          455.13,
+          702.19
+        ],
+        "text": "a) Destination IP address\nb) Destination MAC address\nc) Source IP address\nd) Source MAC address"
+      },
+      {
+        "type": "code",
+        "page": 12,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 12 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 24,
+    "question_text": "Q24. In the OSI model, which of the following is the layer that is responsible for routing\n datagrams between hosts utilizing IP addresses across one or more networks?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Data link"
+      },
+      {
+        "label": "b",
+        "text": "Network"
+      },
+      {
+        "label": "c",
+        "text": "Physical"
+      },
+      {
+        "label": "d",
+        "text": "Transport"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q24)",
+    "source_pages": [
+      13
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q24. In the OSI model, which of the following is the layer that is responsible for routing\n datagrams between hosts utilizing IP addresses across one or more networks?\n\n a) Data link b) Network c) Physical d) Transport",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          65.22,
+          67.74,
+          508.82,
+          99.13
+        ],
+        "text": "Q24.\nIn the OSI model, which of the following is the layer that is responsible for routing\ndatagrams between hosts utilizing IP addresses across one or more networks?"
+      },
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          65.22,
+          122.93,
+          497.58,
+          154.21
+        ],
+        "text": "a) Data link\nb) Network\nc) Physical\nd) Transport"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 25,
+    "question_text": "Q25. Which of the following is an appropriate explanation regarding Address Resolution\n Protocol (ARP)?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "It converts MAC addresses into IP addresses."
+      },
+      {
+        "label": "b",
+        "text": "It resolves domain names into its IP addresses."
+      },
+      {
+        "label": "c",
+        "text": "It resolves IP addresses into the corresponding MAC addresses."
+      },
+      {
+        "label": "d",
+        "text": "It translates IPv4 addresses into IPv6 addresses."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q25)",
+    "source_pages": [
+      13
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q25. Which of the following is an appropriate explanation regarding Address Resolution\n Protocol (ARP)?\n\n a) It converts MAC addresses into IP addresses.\n b) It resolves domain names into its IP addresses.\n c) It resolves IP addresses into the corresponding MAC addresses.\n d) It translates IPv4 addresses into IPv6 addresses.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          65.22,
+          158.76,
+          510.17,
+          207.13
+        ],
+        "text": "Q25.\nWhich of the following is an appropriate explanation regarding Address Resolution\nProtocol (ARP)?"
+      },
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          65.22,
+          230.93,
+          410.71,
+          316.21
+        ],
+        "text": "a) It converts MAC addresses into IP addresses.\nb) It resolves domain names into its IP addresses.\nc) It resolves IP addresses into the corresponding MAC addresses.\nd) It translates IPv4 addresses into IPv6 addresses."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 26,
+    "question_text": "Q26. An administrator of a small network is testing the new network. Which of the following\n is the correct combination of the network management tools to be inserted in the blanks\n below?\n\n The administrator first tests reachability of a remote host using ___A___, and determines\n the path that packets take to the destination with ___B___",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A: netstat, B: ping"
+      },
+      {
+        "label": "b",
+        "text": "A: netstat, B: traceroute"
+      },
+      {
+        "label": "c",
+        "text": "A: ping, B: traceroute"
+      },
+      {
+        "label": "d",
+        "text": "A: traceroute, B: ping"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q26)",
+    "source_pages": [
+      13
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q26. An administrator of a small network is testing the new network. Which of the following\n is the correct combination of the network management tools to be inserted in the blanks\n below?\n\n The administrator first tests reachability of a remote host using ___A___, and determines\n the path that packets take to the destination with ___B___\n\n A B\n\n a) netstat ping\n b) netstat traceroute\n c) ping traceroute\n d) traceroute ping",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q26. An administrator of a small network is testing the new network. Which of the following\n is the correct combination of the network management tools to be inserted in the blanks\n below?\n\n The administrator first tests reachability of a remote host using ___A___, and determines\n the path that packets take to the destination with ___B___"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 27,
+    "question_text": "Q27. Which of the following is the attack that is classified as DNS cache poisoning?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "False domain information is injected into the DNS server that is referenced by a PC, and\n it leads the user to a fake server."
+      },
+      {
+        "label": "b",
+        "text": "In order to interrupt the target service, the attacker uses the DNS server as a\n steppingstone to send a large number of recursive queries."
+      },
+      {
+        "label": "c",
+        "text": "In order to obtain internal information, the zone information stored in the DNS server is\n compiled and transferred."
+      },
+      {
+        "label": "d",
+        "text": "The version information of the DNS server software is obtained to identify a security\n hole."
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q27)",
+    "source_pages": [
+      13
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q27. Which of the following is the attack that is classified as DNS cache poisoning?\n\n a) False domain information is injected into the DNS server that is referenced by a PC, and\n it leads the user to a fake server.\n b) In order to interrupt the target service, the attacker uses the DNS server as a\n steppingstone to send a large number of recursive queries.\n c) In order to obtain internal information, the zone information stored in the DNS server is\n compiled and transferred.\n d) The version information of the DNS server software is obtained to identify a security\n hole.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          65.22,
+          577.68,
+          489.09,
+          609.13
+        ],
+        "text": "Q27.\nWhich of the following is the attack that is classified as DNS cache poisoning?"
+      },
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          84.12,
+          632.87,
+          529.67,
+          646.15
+        ],
+        "text": "a) False domain information is injected into the DNS server that is referenced by a PC, and"
+      },
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          84.12,
+          650.87,
+          468.74,
+          682.15
+        ],
+        "text": "it leads the user to a fake server.\nb) In order to interrupt the target service, the attacker uses the DNS server as a"
+      },
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          84.12,
+          686.87,
+          526.68,
+          718.15
+        ],
+        "text": "steppingstone to send a large number of recursive queries.\nc) In order to obtain internal information, the zone information stored in the DNS server is"
+      },
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          84.12,
+          722.87,
+          513.36,
+          754.15
+        ],
+        "text": "compiled and transferred.\nd) The version information of the DNS server software is obtained to identify a security"
+      },
+      {
+        "type": "text",
+        "page": 13,
+        "bbox": [
+          102.12,
+          758.87,
+          128.77,
+          772.15
+        ],
+        "text": "hole."
+      },
+      {
+        "type": "code",
+        "page": 13,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 13 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 28,
+    "question_text": "Q28. A given application only has the functions of retrieving and displaying user information\n from a database that stores such information. When considering information security, which\n of the following is the appropriate database access right assigned to an account that the\n application uses to access the database? The names and scopes of rights are listed below.\n\n [The names and scopes of rights]\n Reference right: Allows the application to select a record\n Update right: Allows the application to insert, update, and drop a record\n Administrator right: Allows the application to display, create, alter, and drop a\n table",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Administrator right"
+      },
+      {
+        "label": "b",
+        "text": "Reference right"
+      },
+      {
+        "label": "c",
+        "text": "Update right"
+      },
+      {
+        "label": "d",
+        "text": "Update right and reference right"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q28)",
+    "source_pages": [
+      14
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q28. A given application only has the functions of retrieving and displaying user information\n from a database that stores such information. When considering information security, which\n of the following is the appropriate database access right assigned to an account that the\n application uses to access the database? The names and scopes of rights are listed below.\n\n [The names and scopes of rights]\n Reference right: Allows the application to select a record\n Update right: Allows the application to insert, update, and drop a record\n Administrator right: Allows the application to display, create, alter, and drop a\n table\n\n a) Administrator right b) Reference right\n c) Update right d) Update right and reference right",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          67.74,
+          531.47,
+          171.13
+        ],
+        "text": "Q28.\nA given application only has the functions of retrieving and displaying user information\nfrom a database that stores such information. When considering information security, which\nof the following is the appropriate database access right assigned to an account that the\napplication uses to access the database? The names and scopes of rights are listed below.\n\n[The names and scopes of rights]"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          85.2,
+          175.85,
+          510.2,
+          261.13
+        ],
+        "text": "Reference right:\nAllows the application to select a record\nUpdate right:\nAllows the application to insert, update, and drop a record\nAdministrator right:\nAllows the application to display, create, alter, and drop a\ntable"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          84.12,
+          266.93,
+          484.34,
+          315.13
+        ],
+        "text": "a) Administrator right\nb) Reference right\nc) Update right\nd) Update right and reference right"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 29,
+    "question_text": "Q29. Which of the following is a merit in using SaaS?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "No system access management needs to be performed, and no consideration concerning\n the procedure for password initialization or a password policy that satisfies complexity\n requirements is required."
+      },
+      {
+        "label": "b",
+        "text": "No system construction needs to be performed, and neither the definition of security\n requirements for application software development nor the design of storage volume for\n system logs is required."
+      },
+      {
+        "label": "c",
+        "text": "No system operation needs to be performed, and no consideration concerning work\n procedures at the time of a failure or backup is required."
+      },
+      {
+        "label": "d",
+        "text": "No system security management needs to be performed, and neither the creation of\n information security management rules nor the assignment of an administrator is\n required."
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q29)",
+    "source_pages": [
+      14
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q29. Which of the following is a merit in using SaaS?\n\n a) No system access management needs to be performed, and no consideration concerning\n the procedure for password initialization or a password policy that satisfies complexity\n requirements is required.\n b) No system construction needs to be performed, and neither the definition of security\n requirements for application software development nor the design of storage volume for\n system logs is required.\n c) No system operation needs to be performed, and no consideration concerning work\n procedures at the time of a failure or backup is required.\n d) No system security management needs to be performed, and neither the creation of\n information security management rules nor the assignment of an administrator is\n required.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          319.74,
+          343.82,
+          351.19
+        ],
+        "text": "Q29.\nWhich of the following is a merit in using SaaS?"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          84.12,
+          356.93,
+          526.29,
+          388.21
+        ],
+        "text": "a) No system access management needs to be performed, and no consideration concerning"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          84.12,
+          392.93,
+          522.08,
+          442.21
+        ],
+        "text": "the procedure for password initialization or a password policy that satisfies complexity\nrequirements is required.\nb) No system construction needs to be performed, and neither the definition of security"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          84.12,
+          446.93,
+          528.06,
+          496.21
+        ],
+        "text": "requirements for application software development nor the design of storage volume for\nsystem logs is required.\nc) No system operation needs to be performed, and no consideration concerning work"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          84.12,
+          500.93,
+          503.42,
+          532.21
+        ],
+        "text": "procedures at the time of a failure or backup is required.\nd) No system security management needs to be performed, and neither the creation of"
+      },
+      {
+        "type": "text",
+        "page": 14,
+        "bbox": [
+          65.22,
+          536.93,
+          492.43,
+          604.15
+        ],
+        "text": "information security management rules nor the assignment of an administrator is\nrequired."
+      },
+      {
+        "type": "code",
+        "page": 14,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 14 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 30,
+    "question_text": "Q30. Which of the following is an appropriate operation for user authentication that uses an\n IC card and a PIN?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Given that each user can be identified by an IC card, a common PIN is set for all users in\n order to reduce the management workload."
+      },
+      {
+        "label": "b",
+        "text": "If an IC card is lost, a new IC card is issued, and after the PIN is reset, the lost IC card is\n deactivated."
+      },
+      {
+        "label": "c",
+        "text": "The PIN is set by combining the numeric information imprinted on the surface of the IC\n card."
+      },
+      {
+        "label": "d",
+        "text": "When an IC card is delivered, the PIN is not enclosed, but is notified to the user through\n another channel."
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q30)",
+    "source_pages": [
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q30. Which of the following is an appropriate operation for user authentication that uses an\n IC card and a PIN?\n\n a) Given that each user can be identified by an IC card, a common PIN is set for all users in\n order to reduce the management workload.\n b) If an IC card is lost, a new IC card is issued, and after the PIN is reset, the lost IC card is\n deactivated.\n c) The PIN is set by combining the numeric information imprinted on the surface of the IC\n card.\n d) When an IC card is delivered, the PIN is not enclosed, but is notified to the user through\n another channel.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          67.74,
+          533.13,
+          99.13
+        ],
+        "text": "Q30.\nWhich of the following is an appropriate operation for user authentication that uses an\nIC card and a PIN?"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          122.93,
+          532.31,
+          136.21
+        ],
+        "text": "a) Given that each user can be identified by an IC card, a common PIN is set for all users in"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          140.93,
+          530.03,
+          172.21
+        ],
+        "text": "order to reduce the management workload.\nb) If an IC card is lost, a new IC card is issued, and after the PIN is reset, the lost IC card is"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          176.93,
+          527.96,
+          208.21
+        ],
+        "text": "deactivated.\nc) The PIN is set by combining the numeric information imprinted on the surface of the IC"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          212.93,
+          528.57,
+          244.21
+        ],
+        "text": "card.\nd) When an IC card is delivered, the PIN is not enclosed, but is notified to the user through"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          102.12,
+          248.93,
+          184.42,
+          262.21
+        ],
+        "text": "another channel."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 31,
+    "question_text": "Q31. Which of the following is the most effective method of detecting unauthorized changes\n of the contents of a web server?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Communications to the web server are monitored to ensure that there is no\n communication other than HTTP and HTTPS."
+      },
+      {
+        "label": "b",
+        "text": "The hash value of each file of the contents of the web server is stored and periodically\n compared with the hash value generated from each file."
+      },
+      {
+        "label": "c",
+        "text": "The memory usage of the web server is checked periodically to ensure that a buffer\n overflow has not occurred."
+      },
+      {
+        "label": "d",
+        "text": "The updated date of each file of the contents of the web server is stored and compared\n periodically with the updated date of each file."
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q31)",
+    "source_pages": [
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q31. Which of the following is the most effective method of detecting unauthorized changes\n of the contents of a web server?\n\n a) Communications to the web server are monitored to ensure that there is no\n communication other than HTTP and HTTPS.\n b) The hash value of each file of the contents of the web server is stored and periodically\n compared with the hash value generated from each file.\n c) The memory usage of the web server is checked periodically to ensure that a buffer\n overflow has not occurred.\n d) The updated date of each file of the contents of the web server is stored and compared\n periodically with the updated date of each file.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          284.76,
+          528.53,
+          333.13
+        ],
+        "text": "Q31.\nWhich of the following is the most effective method of detecting unauthorized changes\nof the contents of a web server?"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          356.93,
+          463.04,
+          370.21
+        ],
+        "text": "a) Communications to the web server are monitored to ensure that there is no"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          374.93,
+          518.25,
+          406.21
+        ],
+        "text": "communication other than HTTP and HTTPS.\nb) The hash value of each file of the contents of the web server is stored and periodically"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          410.93,
+          505.14,
+          442.21
+        ],
+        "text": "compared with the hash value generated from each file.\nc) The memory usage of the web server is checked periodically to ensure that a buffer"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          446.93,
+          518.3,
+          478.21
+        ],
+        "text": "overflow has not occurred.\nd) The updated date of each file of the contents of the web server is stored and compared"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          482.93,
+          328.39,
+          514.21
+        ],
+        "text": "periodically with the updated date of each file."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 32,
+    "question_text": "Q32. Which of the following is the function of a WAF?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Encrypting data and controlling access on web server"
+      },
+      {
+        "label": "b",
+        "text": "Inspecting and filtering HTTP requests"
+      },
+      {
+        "label": "c",
+        "text": "Managing user authentication and authorization"
+      },
+      {
+        "label": "d",
+        "text": "Scanning malware on a web server"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q32)",
+    "source_pages": [
+      15
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q32. Which of the following is the function of a WAF?\n\n a) Encrypting data and controlling access on web server\n b) Inspecting and filtering HTTP requests\n c) Managing user authentication and authorization\n d) Scanning malware on a web server",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          65.22,
+          518.93,
+          350.54,
+          566.65
+        ],
+        "text": "Q32.\nWhich of the following is the function of a WAF?"
+      },
+      {
+        "type": "text",
+        "page": 15,
+        "bbox": [
+          84.12,
+          573.89,
+          361.41,
+          641.17
+        ],
+        "text": "a) Encrypting data and controlling access on web server\nb) Inspecting and filtering HTTP requests\nc) Managing user authentication and authorization\nd) Scanning malware on a web server"
+      },
+      {
+        "type": "code",
+        "page": 15,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 15 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 33,
+    "question_text": "Q33. Which of the following is an appropriate description concerning SPF for email\n communication?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "It is a policy of the public relations department to designate a specific person to send\n emails."
+      },
+      {
+        "label": "b",
+        "text": "It is an email sent from a spoofed email address without authorization."
+      },
+      {
+        "label": "c",
+        "text": "It matches the sender mail server IP address with the information from the domain server\n and accepts or rejects email."
+      },
+      {
+        "label": "d",
+        "text": "It sends an email to the address of a specific person instead of sending them to multiple\n email addresses."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q33)",
+    "source_pages": [
+      16
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q33. Which of the following is an appropriate description concerning SPF for email\n communication?\n\n a) It is a policy of the public relations department to designate a specific person to send\n emails.\n b) It is an email sent from a spoofed email address without authorization.\n c) It matches the sender mail server IP address with the information from the domain server\n and accepts or rejects email.\n d) It sends an email to the address of a specific person instead of sending them to multiple\n email addresses.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          65.22,
+          67.85,
+          487.91,
+          99.13
+        ],
+        "text": "Q33.\nWhich of the following is an appropriate description concerning SPF for email\ncommunication?"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          122.93,
+          511.33,
+          136.21
+        ],
+        "text": "a) It is a policy of the public relations department to designate a specific person to send"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          140.93,
+          532.89,
+          190.21
+        ],
+        "text": "emails.\nb) It is an email sent from a spoofed email address without authorization.\nc) It matches the sender mail server IP address with the information from the domain server"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          194.93,
+          524.29,
+          226.21
+        ],
+        "text": "and accepts or rejects email.\nd) It sends an email to the address of a specific person instead of sending them to multiple"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          102.12,
+          230.76,
+          184.06,
+          244.21
+        ],
+        "text": "email addresses."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 34,
+    "question_text": "Q34. Which of the following is the software architecture that decomposes applications into\n small, loosely coupled services that communicate over APIs?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Event-Driven Architecture"
+      },
+      {
+        "label": "b",
+        "text": "Microservices Architecture"
+      },
+      {
+        "label": "c",
+        "text": "Serverless Architecture"
+      },
+      {
+        "label": "d",
+        "text": "Service-Oriented Architecture (SOA)"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q34)",
+    "source_pages": [
+      16
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q34. Which of the following is the software architecture that decomposes applications into\n small, loosely coupled services that communicate over APIs?\n\n a) Event-Driven Architecture b) Microservices Architecture\n c) Serverless Architecture d) Service-Oriented Architecture (SOA)",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          65.22,
+          283.74,
+          520.48,
+          315.13
+        ],
+        "text": "Q34.\nWhich of the following is the software architecture that decomposes applications into\nsmall, loosely coupled services that communicate over APIs?"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          84.12,
+          338.93,
+          516.39,
+          370.21
+        ],
+        "text": "a) Event-Driven Architecture\nb) Microservices Architecture\nc) Serverless Architecture\nd) Service-Oriented Architecture (SOA)"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 35,
+    "question_text": "Q35. Which of the following is the UML class diagram that shows a generalization relation?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "",
+        "image": "2025-april-a-q35-choice-a.webp"
+      },
+      {
+        "label": "b",
+        "text": "",
+        "image": "2025-april-a-q35-choice-b.webp"
+      },
+      {
+        "label": "c",
+        "text": "",
+        "image": "2025-april-a-q35-choice-c.webp"
+      },
+      {
+        "label": "d",
+        "text": "",
+        "image": "2025-april-a-q35-choice-d.webp"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q35)",
+    "source_pages": [
+      16
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q35. Which of the following is the UML class diagram that shows a generalization relation?\n\n a) Automobile b) Automobile\n\n 1\n 1\n Automobile Driver\n inspection\n certificate\n\n c) Automobile d) Automobile\n\n 1 1\n * *\n Sports car Tire Engine",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          65.22,
+          392.76,
+          526.77,
+          423.19
+        ],
+        "text": "Q35. Which of the following is the UML class diagram that shows a generalization relation?"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          90.48,
+          446.49,
+          99.68,
+          459.8
+        ],
+        "text": "a)"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          257.46,
+          446.49,
+          267.44,
+          459.8
+        ],
+        "text": "b)"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          312.96,
+          447.33,
+          369.81,
+          460.64
+        ],
+        "text": "Automobile"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          132.42,
+          447.51,
+          189.27,
+          460.82
+        ],
+        "text": "Automobile"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          145.68,
+          490.11,
+          151.66,
+          503.42
+        ],
+        "text": "1"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          145.68,
+          508.41,
+          151.66,
+          521.72
+        ],
+        "text": "1"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          131.64,
+          520.29,
+          191.4,
+          533.6
+        ],
+        "text": "Automobile"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          325.14,
+          524.07,
+          356.0,
+          537.38
+        ],
+        "text": "Driver"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          135.6,
+          534.69,
+          187.92,
+          548.0
+        ],
+        "text": "inspection"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          136.32,
+          549.15,
+          184.18,
+          562.46
+        ],
+        "text": "certificate"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          260.28,
+          605.55,
+          370.17,
+          619.04
+        ],
+        "text": "Automobile\nd)"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          89.04,
+          606.99,
+          98.3,
+          620.3
+        ],
+        "text": "c)"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          132.72,
+          607.11,
+          189.57,
+          620.42
+        ],
+        "text": "Automobile"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          349.74,
+          657.57,
+          355.72,
+          670.88
+        ],
+        "text": "1"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          327.0,
+          657.69,
+          332.98,
+          671.0
+        ],
+        "text": "1"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          293.28,
+          675.75,
+          380.62,
+          689.3
+        ],
+        "text": "*\n*"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          136.2,
+          683.43,
+          184.28,
+          696.74
+        ],
+        "text": "Sports car"
+      },
+      {
+        "type": "text",
+        "page": 16,
+        "bbox": [
+          292.5,
+          688.11,
+          401.13,
+          701.42
+        ],
+        "text": "Engine\nTire"
+      },
+      {
+        "type": "code",
+        "page": 16,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 16 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 36,
+    "question_text": "Q36. Which of the following is an explanation of a software testing tool corresponding to a\n static analysis tool that supports static testing?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Data concerning the operating characteristics during program execution, such as the\n module calling frequency and execution time, or the execution frequency of executable\n statement is measured."
+      },
+      {
+        "label": "b",
+        "text": "The instruction coverage rate and the branch coverage rate are automatically measured\n and analyzed on the basis of the test execution results."
+      },
+      {
+        "label": "c",
+        "text": "The source code is analyzed to find out if grammatical errors or logical errors exist in a\n program."
+      },
+      {
+        "label": "d",
+        "text": "The test data of the specified conditions and the program input files are generated\n automatically."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q36)",
+    "source_pages": [
+      17
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q36. Which of the following is an explanation of a software testing tool corresponding to a\n static analysis tool that supports static testing?\n\n a) Data concerning the operating characteristics during program execution, such as the\n module calling frequency and execution time, or the execution frequency of executable\n statement is measured.\n b) The instruction coverage rate and the branch coverage rate are automatically measured\n and analyzed on the basis of the test execution results.\n c) The source code is analyzed to find out if grammatical errors or logical errors exist in a\n program.\n d) The test data of the specified conditions and the program input files are generated\n automatically.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          65.22,
+          67.74,
+          521.48,
+          99.13
+        ],
+        "text": "Q36.\nWhich of the following is an explanation of a software testing tool corresponding to a\nstatic analysis tool that supports static testing?"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          104.93,
+          507.97,
+          136.21
+        ],
+        "text": "a) Data concerning the operating characteristics during program execution, such as the"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          140.93,
+          523.6,
+          190.21
+        ],
+        "text": "module calling frequency and execution time, or the execution frequency of executable\nstatement is measured.\nb) The instruction coverage rate and the branch coverage rate are automatically measured"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          194.93,
+          523.59,
+          226.21
+        ],
+        "text": "and analyzed on the basis of the test execution results.\nc) The source code is analyzed to find out if grammatical errors or logical errors exist in a"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          84.12,
+          230.93,
+          496.7,
+          262.21
+        ],
+        "text": "program.\nd) The test data of the specified conditions and the program input files are generated"
+      },
+      {
+        "type": "text",
+        "page": 17,
+        "bbox": [
+          65.22,
+          266.93,
+          173.46,
+          298.21
+        ],
+        "text": "automatically."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 37,
+    "question_text": "Q37. Test cases for the part of a program shown in the flowchart below are created to achieve\n decision condition coverage (branch coverage). In order to make the test cases achieve\n multiple-condition coverage, which of the following is the appropriate set of test cases to be\n added? Here, the part enclosed by parentheses () represents a test case.\n\n• Test cases to achieve decision condition coverage (branch coverage)\n (A = 4, B = 1), (A = 5, B = 0)",
+    "choices": [
+      {
+        "label": "a",
+        "text": "(A = 3, B = 0), (A = 7, B = 2)"
+      },
+      {
+        "label": "b",
+        "text": "(A = 3, B = 2), (A = 8, B = 0)"
+      },
+      {
+        "label": "c",
+        "text": "(A = 4, B = 0), (A = 8, B = 0)"
+      },
+      {
+        "label": "d",
+        "text": "(A = 7, B = 0), (A = 8, B = 2)"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [
+      "2025-april-a-q37-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q37)",
+    "source_pages": [
+      17
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q37. Test cases for the part of a program shown in the flowchart below are created to achieve\n decision condition coverage (branch coverage). In order to make the test cases achieve\n multiple-condition coverage, which of the following is the appropriate set of test cases to be\n added? Here, the part enclosed by parentheses () represents a test case.\n\n Process 1\n\n No\n A > 6 or B = 0\n\n Yes\n Process 2\n\n • Test cases to achieve decision condition coverage (branch coverage)\n (A = 4, B = 1), (A = 5, B = 0)\n\n a) (A = 3, B = 0), (A = 7, B = 2)\n b) (A = 3, B = 2), (A = 8, B = 0)\n c) (A = 4, B = 0), (A = 8, B = 0)\n d) (A = 7, B = 0), (A = 8, B = 2)",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q37. Test cases for the part of a program shown in the flowchart below are created to achieve\n decision condition coverage (branch coverage). In order to make the test cases achieve\n multiple-condition coverage, which of the following is the appropriate set of test cases to be\n added? Here, the part enclosed by parentheses () represents a test case.\n\n• Test cases to achieve decision condition coverage (branch coverage)\n (A = 4, B = 1), (A = 5, B = 0)"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 38,
+    "question_text": "Q38. Which of the following is an appropriate test to ensure that the interfaces and linkages\n between different parts of software work properly?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Functional test"
+      },
+      {
+        "label": "b",
+        "text": "Integration test"
+      },
+      {
+        "label": "c",
+        "text": "Performance test"
+      },
+      {
+        "label": "d",
+        "text": "Unit test"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q38)",
+    "source_pages": [
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q38. Which of the following is an appropriate test to ensure that the interfaces and linkages\n between different parts of software work properly?\n\n a) Functional test b) Integration test\n c) Performance test d) Unit test",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          67.74,
+          523.46,
+          99.13
+        ],
+        "text": "Q38.\nWhich of the following is an appropriate test to ensure that the interfaces and linkages\nbetween different parts of software work properly?"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          84.12,
+          122.93,
+          408.83,
+          154.21
+        ],
+        "text": "a) Functional test\nb) Integration test\nc) Performance test\nd) Unit test"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 39,
+    "question_text": "Q39. Which of the following is the term that represents the process of generating a UML\n class diagram from a program?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Backtracking"
+      },
+      {
+        "label": "b",
+        "text": "Forward engineering"
+      },
+      {
+        "label": "c",
+        "text": "Re-engineering"
+      },
+      {
+        "label": "d",
+        "text": "Reverse engineering"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q39)",
+    "source_pages": [
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q39. Which of the following is the term that represents the process of generating a UML\n class diagram from a program?\n\n a) Backtracking b) Forward engineering\n c) Re-engineering d) Reverse engineering",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          178.12,
+          509.67,
+          225.13
+        ],
+        "text": "Q39.\nWhich of the following is the term that represents the process of generating a UML\nclass diagram from a program?"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          230.93,
+          430.77,
+          298.21
+        ],
+        "text": "a) Backtracking\nb) Forward engineering\nc) Re-engineering\nd) Reverse engineering"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 40,
+    "question_text": "Q40. Which of the following is an appropriate explanation of a Sprint in the Scrum\n methodology?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A daily meeting where team members review progress and plan the day's work"
+      },
+      {
+        "label": "b",
+        "text": "A fixed-length period dedicated to developing a product increment"
+      },
+      {
+        "label": "c",
+        "text": "A self-organizing team responsible for product development"
+      },
+      {
+        "label": "d",
+        "text": "List of tasks and features the Scrum team has yet to complete"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q40)",
+    "source_pages": [
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q40. Which of the following is an appropriate explanation of a Sprint in the Scrum\n methodology?\n\n a) A daily meeting where team members review progress and plan the day's work\n b) A fixed-length period dedicated to developing a product increment\n c) A self-organizing team responsible for product development\n d) List of tasks and features the Scrum team has yet to complete",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          302.93,
+          482.47,
+          351.13
+        ],
+        "text": "Q40.\nWhich of the following is an appropriate explanation of a Sprint in the Scrum\nmethodology?"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          374.93,
+          483.76,
+          460.15
+        ],
+        "text": "a) A daily meeting where team members review progress and plan the day's work\nb) A fixed-length period dedicated to developing a product increment\nc) A self-organizing team responsible for product development\nd) List of tasks and features the Scrum team has yet to complete"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 41,
+    "question_text": "Q41. Which of the following is an appropriate explanation of earned value in project\n management?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "A measure of work completed in terms of budget authorized for that work."
+      },
+      {
+        "label": "b",
+        "text": "A time-phased budget that estimates the total cost of a project"
+      },
+      {
+        "label": "c",
+        "text": "An authorized budget for the planned work"
+      },
+      {
+        "label": "d",
+        "text": "Realized cost incurred for the work performed on an activity during a specific time\n period"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q41)",
+    "source_pages": [
+      18
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q41. Which of the following is an appropriate explanation of earned value in project\n management?\n\n a) A measure of work completed in terms of budget authorized for that work.\n b) A time-phased budget that estimates the total cost of a project\n c) An authorized budget for the planned work\n d) Realized cost incurred for the work performed on an activity during a specific time\n period",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          65.22,
+          464.76,
+          490.22,
+          513.13
+        ],
+        "text": "Q41.\nWhich of the following is an appropriate explanation of earned value in project\nmanagement?"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          84.12,
+          536.93,
+          503.37,
+          604.21
+        ],
+        "text": "a) A measure of work completed in terms of budget authorized for that work.\nb) A time-phased budget that estimates the total cost of a project\nc) An authorized budget for the planned work\nd) Realized cost incurred for the work performed on an activity during a specific time"
+      },
+      {
+        "type": "text",
+        "page": 18,
+        "bbox": [
+          102.12,
+          608.93,
+          135.79,
+          622.21
+        ],
+        "text": "period"
+      },
+      {
+        "type": "code",
+        "page": 18,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 18 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 42,
+    "question_text": "Q42. Which of the following is the method of estimation in the COCOMO model in software\n estimation?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "The effort and duration of the project are estimated based on the size of the software."
+      },
+      {
+        "label": "b",
+        "text": "The effort of the project is estimated based on the duration of the project."
+      },
+      {
+        "label": "c",
+        "text": "The size of the software and duration of the project are estimated based on the effort of\n the project."
+      },
+      {
+        "label": "d",
+        "text": "The size of the software and effort of the project are estimated based on the duration of\n the project."
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q42)",
+    "source_pages": [
+      19
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q42. Which of the following is the method of estimation in the COCOMO model in software\n estimation?\n\n a) The effort and duration of the project are estimated based on the size of the software.\n b) The effort of the project is estimated based on the duration of the project.\n c) The size of the software and duration of the project are estimated based on the effort of\n the project.\n d) The size of the software and effort of the project are estimated based on the duration of\n the project.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          67.74,
+          531.58,
+          99.13
+        ],
+        "text": "Q42.\nWhich of the following is the method of estimation in the COCOMO model in software\nestimation?"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          122.93,
+          522.99,
+          172.21
+        ],
+        "text": "a) The effort and duration of the project are estimated based on the size of the software.\nb) The effort of the project is estimated based on the duration of the project.\nc) The size of the software and duration of the project are estimated based on the effort of"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          176.93,
+          522.97,
+          208.21
+        ],
+        "text": "the project.\nd) The size of the software and effort of the project are estimated based on the duration of"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          212.93,
+          159.13,
+          244.21
+        ],
+        "text": "the project."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 43,
+    "question_text": "Q43. An IT service is provided under the conditions below. What is the maximum downtime in\n hours that satisfies the SLA during a service period of one (1) month? Here, the number of\n business days in one (1) month is 30, and no maintenance or other scheduled downtime of the\n service is performed during the service period.\n\n [Conditions of the SLA]\n - The service period is from 8:00 AM to 10:00 PM on business days.\n - The availability should be 99.5% or more.",
+    "choices": [
+      {
+        "label": "a",
+        "text": "0.3"
+      },
+      {
+        "label": "b",
+        "text": "2.1"
+      },
+      {
+        "label": "c",
+        "text": "3.0"
+      },
+      {
+        "label": "d",
+        "text": "3.6"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q43)",
+    "source_pages": [
+      19
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q43. An IT service is provided under the conditions below. What is the maximum downtime in\n hours that satisfies the SLA during a service period of one (1) month? Here, the number of\n business days in one (1) month is 30, and no maintenance or other scheduled downtime of the\n service is performed during the service period.\n\n [Conditions of the SLA]\n - The service period is from 8:00 AM to 10:00 PM on business days.\n - The availability should be 99.5% or more.\n\n a) 0.3 b) 2.1 c) 3.0 d) 3.6",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          248.93,
+          533.07,
+          279.19
+        ],
+        "text": "Q43. An IT service is provided under the conditions below. What is the maximum downtime in"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          85.62,
+          283.85,
+          533.16,
+          333.13
+        ],
+        "text": "hours that satisfies the SLA during a service period of one (1) month? Here, the number of\nbusiness days in one (1) month is 30, and no maintenance or other scheduled downtime of the\nservice is performed during the service period."
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          86.22,
+          360.53,
+          206.14,
+          373.81
+        ],
+        "text": "[Conditions of the SLA]"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          93.6,
+          377.81,
+          432.98,
+          409.09
+        ],
+        "text": "- The service period is from 8:00 AM to 10:00 PM on business days.\n- The availability should be 99.5% or more."
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          432.89,
+          465.96,
+          464.11
+        ],
+        "text": "a) 0.3\nb) 2.1\nc) 3.0\nd) 3.6"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 44,
+    "question_text": "Q44. Which of the following should be accomplished in service management concerning\n Maximum Tolerable Downtime (MTD), Recovery Point Objective (RPO), and Recovery\n Time Objective (RTO)?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "MTD < RPO"
+      },
+      {
+        "label": "b",
+        "text": "MTD < RTO"
+      },
+      {
+        "label": "c",
+        "text": "RPO < MTD"
+      },
+      {
+        "label": "d",
+        "text": "RTO < MTD"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q44)",
+    "source_pages": [
+      19
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q44. Which of the following should be accomplished in service management concerning\n Maximum Tolerable Downtime (MTD), Recovery Point Objective (RPO), and Recovery\n Time Objective (RTO)?\n\n a) MTD < RPO b) MTD < RTO c) RPO < MTD d) RTO < MTD",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          468.72,
+          514.43,
+          535.09
+        ],
+        "text": "Q44.\nWhich of the following should be accomplished in service management concerning\nMaximum Tolerable Downtime (MTD), Recovery Point Objective (RPO), and Recovery\nTime Objective (RTO)?"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          558.89,
+          514.32,
+          590.11
+        ],
+        "text": "a) MTD < RPO\nb) MTD < RTO\nc) RPO < MTD\nd) RTO < MTD"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 45,
+    "question_text": "Q45. Which of the following is a checkpoint for auditing the control of risks related to\n information leakage and unauthorized use of documents concerning a system?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Creating the necessary documents even in prototype development"
+      },
+      {
+        "label": "b",
+        "text": "Standardizing documents"
+      },
+      {
+        "label": "c",
+        "text": "Taking measures to ensure the confidentiality of documents"
+      },
+      {
+        "label": "d",
+        "text": "Updating documents without delay as changes are made in the system"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q45)",
+    "source_pages": [
+      19
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q45. Which of the following is a checkpoint for auditing the control of risks related to\n information leakage and unauthorized use of documents concerning a system?\n\n a) Creating the necessary documents even in prototype development\n b) Standardizing documents\n c) Taking measures to ensure the confidentiality of documents\n d) Updating documents without delay as changes are made in the system",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          65.22,
+          594.72,
+          498.15,
+          643.09
+        ],
+        "text": "Q45.\nWhich of the following is a checkpoint for auditing the control of risks related to\ninformation leakage and unauthorized use of documents concerning a system?"
+      },
+      {
+        "type": "text",
+        "page": 19,
+        "bbox": [
+          84.12,
+          648.89,
+          446.92,
+          734.17
+        ],
+        "text": "a) Creating the necessary documents even in prototype development\nb) Standardizing documents\nc) Taking measures to ensure the confidentiality of documents\nd) Updating documents without delay as changes are made in the system"
+      },
+      {
+        "type": "code",
+        "page": 19,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 19 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 46,
+    "question_text": "Q46. Which of the following is a technique that is used to perform the optimal resource\n allocation for a computerization investment in each category classified on the basis of the\n similarities in risks and investment value?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "3C analysis"
+      },
+      {
+        "label": "b",
+        "text": "Benchmarking"
+      },
+      {
+        "label": "c",
+        "text": "Enterprise architecture"
+      },
+      {
+        "label": "d",
+        "text": "IT portfolio"
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q46)",
+    "source_pages": [
+      20
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q46. Which of the following is a technique that is used to perform the optimal resource\n allocation for a computerization investment in each category classified on the basis of the\n similarities in risks and investment value?\n\n a) 3C analysis b) Benchmarking\n c) Enterprise architecture d) IT portfolio",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          65.22,
+          67.74,
+          518.18,
+          117.13
+        ],
+        "text": "Q46.\nWhich of the following is a technique that is used to perform the optimal resource\nallocation for a computerization investment in each category classified on the basis of the\nsimilarities in risks and investment value?"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          122.93,
+          407.12,
+          172.21
+        ],
+        "text": "a) 3C analysis\nb) Benchmarking\nc) Enterprise architecture\nd) IT portfolio"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 47,
+    "question_text": "Q47. Which of the following is a usage scenario for the adoption of UML as a technique for\n visualizing business processes?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Diagrams are shown by using a data-oriented approach where objects are handled as\n entities, their attributes, and the relationships among the entities."
+      },
+      {
+        "label": "b",
+        "text": "To represent processes by using data flows, sources and sinks of data, data stores, and\n data processes are connected with arrows that indicate data flow."
+      },
+      {
+        "label": "c",
+        "text": "To represent processes from multiple viewpoints, some purpose-specific modeling\n methods are used, and each model is depicted by using standardized notation rules for\n object modeling."
+      },
+      {
+        "label": "d",
+        "text": "To thoroughly represent the functions of a process, the events that occur in response to a\n single request are described by using the conditional branch format."
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q47)",
+    "source_pages": [
+      20
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q47. Which of the following is a usage scenario for the adoption of UML as a technique for\n visualizing business processes?\n\n a) Diagrams are shown by using a data-oriented approach where objects are handled as\n entities, their attributes, and the relationships among the entities.\n b) To represent processes by using data flows, sources and sinks of data, data stores, and\n data processes are connected with arrows that indicate data flow.\n c) To represent processes from multiple viewpoints, some purpose-specific modeling\n methods are used, and each model is depicted by using standardized notation rules for\n object modeling.\n d) To thoroughly represent the functions of a process, the events that occur in response to a\n single request are described by using the conditional branch format.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          65.22,
+          211.74,
+          533.17,
+          243.13
+        ],
+        "text": "Q47.\nWhich of the following is a usage scenario for the adoption of UML as a technique for\nvisualizing business processes?"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          248.93,
+          510.41,
+          280.21
+        ],
+        "text": "a) Diagrams are shown by using a data-oriented approach where objects are handled as"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          284.93,
+          517.38,
+          316.21
+        ],
+        "text": "entities, their attributes, and the relationships among the entities.\nb) To represent processes by using data flows, sources and sinks of data, data stores, and"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          320.93,
+          501.5,
+          352.21
+        ],
+        "text": "data processes are connected with arrows that indicate data flow.\nc) To represent processes from multiple viewpoints, some purpose-specific modeling"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          356.93,
+          529.67,
+          406.21
+        ],
+        "text": "methods are used, and each model is depicted by using standardized notation rules for\nobject modeling.\nd) To thoroughly represent the functions of a process, the events that occur in response to a"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          102.12,
+          410.93,
+          430.29,
+          424.21
+        ],
+        "text": "single request are described by using the conditional branch format."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 48,
+    "question_text": "Q48. Which of the following is an explanation of a hybrid cloud?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "To configure and provide the service content of a cloud service for both consumers and\n companies"
+      },
+      {
+        "label": "b",
+        "text": "To customize some of the functions that are provided by a cloud service for the\n company’s own use"
+      },
+      {
+        "label": "c",
+        "text": "To provide an environment where data and application software are linked and\n interoperable between a cloud service for the exclusive use of a company and a general-purpose cloud service"
+      },
+      {
+        "label": "d",
+        "text": "To separately provide the service content of a cloud service as paid services and free\n services"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q48)",
+    "source_pages": [
+      20
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q48. Which of the following is an explanation of a hybrid cloud?\n\n a) To configure and provide the service content of a cloud service for both consumers and\n companies\n b) To customize some of the functions that are provided by a cloud service for the\n company’s own use\n c) To provide an environment where data and application software are linked and\n interoperable between a cloud service for the exclusive use of a company and a general-purpose cloud service\n d) To separately provide the service content of a cloud service as paid services and free\n services",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          65.22,
+          463.74,
+          397.41,
+          477.19
+        ],
+        "text": "Q48.\nWhich of the following is an explanation of a hybrid cloud?"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          482.93,
+          524.24,
+          514.21
+        ],
+        "text": "a) To configure and provide the service content of a cloud service for both consumers and"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          518.93,
+          485.84,
+          550.21
+        ],
+        "text": "companies\nb) To customize some of the functions that are provided by a cloud service for the"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          554.93,
+          483.23,
+          586.21
+        ],
+        "text": "company’s own use\nc) To provide an environment where data and application software are linked and"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          84.12,
+          590.93,
+          527.66,
+          640.21
+        ],
+        "text": "interoperable between a cloud service for the exclusive use of a company and a general-\npurpose cloud service\nd) To separately provide the service content of a cloud service as paid services and free"
+      },
+      {
+        "type": "text",
+        "page": 20,
+        "bbox": [
+          102.12,
+          644.93,
+          143.76,
+          658.21
+        ],
+        "text": "services"
+      },
+      {
+        "type": "code",
+        "page": 20,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 20 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 49,
+    "question_text": "Q49. Which of the following is an explanation of green procurement?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "It refers not only to the fulfillment of the requirements of quality and price but to the\n preferential purchase of products and services with a lower environmental burden from\n companies that work toward a reduction in their environmental impact."
+      },
+      {
+        "label": "b",
+        "text": "It refers to a certificate that enables commercial trading of the green power that is\n generated from natural energy sources such as solar, biomass, wind power, and\n geothermal heat."
+      },
+      {
+        "label": "c",
+        "text": "It refers to international standards concerning environmental labels that are certified by a\n third party on the basis of certain criteria."
+      },
+      {
+        "label": "d",
+        "text": "It refers to mass promotion of the details of environmental protection activities and\n raising funds for environmental protection from investors."
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q49)",
+    "source_pages": [
+      21
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q49. Which of the following is an explanation of green procurement?\n\n a) It refers not only to the fulfillment of the requirements of quality and price but to the\n preferential purchase of products and services with a lower environmental burden from\n companies that work toward a reduction in their environmental impact.\n b) It refers to a certificate that enables commercial trading of the green power that is\n generated from natural energy sources such as solar, biomass, wind power, and\n geothermal heat.\n c) It refers to international standards concerning environmental labels that are certified by a\n third party on the basis of certain criteria.\n d) It refers to mass promotion of the details of environmental protection activities and\n raising funds for environmental protection from investors.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          67.74,
+          418.4,
+          81.19
+        ],
+        "text": "Q49.\nWhich of the following is an explanation of green procurement?"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          86.93,
+          510.93,
+          118.21
+        ],
+        "text": "a) It refers not only to the fulfillment of the requirements of quality and price but to the"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          122.93,
+          523.45,
+          172.21
+        ],
+        "text": "preferential purchase of products and services with a lower environmental burden from\ncompanies that work toward a reduction in their environmental impact.\nb) It refers to a certificate that enables commercial trading of the green power that is"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          176.93,
+          531.54,
+          226.21
+        ],
+        "text": "generated from natural energy sources such as solar, biomass, wind power, and\ngeothermal heat.\nc) It refers to international standards concerning environmental labels that are certified by a"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          230.93,
+          503.76,
+          262.21
+        ],
+        "text": "third party on the basis of certain criteria.\nd) It refers to mass promotion of the details of environmental protection activities and"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          266.93,
+          384.13,
+          298.21
+        ],
+        "text": "raising funds for environmental protection from investors."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 50,
+    "question_text": "Q50. Which of the following is a characteristic of the growth stage in a product life cycle?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Demand decreases, and the withdrawal of some companies is observed. A decision\n needs to be made regarding whether it is possible to gain a strong foothold at this stage.\n Migration into an alternative market is also considered."
+      },
+      {
+        "label": "b",
+        "text": "Demand is occasional, and exploiting new demand is key to success. Conviction for\n succeeding in a specific target market is necessary."
+      },
+      {
+        "label": "c",
+        "text": "Demand reaches a peak, and the differentiation of the product and segmentation of the\n market become clear. The competition between competitors also intensifies, and it\n becomes important to add new product types and reduce costs."
+      },
+      {
+        "label": "d",
+        "text": "The market starts to understand the value of the product. Both the product line and\n distribution channels need to be expanded. This stage sees an increase in sales and also\n requires investment."
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q50)",
+    "source_pages": [
+      21
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q50. Which of the following is a characteristic of the growth stage in a product life cycle?\n\n a) Demand decreases, and the withdrawal of some companies is observed. A decision\n needs to be made regarding whether it is possible to gain a strong foothold at this stage.\n Migration into an alternative market is also considered.\n b) Demand is occasional, and exploiting new demand is key to success. Conviction for\n succeeding in a specific target market is necessary.\n c) Demand reaches a peak, and the differentiation of the product and segmentation of the\n market become clear. The competition between competitors also intensifies, and it\n becomes important to add new product types and reduce costs.\n d) The market starts to understand the value of the product. Both the product line and\n distribution channels need to be expanded. This stage sees an increase in sales and also\n requires investment.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          302.93,
+          517.07,
+          350.89
+        ],
+        "text": "Q50.\nWhich of the following is a characteristic of the growth stage in a product life cycle?"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          356.93,
+          503.28,
+          370.21
+        ],
+        "text": "a) Demand decreases, and the withdrawal of some companies is observed. A decision"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          374.93,
+          525.43,
+          424.21
+        ],
+        "text": "needs to be made regarding whether it is possible to gain a strong foothold at this stage.\nMigration into an alternative market is also considered.\nb) Demand is occasional, and exploiting new demand is key to success. Conviction for"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          428.93,
+          519.78,
+          460.21
+        ],
+        "text": "succeeding in a specific target market is necessary.\nc) Demand reaches a peak, and the differentiation of the product and segmentation of the"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          464.93,
+          501.46,
+          514.21
+        ],
+        "text": "market become clear. The competition between competitors also intensifies, and it\nbecomes important to add new product types and reduce costs.\nd) The market starts to understand the value of the product. Both the product line and"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          518.93,
+          522.71,
+          568.21
+        ],
+        "text": "distribution channels need to be expanded. This stage sees an increase in sales and also\nrequires investment."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 51,
+    "question_text": "Q51. Which of the following is a description of cost-plus pricing?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "It determines a competitive price by referring to the industry average and the pricing of\n competitors."
+      },
+      {
+        "label": "b",
+        "text": "It determines a price by adding a certain margin to the manufacturing cost and the\n purchasing cost."
+      },
+      {
+        "label": "c",
+        "text": "It determines a price that ensures a certain profit margin after all costs are covered on the\n basis of a target volume of sales."
+      },
+      {
+        "label": "d",
+        "text": "It determines an appealing price by researching the quality and price that customers\n accept."
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q51)",
+    "source_pages": [
+      21
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q51. Which of the following is a description of cost-plus pricing?\n\n a) It determines a competitive price by referring to the industry average and the pricing of\n competitors.\n b) It determines a price by adding a certain margin to the manufacturing cost and the\n purchasing cost.\n c) It determines a price that ensures a certain profit margin after all costs are covered on the\n basis of a target volume of sales.\n d) It determines an appealing price by researching the quality and price that customers\n accept.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          65.22,
+          589.74,
+          399.81,
+          603.19
+        ],
+        "text": "Q51.\nWhich of the following is a description of cost-plus pricing?"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          608.93,
+          523.65,
+          640.21
+        ],
+        "text": "a) It determines a competitive price by referring to the industry average and the pricing of"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          644.93,
+          498.39,
+          676.21
+        ],
+        "text": "competitors.\nb) It determines a price by adding a certain margin to the manufacturing cost and the"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          680.93,
+          532.34,
+          712.21
+        ],
+        "text": "purchasing cost.\nc) It determines a price that ensures a certain profit margin after all costs are covered on the"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          84.12,
+          716.93,
+          506.42,
+          748.21
+        ],
+        "text": "basis of a target volume of sales.\nd) It determines an appealing price by researching the quality and price that customers"
+      },
+      {
+        "type": "text",
+        "page": 21,
+        "bbox": [
+          102.12,
+          752.93,
+          138.8,
+          766.21
+        ],
+        "text": "accept."
+      },
+      {
+        "type": "code",
+        "page": 21,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 21 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 52,
+    "question_text": "Q52. Which of the following is an explanation of Supply Chain Management (SCM)?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Customer information that are collected through various channels is consolidated and\n utilized to establish closer relationships with customers."
+      },
+      {
+        "label": "b",
+        "text": "Employees’ skills and behavior characteristics are grasped, and management such as\n appropriate personnel assignment and evaluation from the perspective of human\n resources strategy is performed."
+      },
+      {
+        "label": "c",
+        "text": "Intellectual assets of individuals, such as know-how and experience, are shared across\n the organization to be used for creative work."
+      },
+      {
+        "label": "d",
+        "text": "The entire series of business operations, from purchasing and production to sales and\n distribution, is reexamined both within the company and among companies in view of\n total optimization in order to shorten delivery times and minimize inventory."
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q52)",
+    "source_pages": [
+      22
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q52. Which of the following is an explanation of Supply Chain Management (SCM)?\n\n a) Customer information that are collected through various channels is consolidated and\n utilized to establish closer relationships with customers.\n b) Employees’ skills and behavior characteristics are grasped, and management such as\n appropriate personnel assignment and evaluation from the perspective of human\n resources strategy is performed.\n c) Intellectual assets of individuals, such as know-how and experience, are shared across\n the organization to be used for creative work.\n d) The entire series of business operations, from purchasing and production to sales and\n distribution, is reexamined both within the company and among companies in view of\n total optimization in order to shorten delivery times and minimize inventory.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          65.22,
+          67.74,
+          495.8,
+          81.19
+        ],
+        "text": "Q52.\nWhich of the following is an explanation of Supply Chain Management (SCM)?"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          104.93,
+          514.87,
+          118.21
+        ],
+        "text": "a) Customer information that are collected through various channels is consolidated and"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          122.93,
+          511.4,
+          154.21
+        ],
+        "text": "utilized to establish closer relationships with customers.\nb) Employees’ skills and behavior characteristics are grasped, and management such as"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          158.93,
+          517.99,
+          208.21
+        ],
+        "text": "appropriate personnel assignment and evaluation from the perspective of human\nresources strategy is performed.\nc) Intellectual assets of individuals, such as know-how and experience, are shared across"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          212.93,
+          513.45,
+          244.21
+        ],
+        "text": "the organization to be used for creative work.\nd) The entire series of business operations, from purchasing and production to sales and"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          248.93,
+          518.09,
+          298.21
+        ],
+        "text": "distribution, is reexamined both within the company and among companies in view of\ntotal optimization in order to shorten delivery times and minimize inventory."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 53,
+    "question_text": "Q53. Which of the following is the appropriate explanation for product innovation in the\n management of technology?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Acquiring business profits through the achievements of technology development"
+      },
+      {
+        "label": "b",
+        "text": "Developing new products or products that enable differentiation from other companies"
+      },
+      {
+        "label": "c",
+        "text": "Making innovative reforms in business processes"
+      },
+      {
+        "label": "d",
+        "text": "Strategically managing business with technology as the core"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q53)",
+    "source_pages": [
+      22
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q53. Which of the following is the appropriate explanation for product innovation in the\n management of technology?\n\n a) Acquiring business profits through the achievements of technology development\n b) Developing new products or products that enable differentiation from other companies\n c) Making innovative reforms in business processes\n d) Strategically managing business with technology as the core",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          65.22,
+          302.93,
+          508.85,
+          351.13
+        ],
+        "text": "Q53.\nWhich of the following is the appropriate explanation for product innovation in the\nmanagement of technology?"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          356.93,
+          521.03,
+          460.21
+        ],
+        "text": "a) Acquiring business profits through the achievements of technology development\nb) Developing new products or products that enable differentiation from other companies\nc) Making innovative reforms in business processes\nd) Strategically managing business with technology as the core"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 54,
+    "question_text": "Q54. Which of the following is a characteristic of MRP?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "The development, designing, and production preparation of a product are performed\n simultaneously in parallel."
+      },
+      {
+        "label": "b",
+        "text": "The number of required components is calculated on the basis of the standard production\n plan of a product."
+      },
+      {
+        "label": "c",
+        "text": "The production of a product is initiated after an order from a customer is received."
+      },
+      {
+        "label": "d",
+        "text": "Work instructions and transport instructions are provided by using a worksheet."
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q54)",
+    "source_pages": [
+      22
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q54. Which of the following is a characteristic of MRP?\n\n a) The development, designing, and production preparation of a product are performed\n simultaneously in parallel.\n b) The number of required components is calculated on the basis of the standard production\n plan of a product.\n c) The production of a product is initiated after an order from a customer is received.\n d) Work instructions and transport instructions are provided by using a worksheet.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          65.22,
+          481.74,
+          355.47,
+          495.19
+        ],
+        "text": "Q54.\nWhich of the following is a characteristic of MRP?"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          518.93,
+          509.09,
+          532.21
+        ],
+        "text": "a) The development, designing, and production preparation of a product are performed"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          84.12,
+          536.93,
+          532.0,
+          568.21
+        ],
+        "text": "simultaneously in parallel.\nb) The number of required components is calculated on the basis of the standard production"
+      },
+      {
+        "type": "text",
+        "page": 22,
+        "bbox": [
+          65.22,
+          572.93,
+          499.76,
+          640.21
+        ],
+        "text": "plan of a product.\nc) The production of a product is initiated after an order from a customer is received.\nd) Work instructions and transport instructions are provided by using a worksheet."
+      },
+      {
+        "type": "code",
+        "page": 22,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 22 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 55,
+    "question_text": "Q55. Which of the following corresponds to (5) in the example of a model of an affiliate\n program that is shown in the Internet advertising? Here, (1) to (5) indicate the order of\n operations in the model, and (1), (2), (4), and (5) each correspond to one of the options a) to\n d).",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Agree to and participate in the affiliate program"
+      },
+      {
+        "label": "b",
+        "text": "Click the advertisement on the website"
+      },
+      {
+        "label": "c",
+        "text": "Pay a success fee on the basis of the sales of the product"
+      },
+      {
+        "label": "d",
+        "text": "Purchase the desired product"
+      }
+    ],
+    "correct_answer": "c",
+    "answer_key": {
+      "value": "c"
+    },
+    "images": [
+      "2025-april-a-q55-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q55)",
+    "source_pages": [
+      23
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q55. Which of the following corresponds to (5) in the example of a model of an affiliate\n program that is shown in the Internet advertising? Here, (1) to (5) indicate the order of\n operations in the model, and (1), (2), (4), and (5) each correspond to one of the options a) to\n d).\n\n Web site operator\n (2)\n Product advertising\n\n (1) (3) Go to the (5) Web site viewer\n link. (product buyer)\n\n (4)\n Product sales page\n\n Online mall EC site (advertiser)\n\n a) Agree to and participate in the affiliate program\n b) Click the advertisement on the website\n c) Pay a success fee on the basis of the sales of the product\n d) Purchase the desired product",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q55. Which of the following corresponds to (5) in the example of a model of an affiliate\n program that is shown in the Internet advertising? Here, (1) to (5) indicate the order of\n operations in the model, and (1), (2), (4), and (5) each correspond to one of the options a) to\n d)."
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 56,
+    "question_text": "Q56. A smart meter is a highly functional electricity meter with a function for communications\n and a function for the management of other devices. Which of the following is not an\n appropriate purpose for installing a smart meter?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "Continuing the power supply for a fixed amount of time by functioning as an auxiliary\n power source during a power failure"
+      },
+      {
+        "label": "b",
+        "text": "Improving the efficiency of meter reading work through automatic meter reading"
+      },
+      {
+        "label": "c",
+        "text": "Increasing awareness of power-saving through the visualization of the amount of power\n consumption"
+      },
+      {
+        "label": "d",
+        "text": "Restraining peak power by controlling power demand through the use of demand\n response"
+      }
+    ],
+    "correct_answer": "a",
+    "answer_key": {
+      "value": "a"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q56)",
+    "source_pages": [
+      23
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q56. A smart meter is a highly functional electricity meter with a function for communications\n and a function for the management of other devices. Which of the following is not an\n appropriate purpose for installing a smart meter?\n\n a) Continuing the power supply for a fixed amount of time by functioning as an auxiliary\n power source during a power failure\n b) Improving the efficiency of meter reading work through automatic meter reading\n c) Increasing awareness of power-saving through the visualization of the amount of power\n consumption\n d) Restraining peak power by controlling power demand through the use of demand\n response",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          65.22,
+          463.74,
+          533.24,
+          513.13
+        ],
+        "text": "Q56.\nA smart meter is a highly functional electricity meter with a function for communications\nand a function for the management of other devices. Which of the following is not an\nappropriate purpose for installing a smart meter?"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          84.12,
+          518.93,
+          520.42,
+          550.21
+        ],
+        "text": "a) Continuing the power supply for a fixed amount of time by functioning as an auxiliary"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          84.12,
+          554.93,
+          526.85,
+          604.21
+        ],
+        "text": "power source during a power failure\nb) Improving the efficiency of meter reading work through automatic meter reading\nc) Increasing awareness of power-saving through the visualization of the amount of power"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          84.12,
+          608.93,
+          494.73,
+          640.21
+        ],
+        "text": "consumption\nd) Restraining peak power by controlling power demand through the use of demand"
+      },
+      {
+        "type": "text",
+        "page": 23,
+        "bbox": [
+          102.12,
+          644.93,
+          153.12,
+          658.21
+        ],
+        "text": "response"
+      },
+      {
+        "type": "code",
+        "page": 23,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 23 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 57,
+    "question_text": "Q57. Which of the following is the appropriate role of a facilitator in a meeting?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "To act as the chairperson and control the discussions in order to work out a conclusion\n that matches the intentions of the management"
+      },
+      {
+        "label": "b",
+        "text": "To encourage the meeting participants to express their opinions and organize the flow\n of discussions from a neutral and impartial position"
+      },
+      {
+        "label": "c",
+        "text": "To offer specialized support for meeting administration, such as adjusting the schedule,\n preparing materials, or taking minutes."
+      },
+      {
+        "label": "d",
+        "text": "To provide advice only on discussions related to specific areas in which the facilitator\n specializes, such as technical or legal fields"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q57)",
+    "source_pages": [
+      24
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q57. Which of the following is the appropriate role of a facilitator in a meeting?\n\n a) To act as the chairperson and control the discussions in order to work out a conclusion\n that matches the intentions of the management\n b) To encourage the meeting participants to express their opinions and organize the flow\n of discussions from a neutral and impartial position\n c) To offer specialized support for meeting administration, such as adjusting the schedule,\n preparing materials, or taking minutes.\n d) To provide advice only on discussions related to specific areas in which the facilitator\n specializes, such as technical or legal fields",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          65.22,
+          67.74,
+          469.19,
+          81.19
+        ],
+        "text": "Q57.\nWhich of the following is the appropriate role of a facilitator in a meeting?"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          65.22,
+          86.93,
+          530.65,
+          262.15
+        ],
+        "text": "a)\nTo act as the chairperson and control the discussions in order to work out a conclusion\nthat matches the intentions of the management\nb)\nTo encourage the meeting participants to express their opinions and organize the flow\nof discussions from a neutral and impartial position\nc)\nTo offer specialized support for meeting administration, such as adjusting the schedule,\npreparing materials, or taking minutes.\nd)\nTo provide advice only on discussions related to specific areas in which the facilitator\nspecializes, such as technical or legal fields"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 58,
+    "question_text": "Q58. The figure below shows part of a cause and effect diagram (also known as a fishbone\n diagram). Which of the following is the relationship between A and B?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "B is an attribute of A."
+      },
+      {
+        "label": "b",
+        "text": "B is the cause of A."
+      },
+      {
+        "label": "c",
+        "text": "B is the means of A."
+      },
+      {
+        "label": "d",
+        "text": "B is the purpose of A."
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [
+      "2025-april-a-q58-figure1.webp"
+    ],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q58)",
+    "source_pages": [
+      24
+    ],
+    "extraction_method": "manual_review",
+    "extraction_version": "3.0",
+    "source_text": "Q58. The figure below shows part of a cause and effect diagram (also known as a fishbone\n diagram). Which of the following is the relationship between A and B?\n\n A\n\n B\n\n a) B is an attribute of A. b) B is the cause of A.\n c) B is the means of A. d) B is the purpose of A.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "text": "Q58. The figure below shows part of a cause and effect diagram (also known as a fishbone\n diagram). Which of the following is the relationship between A and B?"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 59,
+    "question_text": "Q59. Both Data mining and Process mining are methods for improving business operations.\n While Data mining aims to discover knowledge by analyzing large amounts of data by using\n statistical and AI analysis methods, which of the following is an appropriate explanation of\n Process mining?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "It is a management strategy focused on changing workflows and business processes\n within an organization by emphasizing new ideas and new ways of doing business."
+      },
+      {
+        "label": "b",
+        "text": "It is a method aimed at analyzing data sets, finding unsuspected relationships, and\n summarizing the data in novel ways."
+      },
+      {
+        "label": "c",
+        "text": "It is a methodology for improving performance by systematically removing unnecessary\n data."
+      },
+      {
+        "label": "d",
+        "text": "It is a technique for analyzing and improving business processes by using knowledge\n that is extracted from event logs."
+      }
+    ],
+    "correct_answer": "d",
+    "answer_key": {
+      "value": "d"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q59)",
+    "source_pages": [
+      24
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q59. Both Data mining and Process mining are methods for improving business operations.\n While Data mining aims to discover knowledge by analyzing large amounts of data by using\n statistical and AI analysis methods, which of the following is an appropriate explanation of\n Process mining?\n\n a) It is a management strategy focused on changing workflows and business processes\n within an organization by emphasizing new ideas and new ways of doing business.\n b) It is a method aimed at analyzing data sets, finding unsuspected relationships, and\n summarizing the data in novel ways.\n c) It is a methodology for improving performance by systematically removing unnecessary\n data.\n d) It is a technique for analyzing and improving business processes by using knowledge\n that is extracted from event logs.",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          65.22,
+          517.74,
+          532.91,
+          603.13
+        ],
+        "text": "Q59.\nBoth Data mining and Process mining are methods for improving business operations.\nWhile Data mining aims to discover knowledge by analyzing large amounts of data by using\nstatistical and AI analysis methods, which of the following is an appropriate explanation of\nProcess mining?"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          84.12,
+          608.93,
+          506.64,
+          640.21
+        ],
+        "text": "a) It is a management strategy focused on changing workflows and business processes"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          84.12,
+          644.93,
+          503.34,
+          676.21
+        ],
+        "text": "within an organization by emphasizing new ideas and new ways of doing business.\nb) It is a method aimed at analyzing data sets, finding unsuspected relationships, and"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          84.12,
+          680.93,
+          528.97,
+          712.21
+        ],
+        "text": "summarizing the data in novel ways.\nc) It is a methodology for improving performance by systematically removing unnecessary"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          84.12,
+          716.93,
+          513.75,
+          748.21
+        ],
+        "text": "data.\nd) It is a technique for analyzing and improving business processes by using knowledge"
+      },
+      {
+        "type": "text",
+        "page": 24,
+        "bbox": [
+          102.12,
+          752.93,
+          262.47,
+          766.21
+        ],
+        "text": "that is extracted from event logs."
+      },
+      {
+        "type": "code",
+        "page": 24,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 24 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "exam_session": "2025-april",
+    "subject": "A",
+    "question_number": 60,
+    "question_text": "Q60. Company A purchased a machine for an original cost of $126,000. The salvage value\n after 6 years is $6,000. What is the annual depreciation expense (in dollars) by using the\n straight-line method?",
+    "choices": [
+      {
+        "label": "a",
+        "text": "12,000"
+      },
+      {
+        "label": "b",
+        "text": "20,000"
+      },
+      {
+        "label": "c",
+        "text": "21,000"
+      },
+      {
+        "label": "d",
+        "text": "36,000"
+      }
+    ],
+    "correct_answer": "b",
+    "answer_key": {
+      "value": "b"
+    },
+    "images": [],
+    "source_file": "questions.pdf",
+    "source_citation": "(2025S, FE, Subject-A, Q60)",
+    "source_pages": [
+      25
+    ],
+    "extraction_method": "native_text",
+    "extraction_version": "3.0",
+    "source_text": "Q60. Company A purchased a machine for an original cost of $126,000. The salvage value\n after 6 years is $6,000. What is the annual depreciation expense (in dollars) by using the\n straight-line method?\n\n a) 12,000 b) 20,000 c) 21,000 d) 36,000",
+    "content_blocks": [
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          65.22,
+          67.74,
+          533.1,
+          117.13
+        ],
+        "text": "Q60.\nCompany A purchased a machine for an original cost of $126,000. The salvage value\nafter 6 years is $6,000. What is the annual depreciation expense (in dollars) by using the\nstraight-line method?"
+      },
+      {
+        "type": "text",
+        "page": 25,
+        "bbox": [
+          65.22,
+          140.93,
+          483.96,
+          172.21
+        ],
+        "text": "a) 12,000\nb) 20,000\nc) 21,000\nd) 36,000"
+      },
+      {
+        "type": "code",
+        "page": 25,
+        "bbox": [
+          65.22,
+          794.63,
+          314.58,
+          807.97
+        ],
+        "text": "– 25 –"
+      }
+    ],
+    "ref_doc": {
+      "question_pdf": {
+        "filename": "questions.pdf",
+        "storage_path": "2025-april/a/questions.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "answer_pdf": {
+        "filename": "answers.pdf",
+        "storage_path": "2025-april/a/answers.pdf",
+        "pages": [
+          1
+        ]
+      }
+    }
+  }
+]
