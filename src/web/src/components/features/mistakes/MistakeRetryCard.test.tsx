@@ -23,7 +23,7 @@ const mistake: Mistake = {
 
 describe('MistakeRetryCard', () => {
   it('hides the correct answer and explanation in try-again mode', () => {
-    render(<MistakeRetryCard mistake={mistake} onReviewed={vi.fn()} />)
+    render(<MistakeRetryCard mistake={mistake} onReviewed={vi.fn()} onMissed={vi.fn()} />)
 
     fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
 
@@ -35,23 +35,27 @@ describe('MistakeRetryCard', () => {
 
   it('marks the mistake reviewed when the retry is correct', async () => {
     const handleReviewed = vi.fn().mockResolvedValue(undefined)
-    render(<MistakeRetryCard mistake={mistake} onReviewed={handleReviewed} />)
+    const handleMissed = vi.fn()
+    render(<MistakeRetryCard mistake={mistake} onReviewed={handleReviewed} onMissed={handleMissed} />)
 
     fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
     fireEvent.click(screen.getByText('Ten'))
     fireEvent.click(screen.getByRole('button', { name: 'Check answer' }))
 
     await waitFor(() => expect(handleReviewed).toHaveBeenCalledWith('mistake-1'))
+    expect(handleMissed).not.toHaveBeenCalled()
   })
 
-  it('keeps the mistake and shows the explanation when the retry is wrong', () => {
+  it('keeps the mistake, records the miss, and shows the explanation when the retry is wrong', async () => {
     const handleReviewed = vi.fn()
-    render(<MistakeRetryCard mistake={mistake} onReviewed={handleReviewed} />)
+    const handleMissed = vi.fn().mockResolvedValue(undefined)
+    render(<MistakeRetryCard mistake={mistake} onReviewed={handleReviewed} onMissed={handleMissed} />)
 
     fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
     fireEvent.click(screen.getByText('One'))
     fireEvent.click(screen.getByRole('button', { name: 'Check answer' }))
 
+    await waitFor(() => expect(handleMissed).toHaveBeenCalledWith('question-1', 'a'))
     expect(handleReviewed).not.toHaveBeenCalled()
     expect(screen.getByRole('status')).toHaveTextContent('stays in your garden')
     expect(screen.getByText('Binary 10 equals decimal 2.')).toBeInTheDocument()
